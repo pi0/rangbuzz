@@ -1,36 +1,18 @@
 {
   "name": "rangbuzz",
   "version": "0.0.0",
-  "description": "🌈 Light, fast, and easy to use, dependencies free javascript syntax highlighter, with automatic language detection",
-  "keywords": [
-    "deno",
-    "fast",
-    "highlighter",
-    "highlighting",
-    "highlightjs",
-    "javascript",
-    "js",
-    "language",
-    "regex",
-    "simple",
-    "small",
-    "syntax-highlighting"
-  ],
+  "description": "Lightweight JavaScript syntax highlighter",
   "license": "MIT",
   "repository": "pi0/rangbuzz",
   "files": [
     "dist"
   ],
   "type": "module",
-  "sideEffects": [
-    "*.css"
-  ],
+  "sideEffects": false,
   "types": "./dist/index.d.mts",
   "exports": {
     ".": "./dist/index.mjs",
-    "./detect": "./dist/detect.mjs",
-    "./terminal": "./dist/terminal.mjs",
-    "./themes/*": "./dist/themes/*"
+    "./themes": "./dist/themes/index.mjs"
   },
   "scripts": {
     "build": "obuild",

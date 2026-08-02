@@ -1,20 +1,27 @@
-import type { ShjToken } from "../types.ts";
+import type { ShjTheme } from "../types.ts";
 
-import col from "./termcolor.ts";
+const theme: ShjTheme = {
+  name: "default",
+  scheme: "light",
+  bg: "#fff",
+  fg: "#112",
+  numbers: "#999",
+  tokens: {
+    kwd: "#e16",
+    err: "#e16",
+    num: "#f60",
+    class: "#f60",
+    cmnt: "#999",
+    insert: "#7d8",
+    str: "#7d8",
+    bool: "#3bf",
+    type: "#5af",
+    oper: "#5af",
+    section: "#84f",
+    func: "#84f",
+    deleted: "#f44",
+    var: "#f44",
+  },
+};
 
-export default {
-  deleted: col.red,
-  var: col.red,
-  err: col.red,
-  kwd: col.red,
-  num: col.yellow,
-  class: col.yellow,
-  cmnt: col.gray,
-  insert: col.green,
-  str: col.green,
-  bool: col.cyan,
-  type: col.blue,
-  oper: col.blue,
-  section: col.magenta,
-  func: col.magenta,
-} as Partial<Record<ShjToken, string>>;
+export default theme;

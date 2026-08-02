@@ -42,29 +42,94 @@ export type ShjLanguage =
   | "yaml";
 
 /**
- * Themes supported in the browser
+ * Bundled themes, usable both in the browser and in the terminal
  */
-export type ShjBrowserTheme =
+export type ShjThemeName =
   | "atom-dark"
-  | "github-dark"
-  | "github-dim"
   | "dark"
   | "default"
+  | "github-dark"
+  | "github-dim"
   | "github-light"
   | "visual-studio-dark";
 
 /**
- * Themes supported in the terminal
+ * A theme is plain data: colors keyed by token type.
+ *
+ * The highlighter inlines it as `style` attributes, the terminal adaptor turns
+ * it into ANSI escape sequences.
  */
-export type ShjTerminalTheme = "default" | "atom-dark";
+export interface ShjTheme {
+  /** Unique name */
+  name: string;
+  /** Used for the `color-scheme` CSS property */
+  scheme?: "light" | "dark";
+  /** Background color of the code block */
+  bg: string;
+  /** Default text color of the code block */
+  fg: string;
+  /** Color of the line numbers (defaults to the `cmnt` token color) */
+  numbers?: string;
+  /** Color of each token type */
+  tokens: Partial<Record<ShjToken, string>>;
+}
+
+/**
+ * A light and a dark theme, applied with `prefers-color-scheme`
+ */
+export interface ShjThemePair {
+  light: ShjTheme;
+  dark: ShjTheme;
+}
 
 export interface ShjOptions {
   /**
-   * Indicates whether to hide line numbers
+   * The language of the code
+   *
+   * @default "plain"
+   */
+  lang?: ShjLanguage;
+  /**
+   * The theme, inlined in the generated markup as `style` attributes
+   *
+   * A light/dark pair is inlined as `light-dark()` colors, following the color
+   * scheme of the reader.
+   *
+   * @default the bundled themes, import any other one from `rangbuzz/themes`
+   */
+  theme?: ShjTheme | ShjThemePair;
+  /**
+   * Render the code as an inline `<code>` element instead of a block
+   *
+   * A block is `multiline` when the code contains a line break, `oneline`
+   * otherwise.
    *
    * @default false
    */
-  hideLineNumbers?: boolean;
+  inline?: boolean;
+  /**
+   * Indicates whether to number the lines of a multiline code
+   *
+   * @default true
+   */
+  lineNumbers?: boolean;
+}
+
+export interface ShjTerminalOptions {
+  /**
+   * The language of the code
+   *
+   * @default "plain"
+   */
+  lang?: ShjLanguage;
+  /**
+   * The theme, emitted as 24 bit escape sequences
+   *
+   * A light/dark pair is read as its dark theme.
+   *
+   * @default the bundled themes
+   */
+  theme?: ShjTheme | ShjThemePair;
 }
 
 /**

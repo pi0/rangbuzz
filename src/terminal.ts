@@ -3,49 +3,61 @@
  * (Terminal adaptor)
  */
 
-import type { ShjLanguage, ShjTerminalTheme, ShjToken } from "./types.ts";
+import type { ShjTerminalOptions } from "./types.ts";
 
-import { tokenize } from "./index.ts";
-import atomDark from "./themes/atom-dark.ts";
-import defaultTheme from "./themes/default.ts";
-
-const themes: Record<string, Partial<Record<ShjToken, string>>> = {
-  default: defaultTheme,
-  "atom-dark": atomDark,
-};
-
-let theme = defaultTheme;
+import { defaultThemes } from "./defaults.ts";
+import { tokenize } from "./highlight.ts";
 
 /**
- * Highlight a string passed as argument and return a string that can directly be printed
+ * Turn a `#rgb`, `#rgba`, `#rrggbb` or `#rrggbbaa` color into a 24 bit
+ * foreground escape sequence (the alpha channel is ignored)
  *
- * @function highlightText
- * @param {string} src The code
- * @param {ShjLanguage} lang The language of the code
+ * @function
+ * @ignore
+ */
+const escapeSequence = (color: string) => {
+  let hex = color.replace("#", "");
+  if (hex.length < 6) hex = [...hex].map((digit) => digit + digit).join("");
+
+  return `\x1b[38;2;${Number.parseInt(hex.slice(0, 2), 16)};${Number.parseInt(hex.slice(2, 4), 16)};${Number.parseInt(hex.slice(4, 6), 16)}m`;
+};
+
+/**
+ * Highlight a string and return a string that can directly be printed
+ *
+ * The colors of the theme are emitted as 24 bit escape sequences.
+ *
+ * @example
+ * console.log(codeToAnsi(code, { lang: 'js', theme: atomDark }));
+ *
+ * @function codeToAnsi
+ * @param {string} code The code
+ * @param {ShjTerminalOptions} [opt={}] Customization options
  * @returns {string} The highlighted string
  */
-export const highlightText = (src: string, lang: ShjLanguage) => {
-  let res = "";
+export function codeToAnsi(code: string, opt: ShjTerminalOptions = {}): string {
+  // a terminal has no color scheme to follow: a pair is read as its dark theme
+  const given = opt.theme ?? defaultThemes,
+    theme = "light" in given ? given.dark : given;
 
-  tokenize(src, lang, (str, token) => (res += token ? `${theme[token] ?? ""}${str}\x1b[0m` : str));
+  let res = "";
+  tokenize(code, opt.lang ?? "plain", (str, token) => {
+    const color = token && theme.tokens[token];
+    res += color ? `${escapeSequence(color)}${str}\x1b[0m` : str;
+  });
 
   return res;
-};
+}
 
 /**
  * Highlight and print a given string
  *
- * @function printHighlight
- * @param {string} src The code
- * @param {ShjLanguage} lang The language of the code
- */
-export const printHighlight = (src: string, lang: ShjLanguage) =>
-  console.log(highlightText(src, lang));
-
-/**
- * Change the current used theme for highlighting
+ * @example
+ * printHighlight(code, { lang: 'js' });
  *
- * @function setTheme
- * @param {ShjTerminalTheme} name The name of the theme
+ * @function printHighlight
+ * @param {string} code The code
+ * @param {ShjTerminalOptions} [opt={}] Customization options
  */
-export const setTheme = (name: ShjTerminalTheme) => (theme = themes[name] ?? defaultTheme);
+export const printHighlight = (code: string, opt?: ShjTerminalOptions) =>
+  console.log(codeToAnsi(code, opt));

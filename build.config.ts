@@ -4,15 +4,12 @@ export default defineBuildConfig({
   entries: [
     {
       type: "bundle",
-      input: ["./src/index.ts", "./src/detect.ts", "./src/terminal.ts"],
+      // Only the two default themes are bundled in the main entry; the others are
+      // served by `./themes`, which shares them through a chunk.
+      input: ["./src/index.ts", "./src/themes/index.ts"],
       // Types come from JSDoc: `tsgo` (inferred default) drops cross-file `@typedef {import()}`
       dts: { generator: "tsc" },
     },
-
-    // Languages are bundled into the entries above, but the themes still ship as
-    // single files: the `./themes/*` export serves the stylesheets, which cannot
-    // be bundled into JS.
-    { type: "transform", input: "./src/themes", outDir: "./dist/themes" },
   ],
   hooks: {
     rolldownOutput(output) {

@@ -1,153 +1,85 @@
-# rangbuzz
+# 🎨 rangbuzz
 
 [![NPM Version](https://badge.fury.io/js/rangbuzz.svg)](https://badge.fury.io/js/rangbuzz) ![NPM Downloads](https://img.shields.io/npm/dm/rangbuzz)
 
-A JavaScript syntax highlighter for the web and the terminal
+Lightweight JavaScript syntax highlighter, forked from [Speed Highlight JS](https://github.com/speed-highlight/core).
 
 - **Tiny** <small>(~8kB min+gzip, every language included)</small>
 - **Fast** <small>(outperforms Prism and highlight.js)</small>
-- **Simple** <small>(zero dependencies, fully synchronous API)</small>
+- **Simple** <small>(zero dependencies, fully synchronous API, no stylesheet to load)</small>
 
-## Simple setup 🚀
+## Quick Start 🚀
 
-### Web
-
-Style/theme (in the header of your html file):
-
-```html
-<link rel="stylesheet" href="/path/dist/themes/default.css" />
+```bash
+npx nypm i rangbuzz
 ```
 
-In the body of your html file:
-
-```html
-<div class="shj-lang-[code-language]">[code]</div>
-or
-<code class="shj-lang-[code-language]">[inline code]</code>
-```
-
-Highlight the code (in your javascript):
+Highlight a string, get self contained markup:
 
 ```js
-import { highlightAll } from "/path/dist/index.mjs";
-highlightAll();
+import { codeToHtml } from "rangbuzz";
+
+html = codeToHtml('console.log("hello")', { lang: "js" });
 ```
 
-Auto language detection
+The colors of the theme are inlined as `style` attributes, so the result needs
+no stylesheet, no javascript and no hydration on the client. It works the same
+in node, in the browser, in a worker or in a template.
 
 ```js
-import { highlightElement } from "../dist/index.mjs";
-import { detectLanguage } from "../dist/detect.mjs";
+import { codeToHtml } from "rangbuzz";
+import { githubDark, githubLight } from "rangbuzz/themes";
 
-elm.textContent = code;
-highlightElement(elm, detectLanguage(code));
+// a specific theme, or a light/dark pair
+codeToHtml(code, { lang: "js", theme: githubDark });
+codeToHtml(code, { lang: "js", theme: { light: githubLight, dark: githubDark } });
+
+// an inline `<code>` element instead of a block (a block is `multiline` when
+// the code has a line break, `oneline` otherwise)
+codeToHtml(code, { lang: "js", inline: true });
+
+// no gutter
+codeToHtml(code, { lang: "js", lineNumbers: false });
+```
+
+`highlightText(code, opt)` returns the content of the block only (the tokens
+and the line numbers), which is what you want when you already have the
+element.
+
+Auto language detection:
+
+```js
+import { codeToHtml, detectLanguage } from "rangbuzz";
+
+codeToHtml(code, { lang: detectLanguage(code) });
 ```
 
 Every language is bundled and ready to use — there is nothing to preload, and
-every function returns its result directly rather than a promise.
+every function returns its result directly rather than a promise. Unknown
+languages fall back to unhighlighted text rather than throwing.
 
-Load custom language
+Load a custom language:
 
 ```js
-import { loadLanguage } from "../dist/index.mjs";
+import { loadLanguage } from "rangbuzz";
 
 loadLanguage("language-name", customLanguage);
 ```
 
-Unknown languages fall back to unhighlighted text rather than throwing.
-
 ---
 
-#### CDN
-
-```html
-<link rel="stylesheet" href="https://unpkg.com/rangbuzz/dist/themes/default.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pi0/rangbuzz/dist/themes/default.css" />
-```
+### Terminal
 
 ```js
-import ... from 'https://unpkg.com/rangbuzz/dist/index.mjs';
-import ... from 'https://cdn.jsdelivr.net/gh/pi0/rangbuzz/dist/index.mjs';
+import { printHighlight } from "rangbuzz";
+import { atomDark } from "rangbuzz/themes";
+
+printHighlight('console.log("hello")', { lang: "js", theme: atomDark });
 ```
 
----
-
-### Deno
-
-Use the npm specifier
-
-```js
-import { setTheme, printHighlight } from "npm:rangbuzz/terminal";
-
-setTheme("[theme-name]");
-printHighlight('console.log("hello")', "js");
-```
-
----
-
-### Node
-
-Use the [npm package](https://www.npmjs.com/package/rangbuzz)
-
-```bash
-npm i rangbuzz
-```
-
-```js
-import { setTheme, printHighlight } from "rangbuzz/terminal";
-
-setTheme("[theme-name]");
-printHighlight('console.log("hello")', "js");
-```
-
-## Migrating from prism
-
-rangbuzz is a lighter and faster version of prism that share a similar API
-
-### Style
-
-Remove the prism stylesheet in the head of your html file
-Clone this repository or use a cdn to load our stylesheet
-
-```diff
-<head>
--  <link href="themes/prism.css" rel="stylesheet" />
-+  <link rel="stylesheet" href="https://unpkg.com/rangbuzz/dist/themes/default.css">
-</head>
-```
-
-### Script
-
-For the script part remove the prism.js script and replace it by a import and a call to `highlightAll`
-
-```diff
-<body>
--  <script src="prism.js"></script>
-+<script>
-+  import { highlightAll } from 'https://unpkg.com/rangbuzz/dist/index.mjs';
-+  highlightAll();
-+</script>
-</body>
-```
-
-If you want to highlight only a specific element you can use the `highlightElement` function instead
-
-### Code block
-
-For the code blocks replace the `<pre><code>` by only one `<div>`
-And use `shj-lang-` prefix instead of `language-` for the class property
-
-```diff
--<pre><code class="language-css">p { color: red }</code></pre>
-+<div class="shj-lang-css">p { color: red }</div>
-```
-
-And for inline code block you just have to change the class property
-
-```diff
--<code class="language-css">p { color: red }</code>
-+<code class="shj-lang-css">p { color: red }</code>
-```
+Every theme works in the terminal, its colors are emitted as 24 bit escape
+sequences (a light/dark pair is read as its dark theme). `codeToAnsi` returns
+the string instead of printing it.
 
 ## Languages supported 🌐
 
@@ -190,16 +122,51 @@ And for inline code block you just have to change the class property
 
 ## Themes 🌈
 
-A modern theme by default
+A theme is plain data: a color per token type. The same object drives the
+inline styles and the terminal.
 
-| Name               | Terminal | Web |
-| ------------------ | -------- | --- |
-| default            | ✅       | ✅  |
-| github-dark        | ❌       | ✅  |
-| github-light       | ❌       | ✅  |
-| github-dim         | ❌       | ✅  |
-| atom-dark          | ✅       | ✅  |
-| visual-studio-dark | ❌       | ✅  |
+By default, code is highlighted with the **two bundled themes** — `default` for
+light and `dark` for dark — inlined as [`light-dark()`][light-dark] colors, so a
+code block follows the color scheme of the reader on its own. They are the only
+two themes the main entry pulls in.
+
+Every other theme lives in `rangbuzz/themes`, and only ends up in your bundle if
+you import it:
+
+```js
+import { codeToHtml } from "rangbuzz";
+import { githubDark } from "rangbuzz/themes";
+
+codeToHtml(code, { lang: "js", theme: githubDark });
+```
+
+| Name               | Export             |
+| ------------------ | ------------------ |
+| default            | `defaultTheme`     |
+| dark               | `dark`             |
+| atom-dark          | `atomDark`         |
+| github-dark        | `githubDark`       |
+| github-dim         | `githubDim`        |
+| github-light       | `githubLight`      |
+| visual-studio-dark | `visualStudioDark` |
+
+`themes` maps every name to its theme, and `defaultThemes` (from `rangbuzz`) is
+the default pair. Writing a custom theme is just an object:
+
+```js
+codeToHtml(code, {
+  lang: "js",
+  theme: {
+    name: "my-theme",
+    scheme: "dark",
+    bg: "#000",
+    fg: "#fff",
+    tokens: { kwd: "#f92672", str: "#e6db74", cmnt: "#75715e" /* … */ },
+  },
+});
+```
+
+[light-dark]: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark
 
 ## License 📄
 
