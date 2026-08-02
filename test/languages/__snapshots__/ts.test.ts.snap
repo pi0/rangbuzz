@@ -1,0 +1,48 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ts > tokens > annotations 1`] = `
+"«kwd:const» a«type:: string» «oper:=» «str:"x"»;
+«kwd:function» «func:f»(b«type:: number»[]«oper:,» c«oper:?:» «class:Record»«oper:<»string«oper:,» unknown«oper:>»)«type:: void» {}"
+`;
+
+exports[`ts > tokens > booleans 1`] = `"«bool:true» «bool:false» «num:null»"`;
+
+exports[`ts > tokens > comments 1`] = `
+"«cmnt:// line
+»«cmnt:/* block */»
+«cmnt:/** »«kwd:@type»«cmnt: »«class:{A}»«cmnt: */»"
+`;
+
+exports[`ts > tokens > enums 1`] = `
+"«kwd:enum» «class:Color» {
+  «class:Red» «oper:=» «num:1»«oper:,»
+  «class:Green» «oper:=» «num:2»«oper:,»
+}
+«kwd:export» «kwd:const» «kwd:enum» «class:Flag» {
+  «class:On» «oper:=» «str:"on"»«oper:,»
+}"
+`;
+
+exports[`ts > tokens > generics 1`] = `
+"«kwd:class» «class:Store»«oper:<»«num:T» «kwd:extends» object«oper:>» «kwd:implements» «class:Base»«oper:<»«num:T»«oper:>» {
+  «kwd:private» items«oper::» «class:Map»«oper:<»string«oper:,» «num:T»«oper:>» «oper:=» «kwd:new» «class:Map»();
+}"
+`;
+
+exports[`ts > tokens > numbers 1`] = `"«num:0xff» «num:1_000» «num:3.14» 42n"`;
+
+exports[`ts > tokens > operators 1`] = `
+"x satisfies «num:Y»;
+a«oper:!» «oper:??» b«oper:?.»c;
+«kwd:let» u «oper:=» «oper:<»«num:T»«oper:,>»(v«oper::» «num:T») «kwd:=>» v;"
+`;
+
+exports[`ts > tokens > template literals 1`] = `"«kwd:const» s «oper:=» «str:\`a »«kwd:\${»b «kwd:as» string«kwd:}»«str: c\`»;"`;
+
+exports[`ts > tokens > types 1`] = `
+"«kwd:type» «class:Id» «oper:=» string «oper:|» number;
+«kwd:interface» «class:Box»«oper:<»«num:T»«oper:>» {
+  «kwd:readonly» value«oper::» «num:T»;
+  fn«oper:?:» (a«type:: number») «kwd:=>» «kwd:void»;
+}"
+`;

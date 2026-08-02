@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sql > tokens > booleans 1`] = `"«kwd:SELECT» «oper:*» «kwd:FROM» t «kwd:WHERE» active «oper:=» «bool:TRUE» «oper:AND» deleted «oper:=» «bool:FALSE»;"`;
+
+exports[`sql > tokens > comments 1`] = `
+"«cmnt:-- line comment
+»«cmnt:/* block */»
+«cmnt:-- »«err:TODO»«cmnt:: index»"
+`;
+
+exports[`sql > tokens > ddl 1`] = `
+"«kwd:CREATE» «kwd:TABLE» t (
+  id «kwd:INTEGER» «kwd:PRIMARY» «kwd:KEY»,
+  name «kwd:VARCHAR»(«num:255») «oper:NOT» «num:NULL»
+);"
+`;
+
+exports[`sql > tokens > functions 1`] = `"«kwd:SELECT» «func:COUNT»(«oper:*»), «func:MAX»(price), «func:ROUND»(«func:AVG»(qty), «num:2») «kwd:FROM» orders;"`;
+
+exports[`sql > tokens > numbers 1`] = `"«kwd:INSERT» «kwd:INTO» t «kwd:VALUES» («num:1», «num:3.14», «num:NULL»);"`;
+
+exports[`sql > tokens > select 1`] = `
+"«kwd:SELECT» id, name
+«kwd:FROM» users
+«kwd:WHERE» age «oper:>=» «num:18»
+«kwd:ORDER» «kwd:BY» name «kwd:DESC»
+«kwd:LIMIT» «num:10»;"
+`;
+
+exports[`sql > tokens > strings 1`] = `"«kwd:SELECT» «str:'text'», «str:"quoted"» «kwd:FROM» t;"`;
+
+exports[`sql > tokens > variables 1`] = `
+"«kwd:SET» «var:@total» «oper:=» «num:0»;
+«kwd:SELECT» «var:@total» «oper:+» «num:1»;"
+`;

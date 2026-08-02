@@ -48,6 +48,14 @@ describe("tokenize", () => {
   it("falls back to a single untyped token for unknown languages", () => {
     expect(tokenize("a b", { lang: "nope" as never })).toEqual([{ text: "a b" }]);
   });
+
+  it("keeps a token that spans line breaks whole", () => {
+    // documented: callers must tokenize once and split, not tokenize per line
+    expect(tokenize("a; /* multi\nline */", { lang: "js" })).toContainEqual({
+      text: "/* multi\nline */",
+      type: "cmnt",
+    });
+  });
 });
 
 describe("highlightText", () => {

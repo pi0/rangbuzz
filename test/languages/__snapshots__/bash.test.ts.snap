@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`bash > tokens > booleans 1`] = `
+"«func:echo» «bool:true»
+«func:echo» «bool:false»"
+`;
+
+exports[`bash > tokens > commands 1`] = `
+"«func:git» status
+«oper:./script.sh» --flag
+«func:cat» «oper:/etc/hosts» «kwd:|» «func:grep»«kwd: -i» a"
+`;
+
+exports[`bash > tokens > comments 1`] = `
+"«cmnt:# a comment»
+«func:ls» «cmnt:# »«err:TODO»«cmnt:: flags»"
+`;
+
+exports[`bash > tokens > keywords 1`] = `
+"«kwd:if» [«kwd: -f» a ]«kwd:;» «kwd:then»
+  «kwd:export» «var:X»«oper:=»«num:1»
+«kwd:elif» true«kwd:;» «kwd:then»
+  «kwd:exit» «num:1»
+«kwd:fi»
+
+«kwd:for» f in *«kwd:;» «kwd:do»
+  «func:echo» «var:$f»
+«kwd:done»"
+`;
+
+exports[`bash > tokens > numbers 1`] = `
+"«func:sleep» «num:10»
+«kwd:exit» «num:0»"
+`;
+
+exports[`bash > tokens > operators 1`] = `
+"«var:a»«oper:=»«var:$((1 + 2)»«oper:)»
+«func:cmd» «kwd:&&» «func:other» «kwd:||» «func:fallback»
+«func:test» «oper:!»«kwd: -z» «str:"»«var:$a»«str:"»"
+`;
+
+exports[`bash > tokens > strings 1`] = `"«func:echo» «str:"double »«var:$HOME»«str:"» «str:'single'» «str:"esc\\"aped"»"`;
+
+exports[`bash > tokens > variables 1`] = `
+"«var:NAME»«oper:=»value
+«func:echo» «var:$NAME» «var:\${OTHER}» «var:$(date)»"
+`;

@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`c > tokens > comments 1`] = `
+"«cmnt:// line
+»«cmnt:/* block
+spanning */»
+«cmnt:// »«err:FIXME»«cmnt:: later»"
+`;
+
+exports[`c > tokens > functions 1`] = `
+"«kwd:int» «func:main»(«kwd:void») {
+  «func:printf»(«str:"%d\\n"»«oper:,» «func:add»(«num:1»«oper:,» «num:2»));
+  «kwd:return» «num:0»;
+}"
+`;
+
+exports[`c > tokens > includes 1`] = `
+"«kwd:#include »«str:<stdio.h>»
+«kwd:#include »«str:"local.h"»
+«kwd:#define» «class:MAX» «num:10»"
+`;
+
+exports[`c > tokens > keywords 1`] = `
+"«kwd:static» «kwd:const» «kwd:unsigned» «kwd:int» x «oper:=» «num:0»;
+«kwd:for» («kwd:int» i «oper:=» «num:0»; i «oper:<» «num:10»; «oper:++»i) {
+  «kwd:if» (i) «kwd:continue»;
+  «kwd:else» «kwd:break»;
+}"
+`;
+
+exports[`c > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14f» «num:1e-9» «num:0xff» «num:0777» 1UL"`;
+
+exports[`c > tokens > operators 1`] = `
+"a «oper:=» b «oper:+» c «kwd:*» d «oper:/» e «oper:%» f;
+x «oper:=» y «oper:==» z «oper:?» p «kwd:&»«kwd:&» q «oper::» «oper:~»r «oper:^» s;
+ptr«oper:->»field «oper:=» «kwd:*»val;"
+`;
+
+exports[`c > tokens > strings 1`] = `"«str:"double"» «str:'c'» «str:"esc\\"aped"» «str:"tab\\there"»"`;
+
+exports[`c > tokens > types 1`] = `
+"«kwd:typedef» «kwd:struct» «class:Node» {
+  «kwd:struct» «class:Node» «kwd:*»next;
+} «class:Node»;
+
+«kwd:enum» «class:Color» { «class:RED»«oper:,» «class:GREEN» };"
+`;

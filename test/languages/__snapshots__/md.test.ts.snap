@@ -1,0 +1,42 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`md > tokens > emphasis 1`] = `"«kwd:*italic*» «class:**bold**» «kwd:_under_» «var:~~struck~~»"`;
+
+exports[`md > tokens > fenced code 1`] = `
+"«kwd:\`\`\`js»
+«kwd:const» a «oper:=» «num:1»; «cmnt:// c
+»«kwd:\`\`\`»"
+`;
+
+exports[`md > tokens > fenced without language 1`] = `
+"«kwd:\`\`\`»
+plain text
+«kwd:\`\`\`»"
+`;
+
+exports[`md > tokens > headings 1`] = `
+"# One
+
+Two
+«cmnt:===»
+
+Three
+«cmnt:---»"
+`;
+
+exports[`md > tokens > inline code 1`] = `"use «str:\`const a = 1\`» here"`;
+
+exports[`md > tokens > links 1`] = `"«oper:[text]»«func:(https://a.b)» and «func:<https://c.d>»"`;
+
+exports[`md > tokens > lists 1`] = `
+"«kwd:* »one
+«kwd:* »two
+«kwd:
+1. »first
+«kwd:2. »second"
+`;
+
+exports[`md > tokens > quotes 1`] = `
+"«cmnt:> quoted line»
+«cmnt:> more»"
+`;

@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`rs > tokens > comments 1`] = `
+"«cmnt:// line
+»«cmnt:/* block */»
+«cmnt:/// doc
+»«cmnt://! inner »«err:TODO»«cmnt:: x»"
+`;
+
+exports[`rs > tokens > keywords 1`] = `
+"«kwd:pub» «kwd:fn» «func:main»() «oper:->» «class:Result»«oper:<»()«oper:,» «class:Error»«oper:>» {
+    «kwd:let» «kwd:mut» v «oper:=» «class:Vec»«oper:::»«func:new»();
+    «kwd:match» v«oper:.»«func:pop»() {
+        «class:Some»(x) «oper:=>» x«oper:,»
+        «class:None» «oper:=>» «kwd:return» «class:Ok»(())«oper:,»
+    }
+}"
+`;
+
+exports[`rs > tokens > lifetimes 1`] = `
+"«kwd:fn» longest«oper:<»«str:'a>(a: &'»a str«oper:,» b«oper::» «oper:&»«str:'a str) -> &'»a str {
+    «kwd:if» a«oper:.»«func:len»() «oper:>» b«oper:.»«func:len»() { a } «kwd:else» { b }
+}"
+`;
+
+exports[`rs > tokens > macros 1`] = `
+"«func:println»«oper:!»(«str:"{} {}"»«oper:,» a«oper:,» b);
+#[«func:derive»(«class:Debug»«oper:,» «class:Clone»)]
+«kwd:enum» «class:E» { «class:A»«oper:,» «class:B» }"
+`;
+
+exports[`rs > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:1e9» «num:0xff» «num:0b1011» «num:0o17» «num:1_000» 1u8 «num:2.0f32»"`;
+
+exports[`rs > tokens > operators 1`] = `
+"«kwd:let» z «oper:=» x «oper:+» y «oper:*» «num:2» «oper:-» «num:1»;
+«kwd:if» a «oper:==» b «oper:&&» c «oper:!=» d «oper:||» «oper:!»e { z «oper:<<=» «num:1» }"
+`;
+
+exports[`rs > tokens > strings 1`] = `"«str:"double"» «str:'c'» «str:"esc\\"aped"» b«str:"bytes"»"`;
+
+exports[`rs > tokens > types 1`] = `
+"«kwd:struct» «class:Point» {
+    x«oper::» i32«oper:,»
+}
+
+«kwd:impl» «class:Display» «kwd:for» «class:Point» {
+    «kwd:fn» «func:fmt»(«oper:&»«kwd:self»«oper:,» f«oper::» «oper:&»«kwd:mut» «class:Formatter») {}
+}"
+`;

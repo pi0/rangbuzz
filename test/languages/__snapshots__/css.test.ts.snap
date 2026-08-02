@@ -1,0 +1,54 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`css > tokens > at rules 1`] = `
+"«kwd:@media» «kwd:screen» «kwd:and» («kwd:min-width»: «num:40»«var:em») {
+  «var:.a» { «var:display»: «num:none» }
+}
+
+«kwd:@import» «str:"other.css"»;"
+`;
+
+exports[`css > tokens > comments 1`] = `
+"«cmnt:/* block */»
+«cmnt:/* »«err:TODO»«cmnt:: theme */»"
+`;
+
+exports[`css > tokens > functions 1`] = `
+"«var:.a» {
+  «var:transform»: «func:translate»(«num:1»«var:px», «num:2»«var:px»);
+  «var:background»: «num:linear-gradient»(«num:to» «num:top», «num:#fff», «num:#000»);
+}"
+`;
+
+exports[`css > tokens > numbers 1`] = `
+"«var:.a» {
+  «var:width»: «num:10»«var:px»;
+  «var:opacity»: «num:0.5»;
+  «var:z-index»: «num:100»;
+  «var:margin»: -«num:1»«var:em» «num:0» «num:2»«var:rem»;
+}"
+`;
+
+exports[`css > tokens > selectors 1`] = `
+"«var:.class»,
+«func:#id» > «kwd:a»«var::hover»«var:::before» {
+  «var:color»: «num:red»;
+}"
+`;
+
+exports[`css > tokens > strings 1`] = `
+"«kwd:a»«var:::after» {
+  «var:content»: «str:"x"»;
+  «var:background»: «func:url»(«str:"a.png"»);
+}"
+`;
+
+exports[`css > tokens > variables 1`] = `
+"«var::root» {
+  --«var:main»: «num:#fff»;
+}
+
+«var:.a» {
+  «var:color»: «func:var»(--«num:main»);
+}"
+`;

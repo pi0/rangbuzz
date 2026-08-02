@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`log > tokens > booleans 1`] = `"cached: «bool:true»«oper:,» stale: «bool:false»«oper:,» verbose: «bool:yes»«oper:,» quiet: «bool:no»"`;
+
+exports[`log > tokens > comments 1`] = `"«cmnt:# a log header»"`;
+
+exports[`log > tokens > errors 1`] = `
+"«err:NullPointerException»: «err:not found»
+«err:fatal»: «err:invalid» state
+«err:alert»: «err:ko»"
+`;
+
+exports[`log > tokens > levels 1`] = `
+"«num:2024»-«num:01»-«num:01» «num:12»:«num:00»:«num:00» «err:ERROR» request «err:failed»
+«num:2024»-«num:01»-«num:01» «num:12»:«num:00»:«num:01» «err:WARN» retrying
+«num:2024»-«num:01»-«num:01» «num:12»:«num:00»:«num:02» INFO ok"
+`;
+
+exports[`log > tokens > nullish 1`] = `"value: «num:null»«oper:,» other: «num:undefined»"`;
+
+exports[`log > tokens > numbers 1`] = `"took «num:1.»5s«oper:,» status «num:200»«oper:,» retries «num:3»"`;
+
+exports[`log > tokens > strings 1`] = `"request «str:"GET /a"» completed"`;

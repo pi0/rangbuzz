@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`asm > tokens > comments 1`] = `
+"«cmnt:; semicolon comment»
+«cmnt:# hash comment»"
+`;
+
+exports[`asm > tokens > directives 1`] = `
+"«func:section»«kwd: .data»
+«kwd:global» _start"
+`;
+
+exports[`asm > tokens > instructions 1`] = `
+"«kwd:	mov» eax, «num:1»
+«kwd:	int» «num:0x80»
+«kwd:	ret»"
+`;
+
+exports[`asm > tokens > numbers 1`] = `
+"«kwd:	mov» ebx, «num:42»
+«kwd:	add» ecx, «num:0xff»"
+`;
+
+exports[`asm > tokens > operands 1`] = `"«kwd:	movl» «num:$»«num:0x1», «oper:%»eax"`;
+
+exports[`asm > tokens > strings 1`] = `"«func:msg»«kwd: db» «str:"hello"», «num:0xa»"`;

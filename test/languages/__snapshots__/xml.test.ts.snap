@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`xml > tokens > attributes 1`] = `"«oper:<»«var:node» «class:id»«oper:=»«str:"1"» «class:ns:attr»«oper:=»«str:'v'» «class:empty»«oper:=»«str:""» «oper:/>»"`;
+
+exports[`xml > tokens > cdata 1`] = `"«oper:<»«var:node»«oper:>»«class:<![CDATA[raw < & > text]]>»«oper:</»«var:node»«oper:>»"`;
+
+exports[`xml > tokens > comments 1`] = `
+"«cmnt:<!-- a comment -->»
+«cmnt:<!-- »«err:TODO»«cmnt:: schema -->»"
+`;
+
+exports[`xml > tokens > elements 1`] = `
+"«oper:<?»«var:xml» «class:version»«oper:=»«str:"1.0"» «class:encoding»«oper:=»«str:"utf-8"»«oper:?>»
+«oper:<»«var:root»«oper:>»
+  «oper:<»«var:child»«oper:>»text«oper:</»«var:child»«oper:>»
+«oper:</»«var:root»«oper:>»"
+`;
+
+exports[`xml > tokens > namespaces 1`] = `
+"«oper:<»«var:ns:root» «class:xmlns:ns»«oper:=»«str:"http://example.com"»«oper:>»
+  «oper:<»«var:ns:child» «oper:/>»
+«oper:</»«var:ns:root»«oper:>»"
+`;

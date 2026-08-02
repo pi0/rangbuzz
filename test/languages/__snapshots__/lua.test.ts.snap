@@ -1,0 +1,51 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`lua > tokens > booleans 1`] = `
+"«kwd:local» t «oper:=» «bool:true»
+«kwd:local» f «oper:=» «bool:false»
+«kwd:local» n «oper:=» «bool:nil»"
+`;
+
+exports[`lua > tokens > comments 1`] = `
+"«cmnt:-- line»
+«cmnt:--[[ block»
+spanning ]]
+«cmnt:-- »«err:TODO»«cmnt:: refactor»"
+`;
+
+exports[`lua > tokens > functions 1`] = `
+"«func:print»(string«oper:.»«func:format»(«str:"%d"»«oper:,» «num:1»))
+table«oper:.»«func:insert»(t«oper:,» v)"
+`;
+
+exports[`lua > tokens > keywords 1`] = `
+"«kwd:local» «kwd:function» «func:f»(x)
+  «kwd:if» x «kwd:then»
+    «kwd:return» x
+  «kwd:elseif» y «kwd:then»
+    «kwd:for» i «oper:=» «num:1»«oper:,» «num:10» «kwd:do» «kwd:end»
+  «kwd:else»
+    «kwd:while» «bool:true» «kwd:do» «kwd:break» «kwd:end»
+  «kwd:end»
+«kwd:end»"
+`;
+
+exports[`lua > tokens > numbers 1`] = `
+"«kwd:local» a «oper:=» «num:0»
+«kwd:local» b «oper:=» «num:42»
+«kwd:local» c «oper:=» «num:3.14»
+«kwd:local» d «oper:=» «num:0xff»
+«kwd:local» e «oper:=» «num:1e-9»"
+`;
+
+exports[`lua > tokens > operators 1`] = `
+"«kwd:local» x «oper:=» a «oper:+» b «oper:*» c
+«kwd:if» a «oper:~=» b «kwd:and» c «kwd:or» «kwd:not» d «kwd:then» «kwd:end»
+«kwd:local» s «oper:=» «str:"a"» «oper:..» «str:"b"»"
+`;
+
+exports[`lua > tokens > strings 1`] = `
+"«kwd:local» s «oper:=» «str:"double"»
+«kwd:local» t «oper:=» «str:'single'»
+«kwd:local» u «oper:=» «str:"esc\\"aped"»"
+`;

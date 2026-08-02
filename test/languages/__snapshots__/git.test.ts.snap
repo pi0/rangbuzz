@@ -1,0 +1,28 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`git > tokens > commands 1`] = `
+"«func:$ git status»
+«func:git commit -m "a message"»"
+`;
+
+exports[`git > tokens > comments 1`] = `
+"«cmnt:# On branch main»
+«cmnt:# Changes not staged for commit:»"
+`;
+
+exports[`git > tokens > diff 1`] = `
+"diff --git a/f b/f
+«deleted:--- a/f»
+«insert:+++ b/f»
+«section:@@ -1 +1 @@»
+«deleted:-old»
+«insert:+new»"
+`;
+
+exports[`git > tokens > log 1`] = `
+"«kwd:commit 9fceb02684dcd53cbb0e07e2a0f9a0f9a0f9a0f9»
+Author: A <a@b.c>
+Date:   Mon Jan 1 00:00:00 2024
+
+    fix the «str:"quoted"» thing"
+`;

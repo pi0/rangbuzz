@@ -13,6 +13,7 @@
 - `src/defaults.ts` — the only two themes the main entry pulls in (`default` light + `dark`, inlined as `light-dark()`).
 - `src/types.ts` — all public types.
 - `test/` — vitest, asserts exact output strings.
+- `test/languages/` — one file per grammar, each an inline corpus handed to `testLanguage()` (`_harness.ts`) plus the differences from the judges it is allowed to have. `_judges.ts` holds the cross check against Prism (`refractor`) and Shiki, both dev dependencies.
 
 Two build entries (`build.config.ts`): `.` → `src/index.ts`, `./themes` → `src/themes/index.ts`. Everything else must stay reachable only from those, so themes stay tree-shakeable.
 
@@ -22,7 +23,8 @@ Two build entries (`build.config.ts`): `.` → `src/index.ts`, `./themes` → `s
 - Unknown language / bad grammar degrades to plain text, never throws (`eachToken` swallows errors).
 - Bundle size matters: prefer terse code, no dependencies, no runtime CSS.
 - Imports use explicit `.ts` extensions.
-- Adding a language: new file in `src/languages/`, register in `src/languages.ts`, add a row to the README table (+ `src/detect.ts` if detectable).
+- Adding a language: new file in `src/languages/`, register in `src/languages.ts`, add a row to the README table (+ `src/detect.ts` if detectable), and add `test/languages/<lang>.test.ts` — the registry test fails without it. Map it to a Prism and a Shiki grammar in `test/languages/_judges.ts` if either has one.
+- A grammar is only asserted against the judges where both of them agree with each other, and only on comments and strings. Anything else the corpus turns up has to be declared as a divergence with a reason, so no difference from Prism and Shiki stays unexplained; the ones marked `bug: true` are known defects, not decisions.
 - Adding a theme: new file in `src/themes/`, export from `src/themes/index.ts`, add to `ShjThemeName` and the README table.
 
 ## Commands

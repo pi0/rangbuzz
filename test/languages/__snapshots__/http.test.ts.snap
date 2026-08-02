@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`http > tokens > body 1`] = `
+"«kwd:POST» /api «section:HTTP/1.1»
+«var:Content-Type»«oper::» application/json
+
+{
+  «str:"a"»: 1
+}"
+`;
+
+exports[`http > tokens > methods 1`] = `
+"«kwd:POST» /a «section:HTTP/1.1»
+«kwd:PUT» /b «section:HTTP/2»
+«kwd:DELETE» /c «section:HTTP/1.0»
+«kwd:PATCH» /d «section:HTTP/1.1»"
+`;
+
+exports[`http > tokens > request 1`] = `
+"«kwd:GET» /api/users «section:HTTP/1.1»
+«var:Host»«oper::» example.com
+«var:Accept»«oper::» application/json"
+`;
+
+exports[`http > tokens > response 1`] = `
+"«section:HTTP/1.1» «num:404» Not Found
+«var:Content-Type»«oper::» text/plain
+«var:Content-Length»«oper::» «num:9»"
+`;
+
+exports[`http > tokens > strings 1`] = `
+"«kwd:GET» /a «section:HTTP/1.1»
+«var:Cookie»«oper::» name«oper:=»«str:"value"»"
+`;

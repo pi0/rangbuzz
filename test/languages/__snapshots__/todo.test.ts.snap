@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`todo > tokens > errors 1`] = `
+"«err:TODO»«cmnt:: a thing
+»«err:FIXME»«cmnt: now
+»«err:DEBUG»«cmnt: »«err:XXX»«cmnt: »«err:BUG»«cmnt: »«err:WARNING»«cmnt: »«err:OPTIMIZE»"
+`;
+
+exports[`todo > tokens > ideas 1`] = `"«class:IDEA»«cmnt:: try another way»"`;
+
+exports[`todo > tokens > inserts 1`] = `"«insert:CHANGED»«cmnt: the api, »«insert:FIX»«cmnt: applied, »«insert:CHANGE»«cmnt: pending»"`;
+
+exports[`todo > tokens > plain comment text 1`] = `"«cmnt:nothing special here»"`;
+
+exports[`todo > tokens > questions 1`] = `"«oper:QUESTION»«cmnt:: is this right?»"`;

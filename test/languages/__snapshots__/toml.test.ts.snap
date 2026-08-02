@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`toml > tokens > arrays 1`] = `
+"«var:list» «oper:=» [«num:1»«oper:,» «num:2»«oper:,» «num:3»]
+«var:inline» «oper:=» { «var:a» «oper:=» «num:1»«oper:,» «var:b» «oper:=» «str:"x"» }"
+`;
+
+exports[`toml > tokens > booleans 1`] = `
+"«var:yes» «oper:=» «bool:true»
+«var:no» «oper:=» «bool:false»"
+`;
+
+exports[`toml > tokens > comments 1`] = `
+"«cmnt:# a comment»
+«var:key» «oper:=» «num:1» «cmnt:# »«err:TODO»«cmnt:: tune»"
+`;
+
+exports[`toml > tokens > dates 1`] = `
+"«var:date» «oper:=» «num:1979-05-27»
+«var:datetime» «oper:=» «num:1979-05-27T07:32:00Z»"
+`;
+
+exports[`toml > tokens > numbers 1`] = `
+"«var:int» «oper:=» «num:42»
+«var:float» «oper:=» «num:3.14»
+«var:hex» «oper:=» «num:0»xff
+«var:exp» «oper:=» «num:1»e«num:6»
+«num:inf» «oper:=» «num:inf»
+«num:nan» «oper:=» «num:nan»"
+`;
+
+exports[`toml > tokens > strings 1`] = `
+"«var:basic» «oper:=» «str:"double"»
+«var:literal» «oper:=» «str:'single'»
+«var:multi» «oper:=» «str:"""
+spanning
+"""»"
+`;
+
+exports[`toml > tokens > tables 1`] = `
+"«section:[package]»
+«var:name» «oper:=» «str:"app"»
+
+«section:[dependencies.serde]»
+«var:version» «oper:=» «str:"1"»"
+`;

@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`diff > tokens > context 1`] = `
+"«section:*** a/file.ts»
+«deleted:--- b/file.ts»
+«section:***************»
+«section:*** 1,3 ****»
+«kwd:! changed line»"
+`;
+
+exports[`diff > tokens > normal 1`] = `
+"«section:1c1»
+«deleted:< old text»
+«deleted:---»
+«insert:> new text»"
+`;
+
+exports[`diff > tokens > unified 1`] = `
+"«deleted:--- a/file.ts»
+«insert:+++ b/file.ts»
+«section:@@ -1,3 +1,3 @@»
+ context
+«deleted:-removed line»
+«insert:+added line»"
+`;
