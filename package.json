@@ -17,6 +17,9 @@
     "./themes": "./dist/themes/index.mjs"
   },
   "scripts": {
+    "bench": "node bench/highlight.bench.ts",
+    "bench:compare": "node bench/compare.bench.ts",
+    "bench:profile": "node bench/profile.bench.ts",
     "build": "obuild",
     "dev": "vitest dev",
     "fmt": "automd && oxlint . --fix && oxfmt .",
@@ -29,14 +32,19 @@
   },
   "devDependencies": {
     "@types/node": "latest",
+    "@types/prismjs": "^1.26.6",
     "@typescript/native-preview": "latest",
     "@vitest/coverage-v8": "latest",
     "automd": "latest",
     "changelogen": "latest",
+    "highlight.js": "^11.11.1",
+    "mitata": "^1.0.34",
     "obuild": "latest",
     "oxfmt": "latest",
     "oxlint": "latest",
+    "prismjs": "^1.30.0",
     "refractor": "^5.0.0",
+    "rolldown": "^1.2.1",
     "shiki": "^4.4.1",
     "typescript": "^5.9.3",
     "vitest": "latest"

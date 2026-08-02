@@ -7,3 +7,4 @@ dist
 tsconfig.tsbuildinfo
 *.log*
 *.env*
+.profiles
