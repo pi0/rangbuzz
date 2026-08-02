@@ -1,21 +1,10 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { BOOL, NUM, VAR } from "../tokens.ts";
+import { num, str } from "../common.ts";
 export default [
-  {
-    type: "var",
-    match: /(("|')((?!\2)[^\r\n\\]|\\[^])*\2|[a-zA-Z]\w*)(?=\s*:)/g,
-  },
-  {
-    expand: "str",
-  },
-  {
-    expand: "num",
-  },
-  {
-    type: "num",
-    match: /\bnull\b/g,
-  },
-  {
-    type: "bool",
-    match: /\b(true|false)\b/g,
-  },
+  [/(("|')((?!\2)[^\r\n\\]|\\[^])*\2|[a-zA-Z]\w*)(?=\s*:)/g, VAR],
+  str,
+  num,
+  [/\bnull\b/g, NUM],
+  [/\b(true|false)\b/g, BOOL],
 ] as ShjLanguageDefinition;

@@ -1,39 +1,22 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { CMNT, FUNC, KWD, NUM, OPER } from "../tokens.ts";
+import { num, str } from "../common.ts";
 export default [
-  {
-    type: "cmnt",
-    match: /(;|#).*/gm,
-  },
-  {
-    expand: "str",
-  },
-  {
-    expand: "num",
-  },
-  {
-    // value (ex: "$0x1")
-    type: "num",
-    match: /\$[\da-fA-F]*\b/g,
-  },
-  {
-    type: "kwd",
-    // ex: "section .data"
-    match: /^[a-z]+\s+[a-z.]+\b/gm,
-    sub: [
-      {
-        // keyword (ex: "section")
-        type: "func",
-        match: /^[a-z]+/g,
-      },
+  [/(;|#).*/gm, CMNT],
+  str,
+  num,
+  // value (ex: "$0x1")
+  [/\$[\da-fA-F]*\b/g, NUM],
+  // ex: "section .data"
+  [
+    /^[a-z]+\s+[a-z.]+\b/gm,
+    KWD,
+    [
+      // keyword (ex: "section")
+      [/^[a-z]+/g, FUNC],
     ],
-  },
-  {
-    // instruction (ex: "mov")
-    type: "kwd",
-    match: /^[ \t]*[a-z][a-z\d]*\b/gm,
-  },
-  {
-    match: /%|\$/g,
-    type: "oper",
-  },
+  ],
+  // instruction (ex: "mov")
+  [/^[ \t]*[a-z][a-z\d]*\b/gm, KWD],
+  [/%|\$/g, OPER],
 ] as ShjLanguageDefinition;

@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { codeToHtml, detectLanguage, highlightText, tokenize } from "../src/index.ts";
 import githubDark from "../src/themes/github-dark.ts";
+import * as tokens from "../src/tokens.ts";
+import { TOKENS } from "../src/tokens.ts";
+import type { ShjLanguageDefinition } from "../src/types.ts";
 
 describe("tokenize", () => {
   it("returns the tokens in source order", () => {
@@ -32,7 +35,7 @@ describe("tokenize", () => {
   });
 
   it("accepts custom languages, also for sub-languages", () => {
-    const mine = [{ match: /a/g, type: "kwd" }];
+    const mine: ShjLanguageDefinition = [[/a/g, "kwd"]];
 
     expect(tokenize("a b", { lang: "mine", languages: { mine } })).toEqual([
       { text: "a", type: "kwd" },
@@ -163,5 +166,34 @@ describe("detectLanguage", () => {
     expect(detectLanguage(`import { a } from "b";\nexport const c = () => a;`)).toBe("js");
     expect(detectLanguage("SELECT * FROM users;")).toBe("sql");
     expect(detectLanguage("")).toBe("plain");
+  });
+});
+
+describe("token types", () => {
+  it("numbers every type in step with its name", () => {
+    // a grammar refers to a type by the constant, the engine maps it back
+    // through TOKENS, so the two have to stay aligned
+    for (const [constant, index] of Object.entries(tokens))
+      if (typeof index == "number") expect(TOKENS[index]).toBe(constant.toLowerCase());
+
+    expect(Object.values(tokens).filter((v) => typeof v == "number")).toHaveLength(TOKENS.length);
+  });
+
+  it("names the types a grammar refers to by index", () => {
+    expect(tokenize("// a", { lang: "js" })).toEqual([{ text: "// a", type: "cmnt" }]);
+    expect(tokenize("-a", { lang: "diff" })).toEqual([{ text: "-a", type: "deleted" }]);
+  });
+
+  it("still accepts a custom language naming its types", () => {
+    const mine: ShjLanguageDefinition = [
+      [/a/g, "kwd"],
+      [/b/g, "mine-own"],
+    ];
+
+    expect(tokenize("a b", { lang: "mine", languages: { mine } })).toEqual([
+      { text: "a", type: "kwd" },
+      { text: " " },
+      { text: "b", type: "mine-own" },
+    ]);
   });
 });

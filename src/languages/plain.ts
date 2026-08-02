@@ -1,6 +1,3 @@
 import type { ShjLanguageDefinition } from "../types.ts";
-export default [
-  {
-    expand: "strDouble",
-  },
-] as ShjLanguageDefinition;
+import { strDouble } from "../common.ts";
+export default [strDouble] as ShjLanguageDefinition;

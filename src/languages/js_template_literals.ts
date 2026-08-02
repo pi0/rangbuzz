@@ -1,7 +1,8 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { KWD, STR } from "../tokens.ts";
 export default [
-  {
-    match: new (class {
+  [
+    new (class {
       lastIndex = 0;
       exec(str: string) {
         let i = this.lastIndex,
@@ -21,16 +22,11 @@ export default [
         return null;
       }
     })(),
-    sub: [
-      {
-        type: "kwd",
-        match: /^\${|}$/g,
-      },
-      {
-        match: /(?!^\$|{)[^]+(?=}$)/g,
-        sub: "js",
-      },
+    ,
+    [
+      [/^\${|}$/g, KWD],
+      [/(?!^\$|{)[^]+(?=}$)/g, , "js"],
     ],
-  },
+  ],
 ] as ShjLanguageDefinition;
-export let type = "str";
+export let type = STR;

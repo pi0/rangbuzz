@@ -1,57 +1,22 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { FUNC, KWD, NUM, STR, VAR } from "../tokens.ts";
+import { str } from "../common.ts";
 export default [
-  {
-    match: /\/\*((?!\*\/)[^])*(\*\/)?/g,
-    sub: "todo",
-  },
-  {
-    expand: "str",
-  },
-  {
-    type: "kwd",
-    match: /@\w+\b|\b(and|not|only|or)\b|\b(?=([a-z-]+))\2(?=[^{}]*{)/g,
-  },
-  {
-    type: "var",
-    match: /\b[\w-]+(?=\s*:)|(::?|\.)[\w-]+(?=[^{}]*{)/g,
-  },
-  {
-    type: "func",
-    match: /#[\w-]+(?=[^{}]*{)/g,
-  },
-  {
-    type: "num",
-    match: /#[\da-f]{3,8}/g,
-  },
-  {
-    type: "num",
-    match: /\d+(\.\d+)?(cm|mm|in|px|pt|pc|em|ex|ch|rem|vm|vh|vmin|vmax|%)?/g,
-    sub: [
-      {
-        type: "var",
-        match: /[a-z]+|%/g,
-      },
+  [/\/\*((?!\*\/)[^])*(\*\/)?/g, , "todo"],
+  str,
+  [/@\w+\b|\b(and|not|only|or)\b|\b(?=([a-z-]+))\2(?=[^{}]*{)/g, KWD],
+  [/\b[\w-]+(?=\s*:)|(::?|\.)[\w-]+(?=[^{}]*{)/g, VAR],
+  [/#[\w-]+(?=[^{}]*{)/g, FUNC],
+  [/#[\da-f]{3,8}/g, NUM],
+  [/\d+(\.\d+)?(cm|mm|in|px|pt|pc|em|ex|ch|rem|vm|vh|vmin|vmax|%)?/g, NUM, [[/[a-z]+|%/g, VAR]]],
+  [
+    /url\([^)]*\)/g,
+    ,
+    [
+      [/url(?=\()/g, FUNC],
+      [/[^()]+/g, STR],
     ],
-  },
-  {
-    match: /url\([^)]*\)/g,
-    sub: [
-      {
-        type: "func",
-        match: /url(?=\()/g,
-      },
-      {
-        type: "str",
-        match: /[^()]+/g,
-      },
-    ],
-  },
-  {
-    type: "func",
-    match: /\b[a-zA-Z]\w*(?=\s*\()/g,
-  },
-  {
-    type: "num",
-    match: /\b[a-z-]+\b/g,
-  },
+  ],
+  [/\b[a-zA-Z]\w*(?=\s*\()/g, FUNC],
+  [/\b[a-z-]+\b/g, NUM],
 ] as ShjLanguageDefinition;

@@ -1,37 +1,14 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { CLASS, KWD, OPER, SECTION, VAR } from "../tokens.ts";
+import { num, str } from "../common.ts";
 export default [
-  {
-    match: /^\s*#.*/gm,
-    sub: "todo",
-  },
-  {
-    expand: "str",
-  },
-  {
-    type: "oper",
-    match: /[${}()]+/g,
-  },
-  {
-    type: "class",
-    match: /.PHONY:/gm,
-  },
-  {
-    type: "section",
-    match: /^[\w.]+:/gm,
-  },
-  {
-    type: "kwd",
-    match: /\b(ifneq|endif)\b/g,
-  },
-  {
-    expand: "num",
-  },
-  {
-    type: "var",
-    match: /[A-Z_]+(?=\s*=)/g,
-  },
-  {
-    match: /^.*$/gm,
-    sub: "bash",
-  },
+  [/^\s*#.*/gm, , "todo"],
+  str,
+  [/[${}()]+/g, OPER],
+  [/.PHONY:/gm, CLASS],
+  [/^[\w.]+:/gm, SECTION],
+  [/\b(ifneq|endif)\b/g, KWD],
+  num,
+  [/[A-Z_]+(?=\s*=)/g, VAR],
+  [/^.*$/gm, , "bash"],
 ] as ShjLanguageDefinition;

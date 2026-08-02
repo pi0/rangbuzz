@@ -5,8 +5,9 @@
 // Both names are derived from the registries themselves, so that adding a
 // language or a theme is a one line change in a single file.
 import type { ShjLanguage } from "./languages.ts";
+import type { ShjToken } from "./tokens.ts";
 
-export type { ShjLanguage };
+export type { ShjLanguage, ShjToken };
 export type { ShjThemeName } from "./themes/index.ts";
 
 /**
@@ -128,41 +129,56 @@ export interface ShjTerminalOptions extends ShjTokenizeOptions {
 export type ShjDisplayMode = "inline" | "oneline" | "multiline";
 
 /**
- * Token types
+ * A token type as a grammar refers to it: the index of a bundled type in
+ * `TOKENS`, which is what the bundled grammars use, or its name — which is
+ * what a custom language will usually reach for
  */
-export type ShjToken =
-  | "deleted"
-  | "err"
-  | "var"
-  | "section"
-  | "kwd"
-  | "class"
-  | "cmnt"
-  | "insert"
-  | "type"
-  | "func"
-  | "bool"
-  | "num"
-  | "oper"
-  | "str"
-  | "esc";
+export type ShjTokenRef = number | ShjToken | (string & {});
 
-export type ShjLanguageComponent =
-  | { match: RegExp; type: string }
-  | {
-      match: RegExp;
-      sub: string | ShjLanguageDefinition | ((code: string) => string | ShjSubLanguage);
-    }
-  | { expand: string };
+/**
+ * What the rule engine asks of a pattern: it drives `lastIndex` itself and
+ * calls `exec`, which is all it ever uses a `RegExp` for
+ *
+ * A grammar may hand over anything that behaves that way. `js_template_literals`
+ * does, to balance the braces of a `${…}` interpolation — which a regular
+ * expression cannot do.
+ */
+export interface ShjMatcher {
+  lastIndex: number;
+  exec(str: string): { index: number; 0: string } | null;
+}
+
+/**
+ * A single rule of a grammar, as a tuple
+ *
+ * The positions are `[match, type, sub]`, and the trailing ones are optional —
+ * a rule with a `sub` but no `type` of its own leaves a hole: `[/…/g, , "js"]`.
+ * The tuple form is what keeps the bundled grammars small: property names
+ * cannot be minified, tuple positions cost nothing.
+ *
+ * * `match` — the pattern, which must carry the `g` flag if it is a regex
+ * * `type` — the token type the match is emitted as
+ * * `sub` — highlight the match with another language instead: a language name,
+ *   an inline definition, or a callback returning either a language name or an
+ *   anonymous {@link ShjSubLanguage}
+ */
+export type ShjLanguageComponent = [
+  match: RegExp | ShjMatcher,
+  type?: ShjTokenRef,
+  sub?: string | ShjLanguageDefinition | ((code: string) => string | ShjSubLanguage),
+];
 
 /**
  * What a `sub` callback may return besides a language name: an anonymous
  * language, with the token type applied to whatever its rules leave unmatched
+ *
+ * It is the same tuple as a rule, with the `match` position left empty.
  */
-export interface ShjSubLanguage {
-  type?: string;
-  sub: ShjLanguageDefinition;
-}
+export type ShjSubLanguage = [
+  match: undefined,
+  type: ShjTokenRef | undefined,
+  sub: ShjLanguageDefinition,
+];
 
 export type ShjLanguageDefinition = ShjLanguageComponent[];
 
@@ -175,7 +191,7 @@ export type ShjLanguageDefinition = ShjLanguageComponent[];
  */
 export type ShjLanguageModule =
   | ShjLanguageDefinition
-  | { default: ShjLanguageDefinition; type?: string };
+  | { default: ShjLanguageDefinition; type?: ShjTokenRef };
 
 /**
  * Language definitions keyed by language name

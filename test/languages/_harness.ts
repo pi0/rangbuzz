@@ -16,7 +16,7 @@
  *
  * 1. the tokens join back to the source
  * 2. no empty tokens, no token type outside {@link ShjToken}
- * 3. the grammar is well formed — global regexes, resolvable `expand`/`sub`
+ * 3. the grammar is well formed — global regexes, resolvable `sub`
  * 4. the corpus exercises every token type the grammar declares
  * 5. the tokens match the committed snapshot
  * 6. Prism and Shiki agree with us on where the comments and the strings are
@@ -27,29 +27,14 @@
  */
 
 import { describe, expect, it } from "vitest";
-import expandData from "../../src/common.ts";
 import { tokenize } from "../../src/index.ts";
 import { languages } from "../../src/languages.ts";
+import { TOKENS } from "../../src/tokens.ts";
 import type { ShjLanguage, ShjToken } from "../../src/types.ts";
 import { JUDGED, type Klass, prismClasses, shikiClasses, STRUCTURAL } from "./_judges.ts";
 
-const TOKENS = new Set<string>([
-  "deleted",
-  "err",
-  "var",
-  "section",
-  "kwd",
-  "class",
-  "cmnt",
-  "insert",
-  "type",
-  "func",
-  "bool",
-  "num",
-  "oper",
-  "str",
-  "esc",
-]);
+/** The name of a token type, which a grammar may refer to by its index */
+const tokenName = (type: any): string => (typeof type == "number" ? TOKENS[type]! : type);
 
 /** Coarse class of one of our own token types */
 const shjClass = (type?: ShjToken): Klass =>
@@ -83,14 +68,13 @@ export interface Divergence {
   bug?: true;
 }
 
-/** A rule and the raw entry it came from, `expand` already resolved */
-type Visit = (rule: any, raw: any) => void;
+/** A `[match, type, sub]` rule of a grammar, and every rule of its `sub` */
+type Visit = (rule: any[]) => void;
 
 const walkRules = (def: any[], visit: Visit) => {
-  for (const raw of def) {
-    const rule = raw.expand ? expandData[raw.expand] : raw;
-    visit(rule, raw);
-    if (Array.isArray(rule?.sub)) walkRules(rule.sub, visit);
+  for (const rule of def) {
+    visit(rule);
+    if (Array.isArray(rule[2])) walkRules(rule[2], visit);
   }
 };
 
@@ -200,22 +184,20 @@ export function testLanguage(
     it("is a well formed grammar", () => {
       const { def } = definitionOf(lang);
 
-      walkRules(def, (rule, raw) => {
-        expect(rule, `unknown expand: ${raw.expand}`).toBeDefined();
+      walkRules(def, (rule) => {
         // the engine drives `lastIndex` itself, a sticky-less regex loops
-        if (rule.match instanceof RegExp)
-          expect(rule.match.flags, String(rule.match)).toContain("g");
-        if (typeof rule.sub == "string") expect(languages).toHaveProperty(rule.sub);
+        if (rule[0] instanceof RegExp) expect(rule[0].flags, String(rule[0])).toContain("g");
+        if (typeof rule[2] == "string") expect(languages).toHaveProperty(rule[2]);
       });
     });
 
     it("exercises every token type it declares", () => {
       const { def, type } = definitionOf(lang),
-        declared = new Set<string>(type ? [type] : []),
+        declared = new Set<string>(type == null ? [] : [tokenName(type)]),
         produced = new Set<string>();
 
       walkRules(def, (rule) => {
-        if (rule?.type) declared.add(rule.type);
+        if (rule[1] != null) declared.add(tokenName(rule[1]));
       });
       for (const [, code] of cases)
         for (const token of tokenize(code, { lang })) if (token.type) produced.add(token.type);

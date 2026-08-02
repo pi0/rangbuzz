@@ -1,19 +1,11 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { CLASS, CMNT, KWD, VAR } from "../tokens.ts";
 import todo from "./todo.ts";
 
 export default [
-  {
-    type: "kwd",
-    match: /@\w+/g,
-  },
-  {
-    type: "class",
-    match: /{[\w\s|<>,.@[\]]+}/g,
-  },
-  {
-    type: "var",
-    match: /\[[\w\s="']+\]/g,
-  },
+  [/@\w+/g, KWD],
+  [/{[\w\s|<>,.@[\]]+}/g, CLASS],
+  [/\[[\w\s="']+\]/g, VAR],
   ...todo,
 ] as ShjLanguageDefinition;
-export let type = "cmnt";
+export let type = CMNT;

@@ -1,31 +1,16 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { BOOL, FUNC, KWD, OPER } from "../tokens.ts";
+import { num, str } from "../common.ts";
 export default [
-  {
-    // a long comment closes on `]]`, whether or not it is written `--]]`
-    match: /^#!.*|--(\[(=*)\[[^]*?\]\2\]|.*)/g,
-    sub: "todo",
-  },
-  {
-    expand: "str",
-  },
-  {
-    type: "kwd",
-    match:
-      /\b(and|break|do|else|elseif|end|for|function|if|in|local|not|or|repeat|return|then|until|while)\b/g,
-  },
-  {
-    type: "bool",
-    match: /\b(true|false|nil)\b/g,
-  },
-  {
-    type: "oper",
-    match: /[+*/%^#=~<>:,.-]+/g,
-  },
-  {
-    expand: "num",
-  },
-  {
-    type: "func",
-    match: /[a-z_]+(?=\s*[({])/g,
-  },
+  // a long comment closes on `]]`, whether or not it is written `--]]`
+  [/^#!.*|--(\[(=*)\[[^]*?\]\2\]|.*)/g, , "todo"],
+  str,
+  [
+    /\b(and|break|do|else|elseif|end|for|function|if|in|local|not|or|repeat|return|then|until|while)\b/g,
+    KWD,
+  ],
+  [/\b(true|false|nil)\b/g, BOOL],
+  [/[+*/%^#=~<>:,.-]+/g, OPER],
+  num,
+  [/[a-z_]+(?=\s*[({])/g, FUNC],
 ] as ShjLanguageDefinition;

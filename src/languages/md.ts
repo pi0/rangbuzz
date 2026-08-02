@@ -1,53 +1,24 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { CLASS, CMNT, FUNC, KWD, OPER, STR, VAR } from "../tokens.ts";
 import { detectLanguage } from "../detect.ts";
 
 const definition: ShjLanguageDefinition = [
-  {
-    type: "cmnt",
-    match: /^>.*|(=|-)\1+/gm,
-  },
-  {
-    type: "class",
-    match: /\*\*.*?\*\*/g,
-  },
-  {
-    match: /^(`{3,})(.*)\n[^]*?^\1[ \t]*$/gm,
-    sub: (code: string) => ({
-      type: "kwd",
-      sub: [
-        {
-          match: /\n[^]*(?=```)/g,
-          sub: code.split("\n")[0]!.slice(3) || detectLanguage(code),
-        },
-      ],
-    }),
-  },
-  {
-    type: "str",
-    match: /`[^`]*`/g,
-  },
-  {
-    type: "var",
-    match: /~~.*?~~/g,
-  },
-  {
-    type: "kwd",
-    match: /\b_\S([^\n]*?\S)?_\b|\*\S([^\n]*?\S)?\*/g,
-  },
-  {
-    type: "kwd",
-    match: /^\s*(\*|\d+\.)\s/gm,
-  },
-  {
-    type: "func",
-    match: /\[[^\]]*]\([^)]*\)|<[^>]*>/g,
-    sub: [
-      {
-        type: "oper",
-        match: /^\[[^\]]*]/g,
-      },
+  [/^>.*|(=|-)\1+/gm, CMNT],
+  [/\*\*.*?\*\*/g, CLASS],
+  [
+    /^(`{3,})(.*)\n[^]*?^\1[ \t]*$/gm,
+    ,
+    (code: string) => [
+      ,
+      KWD,
+      [[/\n[^]*(?=```)/g, , code.split("\n")[0]!.slice(3) || detectLanguage(code)]],
     ],
-  },
+  ],
+  [/`[^`]*`/g, STR],
+  [/~~.*?~~/g, VAR],
+  [/\b_\S([^\n]*?\S)?_\b|\*\S([^\n]*?\S)?\*/g, KWD],
+  [/^\s*(\*|\d+\.)\s/gm, KWD],
+  [/\[[^\]]*]\([^)]*\)|<[^>]*>/g, FUNC, [[/^\[[^\]]*]/g, OPER]]],
 ];
 
 export default definition;

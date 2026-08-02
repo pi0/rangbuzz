@@ -1,27 +1,10 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { CLASS, FUNC, NUM, OPER, VAR } from "../tokens.ts";
 export default [
-  {
-    match: /^#.*/gm,
-    sub: "todo",
-  },
-  {
-    type: "class",
-    match: /^\w+(?=:)/gm,
-  },
-  {
-    type: "num",
-    match: /:\d+/g,
-  },
-  {
-    type: "oper",
-    match: /[:/&?]|\w+=/g,
-  },
-  {
-    type: "func",
-    match: /[.\w]+@|#[\w]+$/gm,
-  },
-  {
-    type: "var",
-    match: /\w+\.\w+(\.\w+)*/g,
-  },
+  [/^#.*/gm, , "todo"],
+  [/^\w+(?=:)/gm, CLASS],
+  [/:\d+/g, NUM],
+  [/[:/&?]|\w+=/g, OPER],
+  [/[.\w]+@|#[\w]+$/gm, FUNC],
+  [/\w+\.\w+(\.\w+)*/g, VAR],
 ] as ShjLanguageDefinition;

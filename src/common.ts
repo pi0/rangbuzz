@@ -1,18 +1,13 @@
 /**
- * Commonly used match pattern
+ * Commonly used match patterns
+ *
+ * They are imported and dropped into a grammar as is, so every language that
+ * wants one shares the very rule tuple rather than a copy of it.
  */
 
-export default {
-  num: {
-    type: "num",
-    match: /(\.e?|\b)\d(e-|[\d.oxa-fA-F_])*(\.|\b)/g,
-  },
-  str: {
-    type: "str",
-    match: /(["'])(\\[^]|(?!\1)[^\r\n\\])*\1?/g,
-  },
-  strDouble: {
-    type: "str",
-    match: /"((?!")[^\r\n\\]|\\[^])*"?/g,
-  },
-} as Record<string, { type: string; match: RegExp }>;
+import type { ShjLanguageComponent } from "./types.ts";
+import { NUM, STR } from "./tokens.ts";
+
+export const num: ShjLanguageComponent = [/(\.e?|\b)\d(e-|[\d.oxa-fA-F_])*(\.|\b)/g, NUM],
+  str: ShjLanguageComponent = [/(["'])(\\[^]|(?!\1)[^\r\n\\])*\1?/g, STR],
+  strDouble: ShjLanguageComponent = [/"((?!")[^\r\n\\]|\\[^])*"?/g, STR];

@@ -1,20 +1,9 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { KWD, NUM, OPER, VAR } from "../tokens.ts";
 export default [
-  {
-    match: /^(?!\/).*/gm,
-    sub: "todo",
-  },
-  {
-    type: "num",
-    match: /\[((?!\])[^\\]|\\.)*\]/g,
-  },
-  {
-    type: "kwd",
-    match: /\||\^|\$|\\.|\w+($|\r|\n)/g,
-  },
-  {
-    type: "var",
-    match: /\*|\+|\{\d+,\d+\}/g,
-  },
+  [/^(?!\/).*/gm, , "todo"],
+  [/\[((?!\])[^\\]|\\.)*\]/g, NUM],
+  [/\||\^|\$|\\.|\w+($|\r|\n)/g, KWD],
+  [/\*|\+|\{\d+,\d+\}/g, VAR],
 ] as ShjLanguageDefinition;
-export let type = "oper";
+export let type = OPER;

@@ -1,19 +1,8 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { DELETED, INSERT, KWD, SECTION } from "../tokens.ts";
 export default [
-  {
-    type: "deleted",
-    match: /^[-<].*/gm,
-  },
-  {
-    type: "insert",
-    match: /^[+>].*/gm,
-  },
-  {
-    type: "kwd",
-    match: /!.*/gm,
-  },
-  {
-    type: "section",
-    match: /^@@.*@@$|^\d.*|^([*-+])\1\1.*/gm,
-  },
+  [/^[-<].*/gm, DELETED],
+  [/^[+>].*/gm, INSERT],
+  [/!.*/gm, KWD],
+  [/^@@.*@@$|^\d.*|^([*-+])\1\1.*/gm, SECTION],
 ] as ShjLanguageDefinition;

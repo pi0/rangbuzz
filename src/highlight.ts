@@ -15,9 +15,9 @@ import type {
   ShjTokenizeOptions,
 } from "./types.ts";
 
-import expandData from "./common.ts";
 import { defaultThemes } from "./defaults.ts";
 import { languages } from "./languages.ts";
+import { TOKENS } from "./tokens.ts";
 
 const sanitize = (str = "") =>
     str.replaceAll("&", "&#38;").replaceAll?.("<", "&lt;").replaceAll?.(">", "&gt;"),
@@ -73,7 +73,17 @@ const sanitize = (str = "") =>
   gutter = (lines: number, theme: ShjTheme | ShjThemePair) =>
     `<div class="shj-numbers" style="padding-left:5px;padding-right:10px;text-align:right;opacity:0.5;user-select:none;color:${color(theme, (theme) => theme.numbers ?? theme.tokens.cmnt) ?? "inherit"}">${Array.from({ length: lines }, (_, i) => `<div>${i + 1}</div>`).join("")}</div>`,
   // one line http requests display their method as a badge
-  httpBadge = "background:#25f;color:#fff;padding:5px 7px;border-radius:5px";
+  httpBadge = "background:#25f;color:#fff;padding:5px 7px;border-radius:5px",
+  /**
+   * The name of a token type, which a bundled grammar refers to by its index
+   *
+   * A custom language may name its types instead, and name one that is not
+   * bundled, so anything that is not a number is passed through untouched.
+   *
+   * @function
+   * @ignore
+   */
+  tokenName = (type: any): ShjToken | undefined => (typeof type == "number" ? TOKENS[type] : type);
 
 /**
  * The display mode a code is rendered with
@@ -135,23 +145,32 @@ export function eachToken(
       part,
       first: any = {},
       match,
+      sub,
       cache: any[] = [],
       i = 0,
-      // a custom language wins over a bundled one, and may be a bare definition
-      found: any =
-        typeof lang === "string" ? (langs?.[lang] ?? (languages as ShjLanguages)[lang]) : lang,
-      data = Array.isArray(found) ? { default: found } : found,
+      // a named language is looked up — a custom one wins over a bundled one,
+      // and may be a bare definition or a module carrying a `type`. Anything
+      // else is a rule tuple we recursed into, whose `sub` holds the rules.
+      named = typeof lang === "string",
+      found: any = named ? (langs?.[lang] ?? (languages as ShjLanguages)[lang]) : 0,
+      data: any = named
+        ? Array.isArray(found)
+          ? { default: found }
+          : found
+        : { default: lang[2], type: lang[1] },
+      // the type the rules of this language leave unmatched text with
+      type = tokenName(data.type),
       // make a fast shallow copy to bee able to splice lang without change the original one
-      arr = [...(typeof lang === "string" ? data.default : lang.sub)];
+      arr = [...data.default];
 
     while (i < src.length) {
       first.index = null;
       for (m = arr.length; m-- > 0;) {
-        part = arr[m].expand ? expandData[arr[m].expand] : arr[m];
+        part = arr[m];
         // do not call again exec if the previous result is sufficient
         if (cache[m] === undefined || cache[m].match.index < i) {
-          part.match.lastIndex = i;
-          match = part.match.exec(src);
+          part[0].lastIndex = i;
+          match = part[0].exec(src);
           if (match === null) {
             // no more match with this regex can be disposed
             arr.splice(m, 1);
@@ -159,7 +178,7 @@ export function eachToken(
             continue;
           }
           // save match for later use to decrease performance cost
-          cache[m] = { match, lastIndex: part.match.lastIndex };
+          cache[m] = { match, lastIndex: part[0].lastIndex };
         }
         // check if it the first match in the string
         if (cache[m].match[0] && (cache[m].match.index <= first.index || first.index === null))
@@ -171,22 +190,19 @@ export function eachToken(
           };
       }
       if (first.index === null) break;
-      token(src.slice(i, first.index), data.type);
+      token(src.slice(i, first.index), type);
       i = first.end;
-      if (first.part.sub)
+      sub = first.part[2];
+      if (sub)
         eachToken(
           first.match,
-          typeof first.part.sub === "string"
-            ? first.part.sub
-            : typeof first.part.sub === "function"
-              ? first.part.sub(first.match)
-              : first.part,
+          typeof sub === "string" ? sub : typeof sub === "function" ? sub(first.match) : first.part,
           token,
           langs,
         );
-      else token(first.match, first.part.type);
+      else token(first.match, tokenName(first.part[1]));
     }
-    token(src.slice(i, src.length), data.type);
+    token(src.slice(i, src.length), type);
   } catch {
     token(src);
   }

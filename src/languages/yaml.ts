@@ -1,33 +1,13 @@
 import type { ShjLanguageDefinition } from "../types.ts";
+import { BOOL, OPER, STR, TYPE, VAR } from "../tokens.ts";
+import { num, str } from "../common.ts";
 export default [
-  {
-    match: /#.*/g,
-    sub: "todo",
-  },
-  {
-    expand: "str",
-  },
-  {
-    type: "str",
-    match: /(>|\|)\r?\n((\s[^\n]*)?(\r?\n|$))*/g,
-  },
-  {
-    type: "type",
-    match: /!![a-z]+/g,
-  },
-  {
-    type: "bool",
-    match: /\b(Yes|No)\b/g,
-  },
-  {
-    type: "oper",
-    match: /[+:-]/g,
-  },
-  {
-    expand: "num",
-  },
-  {
-    type: "var",
-    match: /[a-zA-Z][\w-]*(?=:)/g,
-  },
+  [/#.*/g, , "todo"],
+  str,
+  [/(>|\|)\r?\n((\s[^\n]*)?(\r?\n|$))*/g, STR],
+  [/!![a-z]+/g, TYPE],
+  [/\b(Yes|No)\b/g, BOOL],
+  [/[+:-]/g, OPER],
+  num,
+  [/[a-zA-Z][\w-]*(?=:)/g, VAR],
 ] as ShjLanguageDefinition;
