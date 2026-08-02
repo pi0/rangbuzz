@@ -1,0 +1,107 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`graphql > tokens > block string edges 1`] = `
+"«str:"""Contains "quotes" and # hashes"""»
+«kwd:scalar» «type:X»
+
+«str:""""""»
+«kwd:input» «type:Y» {
+  «var:z»«oper::» «type:Int»
+}"
+`;
+
+exports[`graphql > tokens > block strings 1`] = `
+"«str:"""
+A block description
+spanning lines
+"""»
+«kwd:type» «type:User» {
+  «str:"""The unique id"""»
+  «var:id»«oper::» «type:ID»«oper:!»
+}"
+`;
+
+exports[`graphql > tokens > booleans and null 1`] = `"{ «var:nodes»(«var:withDeleted»«oper::» «bool:true», «var:archived»«oper::» «bool:false», «var:cursor»«oper::» «bool:null») { «var:id» } }"`;
+
+exports[`graphql > tokens > comments 1`] = `
+"«cmnt:# a comment»
+{ «var:hero» } «cmnt:# »«err:TODO»«cmnt:: paginate»"
+`;
+
+exports[`graphql > tokens > descriptions 1`] = `
+"«str:"Short description"»
+«kwd:type» «type:Query» {
+  «str:"the current user"»
+  «var:me»«oper::» «type:User»
+}"
+`;
+
+exports[`graphql > tokens > directives 1`] = `"«kwd:directive» «func:@cache»(«var:ttl»«oper::» «type:Int») «kwd:repeatable» «kwd:on» «type:FIELD_DEFINITION» «oper:|» «type:OBJECT»"`;
+
+exports[`graphql > tokens > escaped triple quote 1`] = `
+"«str:"""He said \\""" out loud"""»
+«kwd:scalar» «type:Loud»"
+`;
+
+exports[`graphql > tokens > escapes 1`] = `"{ «var:f»(«var:a»«oper::» «str:"tab\\there"», «var:b»«oper::» «str:"\\u00e9"», «var:c»«oper::» «str:"back\\\\slash"») }"`;
+
+exports[`graphql > tokens > hashes and quotes 1`] = `
+"«cmnt:# a comment with a "quote»
+{ «var:search»(«var:q»«oper::» «str:"a # b"») }"
+`;
+
+exports[`graphql > tokens > numbers 1`] = `"{ «var:items»(«var:first»«oper::» «num:10», «var:ratio»«oper::» «num:1.5», «var:offset»«oper::» «oper:-»«num:3», «var:big»«oper::» «num:1e6») { «var:id» } }"`;
+
+exports[`graphql > tokens > operations 1`] = `
+"«kwd:query» «type:GetUser»(«var:$id»«oper::» «type:ID»«oper:!», «var:$skip»«oper::» «type:Boolean» «oper:=» «bool:false») {
+  «var:user»(«var:id»«oper::» «var:$id») {
+    «oper:...»«type:UserFields»
+    «var:friends» «func:@include»(«var:if»«oper::» «var:$skip») {
+      «var:name»
+    }
+  }
+}
+
+«kwd:mutation» { «var:like» }
+
+«kwd:subscription» { «var:events» }
+
+«kwd:fragment» «type:UserFields» «kwd:on» «type:User» {
+  «var:id»
+  «var:name»
+}"
+`;
+
+exports[`graphql > tokens > schema 1`] = `
+"«kwd:schema» {
+  «kwd:query»«oper::» «type:Query»
+}
+
+«kwd:scalar» «type:DateTime»
+
+«kwd:interface» «type:Node» {
+  «var:id»«oper::» «type:ID»«oper:!»
+}
+
+«kwd:type» «type:User» «kwd:implements» «type:Node» «oper:&» «type:Entity» {
+  «var:id»«oper::» «type:ID»«oper:!»
+  «var:tags»«oper::» «oper:[»«type:String»«oper:!»«oper:]»«oper:!»
+}
+
+«kwd:input» «type:Filter» {
+  «var:limit»«oper::» «type:Int» «oper:=» «num:10»
+}
+
+«kwd:union» «type:Result» «oper:=» «type:User» «oper:|» «type:Error»
+
+«kwd:enum» «type:Role» {
+  «type:ADMIN»
+  «type:GUEST»
+}
+
+«kwd:extend» «kwd:type» «type:User» {
+  «var:role»«oper::» «type:Role»
+}"
+`;
+
+exports[`graphql > tokens > strings 1`] = `"{ «var:user»(«var:name»«oper::» «str:"ada"», «var:note»«oper::» «str:"say \\"hi\\""») { «var:id» } }"`;

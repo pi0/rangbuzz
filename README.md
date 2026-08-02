@@ -147,6 +147,7 @@ the string instead of printing it.
 | Name             | Support                                                         | Language detection |
 | ---------------- | --------------------------------------------------------------- | ------------------ |
 | asm              | comment, string, number, section, instruction                   | ✅                 |
+| astro            | frontmatter, embedded ts/css, expressions, directives, ...      | ✅                 |
 | bash             | comment, string, variable, path, keyword, function, ...         | ✅                 |
 | c                | comment, string, number, include, keyword, class, ...           | ✅                 |
 | c# (cs)          | comment, string, keyword, class, ...                            | ✅                 |
@@ -157,6 +158,7 @@ the string instead of printing it.
 | diff             | deleted, insert, keyword, section                               | ✅                 |
 | docker           | instruction keyword, ...bash syntax                             | ✅                 |
 | go               | comment, string, raw string, number, keyword, class, ...        | ✅                 |
+| graphql          | comment, string, type, field, directive, variable, ...          | ✅                 |
 | html             | doctype, embedded css/js, tag, attribute, ...                   | ✅                 |
 | http             | keywork, string, punctuation, variable, version                 | ✅                 |
 | ini              | comment, section, key, value, ...                               |                    |
@@ -165,6 +167,7 @@ the string instead of printing it.
 | jsdoc            | tag, type, param name                                           |                    |
 | json             | string, number, bool, ...                                       |                    |
 | kotlin (kt)      | comment, string, keyword, class, ...                            | ✅                 |
+| less             | comment, string, variable, mixin, nesting, ...                  | ✅                 |
 | log              | number, string, comment, errors                                 |                    |
 | lua              | comment, string, keyword, boolean, number, function, ...        | ✅                 |
 | makefile (make)  | comment, variable, target, .PHONY, ...bash in recipes           | ✅                 |
@@ -179,6 +182,7 @@ the string instead of printing it.
 | rust (rs)        | comment, string, raw string, char, keyword, class, ...          | ✅                 |
 | scss             | comment, string, variable, nesting, ...                         | ✅                 |
 | sql              | number, string, function, ...                                   | ✅                 |
+| svelte           | template, script, style, logic blocks, directives, ...          | ✅                 |
 | swift            | comment, string, keyword, class, ...                            | ✅                 |
 | toml             | comment, table, string, bool, variable                          |                    |
 | typescript (ts)  | js syntax, ts keyword, types                                    | ✅                 |

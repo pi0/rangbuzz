@@ -1,0 +1,186 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`less > tokens > at rules 1`] = `
+"«kwd:@import» («kwd:reference») «str:"mixins.less"»;
+«kwd:@import» «str:"theme"»;
+«kwd:@plugin» «str:"my-plugin"»;
+
+«kwd:@media» «class:screen» «kwd:and» («var:min-width»: «num:40»«var:em») {
+  «class:.a» { «var:display»: «num:none»; }
+}
+
+«kwd:@supports» («var:display»: «num:grid») {
+  «class:.grid» { «var:display»: «num:grid»; }
+}
+
+«kwd:@keyframes» «class:spin» {
+  «class:from» { «var:transform»: «func:rotate»(«num:0»«var:deg»); }
+  «class:to» { «var:transform»: «func:rotate»(«num:360»«var:deg»); }
+}
+
+«kwd:@font-face» {
+  «var:font-family»: «str:"Inter"»;
+  «var:src»: «func:url»(«str:"inter.woff2"») «func:format»(«str:"woff2"»);
+}
+
+«class::root» {
+  «var:--main»: «num:#fff»;
+}
+
+«class:.a» { «var:color»: «func:var»(«var:--main»); }"
+`;
+
+exports[`less > tokens > comments 1`] = `
+"«cmnt:// a line comment
+»«cmnt:/* a block comment
+   over two lines */»
+
+«cmnt:// »«err:TODO»«cmnt:: drop the fallback
+»«class:.a» {
+  «var:color»: «num:red»; «cmnt:// trailing
+»}"
+`;
+
+exports[`less > tokens > detached rulesets 1`] = `
+"«var:@detached»: {
+  «var:background»: «num:red»;
+};
+
+«class:.a» {
+  «var:@detached»();
+}
+
+«func:.theme»(«var:@dark») «kwd:when» («var:@dark» «oper:=» «bool:true») {
+  «var:color»: «num:#fff»;
+}
+
+«func:.theme»(«var:@dark») «kwd:when» «kwd:not» («var:@dark») {
+  «var:color»: «num:#111»;
+}"
+`;
+
+exports[`less > tokens > functions 1`] = `
+"«var:@w»: «num:100»«var:px»;
+«var:@half»: («var:@w» «oper:/» «num:2»);
+«var:@gap»: «var:@w» «oper:+» «num:10»«var:px»;
+
+«class:.a» {
+  «var:width»: «func:unit»(«num:5», «num:px»);
+  «var:height»: «func:percentage»(«num:0.5»);
+  «var:color»: «func:fade»(«var:@primary», «num:50»«var:%»);
+  «var:content»: «func:e»(«str:"no-quotes"»);
+  «var:margin»: «var:@gap» «oper:*» «num:2» «var:@half»;
+}"
+`;
+
+exports[`less > tokens > interpolation 1`] = `
+"«var:@prop»: «num:margin»;
+«var:@side»: «num:top»;
+«var:@base»: «str:"../img"»;
+
+«class:.box-»«oper:@{»«var:side»«oper:}» {
+  «oper:@{»«var:prop»«oper:}»«var:-»«oper:@{»«var:side»«oper:}»: «num:10»«var:px»;
+  «var:border-»«oper:@{»«var:side»«oper:}»: «num:1»«var:px» «num:solid»;
+  «var:background»: «func:url»(«str:"@{base}/bg.png"»);
+}
+
+«kwd:@media» («var:min-width»: «var:@sm») {
+  «class:.a» { «var:display»: «num:none»; }
+}"
+`;
+
+exports[`less > tokens > mixins 1`] = `
+"«func:.rounded»(«var:@r»: «num:4»«var:px») {
+  «var:border-radius»: «var:@r»;
+}
+
+«func:.bordered»(«var:@color») «kwd:when» («func:iscolor»(«var:@color»)) {
+  «var:border»: «num:1»«var:px» «num:solid» «var:@color»;
+}
+
+«class:#ns» {
+  «func:.button»() {
+    «var:display»: «num:inline-block»;
+  }
+}
+
+«class:.a» {
+  «func:.rounded»();
+  «func:.rounded»(«num:8»«var:px») «kwd:!important»;
+  «func:#ns» «oper:>» «func:.button»();
+  «class:&»:«func:extend»(«class:.b» «num:all»);
+}"
+`;
+
+exports[`less > tokens > nesting 1`] = `
+"«class:.card» {
+  «var:padding»: «num:1»«var:rem»;
+
+  «class:&__title» {
+    «var:font-size»: «num:1.25»«var:rem»;
+  }
+
+  «class:&--wide» { «var:width»: «num:100»«var:%»; }
+
+  «class:&»«class::hover»,
+  «class:&»«class::focus-visible» {
+    «var:box-shadow»: «num:0» «num:0» «num:0» «num:2»«var:px» currentColor;
+  }
+
+  «class:h2» «oper:+» «class:p» { «var:margin-top»: «num:0»; }
+}"
+`;
+
+exports[`less > tokens > selectors 1`] = `
+"«oper:*»,
+«oper:*»«class:::before» {
+  «var:box-sizing»: «num:border-box»;
+}
+
+«class:ul» «oper:>» «class:li»«class::not»(«class:.active») «oper:~» «class:li» {
+  «var:color»: «num:inherit»;
+}
+
+«class:input»[«var:type»«oper:=»«str:"checkbox"»]«class::checked» «oper:+» «class:label» {
+  «var:font-weight»: «num:700»;
+}
+
+«class:#main» «class:.nav» «class:a»«class::hover» {
+  «var:text-decoration»: «num:underline» «kwd:!important»;
+}"
+`;
+
+exports[`less > tokens > strings 1`] = `
+"«var:@family»: «str:"Helvetica Neue"», Arial, «num:sans-serif»;
+«var:@sep»: «str:'/'»;
+
+«class:.a»«class:::after» {
+  «var:content»: «str:"\\201C"»;
+  «var:content»: «str:"side is »«oper:@{»«var:side»«oper:}»«str:"»;
+  «var:filter»: «oper:~»«str:"ms:alpha(opacity=50)"»;
+  «var:height»: «oper:~»«str:\`document.body.clientHeight\`»;
+}"
+`;
+
+exports[`less > tokens > urls 1`] = `
+"«class:.a» {
+  «var:background»: «func:url»(«str://cdn.example.com/bg.png») «num:no-repeat»;
+  «var:background-image»: «func:url»(«str:@{base}/hero.png»);
+  «var:src»: «func:url»(«str:"inter.woff2"») «func:format»(«str:"woff2"»);
+}"
+`;
+
+exports[`less > tokens > variables 1`] = `
+"«var:@primary»: «num:#3498db»;
+«var:@radius»: «num:4»«var:px»;
+«var:@shadow»: «num:0» «num:2»«var:px» «num:4»«var:px» «func:rgba»(«num:0», «num:0», «num:0», «num:0.25»);
+«var:@which»: «num:primary»;
+
+«class:.a» {
+  «var:background»: «num:red»;
+  «var:border-radius»: «var:@radius»;
+  «var:box-shadow»: «var:@shadow»;
+  «var:color»: «var:$background»;
+  «var:font-weight»: «var:@@which»;
+}"
+`;

@@ -50,6 +50,23 @@ const languages: [ShjLanguage, ...[RegExp, number][]][] = [
   ["kt", [/\bfun\s+\w+\s*\(|\bval\b|\bvar\b.*:\s*\w+|\bcompanion object\b/g, 50]],
   ["swift", [/\bfunc\s+\w+\s*\(|\blet\b.*=|@(IBOutlet|objc|State)\b|\bguard\b.*\belse\b/g, 50]],
   ["vue", [/<template>|<script setup|\bv-(if|for|bind|model|on)\b|@click=/g, 100]],
+  // the logic blocks are unmistakable; a directive alone is only a hint, `class:`
+  // and `on:` are too close to a plain yaml key to be worth more
+  [
+    "svelte",
+    [/\{[#:/](if|each|await|then|catch|key|snippet|render)\b/g, 100],
+    [/\s(on|bind|use|transition|animate|class|let):[\w|-]+(?==|[\s/>])/g, 50],
+  ],
+  ["astro", [/^---\n[^]*?\n---/g, 500], [/\s(client|server|set|is):[\w-]+/g, 100]],
+  // `type Foo =` is TypeScript, `type Foo {` is not, so the definition keywords
+  // only count where no `=` follows
+  [
+    "graphql",
+    [/\b(query|mutation|subscription|fragment)\s+\w+\s*(\(|\{|on\b)/g, 100],
+    [/^\s*(type|input|enum|union|scalar|schema|directive)\s+\w+(?!\s*=)/gm, 30],
+  ],
+  // `@var: value;` — a css at-rule never has its colon glued to the name
+  ["less", [/@[\w-]+\s*:[^;{]+;|\.[\w-]+\([^)]*\)\s*;/g, 50]],
   ["dart", [/\bWidget\b|\bbuild\s*\(BuildContext|\bimport\s+'package:|\bfinal\b.*;/g, 50]],
   ["rs", [/^\s+(use|fn|mut|match)\b/gm, 100]],
   ["go", [/\b(func|fmt|package)\b/g, 100]],

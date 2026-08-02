@@ -38,6 +38,7 @@ const GITHUT_URL = "https://raw.githubusercontent.com/madnight/githut/master/src
  */
 const LINGUIST: Record<ShjLanguage, readonly string[]> = {
   asm: ["Assembly"],
+  astro: ["Astro"],
   bash: ["Shell"],
   c: ["C"],
   cpp: ["C++"],
@@ -48,6 +49,7 @@ const LINGUIST: Record<ShjLanguage, readonly string[]> = {
   diff: ["Diff"],
   docker: ["Dockerfile"],
   go: ["Go"],
+  graphql: ["GraphQL"],
   html: ["HTML"],
   http: [],
   ini: ["INI"],
@@ -56,6 +58,7 @@ const LINGUIST: Record<ShjLanguage, readonly string[]> = {
   jsdoc: [],
   json: ["JSON"],
   kt: ["Kotlin"],
+  less: ["Less"],
   log: [],
   lua: ["Lua"],
   make: ["Makefile"],
@@ -70,6 +73,7 @@ const LINGUIST: Record<ShjLanguage, readonly string[]> = {
   rs: ["Rust"],
   scss: ["SCSS"],
   sql: ["SQL", "PLpgSQL", "TSQL", "PLSQL"],
+  svelte: ["Svelte"],
   swift: ["Swift"],
   toml: ["TOML"],
   ts: ["TypeScript"],
@@ -185,7 +189,9 @@ console.log("== BUILT-INS ==");
 console.log("lang            type         IG%   IG#  push#   pr#  star#");
 
 const built = Object.keys(languages)
-  .filter((name): name is ShjLanguage => name !== "js_template_literals")
+  // `LINGUIST` is keyed by `ShjLanguage`, so this drops exactly the fragment
+  // grammars (`js_template_literals`, `todo`) and stays right as that set moves.
+  .filter((name): name is ShjLanguage => name in LINGUIST)
   .map((name) => {
     const names = LINGUIST[name];
     if (names.length === 0) return { name, share: -1 };

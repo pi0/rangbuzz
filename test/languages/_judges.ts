@@ -24,6 +24,7 @@ import dart from "refractor/dart";
 import diff from "refractor/diff";
 import docker from "refractor/docker";
 import go from "refractor/go";
+import graphql from "refractor/graphql";
 import http from "refractor/http";
 import ini from "refractor/ini";
 import java from "refractor/java";
@@ -31,6 +32,7 @@ import javascript from "refractor/javascript";
 import jsdoc from "refractor/jsdoc";
 import json from "refractor/json";
 import kotlin from "refractor/kotlin";
+import less from "refractor/less";
 import log from "refractor/log";
 import lua from "refractor/lua";
 import makefile from "refractor/makefile";
@@ -63,6 +65,7 @@ for (const lang of [
   diff,
   docker,
   go,
+  graphql,
   http,
   ini,
   java,
@@ -70,6 +73,7 @@ for (const lang of [
   jsdoc,
   json,
   kotlin,
+  less,
   log,
   lua,
   makefile,
@@ -120,6 +124,8 @@ export const STRUCTURAL: Klass[] = ["cmnt", "str"];
  */
 export const JUDGED: Record<string, { prism?: string; shiki?: BundledLanguage }> = {
   asm: { prism: "nasm", shiki: "asm" },
+  // Prism has no Astro or Svelte grammar, so Shiki votes alone for both
+  astro: { shiki: "astro" },
   bash: { prism: "bash", shiki: "shellscript" },
   c: { prism: "c", shiki: "c" },
   cpp: { prism: "cpp", shiki: "cpp" },
@@ -130,6 +136,7 @@ export const JUDGED: Record<string, { prism?: string; shiki?: BundledLanguage }>
   diff: { prism: "diff", shiki: "diff" },
   docker: { prism: "docker", shiki: "docker" },
   go: { prism: "go", shiki: "go" },
+  graphql: { prism: "graphql", shiki: "graphql" },
   html: { prism: "markup", shiki: "html" },
   http: { prism: "http", shiki: "http" },
   ini: { prism: "ini", shiki: "ini" },
@@ -137,6 +144,7 @@ export const JUDGED: Record<string, { prism?: string; shiki?: BundledLanguage }>
   js: { prism: "javascript", shiki: "javascript" },
   json: { prism: "json", shiki: "json" },
   kt: { prism: "kotlin", shiki: "kotlin" },
+  less: { prism: "less", shiki: "less" },
   log: { prism: "log", shiki: "log" },
   lua: { prism: "lua", shiki: "lua" },
   make: { prism: "makefile", shiki: "makefile" },
@@ -150,6 +158,7 @@ export const JUDGED: Record<string, { prism?: string; shiki?: BundledLanguage }>
   rs: { prism: "rust", shiki: "rust" },
   scss: { prism: "scss", shiki: "scss" },
   sql: { prism: "sql", shiki: "sql" },
+  svelte: { shiki: "svelte" },
   swift: { prism: "swift", shiki: "swift" },
   toml: { prism: "toml", shiki: "toml" },
   ts: { prism: "typescript", shiki: "typescript" },
