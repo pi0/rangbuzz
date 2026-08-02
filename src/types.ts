@@ -67,9 +67,18 @@ export interface ShjTokenizeOptions {
  * A single piece of tokenized code, as returned by `tokenize`
  */
 export interface ShjTokenized {
-  /** The raw text of the token, unescaped */
+  /**
+   * The raw text of the token, unescaped and never empty
+   *
+   * It may span line breaks — a block comment or a template literal is one
+   * token however many lines it covers.
+   */
   text: string;
-  /** The type of the token, absent for text no rule matched */
+  /**
+   * The type of the token, and the key a {@link ShjTheme} assigns a color to
+   *
+   * Absent for text that no rule of the language matched.
+   */
   type?: ShjToken;
 }
 

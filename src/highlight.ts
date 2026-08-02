@@ -198,22 +198,43 @@ export function eachToken(
  * This is the layer every other function is built on: use it to render the
  * tokens yourself, to feed another output format, or to inspect a grammar.
  *
- * The tokens are returned in source order and their `text` is raw — nothing is
- * escaped — so concatenating them gives the input back. Text that no rule
- * matched is returned as a token without a `type`, and an unknown language or
- * a broken grammar yields the whole code as a single untyped token rather than
- * throwing.
+ * The tokens are returned in source order, never empty, and their `text` is
+ * raw — nothing is escaped — so concatenating them gives the input back. Text
+ * that no rule matched is returned as a token without a `type`, and an unknown
+ * language or a broken grammar yields the whole code as a single untyped token
+ * rather than throwing.
+ *
+ * A token may span line breaks: a block comment, a template literal or a run
+ * of plain text is one token however many lines it covers. To render per line,
+ * tokenize the whole code once and split the tokens on `\n` — tokenizing each
+ * line on its own silently mis-highlights everything that crosses a break.
+ *
+ * The `type` is the key a {@link ShjTheme} assigns a color to. The one style
+ * the theme does not carry is the italic `cmnt` is rendered with in html,
+ * which is a convention of that output rather than theme data.
  *
  * @example
  * tokenize('let a = 1', { lang: 'js' });
  * // [
  * //   { text: 'let', type: 'kwd' },
- * //   { text: ' a = ' },
+ * //   { text: ' a ' },
+ * //   { text: '=', type: 'oper' },
+ * //   { text: ' ' },
  * //   { text: '1', type: 'num' }
  * // ]
  *
  * @example
+ * // custom languages apply to sub-languages too
  * tokenize(code, { lang: 'mine', languages: { mine } });
+ *
+ * @example
+ * // group into lines, keeping tokens that span a break intact
+ * const lines = [[]];
+ * for (const { text, type } of tokenize(code, { lang: 'js' }))
+ *   text.split('\n').forEach((part, i) => {
+ *     if (i) lines.push([]);
+ *     if (part) lines.at(-1).push({ text: part, type });
+ *   });
  *
  * @function tokenize
  * @param {string} code The code

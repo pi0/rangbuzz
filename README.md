@@ -93,14 +93,39 @@ tokenize("let a = 1", { lang: "js" });
 ```
 
 It takes the same `lang` and `languages` options as the other entry points.
-Tokens come back in source order and their `text` is raw — nothing is escaped —
-so joining them gives the input back. Text that no rule matched has no `type`,
-and an unknown language or a broken grammar yields the whole code as a single
-untyped token rather than throwing.
+Tokens come back in source order, are never empty, and their `text` is raw —
+nothing is escaped — so joining them gives the input back. Text that no rule
+matched has no `type`, and an unknown language or a broken grammar yields the
+whole code as a single untyped token rather than throwing.
 
-The `type` of a token is one of `deleted`, `err`, `var`, `section`, `kwd`,
-`class`, `cmnt`, `insert`, `type`, `func`, `bool`, `num`, `oper`, `str`, `esc`
-— the same keys a [theme](#themes-) assigns colors to.
+The `type` is one of `deleted`, `err`, `var`, `section`, `kwd`, `class`,
+`cmnt`, `insert`, `type`, `func`, `bool`, `num`, `oper`, `str`, `esc` — the
+same keys a [theme](#themes-) assigns colors to. The one style a theme does not
+carry is the italic `cmnt` is rendered with in html, which is a convention of
+that output rather than theme data.
+
+**A token may span line breaks.** A block comment, a template literal or a run
+of plain text is a single token however many lines it covers. So to render line
+by line, tokenize the whole code **once** and split the tokens — tokenizing
+each line on its own loses every construct that crosses a break, and does it
+silently:
+
+```js
+// ✗ each line tokenized in isolation
+"const a = 1; /* multi\nline */".split("\n").map((line) => tokenize(line, { lang: "js" }));
+
+// the second line comes back as [{ text: "line " }, { text: "*/", type: "oper" }]
+// — the comment is gone, and `*/` was read as an operator
+
+// ✓ tokenize once, then split the tokens
+const lines = [[]];
+for (const { text, type } of tokenize(code, { lang: "js" })) {
+  text.split("\n").forEach((part, i) => {
+    if (i) lines.push([]);
+    if (part) lines.at(-1).push({ text: part, type });
+  });
+}
+```
 
 ---
 
