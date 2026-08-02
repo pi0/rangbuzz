@@ -13,6 +13,6 @@ import light from "./themes/default.ts";
  * scheme of the reader
  *
  * These two are the only themes the highlighter pulls in; import any other one
- * from `rangbuzz/themes` and pass it as the `theme` option.
+ * from `rangi/themes` and pass it as the `theme` option.
  */
 export const defaultThemes: ShjThemePair = { light, dark };

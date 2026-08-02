@@ -90,7 +90,7 @@ export interface ShjOptions extends ShjTokenizeOptions {
    * A light/dark pair is inlined as `light-dark()` colors, following the color
    * scheme of the reader.
    *
-   * @default the bundled themes, import any other one from `rangbuzz/themes`
+   * @default the bundled themes, import any other one from `rangi/themes`
    */
   theme?: ShjTheme | ShjThemePair;
   /**
@@ -122,7 +122,7 @@ export interface ShjTerminalOptions extends ShjTokenizeOptions {
 }
 
 /**
- * The same options as {@link ShjTokenizeOptions}, as `rangbuzz/core` takes them
+ * The same options as {@link ShjTokenizeOptions}, as `rangi/core` takes them
  *
  * That entry bundles nothing, so what the main entry defaults to is given
  * explicitly instead: `languages: {}` is a call that highlights nothing.
@@ -131,13 +131,13 @@ export type ShjCoreTokenizeOptions = ShjTokenizeOptions &
   Required<Pick<ShjTokenizeOptions, "languages">>;
 
 /**
- * The same options as {@link ShjOptions}, as `rangbuzz/core` takes them: the
+ * The same options as {@link ShjOptions}, as `rangi/core` takes them: the
  * languages and the theme are required, since none is bundled
  */
 export type ShjCoreOptions = ShjOptions & Required<Pick<ShjOptions, "languages" | "theme">>;
 
 /**
- * The same options as {@link ShjTerminalOptions}, as `rangbuzz/core` takes
+ * The same options as {@link ShjTerminalOptions}, as `rangi/core` takes
  * them: the languages and the theme are required, since none is bundled
  */
 export type ShjCoreTerminalOptions = ShjTerminalOptions &

@@ -1,10 +1,10 @@
 # AGENTS.md
 
-`rangbuzz` — a tiny, zero-dependency, fully synchronous syntax highlighter (fork of Speed Highlight JS). It takes code + a language and returns self-contained HTML (theme colors inlined as `style` attributes) or ANSI for the terminal.
+`rangi` — a tiny, zero-dependency, fully synchronous syntax highlighter (fork of Speed Highlight JS). It takes code + a language and returns self-contained HTML (theme colors inlined as `style` attributes) or ANSI for the terminal.
 
 ## Layout
 
-- `src/highlight.ts` — the core: `eachToken()` (regex rule engine, callback based, internal), `tokenize()` (public wrapper returning `ShjTokenized[]`), `highlightText()` (tokens + line-number gutter), `codeToHtml()` (full block markup). It imports no grammar and no theme: both arrive per call, which is what makes `rangbuzz/core` bundle nothing.
+- `src/highlight.ts` — the core: `eachToken()` (regex rule engine, callback based, internal), `tokenize()` (public wrapper returning `ShjTokenized[]`), `highlightText()` (tokens + line-number gutter), `codeToHtml()` (full block markup). It imports no grammar and no theme: both arrive per call, which is what makes `rangi/core` bundle nothing.
 - `src/terminal.ts` — `codeToAnsi()` / `printHighlight()`, same tokens as 24-bit escapes.
 - `src/core.ts` — the `./core` entry, re-exporting those functions as they are; their `languages` and `theme` options are required (`ShjCore*Options` in `src/types.ts`, the main option types with those two made required).
 - `src/index.ts` — the `.` entry: the same functions, wrapped to fill in the bundled registry and `defaultThemes`. Custom languages are merged over the bundled ones, so they still win and still apply to sub-languages.

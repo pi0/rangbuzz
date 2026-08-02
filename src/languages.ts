@@ -3,7 +3,7 @@
  * (Static registry of every bundled language)
  *
  * This is the `./languages` entry too: every grammar is a named export of its
- * own, under the exact name the registry keys it by, so a `rangbuzz/core` call
+ * own, under the exact name the registry keys it by, so a `rangi/core` call
  * can be handed `{ js, ts }` and bundle nothing else.
  */
 
@@ -130,7 +130,7 @@ export {
  *
  * This is what the main entry hands the engine, so importing it pulls every
  * grammar in — which is the whole point of that entry, and the opposite of what
- * `rangbuzz/core` is for: there, import the ones you want by name.
+ * `rangi/core` is for: there, import the ones you want by name.
  */
 export const languages = {
   asm,

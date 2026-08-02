@@ -48,7 +48,7 @@
  *   its own is what the page waits through before the first token is coloured.
  *   Ours is the odd one out and it counts against us: the main entry carries
  *   the registry whole, so our row pays for every grammar we have while
- *   everyone else pays only for the ones this run compares. `rangbuzz/core` is
+ *   everyone else pays only for the ones this run compares. `rangi/core` is
  *   the entry that undoes that, and it is deliberately not what is weighed
  *   here. How many grammars that came to is
  *   counted off the bundle rather than off the list each contender was handed,
@@ -279,7 +279,7 @@ createRequire(import.meta.url)("prismjs/components/index.js")(
 
 const CONTENDERS: Contender[] = [
   {
-    name: "rangbuzz",
+    name: "rangi",
     grammar: (lang) => lang,
     html: (code, lang) => codeToHtml(code, { lang, theme: githubDark, lineNumbers: false }),
     // the grammars are not chosen: the main entry is the registry, whichever
@@ -509,7 +509,7 @@ const RUNNER = "warmup.mjs";
  * @returns Milliseconds from the start of the process to the end of the runner
  */
 const evaluate = (files: Record<string, string>): number => {
-  const dir = mkdtempSync(join(tmpdir(), "rangbuzz-warmup-"));
+  const dir = mkdtempSync(join(tmpdir(), "rangi-warmup-"));
 
   try {
     for (const [name, code] of Object.entries(files)) writeFileSync(join(dir, name), code);

@@ -2,7 +2,7 @@
  * @module index
  * (The main entry)
  *
- * The same functions as `rangbuzz/core`, with what that entry asks for
+ * The same functions as `rangi/core`, with what that entry asks for
  * explicitly filled in: every bundled grammar, and the two bundled themes.
  */
 

@@ -1,23 +1,24 @@
-# 🎨 rangbuzz
+# 🎨 rangi
 
-[![NPM Version](https://badge.fury.io/js/rangbuzz.svg)](https://badge.fury.io/js/rangbuzz) ![NPM Downloads](https://img.shields.io/npm/dm/rangbuzz)
+[![NPM Version](https://badge.fury.io/js/rangi.svg)](https://badge.fury.io/js/rangi) ![NPM Downloads](https://img.shields.io/npm/dm/rangi)
 
-Lightweight JavaScript syntax highlighter, forked from [Speed Highlight JS](https://github.com/speed-highlight/core).
+Syntax highlighter that turns code into self contained HTML — or into ANSI for the terminal — in a single synchronous call. Forked from [Speed Highlight JS](https://github.com/speed-highlight/core).
 
-- **Tiny** <small>(~14kB min+gzip with every language included, ~1.5kB for `codeToHtml` from core)</small>
-- **Fast** <small>(outperforms Prism and highlight.js)</small>
-- **Simple** <small>(zero dependencies, fully synchronous API, no stylesheet to load)</small>
+- **Tiny** <small>(~12.5kB min+gzip with every language and the default themes bundled, ~1.5kB for `codeToHtml` from [`rangi/core`](#core))</small>
+- **Fast** <small>(outperforms every other highlighter!)</small>
+- **Simple** <small>(zero dependencies, nothing async, no stylesheet to load, no global registry)</small>
+- **Complete** <small>(44 languages, 7 themes, language detection, terminal output, and raw tokens to render your own way)</small>
 
 ## Quick Start 🚀
 
 ```bash
-npx nypm i rangbuzz
+npx nypm i rangi
 ```
 
 Highlight a string, get self contained markup:
 
 ```js
-import { codeToHtml } from "rangbuzz";
+import { codeToHtml } from "rangi";
 
 html = codeToHtml('console.log("hello")', { lang: "js" });
 ```
@@ -25,8 +26,8 @@ html = codeToHtml('console.log("hello")', { lang: "js" });
 The colors of the theme are inlined as `style` attributes, so the result needs no stylesheet, no javascript and no hydration on the client. It works the same in node, in the browser, in a worker or in a template.
 
 ```js
-import { codeToHtml } from "rangbuzz";
-import { githubDark, githubLight } from "rangbuzz/themes";
+import { codeToHtml } from "rangi";
+import { githubDark, githubLight } from "rangi/themes";
 
 // a specific theme, or a light/dark pair
 codeToHtml(code, { lang: "js", theme: githubDark });
@@ -45,17 +46,17 @@ codeToHtml(code, { lang: "js", lineNumbers: false });
 Auto language detection:
 
 ```js
-import { codeToHtml, detectLanguage } from "rangbuzz";
+import { codeToHtml, detectLanguage } from "rangi";
 
 codeToHtml(code, { lang: detectLanguage(code) });
 ```
 
-Every language is bundled and ready to use — there is nothing to preload, and every function returns its result directly rather than a promise. Unknown languages fall back to unhighlighted text rather than throwing. To bundle only what you use instead, reach for [`rangbuzz/core`](#core).
+Every language is bundled and ready to use — there is nothing to preload, and every function returns its result directly rather than a promise. Unknown languages fall back to unhighlighted text rather than throwing. To bundle only what you use instead, reach for [`rangi/core`](#core).
 
 A custom language is passed to the call that needs it, rather than registered globally. Custom languages are looked up before the bundled ones, so they can also override a bundled language, and they apply to sub-languages too:
 
 ```js
-import { codeToHtml } from "rangbuzz";
+import { codeToHtml } from "rangi";
 
 codeToHtml(code, { lang: "mine", languages: { mine: customLanguage } });
 ```
@@ -69,7 +70,7 @@ A language is an array of rules — `import * as mine from "./mine.js"` works as
 `tokenize(code, opt)` is the layer everything else is built on. It returns the tokens themselves, so you can render them your own way — into JSX, into another markup, or into whatever your output format is:
 
 ```js
-import { tokenize } from "rangbuzz";
+import { tokenize } from "rangi";
 
 tokenize("let a = 1", { lang: "js" });
 // [
@@ -109,8 +110,8 @@ for (const { text, type } of tokenize(code, { lang: "js" })) {
 ### Terminal
 
 ```js
-import { printHighlight } from "rangbuzz";
-import { atomDark } from "rangbuzz/themes";
+import { printHighlight } from "rangi";
+import { atomDark } from "rangi/themes";
 
 printHighlight('console.log("hello")', { lang: "js", theme: atomDark });
 ```
@@ -121,14 +122,14 @@ Every theme works in the terminal, its colors are emitted as 24 bit escape seque
 
 ### Core
 
-The main entry bundles every language and the two default themes, so a call needs nothing but the code. `rangbuzz/core` is the same API with **nothing bundled**: the languages and the theme are required options, so only what you hand it ends up in your bundle.
+The main entry bundles every language and the two default themes, so a call needs nothing but the code. `rangi/core` is the same API with **nothing bundled**: the languages and the theme are required options, so only what you hand it ends up in your bundle.
 
-The bundled grammars live in `rangbuzz/languages`, each a named export of its own, so you pay for the ones you name and nothing else:
+The bundled grammars live in `rangi/languages`, each a named export of its own, so you pay for the ones you name and nothing else:
 
 ```js
-import { codeToHtml } from "rangbuzz/core";
-import { js, ts } from "rangbuzz/languages";
-import { githubDark } from "rangbuzz/themes";
+import { codeToHtml } from "rangi/core";
+import { js, ts } from "rangi/languages";
+import { githubDark } from "rangi/themes";
 
 codeToHtml(code, { lang: "js", languages: { js, ts }, theme: githubDark });
 ```
@@ -140,7 +141,7 @@ The export names are the registry keys, so `{ js, ts }` is a complete registry a
 That last part is what to watch for, because **grammars delegate to other grammars**, and a name you did not pass leaves that region unhighlighted:
 
 ```js
-import { js, js_template_literals, jsdoc, regex, todo } from "rangbuzz/languages";
+import { js, js_template_literals, jsdoc, regex, todo } from "rangi/languages";
 
 // `js` on its own: the code is highlighted, but template literals and
 // comments come back as plain text
@@ -150,7 +151,7 @@ tokenize(code, { lang: "js", languages: { js } });
 tokenize(code, { lang: "js", languages: { js, jsdoc, js_template_literals, regex, todo } });
 ```
 
-The core entry exports the same functions as the main one — `codeToHtml`, `highlightText`, `tokenize`, `codeToAnsi`, `printHighlight` and `detectLanguage` and behaves identically otherwise. Bundled together, the core, the five javascript grammars above and a theme come to ~2.5kB min+gzip — against ~14kB for the main entry, which carries every grammar.
+The core entry exports the same functions as the main one — `codeToHtml`, `highlightText`, `tokenize`, `codeToAnsi`, `printHighlight` and `detectLanguage` and behaves identically otherwise. Bundled together, the core, the five javascript grammars above and a theme come to ~2.5kB min+gzip — against ~12.5kB for the main entry, which carries every grammar.
 
 ## Languages supported 🌐
 
@@ -207,11 +208,11 @@ A theme is plain data: a color per token type. The same object drives the inline
 
 By default, code is highlighted with the **two bundled themes** — `default` for light and `dark` for dark — inlined as [`light-dark()`][light-dark] colors, so a code block follows the color scheme of the reader on its own. They are the only two themes the main entry pulls in.
 
-Every other theme lives in `rangbuzz/themes`, and only ends up in your bundle if you import it:
+Every other theme lives in `rangi/themes`, and only ends up in your bundle if you import it:
 
 ```js
-import { codeToHtml } from "rangbuzz";
-import { githubDark } from "rangbuzz/themes";
+import { codeToHtml } from "rangi";
+import { githubDark } from "rangi/themes";
 
 codeToHtml(code, { lang: "js", theme: githubDark });
 ```
@@ -248,3 +249,5 @@ codeToHtml(code, {
 [MIT](./LICENSE)
 
 This project is a fork of [Speed Highlight JS](https://github.com/speed-highlight/core) by [matubu](https://mathias.ninja) and contributors, which is dedicated to the public domain under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). This fork is redistributed under MIT. See [LICENSE](./LICENSE) for details.
+
+Thanks to [@kamikazechaser](https://github.com/kamikazechaser) for donating `rangi` npm package namespace.

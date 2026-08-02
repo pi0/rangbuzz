@@ -1,9 +1,9 @@
 {
-  "name": "rangbuzz",
-  "version": "0.0.0",
+  "name": "rangi",
+  "version": "2.0.0",
   "description": "Lightweight JavaScript syntax highlighter",
   "license": "MIT",
-  "repository": "pi0/rangbuzz",
+  "repository": "pi0/rangi",
   "files": [
     "dist"
   ],

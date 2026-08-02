@@ -3,7 +3,7 @@
  * (Base script)
  *
  * The engine itself, which pulls in no grammar and no theme: both are handed
- * over per call. This is what `rangbuzz/core` exposes; the main entry wraps it
+ * over per call. This is what `rangi/core` exposes; the main entry wraps it
  * with the bundled languages and themes.
  */
 
