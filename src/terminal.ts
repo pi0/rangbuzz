@@ -41,10 +41,15 @@ export function codeToAnsi(code: string, opt: ShjTerminalOptions = {}): string {
     theme = "light" in given ? given.dark : given;
 
   let res = "";
-  tokenize(code, opt.lang ?? "plain", (str, token) => {
-    const color = token && theme.tokens[token];
-    res += color ? `${escapeSequence(color)}${str}\x1b[0m` : str;
-  });
+  tokenize(
+    code,
+    opt.lang ?? "plain",
+    (str, token) => {
+      const color = token && theme.tokens[token];
+      res += color ? `${escapeSequence(color)}${str}\x1b[0m` : str;
+    },
+    opt.languages,
+  );
 
   return res;
 }

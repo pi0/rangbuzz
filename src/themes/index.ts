@@ -3,7 +3,7 @@
  * (Bundled themes, as plain data)
  */
 
-import type { ShjTheme, ShjThemeName } from "../types.ts";
+import type { ShjTheme } from "../types.ts";
 
 import atomDark from "./atom-dark.ts";
 import dark from "./dark.ts";
@@ -26,4 +26,11 @@ export const themes = {
   "github-dim": githubDim,
   "github-light": githubLight,
   "visual-studio-dark": visualStudioDark,
-} satisfies Record<ShjThemeName, ShjTheme>;
+} satisfies Record<string, ShjTheme>;
+
+/**
+ * Name of a bundled theme, derived from {@link themes}.
+ *
+ * Every one of them is usable both in the browser and in the terminal.
+ */
+export type ShjThemeName = keyof typeof themes;

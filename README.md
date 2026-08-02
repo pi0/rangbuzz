@@ -58,13 +58,18 @@ Every language is bundled and ready to use — there is nothing to preload, and
 every function returns its result directly rather than a promise. Unknown
 languages fall back to unhighlighted text rather than throwing.
 
-Load a custom language:
+A custom language is passed to the call that needs it, rather than registered
+globally. Custom languages are looked up before the bundled ones, so they can
+also override a bundled language, and they apply to sub-languages too:
 
 ```js
-import { loadLanguage } from "rangbuzz";
+import { codeToHtml } from "rangbuzz";
 
-loadLanguage("language-name", customLanguage);
+codeToHtml(code, { lang: "mine", languages: { mine: customLanguage } });
 ```
+
+A language is an array of rules — `import * as mine from "./mine.js"` works as
+well, for a module with the rules as its default export.
 
 ---
 

@@ -2,7 +2,7 @@ import type { ShjLanguageDefinition } from "../types.ts";
 import md from "./md.ts";
 import { detectLanguage } from "../detect.ts";
 
-export default [
+const definition: ShjLanguageDefinition = [
   {
     type: "insert",
     match: /(leanpub-start-insert)((?!leanpub-end-insert)[^])*(leanpub-end-insert)?/g,
@@ -32,4 +32,6 @@ export default [
     ],
   },
   ...md,
-] as ShjLanguageDefinition;
+];
+
+export default definition;

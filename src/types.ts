@@ -2,56 +2,12 @@
  * Shared types, imported by the `.ts` sources.
  */
 
-/**
- * Default languages supported
- */
-export type ShjLanguage =
-  | "asm"
-  | "bash"
-  | "bf"
-  | "c"
-  | "css"
-  | "csv"
-  | "diff"
-  | "docker"
-  | "git"
-  | "go"
-  | "html"
-  | "http"
-  | "ini"
-  | "java"
-  | "js"
-  | "jsdoc"
-  | "json"
-  | "leanpub-md"
-  | "log"
-  | "lua"
-  | "make"
-  | "md"
-  | "pl"
-  | "plain"
-  | "py"
-  | "regex"
-  | "rs"
-  | "sql"
-  | "todo"
-  | "toml"
-  | "ts"
-  | "uri"
-  | "xml"
-  | "yaml";
+// Both names are derived from the registries themselves, so that adding a
+// language or a theme is a one line change in a single file.
+import type { ShjLanguage } from "./languages.ts";
 
-/**
- * Bundled themes, usable both in the browser and in the terminal
- */
-export type ShjThemeName =
-  | "atom-dark"
-  | "dark"
-  | "default"
-  | "github-dark"
-  | "github-dim"
-  | "github-light"
-  | "visual-studio-dark";
+export type { ShjLanguage };
+export type { ShjThemeName } from "./themes/index.ts";
 
 /**
  * A theme is plain data: colors keyed by token type.
@@ -86,9 +42,21 @@ export interface ShjOptions {
   /**
    * The language of the code
    *
+   * Any name of {@link ShjOptions.languages} is accepted as well.
+   *
    * @default "plain"
    */
-  lang?: ShjLanguage;
+  lang?: ShjLanguage | (string & {});
+  /**
+   * Custom languages, keyed by language name
+   *
+   * They are looked up before the bundled ones, so a bundled language can be
+   * overridden, and are used for sub-languages too.
+   *
+   * @example
+   * codeToHtml(code, { lang: "mine", languages: { mine: myLanguage } });
+   */
+  languages?: ShjLanguages;
   /**
    * The theme, inlined in the generated markup as `style` attributes
    *
@@ -119,9 +87,18 @@ export interface ShjTerminalOptions {
   /**
    * The language of the code
    *
+   * Any name of {@link ShjTerminalOptions.languages} is accepted as well.
+   *
    * @default "plain"
    */
-  lang?: ShjLanguage;
+  lang?: ShjLanguage | (string & {});
+  /**
+   * Custom languages, keyed by language name
+   *
+   * They are looked up before the bundled ones, so a bundled language can be
+   * overridden, and are used for sub-languages too.
+   */
+  languages?: ShjLanguages;
   /**
    * The theme, emitted as 24 bit escape sequences
    *
@@ -163,8 +140,33 @@ export type ShjLanguageComponent =
   | { match: RegExp; type: string }
   | {
       match: RegExp;
-      sub: string | ShjLanguageDefinition | ((code: string) => ShjLanguageComponent);
+      sub: string | ShjLanguageDefinition | ((code: string) => string | ShjSubLanguage);
     }
   | { expand: string };
 
+/**
+ * What a `sub` callback may return besides a language name: an anonymous
+ * language, with the token type applied to whatever its rules leave unmatched
+ */
+export interface ShjSubLanguage {
+  type?: string;
+  sub: ShjLanguageDefinition;
+}
+
 export type ShjLanguageDefinition = ShjLanguageComponent[];
+
+/**
+ * A language, either as a bare definition or in module shape, so that
+ * `import * as mine from "./mine.ts"` can be handed over as is
+ *
+ * The optional `type` is the token type applied to whatever the rules of the
+ * language leave unmatched.
+ */
+export type ShjLanguageModule =
+  | ShjLanguageDefinition
+  | { default: ShjLanguageDefinition; type?: string };
+
+/**
+ * Language definitions keyed by language name
+ */
+export type ShjLanguages = Record<string, ShjLanguageModule>;

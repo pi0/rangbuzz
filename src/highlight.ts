@@ -6,7 +6,7 @@
 import type {
   ShjDisplayMode,
   ShjLanguage,
-  ShjLanguageDefinition,
+  ShjLanguages,
   ShjOptions,
   ShjTheme,
   ShjThemePair,
@@ -17,8 +17,7 @@ import expandData from "./common.ts";
 import { defaultThemes } from "./defaults.ts";
 import { languages } from "./languages.ts";
 
-const langs: Record<string, any> = { ...languages },
-  sanitize = (str = "") =>
+const sanitize = (str = "") =>
     str.replaceAll("&", "&#38;").replaceAll?.("<", "&lt;").replaceAll?.(">", "&gt;"),
   /**
    * Sanitize a string used as an attribute value
@@ -116,11 +115,14 @@ export const blockStyle = (theme: ShjTheme | ShjThemePair, mode: ShjDisplayMode)
  * this function will be given
  * * the text of the token
  * * the type of the token
+ * @param {ShjLanguages} [langs] Custom languages, looked up before the bundled
+ * ones, for the code itself and for its sub-languages
  */
 export function tokenize(
   src: string,
   lang: ShjLanguage | any,
   token: (str: string, token?: ShjToken) => void,
+  langs?: ShjLanguages,
 ) {
   try {
     let m,
@@ -129,7 +131,10 @@ export function tokenize(
       match,
       cache: any[] = [],
       i = 0,
-      data = typeof lang === "string" ? langs[lang] : lang,
+      // a custom language wins over a bundled one, and may be a bare definition
+      found: any =
+        typeof lang === "string" ? (langs?.[lang] ?? (languages as ShjLanguages)[lang]) : lang,
+      data = Array.isArray(found) ? { default: found } : found,
       // make a fast shallow copy to bee able to splice lang without change the original one
       arr = [...(typeof lang === "string" ? data.default : lang.sub)];
 
@@ -171,6 +176,7 @@ export function tokenize(
               ? first.part.sub(first.match)
               : first.part,
           token,
+          langs,
         );
       else token(first.match, first.part.type);
     }
@@ -188,6 +194,7 @@ export function tokenize(
  *
  * @example
  * elm.innerHTML = highlightText(code, { lang: 'js' });
+ * elm.innerHTML = highlightText(code, { lang: 'mine', languages: { mine } });
  *
  * @function highlightText
  * @param {string} code The code
@@ -200,13 +207,18 @@ export function highlightText(code: string, opt: ShjOptions = {}): string {
     badge = lang == "http" && mode == "oneline";
 
   let tmp = "";
-  tokenize(code, lang, (str, token) => {
-    str = sanitize(str);
-    if (!token) return (tmp += str);
+  tokenize(
+    code,
+    lang,
+    (str, token) => {
+      str = sanitize(str);
+      if (!token) return (tmp += str);
 
-    const style = badge && token == "kwd" ? httpBadge : tokenStyle(theme, token);
-    tmp += style ? `<span style="${style}">${str}</span>` : str;
-  });
+      const style = badge && token == "kwd" ? httpBadge : tokenStyle(theme, token);
+      tmp += style ? `<span style="${style}">${str}</span>` : str;
+    },
+    opt.languages,
+  );
 
   return mode == "multiline"
     ? `<div style="display:flex;overflow:auto">${lineNumbers ? gutter(code.split("\n").length, theme) : ""}<div style="flex:1;outline:none">${tmp}</div></div>`
@@ -222,6 +234,7 @@ export function highlightText(code: string, opt: ShjOptions = {}): string {
  * @example
  * html += codeToHtml(code, { lang: 'js' });
  * html += codeToHtml(code, { lang: 'js', theme: githubDark });
+ * html += codeToHtml(code, { lang: 'mine', languages: { mine } });
  *
  * @function codeToHtml
  * @param {string} code The code
@@ -235,17 +248,3 @@ export function codeToHtml(code: string, opt: ShjOptions = {}): string {
 
   return `<${tag} class="shj-lang-${attr(lang)} shj-${mode}" data-lang="${attr(lang)}" style="${blockStyle(theme, mode)}">${highlightText(code, { ...opt, lang })}</${tag}>`;
 }
-
-/**
- * Load a language and add it to the langs object
- *
- * Every language listed in {@link ShjLanguage} is bundled and registered
- * already; this is only needed for custom languages or to override a bundled one.
- *
- * @function loadLanguage
- * @param {string} languageName The name of the language
- * @param {{ default: ShjLanguageDefinition }} language The language
- */
-export let loadLanguage = (languageName: string, language: { default: ShjLanguageDefinition }) => {
-  langs[languageName] = language;
-};

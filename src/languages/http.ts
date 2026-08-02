@@ -1,7 +1,7 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { detectLanguage } from "../detect.ts";
 
-export default [
+const definition: ShjLanguageDefinition = [
   {
     type: "kwd",
     match: /^(GET|HEAD|POST|PUT|DELETE|CONNECT|OPTIONS|TRACE|PATCH|PRI|SEARCH)\b/gm,
@@ -28,4 +28,6 @@ export default [
     match: /\n\n[^]*/g,
     sub: detectLanguage,
   },
-] as ShjLanguageDefinition;
+];
+
+export default definition;

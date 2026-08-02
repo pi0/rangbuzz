@@ -1,7 +1,7 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { detectLanguage } from "../detect.ts";
 
-export default [
+const definition: ShjLanguageDefinition = [
   {
     type: "cmnt",
     match: /^>.*|(=|-)\1+/gm,
@@ -48,4 +48,6 @@ export default [
       },
     ],
   },
-] as ShjLanguageDefinition;
+];
+
+export default definition;

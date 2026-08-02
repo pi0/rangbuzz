@@ -3,7 +3,7 @@
  * (Static registry of every bundled language)
  */
 
-import type { ShjLanguageDefinition } from "./types.ts";
+import type { ShjLanguages } from "./types.ts";
 
 import * as asm from "./languages/asm.ts";
 import * as bash from "./languages/bash.ts";
@@ -44,11 +44,11 @@ import * as yaml from "./languages/yaml.ts";
 /**
  * Every bundled language definition, keyed by language name.
  *
- * Kept in module shape so that the bundled entries and the ones registered
- * through `loadLanguage` are interchangeable. A language may also export a
+ * Kept in module shape so that the bundled entries and the custom ones passed
+ * as the `languages` option are interchangeable. A language may also export a
  * `type`, the token type applied to whatever its own rules leave unmatched.
  */
-export const languages: Record<string, { default: ShjLanguageDefinition; type?: string }> = {
+export const languages = {
   asm: asm,
   bash: bash,
   bf: bf,
@@ -84,4 +84,12 @@ export const languages: Record<string, { default: ShjLanguageDefinition; type?: 
   uri: uri,
   xml: xml,
   yaml: yaml,
-};
+} satisfies ShjLanguages;
+
+/**
+ * Name of a bundled language, derived from {@link languages}.
+ *
+ * `js_template_literals` is left out: it is a fragment grammar, reached only
+ * through the rules of `js`, never passed as the `lang` option.
+ */
+export type ShjLanguage = Exclude<keyof typeof languages, "js_template_literals">;
