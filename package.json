@@ -1,99 +1,59 @@
 {
-  "name": "@speed-highlight/core",
-  "version": "1.2.23",
+  "name": "rangbuzz",
+  "version": "0.0.0",
   "description": "🌈 Light, fast, and easy to use, dependencies free javascript syntax highlighter, with automatic language detection",
-  "main": "./dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/node/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./detect": {
-      "import": "./dist/detect.js",
-      "require": "./dist/node/detect.js",
-      "types": "./dist/detect.d.ts"
-    },
-    "./terminal": {
-      "import": "./dist/terminal.js",
-      "require": "./dist/node/terminal.js",
-      "types": "./dist/terminal.d.ts"
-    },
-    "./languages/*.js": {
-      "import": "./dist/languages/*.js",
-      "require": "./dist/node/languages/*.js",
-      "types": "./dist/languages/*.d.ts"
-    },
-    "./themes/*.css": "./dist/themes/*.css"
-  },
-  "directories": {
-    "example": "examples"
-  },
-  "scripts": {
-    "build": "bash .github/workflows/build.sh"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/speed-highlight/core.git"
-  },
-  "bugs": {
-    "url": "https://github.com/speed-highlight/core/issues"
-  },
   "keywords": [
-    "javascript",
-    "syntax-highlighting",
-    "language",
+    "deno",
     "fast",
-    "js",
-    "simple",
     "highlighter",
-    "regex",
     "highlighting",
     "highlightjs",
+    "javascript",
+    "js",
+    "language",
+    "regex",
+    "simple",
     "small",
-    "deno"
+    "syntax-highlighting"
   ],
-  "author": {
-    "name": "matubu",
-    "email": "hi@mathias.ninja",
-    "url": "https://mathias.ninja"
-  },
-  "license": "CC0-1.0",
-  "homepage": "https://github.com/speed-highlight/core#readme",
-  "devDependencies": {
-    "@semantic-release/git": "^10.0.1",
-    "esbuild": "^0.28.1",
-    "lightningcss-cli": "^1.25.1",
-    "semantic-release": "^25.0.2",
-    "typescript": "^5.3.3"
-  },
-  "release": {
-    "branches": [
-      "main"
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/npm",
-      "@semantic-release/git",
-      "@semantic-release/github"
-    ]
-  },
-  "private": false,
-  "publishConfig": {
-    "access": "public",
-    "provenance": true
-  },
+  "license": "MIT",
+  "repository": "pi0/rangbuzz",
   "files": [
     "dist"
   ],
-  "typesVersions": {
-    "*": {
-      "*": [
-        "dist/*",
-        "dist"
-      ]
-    }
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "types": "./dist/index.d.mts",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./detect": "./dist/detect.mjs",
+    "./terminal": "./dist/terminal.mjs",
+    "./languages/*": "./dist/languages/*.js",
+    "./themes/*": "./dist/themes/*"
   },
-  "type": "module"
+  "scripts": {
+    "build": "obuild",
+    "dev": "vitest dev",
+    "fmt": "automd && oxlint . --fix && oxfmt .",
+    "lint": "oxlint . && oxfmt --check .",
+    "prepack": "pnpm build",
+    "release": "pnpm test && pnpm build && changelogen --release && npm publish && git push --follow-tags",
+    "test": "pnpm lint && pnpm typecheck && vitest run --coverage",
+    "typecheck": "tsgo --noEmit --skipLibCheck"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@typescript/native-preview": "latest",
+    "@vitest/coverage-v8": "latest",
+    "automd": "latest",
+    "changelogen": "latest",
+    "obuild": "latest",
+    "oxfmt": "latest",
+    "oxlint": "latest",
+    "typescript": "^5.9.3",
+    "vitest": "latest"
+  },
+  "packageManager": "pnpm@11.18.0"
 }

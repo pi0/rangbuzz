@@ -1,2 +1,0 @@
-# Changes
-* List of changes

@@ -1,20 +1,12 @@
-# speed-highlight
+# rangbuzz
 
-[![NPM Version](https://badge.fury.io/js/@speed-highlight%2Fcore.svg)](https://badge.fury.io/js/@speed-highlight%2Fcore) ![NPM Downloads](https://img.shields.io/npm/dm/%40speed-highlight%2Fcore)
+[![NPM Version](https://badge.fury.io/js/rangbuzz.svg)](https://badge.fury.io/js/rangbuzz) ![NPM Downloads](https://img.shields.io/npm/dm/rangbuzz)
 
 A JavaScript syntax highlighter for the web and the terminal
 
 - **Tiny** <small>(~2kB core, ~1kB per language)</small>
 - **Fast** <small>(outperforms Prism and highlight.js)</small>
 - **Simple** <small>(zero dependencies)</small>
-
-<p>
-	<a href="https://speed-highlight.github.io/core/examples">Demo</a> |
-	<a href="https://github.com/speed-highlight/core/wiki">Wiki</a> |
-	<a href="https://speed-highlight.github.io/core/docs">Docs</a>
-</p>
-
-![Screenshot](https://raw.githubusercontent.com/speed-highlight/core/main/assets/screenshot.png)
 
 ## Simple setup 🚀
 
@@ -23,29 +15,29 @@ A JavaScript syntax highlighter for the web and the terminal
 Style/theme (in the header of your html file):
 
 ```html
-<link rel="stylesheet" href="/path/dist/themes/default.css">
+<link rel="stylesheet" href="/path/dist/themes/default.css" />
 ```
 
 In the body of your html file:
 
 ```html
-<div class='shj-lang-[code-language]'>[code]</div>
+<div class="shj-lang-[code-language]">[code]</div>
 or
-<code class='shj-lang-[code-language]'>[inline code]</code>
+<code class="shj-lang-[code-language]">[inline code]</code>
 ```
 
 Highlight the code (in your javascript):
 
 ```js
-import { highlightAll } from '/path/dist/index.js';
+import { highlightAll } from "/path/dist/index.mjs";
 highlightAll();
 ```
 
 Auto language detection
 
 ```js
-import { highlightElement } from '../dist/index.js';
-import { detectLanguage } from '../dist/detect.js';
+import { highlightElement } from "../dist/index.mjs";
+import { detectLanguage } from "../dist/detect.mjs";
 
 elm.textContent = code;
 highlightElement(elm, detectLanguage(code));
@@ -54,18 +46,18 @@ highlightElement(elm, detectLanguage(code));
 Load custom language
 
 ```js
-import { loadLanguage } from '../dist/index.js';
+import { loadLanguage } from "../dist/index.mjs";
 
-loadLanguage('language-name', customLanguage);
+loadLanguage("language-name", customLanguage);
 ```
 
 Preload a bundled language
 
 ```js
-import { loadLanguage } from '@speed-highlight/core';
-import * as js from '@speed-highlight/core/languages/js.js';
+import { loadLanguage } from "rangbuzz";
+import * as js from "rangbuzz/languages/js";
 
-loadLanguage('js', js);
+loadLanguage("js", js);
 ```
 
 ---
@@ -73,48 +65,48 @@ loadLanguage('js', js);
 #### CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@speed-highlight/core/dist/themes/default.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/speed-highlight/core/dist/themes/default.css">
+<link rel="stylesheet" href="https://unpkg.com/rangbuzz/dist/themes/default.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/pi0/rangbuzz/dist/themes/default.css" />
 ```
 
 ```js
-import ... from 'https://unpkg.com/@speed-highlight/core/dist/index.js';
-import ... from 'https://cdn.jsdelivr.net/gh/speed-highlight/core/dist/index.js';
+import ... from 'https://unpkg.com/rangbuzz/dist/index.mjs';
+import ... from 'https://cdn.jsdelivr.net/gh/pi0/rangbuzz/dist/index.mjs';
 ```
 
 ---
 
 ### Deno
 
-Use the [deno module](https://deno.land/x/speed_highlight_js)
+Use the npm specifier
 
 ```js
-import { setTheme, printHighlight } from 'https://deno.land/x/speed_highlight_js/dist/terminal.js';
+import { setTheme, printHighlight } from "npm:rangbuzz/terminal";
 
-await setTheme('[theme-name]');
-printHighlight('console.log("hello")', 'js');
+await setTheme("[theme-name]");
+printHighlight('console.log("hello")', "js");
 ```
 
 ---
 
 ### Node
 
-Use the [npm package](https://www.npmjs.com/package/@speed-highlight/core)
+Use the [npm package](https://www.npmjs.com/package/rangbuzz)
 
 ```bash
-npm i @speed-highlight/core
+npm i rangbuzz
 ```
 
 ```js
-const { setTheme, printHighlight } = require('@speed-highlight/core/terminal');
+import { setTheme, printHighlight } from "rangbuzz/terminal";
 
-setTheme('[theme-name]');
-printHighlight('console.log("hello")', 'js');
+setTheme("[theme-name]");
+printHighlight('console.log("hello")', "js");
 ```
 
 ## Migrating from prism
 
-speed-highlight is a lighter and faster version of prism that share a similar API
+rangbuzz is a lighter and faster version of prism that share a similar API
 
 ### Style
 
@@ -124,7 +116,7 @@ Clone this repository or use a cdn to load our stylesheet
 ```diff
 <head>
 -  <link href="themes/prism.css" rel="stylesheet" />
-+  <link rel="stylesheet" href="https://unpkg.com/@speed-highlight/core/dist/themes/default.css">
++  <link rel="stylesheet" href="https://unpkg.com/rangbuzz/dist/themes/default.css">
 </head>
 ```
 
@@ -136,7 +128,7 @@ For the script part remove the prism.js script and replace it by a import and a 
 <body>
 -  <script src="prism.js"></script>
 +<script>
-+  import { highlightAll } from 'https://unpkg.com/@speed-highlight/core/dist/index.js';
++  import { highlightAll } from 'https://unpkg.com/rangbuzz/dist/index.mjs';
 +  highlightAll();
 +</script>
 </body>
@@ -204,11 +196,19 @@ And for inline code block you just have to change the class property
 
 A modern theme by default
 
-| Name                | Terminal | Web |
-| ------------------- | -------- | --- |
-| default             | ✅       | ✅  |
-| github-dark         | ❌       | ✅  |
-| github-light        | ❌       | ✅  |
-| github-dim          | ❌       | ✅  |
-| atom-dark           | ✅       | ✅  |
-| visual-studio-dark  | ❌       | ✅  |
+| Name               | Terminal | Web |
+| ------------------ | -------- | --- |
+| default            | ✅       | ✅  |
+| github-dark        | ❌       | ✅  |
+| github-light       | ❌       | ✅  |
+| github-dim         | ❌       | ✅  |
+| atom-dark          | ✅       | ✅  |
+| visual-studio-dark | ❌       | ✅  |
+
+## License 📄
+
+[MIT](./LICENSE)
+
+This project is a fork of [Speed Highlight JS](https://github.com/speed-highlight/core)
+by [matubu](https://mathias.ninja) and contributors, which is dedicated to the public
+domain under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). This fork is redistributed under MIT. See [LICENSE](./LICENSE) for details.

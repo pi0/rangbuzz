@@ -1,23 +1,43 @@
-@import 'default.css';
+@import "default.css";
 
 [class*="shj-lang-"] {
-	color: #d4d4d4;
-	background: #1e1e1e
+  color: #d4d4d4;
+  background: #1e1e1e;
 }
-[class*="shj-lang-"]:before {color: #6f9aff}
+[class*="shj-lang-"]:before {
+  color: #6f9aff;
+}
 
-.shj-syn-insert {color: #98c379}
-.shj-syn-var {color: #9cdcfe}
-.shj-syn-oper {color: #d4d4d4}
+.shj-syn-insert {
+  color: #98c379;
+}
+.shj-syn-var {
+  color: #9cdcfe;
+}
+.shj-syn-oper {
+  color: #d4d4d4;
+}
 .shj-syn-num,
-.shj-syn-kwd {color: #569cd6}
+.shj-syn-kwd {
+  color: #569cd6;
+}
 .shj-syn-section,
 .shj-syn-type,
-.shj-syn-class {color: #4fc1ff}
+.shj-syn-class {
+  color: #4fc1ff;
+}
 .shj-numbers,
-.shj-syn-cmnt {color: #6a9955}
-.shj-syn-bool {color: #b5cea8}
+.shj-syn-cmnt {
+  color: #6a9955;
+}
+.shj-syn-bool {
+  color: #b5cea8;
+}
 .shj-syn-deleted,
 .shj-syn-err,
-.shj-syn-str {color: #ce9178}
-.shj-syn-func {color: #dcdcaa}
+.shj-syn-str {
+  color: #ce9178;
+}
+.shj-syn-func {
+  color: #dcdcaa;
+}

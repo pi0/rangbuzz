@@ -1,0 +1,9 @@
+# https://pnpm.io/settings
+
+allowBuilds:
+  "@parcel/watcher": true
+  esbuild: true
+blockExoticSubdeps: true
+dedupePeers: true
+ignoreWorkspaceRootCheck: true
+trustPolicy: no-downgrade
