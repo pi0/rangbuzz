@@ -5,85 +5,88 @@
 
 import type { ShjLanguages } from "./types.ts";
 
-import * as asm from "./languages/asm.ts";
-import * as bash from "./languages/bash.ts";
-import * as bf from "./languages/bf.ts";
-import * as c from "./languages/c.ts";
-import * as css from "./languages/css.ts";
-import * as csv from "./languages/csv.ts";
-import * as diff from "./languages/diff.ts";
-import * as docker from "./languages/docker.ts";
-import * as git from "./languages/git.ts";
-import * as go from "./languages/go.ts";
-import * as html from "./languages/html.ts";
-import * as http from "./languages/http.ts";
-import * as ini from "./languages/ini.ts";
-import * as java from "./languages/java.ts";
-import * as js from "./languages/js.ts";
-import * as jsTemplateLiterals from "./languages/js_template_literals.ts";
-import * as jsdoc from "./languages/jsdoc.ts";
-import * as json from "./languages/json.ts";
-import * as leanpubMd from "./languages/leanpub-md.ts";
-import * as log from "./languages/log.ts";
-import * as lua from "./languages/lua.ts";
-import * as make from "./languages/make.ts";
-import * as md from "./languages/md.ts";
-import * as pl from "./languages/pl.ts";
-import * as plain from "./languages/plain.ts";
-import * as py from "./languages/py.ts";
-import * as regex from "./languages/regex.ts";
-import * as rs from "./languages/rs.ts";
-import * as sql from "./languages/sql.ts";
-import * as todo from "./languages/todo.ts";
-import * as toml from "./languages/toml.ts";
-import * as ts from "./languages/ts.ts";
-import * as uri from "./languages/uri.ts";
-import * as xml from "./languages/xml.ts";
-import * as yaml from "./languages/yaml.ts";
+import asm from "./languages/asm.ts";
+import bash from "./languages/bash.ts";
+import bf from "./languages/bf.ts";
+import c from "./languages/c.ts";
+import css from "./languages/css.ts";
+import csv from "./languages/csv.ts";
+import diff from "./languages/diff.ts";
+import docker from "./languages/docker.ts";
+import git from "./languages/git.ts";
+import go from "./languages/go.ts";
+import html from "./languages/html.ts";
+import http from "./languages/http.ts";
+import ini from "./languages/ini.ts";
+import java from "./languages/java.ts";
+import js from "./languages/js.ts";
+import jsTemplateLiterals, {
+  type as jsTemplateLiteralsType,
+} from "./languages/js_template_literals.ts";
+import jsdoc, { type as jsdocType } from "./languages/jsdoc.ts";
+import json from "./languages/json.ts";
+import leanpubMd from "./languages/leanpub-md.ts";
+import log from "./languages/log.ts";
+import lua from "./languages/lua.ts";
+import make from "./languages/make.ts";
+import md from "./languages/md.ts";
+import pl from "./languages/pl.ts";
+import plain from "./languages/plain.ts";
+import py from "./languages/py.ts";
+import regex, { type as regexType } from "./languages/regex.ts";
+import rs from "./languages/rs.ts";
+import sql from "./languages/sql.ts";
+import todo, { type as todoType } from "./languages/todo.ts";
+import toml from "./languages/toml.ts";
+import ts from "./languages/ts.ts";
+import uri from "./languages/uri.ts";
+import xml from "./languages/xml.ts";
+import yaml from "./languages/yaml.ts";
 
 /**
  * Every bundled language definition, keyed by language name.
  *
- * Kept in module shape so that the bundled entries and the custom ones passed
- * as the `languages` option are interchangeable. A language may also export a
- * `type`, the token type applied to whatever its own rules leave unmatched.
+ * A language is its bare definition, the same shape a custom language passed as
+ * the `languages` option may take. The few that also carry a `type` — the token
+ * type applied to whatever their own rules leave unmatched — are given in
+ * module shape instead, the other half of {@link ShjLanguageModule}.
  */
 export const languages = {
-  asm: asm,
-  bash: bash,
-  bf: bf,
-  c: c,
-  css: css,
-  csv: csv,
-  diff: diff,
-  docker: docker,
-  git: git,
-  go: go,
-  html: html,
-  http: http,
-  ini: ini,
-  java: java,
-  js: js,
-  js_template_literals: jsTemplateLiterals,
-  jsdoc: jsdoc,
-  json: json,
+  asm,
+  bash,
+  bf,
+  c,
+  css,
+  csv,
+  diff,
+  docker,
+  git,
+  go,
+  html,
+  http,
+  ini,
+  java,
+  js,
+  js_template_literals: { default: jsTemplateLiterals, type: jsTemplateLiteralsType },
+  jsdoc: { default: jsdoc, type: jsdocType },
+  json,
   "leanpub-md": leanpubMd,
-  log: log,
-  lua: lua,
-  make: make,
-  md: md,
-  pl: pl,
-  plain: plain,
-  py: py,
-  regex: regex,
-  rs: rs,
-  sql: sql,
-  todo: todo,
-  toml: toml,
-  ts: ts,
-  uri: uri,
-  xml: xml,
-  yaml: yaml,
+  log,
+  lua,
+  make,
+  md,
+  pl,
+  plain,
+  py,
+  regex: { default: regex, type: regexType },
+  rs,
+  sql,
+  todo: { default: todo, type: todoType },
+  toml,
+  ts,
+  uri,
+  xml,
+  yaml,
 } satisfies ShjLanguages;
 
 /**

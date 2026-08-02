@@ -155,8 +155,8 @@ codeToHtml(code, { lang: "js", theme: githubDark });
 | github-light       | `githubLight`      |
 | visual-studio-dark | `visualStudioDark` |
 
-`themes` maps every name to its theme, and `defaultThemes` (from `rangbuzz`) is
-the default pair. Writing a custom theme is just an object:
+Each theme is a named export of its own. Writing a custom theme is just an
+object:
 
 ```js
 codeToHtml(code, {

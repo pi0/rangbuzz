@@ -1,9 +1,21 @@
 import { describe, expect, it } from "vitest";
 import { defaultThemes } from "../src/defaults.ts";
 import { codeToAnsi } from "../src/terminal.ts";
-import { themes } from "../src/themes/index.ts";
-import type { ShjToken } from "../src/types.ts";
+import * as bundled from "../src/themes/index.ts";
+import type { ShjTheme, ShjThemeName, ShjToken } from "../src/types.ts";
 import githubDark from "../src/themes/github-dark.ts";
+
+const THEMES: ShjTheme[] = Object.values(bundled);
+
+const NAMES: ShjThemeName[] = [
+  "atom-dark",
+  "dark",
+  "default",
+  "github-dark",
+  "github-dim",
+  "github-light",
+  "visual-studio-dark",
+];
 
 const TOKENS: ShjToken[] = [
   "deleted",
@@ -24,13 +36,17 @@ const TOKENS: ShjToken[] = [
 
 describe("themes", () => {
   it("exposes every theme as plain data", () => {
-    for (const [name, theme] of Object.entries(themes)) {
-      expect(theme.name).toBe(name);
+    for (const theme of THEMES) {
+      const name = theme.name;
       expect(theme.bg).toMatch(/^#[\da-f]{3,8}$/);
       expect(theme.fg).toMatch(/^#[\da-f]{3,8}$/);
       // every token type used by the languages is colored
       for (const token of TOKENS) expect(theme.tokens[token], `${name}.${token}`).toMatch(/^#/);
     }
+  });
+
+  it("names every bundled theme in `ShjThemeName`", () => {
+    expect(THEMES.map((theme) => theme.name).sort()).toEqual([...NAMES].sort());
   });
 });
 
