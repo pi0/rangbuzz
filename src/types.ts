@@ -38,11 +38,15 @@ export interface ShjThemePair {
   dark: ShjTheme;
 }
 
-export interface ShjOptions {
+/**
+ * The options every entry point shares: what to highlight, and with which
+ * grammar.
+ */
+export interface ShjTokenizeOptions {
   /**
    * The language of the code
    *
-   * Any name of {@link ShjOptions.languages} is accepted as well.
+   * Any name of {@link ShjTokenizeOptions.languages} is accepted as well.
    *
    * @default "plain"
    */
@@ -57,6 +61,19 @@ export interface ShjOptions {
    * codeToHtml(code, { lang: "mine", languages: { mine: myLanguage } });
    */
   languages?: ShjLanguages;
+}
+
+/**
+ * A single piece of tokenized code, as returned by `tokenize`
+ */
+export interface ShjTokenized {
+  /** The raw text of the token, unescaped */
+  text: string;
+  /** The type of the token, absent for text no rule matched */
+  type?: ShjToken;
+}
+
+export interface ShjOptions extends ShjTokenizeOptions {
   /**
    * The theme, inlined in the generated markup as `style` attributes
    *
@@ -83,22 +100,7 @@ export interface ShjOptions {
   lineNumbers?: boolean;
 }
 
-export interface ShjTerminalOptions {
-  /**
-   * The language of the code
-   *
-   * Any name of {@link ShjTerminalOptions.languages} is accepted as well.
-   *
-   * @default "plain"
-   */
-  lang?: ShjLanguage | (string & {});
-  /**
-   * Custom languages, keyed by language name
-   *
-   * They are looked up before the bundled ones, so a bundled language can be
-   * overridden, and are used for sub-languages too.
-   */
-  languages?: ShjLanguages;
+export interface ShjTerminalOptions extends ShjTokenizeOptions {
   /**
    * The theme, emitted as 24 bit escape sequences
    *

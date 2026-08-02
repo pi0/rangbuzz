@@ -1,6 +1,54 @@
 import { describe, expect, it } from "vitest";
-import { codeToHtml, detectLanguage, highlightText } from "../src/index.ts";
+import { codeToHtml, detectLanguage, highlightText, tokenize } from "../src/index.ts";
 import githubDark from "../src/themes/github-dark.ts";
+
+describe("tokenize", () => {
+  it("returns the tokens in source order", () => {
+    expect(tokenize("let a = 1", { lang: "js" })).toEqual([
+      { text: "let", type: "kwd" },
+      { text: " a " },
+      { text: "=", type: "oper" },
+      { text: " " },
+      { text: "1", type: "num" },
+    ]);
+  });
+
+  it("returns raw text, joining back to the input", () => {
+    const code = "const a = '<b>'; // hi";
+    expect(
+      tokenize(code, { lang: "js" })
+        .map((t) => t.text)
+        .join(""),
+    ).toBe(code);
+  });
+
+  it("emits no empty tokens", () => {
+    expect(tokenize("const a=1;", { lang: "js" }).every((t) => t.text)).toBe(true);
+    expect(tokenize("", { lang: "js" })).toEqual([]);
+  });
+
+  it("defaults to plain text", () => {
+    expect(tokenize("const a = 1")).toEqual([{ text: "const a = 1" }]);
+  });
+
+  it("accepts custom languages, also for sub-languages", () => {
+    const mine = [{ match: /a/g, type: "kwd" }];
+
+    expect(tokenize("a b", { lang: "mine", languages: { mine } })).toEqual([
+      { text: "a", type: "kwd" },
+      { text: " b" },
+    ]);
+    // a fenced markdown block resolves its language through the same registry
+    expect(tokenize("```mine\na\n```", { lang: "md", languages: { mine } })).toContainEqual({
+      text: "a",
+      type: "kwd",
+    });
+  });
+
+  it("falls back to a single untyped token for unknown languages", () => {
+    expect(tokenize("a b", { lang: "nope" as never })).toEqual([{ text: "a b" }]);
+  });
+});
 
 describe("highlightText", () => {
   it("inlines the two bundled themes as `light-dark()` colors", () => {

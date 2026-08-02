@@ -11,6 +11,8 @@ import type {
   ShjTheme,
   ShjThemePair,
   ShjToken,
+  ShjTokenized,
+  ShjTokenizeOptions,
 } from "./types.ts";
 
 import expandData from "./common.ts";
@@ -108,7 +110,11 @@ export const blockStyle = (theme: ShjTheme | ShjThemePair, mode: ShjDisplayMode)
 /**
  * Find the tokens in the given code and call the given callback
  *
- * @function tokenize
+ * This is the rule engine itself; {@link tokenize} is the public wrapper
+ * around it.
+ *
+ * @function eachToken
+ * @ignore
  * @param {string} src The code
  * @param {ShjLanguage|Array} lang The language of the code
  * @param {function(string, ShjToken=):void} token The callback function
@@ -118,7 +124,7 @@ export const blockStyle = (theme: ShjTheme | ShjThemePair, mode: ShjDisplayMode)
  * @param {ShjLanguages} [langs] Custom languages, looked up before the bundled
  * ones, for the code itself and for its sub-languages
  */
-export function tokenize(
+export function eachToken(
   src: string,
   lang: ShjLanguage | any,
   token: (str: string, token?: ShjToken) => void,
@@ -168,7 +174,7 @@ export function tokenize(
       token(src.slice(i, first.index), data.type);
       i = first.end;
       if (first.part.sub)
-        tokenize(
+        eachToken(
           first.match,
           typeof first.part.sub === "string"
             ? first.part.sub
@@ -184,6 +190,49 @@ export function tokenize(
   } catch {
     token(src);
   }
+}
+
+/**
+ * Split a string into its tokens, without rendering anything
+ *
+ * This is the layer every other function is built on: use it to render the
+ * tokens yourself, to feed another output format, or to inspect a grammar.
+ *
+ * The tokens are returned in source order and their `text` is raw — nothing is
+ * escaped — so concatenating them gives the input back. Text that no rule
+ * matched is returned as a token without a `type`, and an unknown language or
+ * a broken grammar yields the whole code as a single untyped token rather than
+ * throwing.
+ *
+ * @example
+ * tokenize('let a = 1', { lang: 'js' });
+ * // [
+ * //   { text: 'let', type: 'kwd' },
+ * //   { text: ' a = ' },
+ * //   { text: '1', type: 'num' }
+ * // ]
+ *
+ * @example
+ * tokenize(code, { lang: 'mine', languages: { mine } });
+ *
+ * @function tokenize
+ * @param {string} code The code
+ * @param {ShjTokenizeOptions} [opt={}] Customization options
+ * @returns {ShjTokenized[]} The tokens, in source order
+ */
+export function tokenize(code: string, opt: ShjTokenizeOptions = {}): ShjTokenized[] {
+  const tokens: ShjTokenized[] = [];
+  eachToken(
+    code,
+    opt.lang ?? "plain",
+    (text, type) => {
+      // the engine emits empty slices between adjacent matches
+      if (text) tokens.push(type ? { text, type } : { text });
+    },
+    opt.languages,
+  );
+
+  return tokens;
 }
 
 /**
@@ -207,7 +256,7 @@ export function highlightText(code: string, opt: ShjOptions = {}): string {
     badge = lang == "http" && mode == "oneline";
 
   let tmp = "";
-  tokenize(
+  eachToken(
     code,
     lang,
     (str, token) => {

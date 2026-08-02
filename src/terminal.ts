@@ -6,7 +6,7 @@
 import type { ShjTerminalOptions } from "./types.ts";
 
 import { defaultThemes } from "./defaults.ts";
-import { tokenize } from "./highlight.ts";
+import { eachToken } from "./highlight.ts";
 
 /**
  * Turn a `#rgb`, `#rgba`, `#rrggbb` or `#rrggbbaa` color into a 24 bit
@@ -41,7 +41,7 @@ export function codeToAnsi(code: string, opt: ShjTerminalOptions = {}): string {
     theme = "light" in given ? given.dark : given;
 
   let res = "";
-  tokenize(
+  eachToken(
     code,
     opt.lang ?? "plain",
     (str, token) => {

@@ -73,6 +73,37 @@ well, for a module with the rules as its default export.
 
 ---
 
+### Tokens
+
+`tokenize(code, opt)` is the layer everything else is built on. It returns the
+tokens themselves, so you can render them your own way — into JSX, into another
+markup, or into whatever your output format is:
+
+```js
+import { tokenize } from "rangbuzz";
+
+tokenize("let a = 1", { lang: "js" });
+// [
+//   { text: "let", type: "kwd" },
+//   { text: " a " },
+//   { text: "=", type: "oper" },
+//   { text: " " },
+//   { text: "1", type: "num" }
+// ]
+```
+
+It takes the same `lang` and `languages` options as the other entry points.
+Tokens come back in source order and their `text` is raw — nothing is escaped —
+so joining them gives the input back. Text that no rule matched has no `type`,
+and an unknown language or a broken grammar yields the whole code as a single
+untyped token rather than throwing.
+
+The `type` of a token is one of `deleted`, `err`, `var`, `section`, `kwd`,
+`class`, `cmnt`, `insert`, `type`, `func`, `bool`, `num`, `oper`, `str`, `esc`
+— the same keys a [theme](#themes-) assigns colors to.
+
+---
+
 ### Terminal
 
 ```js

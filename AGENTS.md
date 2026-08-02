@@ -4,7 +4,7 @@
 
 ## Layout
 
-- `src/highlight.ts` — the core: `tokenize()` (regex rule engine), `highlightText()` (tokens + line-number gutter), `codeToHtml()` (full block markup).
+- `src/highlight.ts` — the core: `eachToken()` (regex rule engine, callback based, internal), `tokenize()` (public wrapper returning `ShjTokenized[]`), `highlightText()` (tokens + line-number gutter), `codeToHtml()` (full block markup).
 - `src/terminal.ts` — `codeToAnsi()` / `printHighlight()`, same tokens as 24-bit escapes.
 - `src/detect.ts` — `detectLanguage()`, scored regex heuristics.
 - `src/languages/*.ts` — one file per grammar, default-exporting `ShjLanguageDefinition` (an array of `{match, type}` / `{match, sub}` / `{expand}` rules). `src/common.ts` holds the shared `expand` patterns.
@@ -19,7 +19,7 @@ Two build entries (`build.config.ts`): `.` → `src/index.ts`, `./themes` → `s
 ## Conventions
 
 - Everything is synchronous and side-effect free; every language is bundled, nothing is lazily loaded or globally registered. Custom languages arrive per call via the `languages` option and are looked up before bundled ones.
-- Unknown language / bad grammar degrades to plain text, never throws (`tokenize` swallows errors).
+- Unknown language / bad grammar degrades to plain text, never throws (`eachToken` swallows errors).
 - Bundle size matters: prefer terse code, no dependencies, no runtime CSS.
 - Imports use explicit `.ts` extensions.
 - Adding a language: new file in `src/languages/`, register in `src/languages.ts`, add a row to the README table (+ `src/detect.ts` if detectable).
