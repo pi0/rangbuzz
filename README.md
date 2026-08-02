@@ -4,7 +4,7 @@
 
 Lightweight JavaScript syntax highlighter, forked from [Speed Highlight JS](https://github.com/speed-highlight/core).
 
-- **Tiny** <small>(~8kB min+gzip, every language included)</small>
+- **Tiny** <small>(~14kB min+gzip with every language included, ~1.5kB for `codeToHtml` from core)</small>
 - **Fast** <small>(outperforms Prism and highlight.js)</small>
 - **Simple** <small>(zero dependencies, fully synchronous API, no stylesheet to load)</small>
 
@@ -154,7 +154,7 @@ tokenize(code, { lang: "js", languages: { js, jsdoc, js_template_literals, regex
 - `js` and `ts` reach for `jsdoc`, `js_template_literals`, `regex` and `todo`; `html` for `css`, `js` and `todo`; `php` for `html`, `jsdoc` and `todo`; `c` for `asm`, `make` for `bash`.
 - `md`, `http`, `vue`, `astro` and `svelte` pick their sub-language from the code itself (a fence language, an embedded block), so they highlight whatever you happened to pass and leave the rest plain.
 
-The core entry exports the same functions as the main one — `codeToHtml`, `highlightText`, `tokenize`, `codeToAnsi`, `printHighlight` and `detectLanguage` and behaves identically otherwise. Bundled together, the core, the five javascript grammars above and a theme come to ~3.5kB min+gzip.
+The core entry exports the same functions as the main one — `codeToHtml`, `highlightText`, `tokenize`, `codeToAnsi`, `printHighlight` and `detectLanguage` and behaves identically otherwise. Bundled together, the core, the five javascript grammars above and a theme come to ~2.5kB min+gzip — against ~14kB for the main entry, which carries every grammar.
 
 ## Languages supported 🌐
 

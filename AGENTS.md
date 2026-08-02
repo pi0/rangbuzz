@@ -16,9 +16,10 @@
 - `src/tokens.ts` — the token types: `TOKENS` (names, in order) plus one `const` per type holding its index. A grammar refers to a type by the constant, which the bundler inlines to a digit; `tokenName()` in `highlight.ts` maps it back, so nothing outside a grammar ever sees an index.
 - `src/types.ts` — all public types.
 - `test/` — vitest, asserts exact output strings.
+- `test/bundle.test.ts` — bundles `codeToHtml` out of `.` and `./core` with rolldown (a dev dependency) and checks the result against `BUNDLES`: its min+gzip `size`, and the `modules` of `src/` it is allowed to reach, which is what catches an import that leaks a theme or the registry into an entry that should not carry it. The size has 2% of headroom upward and none downward, so a shrink fails too: take the win by recording the size the failure prints. Whenever you do, re-measure the approximate figures in the README (two of them, the feature list and the core entry section) and the one below — they are prose, so nothing else keeps them honest.
 - `test/languages/` — one file per grammar, each an inline corpus handed to `testLanguage()` (`_harness.ts`) plus the differences from the judges it is allowed to have. `_judges.ts` holds the cross check against Prism (`refractor`) and Shiki, both dev dependencies.
 
-Four build entries (`build.config.ts`): `.` → `src/index.ts`, `./core` → `src/core.ts`, `./languages` → `src/languages.ts`, `./themes` → `src/themes/index.ts`. Everything else must stay reachable only from those, so themes stay tree-shakeable. Nothing `src/core.ts` reaches may import `src/languages.ts` or `src/defaults.ts` — that is the whole point of the entry, and it is what keeps it ~3kB min+gzip against ~14kB for the main one.
+Four build entries (`build.config.ts`): `.` → `src/index.ts`, `./core` → `src/core.ts`, `./languages` → `src/languages.ts`, `./themes` → `src/themes/index.ts`. Everything else must stay reachable only from those, so themes stay tree-shakeable. Nothing `src/core.ts` reaches may import `src/languages.ts` or `src/defaults.ts` — that is the whole point of the entry, and it is what keeps it ~3kB min+gzip for every export, ~1.5kB for `codeToHtml` alone, against ~13.5kB for the main one.
 
 ## Conventions
 
