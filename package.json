@@ -18,6 +18,7 @@
     "build": "obuild",
     "dev": "vitest dev",
     "fmt": "automd && oxlint . --fix && oxfmt .",
+    "language-stats": "node scripts/language-stats.ts",
     "lint": "oxlint . && oxfmt --check .",
     "prepack": "pnpm build",
     "release": "pnpm test && pnpm build && changelogen --release && npm publish && git push --follow-tags",

@@ -1,0 +1,157 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ps1 > tokens > booleans 1`] = `
+"«bool:$true» «oper:-and» «bool:$false»
+«bool:$null» «oper:-eq» «var:$value»"
+`;
+
+exports[`ps1 > tokens > classes 1`] = `
+"«kwd:class» «class:Widget» {
+    «type:[string]»«var:$Name»
+
+    «func:Widget»(«type:[string]»«var:$name») { «var:$this»«oper:.»Name «oper:=» «var:$name» }
+
+    «type:[string]» «func:Describe»() { «kwd:return» «str:"widget "» «oper:+» «var:$this»«oper:.»Name }
+}
+
+«kwd:enum» «class:Color» { Red«oper:;» Green }"
+`;
+
+exports[`ps1 > tokens > cmdlets 1`] = `
+"«func:Get-ChildItem» «kwd:-Path» C:\\Logs «kwd:-Filter» «oper:*.»log «kwd:-Recurse» «oper:|»
+    «func:Where-Object» { «var:$_»«oper:.»Length «oper:-gt» «num:1MB» } «oper:|»
+    «func:Sort-Object» «kwd:-Property» LastWriteTime «kwd:-Descending» «oper:|»
+    «func:Select-Object» «kwd:-First» «num:10» «oper:|» «func:Format-Table» Name«oper:,» Length"
+`;
+
+exports[`ps1 > tokens > comments 1`] = `
+"«cmnt:# a line comment»
+«func:Get-Date»  «cmnt:# »«err:TODO»«cmnt:: cache this»
+«var:$x» «oper:=» «num:1» «cmnt:# trailing»"
+`;
+
+exports[`ps1 > tokens > control flow 1`] = `
+"«kwd:if» («var:$x» «oper:-eq» «num:1») {
+    «func:Write-Output» «str:"one"»
+} «kwd:elseif» («var:$x» «oper:-in» «num:2»«oper:,» «num:3») {
+    «func:Write-Output» «str:"few"»
+} «kwd:else» {
+    «kwd:switch» «kwd:-Regex» («var:$x») {
+        «str:'^[0-9]+$'» { «kwd:break» }
+        «kwd:default» { «kwd:continue» }
+    }
+}"
+`;
+
+exports[`ps1 > tokens > functions 1`] = `
+"«kwd:function» «func:Get-Widget» {
+    [«func:CmdletBinding»()]
+    «kwd:param»(
+        [«func:Parameter»(Mandatory)]
+        «type:[string]»«var:$Name»«oper:,»
+
+        [«func:ValidateRange»(«num:1»«oper:,» «num:10»)]
+        «type:[int]»«var:$Count» «oper:=» «num:1»
+    )
+
+    «kwd:begin» { «var:$total» «oper:=» «num:0» }
+    «kwd:process» { «num:1»«oper:..»«var:$Count» «oper:|» «func:ForEach-Object» { «str:"»«var:$Name»«str:-»«var:$_»«str:"» } }
+    «kwd:end» { «var:$total» }
+}"
+`;
+
+exports[`ps1 > tokens > help 1`] = `
+"«cmnt:<#
+.»«kwd:SYNOPSIS»«cmnt:
+    Gets a widget.
+.»«kwd:DESCRIPTION»«cmnt:
+    A longer description.
+.»«kwd:PARAMETER»«cmnt: Name
+    The widget name.
+.»«kwd:EXAMPLE»«cmnt:
+    Get-Widget -Name box
+#>»
+«kwd:function» «func:Get-Widget» { }"
+`;
+
+exports[`ps1 > tokens > herestrings 1`] = `
+"«var:$report» «oper:=» «str:@"
+Host: »«var:$env:COMPUTERNAME»«str:
+Total: »«var:$($items.Count)»«str: items
+"@»
+
+«var:$raw» «oper:=» «str:@'
+Nothing is $expanded here
+'@»"
+`;
+
+exports[`ps1 > tokens > interpolation 1`] = `
+"«var:$name» «oper:=» «str:"world"»
+«func:Write-Host» «str:"Hello »«var:$name»«str:, you have »«var:$($items.Count)»«str: items"»
+«func:Write-Host» «str:"Temp is »«var:$env:TEMP»«str:"»"
+`;
+
+exports[`ps1 > tokens > loops 1`] = `
+"«kwd:foreach» («var:$file» «kwd:in» «var:$files») {
+    «func:Write-Verbose» «var:$file»«oper:.»Name
+}
+
+«kwd:for» («var:$i» «oper:=» «num:0»«oper:;» «var:$i» «oper:-lt» «num:10»«oper:;» «var:$i»«oper:++») { «var:$sum» «oper:+=» «var:$i» }
+
+«kwd:while» («bool:$true») { «kwd:break» }
+
+«kwd:do» { «var:$n»«oper:--» } «kwd:until» («var:$n» «oper:-le» «num:0»)"
+`;
+
+exports[`ps1 > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:.5» «num:1e-9» «num:0xFF» «num:1KB» «num:2MB» «num:10GB»"`;
+
+exports[`ps1 > tokens > operators 1`] = `
+"«var:$a» «oper:-eq» «var:$b»«oper:;» «var:$a» «oper:-ne» «var:$b»«oper:;» «var:$a» «oper:-like» «str:"a*"»«oper:;» «var:$a» «oper:-notmatch» «str:"b"»
+«var:$x» «oper:=» «num:5» «oper:-band» «num:3» «oper:-bor» «num:1» «oper:-shl» «num:2»
+«str:"{0:N2} MB"» «oper:-f» («var:$size» «oper:/» «num:1MB»)
+«var:$list» «oper:-join» «str:", "» «oper:-split» «str:","»
+«oper:-not» «var:$flag» «oper:-and» («var:$p» «oper:-or» «var:$q»)"
+`;
+
+exports[`ps1 > tokens > splatting 1`] = `
+"«var:$params» «oper:=» «oper:@»{
+    Path    «oper:=» «str:'C:\\Logs'»
+    Recurse «oper:=» «bool:$true»
+}
+«func:Get-ChildItem» «var:@params» «num:2»«oper:>&»«num:1» «oper:|» «func:Out-Null»"
+`;
+
+exports[`ps1 > tokens > strings 1`] = `
+"«str:"double quoted"»
+«str:'single quoted, $notExpanded'»
+«str:"escaped »«esc:\`"»«str: quote and »«esc:\`$»«str:literal"»
+«str:'it''s doubled'»"
+`;
+
+exports[`ps1 > tokens > try catch 1`] = `
+"«kwd:try» {
+    «var:$data» «oper:=» «func:Invoke-RestMethod» «kwd:-Uri» «var:$url» «kwd:-ErrorAction» Stop
+} «kwd:catch» «type:[System.Net.WebException]» {
+    «func:Write-Error» «str:"Request failed: »«var:$($_.Exception.Message)»«str:"»
+    «kwd:throw»
+} «kwd:finally» {
+    «func:Remove-Variable» «kwd:-Name» response «kwd:-ErrorAction» SilentlyContinue
+}"
+`;
+
+exports[`ps1 > tokens > types 1`] = `
+"«type:[string]»«var:$s» «oper:=» «type:[System.IO.Path]»«oper:::»«func:Combine»(«var:$env:TEMP»«oper:,» «str:"out.txt"»)
+«type:[int[]]»«var:$nums» «oper:=» «oper:@»(«num:1»«oper:,» «num:2»«oper:,» «num:3»)
+«type:[datetime]»«oper:::»Now«oper:.»«func:AddDays»(«oper:-»«num:1»)
+«var:$obj» «oper:-is» «type:[hashtable]»"
+`;
+
+exports[`ps1 > tokens > variables 1`] = `
+"«var:$script:count» «oper:=» «num:0»
+«var:$global:Config» «oper:=» «oper:@»{}
+«var:$env:PATH» «oper:=» «str:"C:\\bin"»
+«var:$args»«oper:.»Length
+«var:$PSVersionTable»«oper:.»PSVersion
+«var:$_» «oper:-eq» «var:$PSItem»
+«var:\${odd name}» «oper:=» «var:$?»"
+`;

@@ -1,0 +1,200 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`vue > tokens > comments 1`] = `
+"«oper:<»«var:template»«oper:>»
+  «cmnt:<!-- the header -->»
+  «cmnt:<!-- »«err:TODO»«cmnt:: extract a component -->»
+  «oper:<»«var:p»«oper:>»a «var:&amp;» b «var:&lt;» c«oper:</»«var:p»«oper:>»
+«oper:</»«var:template»«oper:>»"
+`;
+
+exports[`vue > tokens > conditionals 1`] = `
+"«oper:<»«var:template»«oper:>»
+  «oper:<»«var:section»«oper:>»
+    «oper:<»«var:p» «kwd:v-if»«oper:=»«str:"state === 'loading'"»«oper:>»Loading«oper:</»«var:p»«oper:>»
+    «oper:<»«var:p» «kwd:v-else-if»«oper:=»«str:"error"»«oper:>»«oper:{{» error«oper:.»message «oper:}}»«oper:</»«var:p»«oper:>»
+    «oper:<»«var:p» «kwd:v-else»«oper:>»Ready«oper:</»«var:p»«oper:>»
+    «oper:<»«var:aside» «kwd:v-show»«oper:=»«str:"open"» «kwd:v-cloak»«oper:>»Details«oper:</»«var:aside»«oper:>»
+    «oper:<»«var:span» «kwd:v-pre»«oper:>»literal«oper:</»«var:span»«oper:>»
+  «oper:</»«var:section»«oper:>»
+«oper:</»«var:template»«oper:>»"
+`;
+
+exports[`vue > tokens > custom blocks 1`] = `
+"«oper:<»«var:docs»«oper:>»
+Renders the counter.
+«oper:</»«var:docs»«oper:>»
+
+«oper:<»«var:i18n»«oper:>»
+en: hello
+«oper:</»«var:i18n»«oper:>»"
+`;
+
+exports[`vue > tokens > dynamic component 1`] = `
+"«oper:<»«var:template»«oper:>»
+  «oper:<»«var:component» «kwd::is»«oper:=»«str:"currentTab"» «kwd:v-bind»«oper:=»«str:"tabProps"» «kwd::[dynamicKey]»«oper:=»«str:"value"» «oper:/>»
+  «oper:<»«var:KeepAlive»«oper:>»
+    «oper:<»«var:component» «kwd::is»«oper:=»«str:"Async"» «oper:/>»
+  «oper:</»«var:KeepAlive»«oper:>»
+  «oper:<»«var:div» «kwd:v-html»«oper:=»«str:"rawHtml"»«oper:>»«oper:</»«var:div»«oper:>»
+  «oper:<»«var:div» «kwd:v-text»«oper:=»«str:"plain"»«oper:>»«oper:</»«var:div»«oper:>»
+  «oper:<»«var:div» «kwd:v-memo»«oper:=»«str:"[valueA, valueB]"»«oper:>»«oper:</»«var:div»«oper:>»
+  «oper:<»«var:div» «kwd:v-once»«oper:>»«oper:{{» neverUpdates «oper:}}»«oper:</»«var:div»«oper:>»
+«oper:</»«var:template»«oper:>»"
+`;
+
+exports[`vue > tokens > event handlers 1`] = `
+"«oper:<»«var:template»«oper:>»
+  «oper:<»«var:div»«oper:>»
+    «oper:<»«var:input» «kwd:@keyup.enter»«oper:=»«str:"submit"» «kwd:@keyup.esc»«oper:=»«str:"cancel"» «oper:/>»
+    «oper:<»«var:button» «kwd:v-on:click.prevent.stop»«oper:=»«str:"reset"»«oper:>»Reset«oper:</»«var:button»«oper:>»
+    «oper:<»«var:a» «kwd:v-on:[eventName]»«oper:=»«str:"handle"» «class:href»«oper:=»«str:"#"»«oper:>»go«oper:</»«var:a»«oper:>»
+    «oper:<»«var:video» «kwd:@ended»«oper:=»«str:"next"» «kwd:.muted»«oper:=»«str:"isMuted"»«oper:>»«oper:</»«var:video»«oper:>»
+  «oper:</»«var:div»«oper:>»
+«oper:</»«var:template»«oper:>»"
+`;
+
+exports[`vue > tokens > form bindings 1`] = `
+"«oper:<»«var:template»«oper:>»
+  «oper:<»«var:form» «kwd:@submit.prevent»«oper:=»«str:"save"»«oper:>»
+    «oper:<»«var:input» «kwd:v-model.trim»«oper:=»«str:"form.name"» «class:type»«oper:=»«str:"text"» «class:required» «oper:/>»
+    «oper:<»«var:input» «kwd:v-model.number»«oper:=»«str:"form.age"» «class:type»«oper:=»«str:"number"» «oper:/>»
+    «oper:<»«var:textarea» «kwd:v-model.lazy»«oper:=»«str:"form.bio"»«oper:>»«oper:</»«var:textarea»«oper:>»
+    «oper:<»«var:select» «kwd:v-model»«oper:=»«str:"form.role"»«oper:>»
+      «oper:<»«var:option» «kwd:v-for»«oper:=»«str:"r in roles"» «kwd::value»«oper:=»«str:"r"»«oper:>»«oper:{{» r «oper:}}»«oper:</»«var:option»«oper:>»
+    «oper:</»«var:select»«oper:>»
+    «oper:<»«var:button» «class:type»«oper:=»«str:"submit"» «kwd::disabled»«oper:=»«str:"busy"»«oper:>»Save«oper:</»«var:button»«oper:>»
+  «oper:</»«var:form»«oper:>»
+«oper:</»«var:template»«oper:>»"
+`;
+
+exports[`vue > tokens > interpolation 1`] = `
+"«oper:<»«var:template»«oper:>»
+  «oper:<»«var:p»«oper:>»«oper:{{» user«oper:.»name «oper:}}»«oper:</»«var:p»«oper:>»
+  «oper:<»«var:p»«oper:>»«oper:{{» «str:"Total: "» «oper:+» total«oper:.»«func:toFixed»(«num:2») «oper:}}»«oper:</»«var:p»«oper:>»
+  «oper:<»«var:p»«oper:>»«oper:{{» items«oper:.»length «oper:}}» left«oper:</»«var:p»«oper:>»
+  «oper:<»«var:p»«oper:>»«oper:{{» price «oper:*» «num:1.2» «oper:}}»«oper:</»«var:p»«oper:>»
+«oper:</»«var:template»«oper:>»"
+`;
+
+exports[`vue > tokens > list rendering 1`] = `
+"«oper:<»«var:template»«oper:>»
+  «oper:<»«var:ul» «class:class»«oper:=»«str:"list"»«oper:>»
+    «oper:<»«var:li» «kwd:v-for»«oper:=»«str:"(item, index) in items"» «kwd::key»«oper:=»«str:"item.id"» «kwd:@click»«oper:=»«str:"select(item)"»«oper:>»
+      «oper:<»«var:span» «kwd::class»«oper:=»«str:"{ active: item.id === current }"»«oper:>»«oper:{{» index «oper:}}». «oper:{{» item«oper:.»label «oper:}}»«oper:</»«var:span»«oper:>»
+    «oper:</»«var:li»«oper:>»
+  «oper:</»«var:ul»«oper:>»
+«oper:</»«var:template»«oper:>»"
+`;
+
+exports[`vue > tokens > script options api 1`] = `
+"«oper:<»«var:script»«oper:>»
+«cmnt:// the counter component
+»«kwd:export» «kwd:default» {
+  name«oper::» «str:"Counter"»«oper:,»
+  props«oper::» { start«oper::» { type«oper::» «class:Number»«oper:,» default«oper::» «num:0» } }«oper:,»
+  «func:data»() {
+    «kwd:return» { count«oper::» «kwd:this»«oper:.»start };
+  }«oper:,»
+  methods«oper::» {
+    «cmnt:/* bump the counter */»
+    «func:inc»(by «oper:=» «num:1») {
+      «kwd:this»«oper:.»count «oper:+=» by;
+    }«oper:,»
+  }«oper:,»
+};
+«oper:</»«var:script»«oper:>»"
+`;
+
+exports[`vue > tokens > script setup typescript 1`] = `
+"«oper:<»«var:script» «class:setup» «class:lang»«oper:=»«str:"ts"»«oper:>»
+«kwd:import» { onMounted«oper:,» ref } «kwd:from» «str:"vue"»;
+«kwd:import» «kwd:type» { «class:User» } «kwd:from» «str:"./types"»;
+
+«kwd:const» user «oper:=» ref«oper:<»«class:User» «oper:|» «num:undefined»«oper:>»();
+
+«cmnt:// load once mounted
+»«func:onMounted»(«kwd:async» () «kwd:=>» {
+  «kwd:const» res «oper:=» «kwd:await» «func:fetch»(«str:"/api/user"»);
+  user«oper:.»value «oper:=» («kwd:await» res«oper:.»«func:json»()) «kwd:as» «class:User»;
+});
+«oper:</»«var:script»«oper:>»"
+`;
+
+exports[`vue > tokens > single file component 1`] = `
+"«oper:<»«var:script» «class:setup» «class:lang»«oper:=»«str:"ts"»«oper:>»
+«kwd:import» { computed«oper:,» ref } «kwd:from» «str:"vue"»;
+
+«kwd:const» count «oper:=» «func:ref»(«num:0»);
+«kwd:const» doubled «oper:=» «func:computed»(() «kwd:=>» count«oper:.»value «oper:*» «num:2»);
+«oper:</»«var:script»«oper:>»
+
+«oper:<»«var:template»«oper:>»
+  «oper:<»«var:button» «class:class»«oper:=»«str:"counter"» «kwd:@click»«oper:=»«str:"count++"»«oper:>»«oper:{{» doubled «oper:}}»«oper:</»«var:button»«oper:>»
+«oper:</»«var:template»«oper:>»
+
+«oper:<»«var:style» «class:scoped»«oper:>»
+«var:.counter» {
+  «var:color»: «num:#09f»;
+}
+«oper:</»«var:style»«oper:>»"
+`;
+
+exports[`vue > tokens > slots 1`] = `
+"«oper:<»«var:template»«oper:>»
+  «oper:<»«var:BaseLayout»«oper:>»
+    «oper:<»«var:template» «kwd:#header»«oper:>»
+      «oper:<»«var:h1»«oper:>»Title«oper:</»«var:h1»«oper:>»
+    «oper:</»«var:template»«oper:>»
+    «oper:<»«var:template» «kwd:v-slot:default»«oper:=»«str:"slotProps"»«oper:>»
+      «oper:<»«var:p»«oper:>»«oper:{{» slotProps«oper:.»text «oper:}}»«oper:</»«var:p»«oper:>»
+    «oper:</»«var:template»«oper:>»
+    «oper:<»«var:template» «kwd:#footer»«oper:=»«str:"{ year }"»«oper:>»
+      «oper:<»«var:small»«oper:>»«var:&copy;» «oper:{{» year «oper:}}»«oper:</»«var:small»«oper:>»
+    «oper:</»«var:template»«oper:>»
+  «oper:</»«var:BaseLayout»«oper:>»
+«oper:</»«var:template»«oper:>»"
+`;
+
+exports[`vue > tokens > style scoped 1`] = `
+"«oper:<»«var:style» «class:scoped»«oper:>»
+«cmnt:/* the card */»
+«var:.card» {
+  «var:display»: «num:flex»;
+  «var:color»: «func:rgb»(«num:0» «num:0» «num:0» / «num:60»«var:%»);
+  «var:background»: «func:url»(«str:"bg.png"»);
+}
+
+«var:.card»«var:::after» {
+  «var:content»: «str:"*"»;
+}
+«oper:</»«var:style»«oper:>»"
+`;
+
+exports[`vue > tokens > style scss 1`] = `
+"«oper:<»«var:style» «class:lang»«oper:=»«str:"scss"» «class:scoped»«oper:>»
+«var:$brand»: «num:#09f»;
+
+«class:.card» {
+  «var:color»: «var:$brand»;
+
+  «class:&»«class::hover» {
+    «var:color»: «var:$brand»;
+  }
+
+  «class:.title» {
+    «var:font-weight»: «num:600»;
+  }
+}
+«oper:</»«var:style»«oper:>»"
+`;
+
+exports[`vue > tokens > template 1`] = `
+"«oper:<»«var:template»«oper:>»
+  «oper:<»«var:div» «class:id»«oper:=»«str:"app"» «class:class»«oper:=»«str:"wrap"» «class:data-role»«oper:=»«str:main»«oper:>»
+    «oper:<»«var:h1»«oper:>»«oper:{{» title «oper:}}»«oper:</»«var:h1»«oper:>»
+    «oper:<»«var:img» «class:src»«oper:=»«str:"/logo.svg"» «class:alt»«oper:=»«str:"Logo"» «oper:/>»
+    «oper:<»«var:hr»«oper:>»
+  «oper:</»«var:div»«oper:>»
+«oper:</»«var:template»«oper:>»"
+`;

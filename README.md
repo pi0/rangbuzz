@@ -144,42 +144,48 @@ the string instead of printing it.
 
 ## Languages supported 🌐
 
-| Name       | Class name          | Support                                             | Language detection |
-| ---------- | ------------------- | --------------------------------------------------- | ------------------ |
-| asm        | shj-lang-asm        |                                                     | ✅                 |
-| bash       | shj-lang-bash       |                                                     | ✅                 |
-| brainfuck  | shj-lang-bf         | increment, operator, print, comment                 | ❌                 |
-| c          | shj-lang-c          |                                                     | ✅                 |
-| css        | shj-lang-css        | comment, str, selector, units, function, ...        | ✅                 |
-| csv        | shj-lang-csv        | punctuation, ...                                    | ❌                 |
-| diff       | shj-lang-diff       |                                                     | ✅                 |
-| docker     | shj-lang-docker     |                                                     | ✅                 |
-| git        | shj-lang-git        | comment, insert, deleted, string, ...               | ❌                 |
-| go         | shj-lang-go         |                                                     | ✅                 |
-| html       | shj-lang-html       |                                                     | ✅                 |
-| http       | shj-lang-http       | keywork, string, punctuation, variable, version     | ✅                 |
-| ini        | shj-lang-ini        |                                                     | ❌                 |
-| java       | shj-lang-java       |                                                     | ✅                 |
-| javascipt  | shj-lang-js         | basic syntax, regex, jsdoc, json, template literals | ✅                 |
-| jsdoc      | shj-lang-jsdoc      |                                                     | ❌                 |
-| json       | shj-lang-json       | string, number, bool, ...                           | ❌                 |
-| leanpub-md | shj-lang-leanpub-md |                                                     | ❌                 |
-| log        | shj-lang-log        | number, string, comment, errors                     | ❌                 |
-| lua        | shj-lang-lua        |                                                     | ✅                 |
-| makefile   | shj-lang-make       |                                                     | ✅                 |
-| markdown   | shj-lang-md         |                                                     | ✅                 |
-| perl       | shj-lang-pl         |                                                     | ✅                 |
-| plain      | shj-lang-plain      |                                                     | ❌                 |
-| python     | shj-lang-py         |                                                     | ✅                 |
-| regex      | shj-lang-regex      | count, set, ...                                     | ❌                 |
-| rust       | shj-lang-rs         |                                                     | ✅                 |
-| sql        | shj-lang-sql        | number, string, function, ...                       | ✅                 |
-| todo       | shj-lang-todo       |                                                     | ❌                 |
-| toml       | shj-lang-toml       | comment, table, string, bool, variable              | ❌                 |
-| typescript | shj-lang-ts         | js syntax, ts keyword, types                        | ✅                 |
-| uri        | shj-lang-uri        |                                                     | ✅                 |
-| xml        | shj-lang-xml        |                                                     | ✅                 |
-| yaml       | shj-lang-yaml       | comment, numbers, variable, string, bool            | ❌                 |
+| Name             | Support                                                         | Language detection |
+| ---------------- | --------------------------------------------------------------- | ------------------ |
+| asm              | comment, string, number, section, instruction                   | ✅                 |
+| bash             | comment, string, variable, path, keyword, function, ...         | ✅                 |
+| c                | comment, string, number, include, keyword, class, ...           | ✅                 |
+| c# (cs)          | comment, string, keyword, class, ...                            | ✅                 |
+| c++ (cpp)        | raw strings, digit separators, ...                              | ✅                 |
+| css              | comment, str, selector, units, function, ...                    | ✅                 |
+| csv              | punctuation, ...                                                |                    |
+| dart             | comment, string, keyword, class, ...                            | ✅                 |
+| diff             | deleted, insert, keyword, section                               | ✅                 |
+| docker           | instruction keyword, ...bash syntax                             | ✅                 |
+| go               | comment, string, raw string, number, keyword, class, ...        | ✅                 |
+| html             | doctype, embedded css/js, tag, attribute, ...                   | ✅                 |
+| http             | keywork, string, punctuation, variable, version                 | ✅                 |
+| ini              | comment, section, key, value, ...                               |                    |
+| java             | comment, string, number, keyword, operator, class, ...          | ✅                 |
+| javascript (js)  | basic syntax, regex, jsdoc, json, template literals             | ✅                 |
+| jsdoc            | tag, type, param name                                           |                    |
+| json             | string, number, bool, ...                                       |                    |
+| kotlin (kt)      | comment, string, keyword, class, ...                            | ✅                 |
+| log              | number, string, comment, errors                                 |                    |
+| lua              | comment, string, keyword, boolean, number, function, ...        | ✅                 |
+| makefile (make)  | comment, variable, target, .PHONY, ...bash in recipes           | ✅                 |
+| markdown (md)    | heading, bold, italic, code fence, inline code, list, link, ... | ✅                 |
+| perl (pl)        | comment, string, number, keyword, operator, function            | ✅                 |
+| php              | comment, string, variable, keyword, ...                         | ✅                 |
+| plain            | double-quoted string                                            |                    |
+| powershell (ps1) | comment, string, variable, cmdlet, ...                          | ✅                 |
+| python (py)      | comment, string, f-string, keyword, boolean, class, ...         | ✅                 |
+| regex            | count, set, ...                                                 |                    |
+| ruby (rb)        | comment, string, symbol, keyword, ...                           | ✅                 |
+| rust (rs)        | comment, string, raw string, char, keyword, class, ...          | ✅                 |
+| scss             | comment, string, variable, nesting, ...                         | ✅                 |
+| sql              | number, string, function, ...                                   | ✅                 |
+| swift            | comment, string, keyword, class, ...                            | ✅                 |
+| toml             | comment, table, string, bool, variable                          |                    |
+| typescript (ts)  | js syntax, ts keyword, types                                    | ✅                 |
+| uri              | scheme, host, port, query, fragment, ...                        | ✅                 |
+| vue              | template, script, style, directives, ...                        | ✅                 |
+| xml              | comment, CDATA, tag, attribute, entity, ...                     | ✅                 |
+| yaml             | comment, numbers, variable, string, bool                        |                    |
 
 ## Themes 🌈
 

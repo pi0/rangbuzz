@@ -5,6 +5,12 @@ export default defineConfig({
     coverage: {
       include: ["src/**/*.ts"],
       exclude: ["src/types.ts"],
+      reporter: [
+        ["text", { skipEmpty: true }],
+        ["html", { skipEmpty: true }],
+        ["clover"],
+        ["json"],
+      ],
     },
   },
 });

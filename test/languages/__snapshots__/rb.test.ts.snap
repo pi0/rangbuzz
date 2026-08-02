@@ -1,0 +1,201 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`rb > tokens > blocks 1`] = `
+"items«oper:.»each «kwd:do» «oper:|»item«oper:|»
+  puts item«oper:.»name
+«kwd:end»
+
+totals «oper:=» items«oper:.»map { «oper:|»i«oper:|» i«oper:.»price «oper:*» i«oper:.»qty }
+active «oper:=» users«oper:.»select { «oper:|»u«oper:|» u«oper:.»«func:active?» }«oper:.»«func:map»(«oper:&»«type::name»)
+«num:3»«oper:.»times { «oper:|»n«oper:|» «kwd:yield» n }
+double «oper:=» «kwd:lambda» { «oper:|»x«oper:|» x «oper:*» «num:2» }
+bump «oper:=» «kwd:proc» { «oper:|»y«oper:|» y «oper:+» «num:1» }"
+`;
+
+exports[`rb > tokens > booleans 1`] = `
+"enabled «oper:=» «bool:true»
+disabled «oper:=» «bool:false»
+missing «oper:=» «bool:nil»
+puts «str:"on"» «kwd:if» enabled «oper:&&» «oper:!»disabled
+puts missing«oper:.»«func:nil?» «oper:?» «str:"none"» «oper::» missing"
+`;
+
+exports[`rb > tokens > case when 1`] = `
+"«kwd:case» status
+«kwd:when» «type::pending»«oper:,» «type::queued» «kwd:then» «str:"waiting"»
+«kwd:when» «str:/\\Aerr/» «kwd:then» «str:"error"»
+«kwd:when» «num:1»«oper:..»«num:5»
+  «str:"small"»
+«kwd:else»
+  «str:"unknown"»
+«kwd:end»"
+`;
+
+exports[`rb > tokens > class definition 1`] = `
+"«kwd:module» «class:Billing»
+  «kwd:class» «class:Invoice» «oper:<» «class:Record»
+    «kwd:include» «class:Comparable»
+
+    «class:MAX_ITEMS» «oper:=» «num:100»
+
+    «kwd:attr_accessor» «type::customer»«oper:,» «type::total»
+    «kwd:attr_reader» «type::id»
+
+    «kwd:def» «func:initialize»(id«oper:,» «type:customer»«oper::,» «type:total»«oper::» «num:0.0»)
+      «var:@id» «oper:=» id
+      «var:@customer» «oper:=» customer
+      «var:@total» «oper:=» total
+      «var:@@count» «oper:+=» «num:1»
+    «kwd:end»
+
+    «kwd:def» «kwd:self»«oper:.»«func:build»(row)
+      «kwd:new»(row[«type::id»]«oper:,» «type:customer»«oper::» row[«type::customer»])
+    «kwd:end»
+
+    «kwd:def» «func:paid?»
+      «oper:!»«var:@total»«oper:.»«func:zero?»
+    «kwd:end»
+
+    «kwd:def» «func:total=»(value)
+      «var:@total» «oper:=» value«oper:.»to_f
+    «kwd:end»
+
+    «kwd:def» «func:to_s»
+      «str:"Invoice »«var:#{@id}»«str: for »«var:#{@customer}»«str:"»
+    «kwd:end»
+  «kwd:end»
+«kwd:end»"
+`;
+
+exports[`rb > tokens > comments 1`] = `
+"«cmnt:# frozen_string_literal: true»
+«cmnt:=begin
+A block comment,
+spanning lines.
+=end»
+value «oper:=» «num:1» «cmnt:# »«err:TODO»«cmnt:: rename»"
+`;
+
+exports[`rb > tokens > control flow 1`] = `
+"«kwd:while» queue«oper:.»«func:any?»
+  job «oper:=» queue«oper:.»shift
+  «kwd:next» «kwd:if» job«oper:.»«func:nil?»
+  «kwd:break» «kwd:unless» job«oper:.»«func:ready?»
+«kwd:end»
+
+«kwd:until» done
+  done «oper:=» step
+«kwd:end»
+
+«kwd:for» i «kwd:in» «num:0»«oper:...»«num:10» «kwd:do»
+  «kwd:redo» «kwd:if» i«oper:.»«func:zero?»
+«kwd:end»"
+`;
+
+exports[`rb > tokens > exceptions 1`] = `
+"«kwd:begin»
+  «kwd:raise» «class:ArgumentError»«oper:,» «str:"bad »«var:#{value}»«str:"» «kwd:unless» «func:valid?»
+«kwd:rescue» «class:ArgumentError» «oper:=>» e
+  warn e«oper:.»message
+  «kwd:retry» «kwd:if» attempts «oper:<» «num:3»
+«kwd:rescue» «class:StandardError»
+  «kwd:raise»
+«kwd:ensure»
+  file«oper:&.»close
+«kwd:end»"
+`;
+
+exports[`rb > tokens > heredocs 1`] = `
+"sql «oper:=» «str:<<~SQL
+  SELECT *
+  FROM invoices
+  WHERE id = »«var:#{id}»«str:
+SQL»
+
+usage «oper:=» «str:<<-HELP
+  usage: tool [options]
+  HELP»
+
+banner «oper:=» «str:<<BANNER
+plain heredoc, terminator at column 0
+BANNER»
+
+raw «oper:=» «str:<<~'RAW'
+  literal #{not_interpolated}
+RAW»"
+`;
+
+exports[`rb > tokens > interpolation 1`] = `
+"puts «str:"Hello »«var:#{name}»«str:, you owe »«var:#{total - paid}»«str: for »«var:#{h[:plan]}»«str:"»
+puts «str:"nested »«var:#{items.map { |i| i.id }.join(", ")}»«str:"»"
+`;
+
+exports[`rb > tokens > modules and requires 1`] = `
+"«kwd:require» «str:"json"»
+«kwd:require_relative» «str:"../lib/store"»
+
+«kwd:module» «class:Util»
+  «kwd:module_function»
+
+  «kwd:def» «func:dump»(obj)
+    «class:JSON»«oper:.»«func:generate»(obj)
+  «kwd:end»
+
+  «kwd:alias_method» «type::to_json»«oper:,» «type::dump»
+«kwd:end»
+
+puts «kwd:defined?»(«class:Util») «oper:?» «kwd:__method__» «oper::» «str:"none"»"
+`;
+
+exports[`rb > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:1_000_000» «num:0xff» «num:0b1010» «num:0o17» «num:1e-9» «num:1.5e3» «num:2i» «num:3r»"`;
+
+exports[`rb > tokens > operators 1`] = `
+"avg «oper:=» total «oper:/» count
+ratio «oper:=» (a «oper:+» b) «oper:/» «num:2.0»
+n «oper:=» «num:10» «oper:%» «num:3»
+order «oper:=» x «oper:<=>» y
+flag «oper:=» a «oper:&&» b «oper:||» «oper:!»c
+square «oper:=» base «oper:**» «num:2»
+list «oper:=» [«num:1»«oper:,» «num:2»«oper:,» «num:3»] «oper:<<» «num:4»
+name «oper:=» person«oper:&.»name
+found «oper:=» text «oper:=~» «str:/\\d+/»
+clean «oper:=» text«oper:.»gsub «str:/\\s+/»«oper:,» «str:" "»
+assert_match «oper:/»error«oper:/,» output
+letter «oper:=» «esc:?a»
+breaker «oper:=» «esc:?\\n»
+scoped «oper:=» «class:Foo»«oper:::»«class:Bar»«oper:::»«class:BAUD»
+padded «oper:=» «func:format»(«str:"%.2f"»«oper:,» total)"
+`;
+
+exports[`rb > tokens > percent literals 1`] = `
+"«class:WORDS» «oper:=» «str:%w[alpha beta gamma]»
+«class:KEYS» «oper:=» «str:%i[id name email]»
+raw «oper:=» «str:%q(no »«var:#{interp}»«str: here)»
+cooked «oper:=» «str:%Q{sum is »«var:#{a + b}»«str:}»
+bare «oper:=» «str:%(plain »«var:#{x}»«str:)»
+pattern «oper:=» «str:%r{»«esc:\\A»«esc:\\d»«str:{3}-»«esc:\\d»«str:{4}»«esc:\\z»«str:}i»
+shell «oper:=» «str:%x(ls -la)»"
+`;
+
+exports[`rb > tokens > strings 1`] = `
+"name «oper:=» «str:"double"»
+other «oper:=» «str:'single, no #{interp}'»
+escaped «oper:=» «str:"she said »«esc:\\"»«str:hi»«esc:\\"»«esc:\\n»«str:"»
+quote «oper:=» «str:'it\\'s fine'»"
+`;
+
+exports[`rb > tokens > symbols and hashes 1`] = `
+"config «oper:=» { «type:host»«oper::» «str:"localhost"»«oper:,» «type:port»«oper::» «num:8080»«oper:,» «type:tags»«oper::» «str:%i[a b]» }
+legacy «oper:=» { «type::name» «oper:=>» «str:"old"»«oper:,» «str:"str"» «oper:=>» «num:1» }
+puts config[«type::host»]
+puts config«oper:.»«func:fetch»(«type::port»«oper:,» «num:80»)
+«func:send»(«type::update!»«oper:,» id)"
+`;
+
+exports[`rb > tokens > variables 1`] = `
+"«var:$stdout»«oper:.»puts «str:"boot"»
+«var:@config» «oper:=» {}
+«var:@@registry» «oper:||=» []
+«var:$LOAD_PATH»«oper:.»«func:unshift»(dir)
+puts «var:$0»"
+`;

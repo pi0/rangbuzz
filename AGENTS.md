@@ -23,10 +23,10 @@ Two build entries (`build.config.ts`): `.` → `src/index.ts`, `./themes` → `s
 - Unknown language / bad grammar degrades to plain text, never throws (`eachToken` swallows errors).
 - Bundle size matters: prefer terse code, no dependencies, no runtime CSS.
 - Imports use explicit `.ts` extensions.
-- Adding a language: new file in `src/languages/`, register in `src/languages.ts`, add a row to the README table (+ `src/detect.ts` if detectable), and add `test/languages/<lang>.test.ts` — the registry test fails without it. Map it to a Prism and a Shiki grammar in `test/languages/_judges.ts` if either has one.
+- Adding a language: new file in `src/languages/`, register in `src/languages.ts`, add a row to the README table (+ `src/detect.ts` if detectable), and add `test/languages/<lang>.test.ts` — the registry test fails without it. Map it to a Prism and a Shiki grammar in `test/languages/_judges.ts` if either has one, and to its Linguist name (or `[]`) in `scripts/language-stats.ts` — that map is keyed by `ShjLanguage`, so a missing entry fails typecheck.
 - A grammar is only asserted against the judges where both of them agree with each other, and only on comments and strings. Anything else the corpus turns up has to be declared as a divergence with a reason, so no difference from Prism and Shiki stays unexplained; the ones marked `bug: true` are known defects, not decisions.
 - Adding a theme: new file in `src/themes/`, export from `src/themes/index.ts`, add to `ShjThemeName` and the README table.
 
 ## Commands
 
-`pnpm test` (lint + typecheck + vitest w/ coverage) · `pnpm dev` (vitest watch) · `pnpm build` (obuild) · `pnpm fmt` (automd + oxlint --fix + oxfmt).
+`pnpm test` (lint + typecheck + vitest w/ coverage) · `pnpm dev` (vitest watch) · `pnpm build` (obuild) · `pnpm fmt` (automd + oxlint --fix + oxfmt) · `pnpm language-stats` (rank the bundled grammars against GitHub usage; needs network).

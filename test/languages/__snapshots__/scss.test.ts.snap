@@ -1,0 +1,217 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`scss > tokens > at rules 1`] = `
+"«kwd:@import» «str:"reset"»;
+
+«kwd:@media» «class:screen» «kwd:and» («var:min-width»: «num:40»«var:em») {
+  «class:.a» { «var:display»: «num:none»; }
+}
+
+«kwd:@supports» («var:display»: «num:grid») {
+  «class:.grid» { «var:display»: «num:grid»; }
+}
+
+«kwd:@keyframes» «class:spin» {
+  «kwd:from» { «var:transform»: «func:rotate»(«num:0»«var:deg»); }
+  «kwd:to» { «var:transform»: «func:rotate»(«num:360»«var:deg»); }
+}
+
+«kwd:@font-face» {
+  «var:font-family»: «str:"Inter"»;
+  «var:src»: «func:url»(«str:"inter.woff2"») «func:format»(«str:"woff2"»);
+}
+
+«class::root» {
+  «var:--main»: «num:#fff»;
+}
+
+«class:.a» { «var:color»: «func:var»(«var:--main»); }"
+`;
+
+exports[`scss > tokens > comments 1`] = `
+"«cmnt:// a line comment
+»«cmnt:/* a block comment
+   over two lines */»
+
+«cmnt:// »«err:TODO»«cmnt:: drop the fallback
+»«class:.a» {
+  «var:color»: «num:red»; «cmnt:// trailing
+»}"
+`;
+
+exports[`scss > tokens > conditionals 1`] = `
+"«kwd:@mixin» «func:theme»(«var:$mode») {
+  «kwd:@if» «var:$mode» «oper:==» «num:dark» {
+    «var:background»: «num:#111»;
+  } «kwd:@else» «kwd:if» «var:$mode» «oper:==» «num:light» {
+    «var:background»: «num:#fff»;
+  } «kwd:@else» {
+    «var:background»: «num:transparent»;
+  }
+}
+
+«kwd:@at-root» «class:.a» { «var:color»: «num:red»; }
+
+«kwd:@debug» «str:"mode is #{$mode}"»;
+«kwd:@warn» «str:"deprecated"»;
+«kwd:@error» «str:"unreachable"»;"
+`;
+
+exports[`scss > tokens > functions 1`] = `
+"«kwd:@use» «str:"sass:math"»;
+
+«kwd:@function» «func:rem»(«var:$px», «var:$base»: «num:16»«var:px») {
+  «kwd:@return» «class:math».«func:div»(«var:$px», «var:$base») «oper:*» «num:1»«var:rem»;
+}
+
+«class:.a» {
+  «var:width»: «func:calc»(«num:100»«var:%» «oper:-» «oper:#{»«var:$gutter»«oper:}»);
+  «var:color»: «func:rgba»(«num:0», «num:0», «num:0», «num:0.5»);
+  «var:margin»: «func:rem»(«num:24»«var:px») «num:auto»;
+  «var:transform»: «func:translate»(«num:1»«var:px», «num:2»«var:px») «func:rotate»(«num:45»«var:deg»);
+}"
+`;
+
+exports[`scss > tokens > interpolation 1`] = `
+"«var:$prop»: «num:margin»;
+«var:$side»: «num:top»;
+
+«class:.box-»«oper:#{»«var:$side»«oper:}» {
+  «oper:#{»«var:$prop»«oper:}»«var:-»«oper:#{»«var:$side»«oper:}»: «num:10»«var:px»;
+  «var:border-»«oper:#{»«var:$side»«oper:}»: «num:1»«var:px» «num:solid»;
+}
+
+«kwd:@media» («var:min-width»: «oper:#{»«var:$sm»«oper:}») {
+  «class:.a» { «var:display»: «num:none»; }
+}"
+`;
+
+exports[`scss > tokens > loops 1`] = `
+"«kwd:@each» «var:$name», «var:$color» «kwd:in» «var:$palette» {
+  «class:.text-»«oper:#{»«var:$name»«oper:}» {
+    «var:color»: «var:$color»;
+  }
+}
+
+«kwd:@for» «var:$i» «kwd:from» «num:1» «kwd:through» «num:3» {
+  «class:.mt-»«oper:#{»«var:$i»«oper:}» { «var:margin-top»: «var:$i» «oper:*» «num:4»«var:px»; }
+}
+
+«kwd:@while» «var:$i» «oper:>» «num:0» {
+  «var:$i»: «var:$i» «oper:-» «num:1»;
+}"
+`;
+
+exports[`scss > tokens > maps 1`] = `
+"«var:$breakpoints»: (
+  «str:"sm"»: «num:576»«var:px»,
+  «str:"md"»: «num:768»«var:px»,
+  «str:"lg"»: «num:992»«var:px»
+);
+
+«var:$theme»: («var:primary»: «num:#333», «var:secondary»: «num:#666»);
+
+«class:.a» {
+  «var:width»: «class:map».«func:get»(«var:$breakpoints», «str:"md"»);
+}"
+`;
+
+exports[`scss > tokens > mixins 1`] = `
+"«kwd:@mixin» «func:flex»(«var:$dir»: «num:row», «var:$gap»: «num:0») {
+  «var:display»: «num:flex»;
+  «var:flex-direction»: «var:$dir»;
+  «var:gap»: «var:$gap»;
+  «kwd:@content»;
+}
+
+«class:.row» {
+  «kwd:@include» «func:flex»(«var:$dir»: «num:column») {
+    «var:align-items»: «num:center»;
+  }
+}"
+`;
+
+exports[`scss > tokens > modules 1`] = `
+"«kwd:@use» «str:"config"» «kwd:as» «num:cfg»;
+«kwd:@use» «str:"sass:map"» «kwd:with» («var:$base»: «num:12»«var:px»);
+«kwd:@forward» «str:"buttons"» «kwd:show» «class:%btn-base», «var:$btn-gap»;
+
+«class:.a» {
+  «var:padding»: «class:cfg».«var:$gutter»;
+}"
+`;
+
+exports[`scss > tokens > nesting 1`] = `
+"«class:.card» {
+  «var:padding»: «num:1»«var:rem»;
+
+  «class:&__title» {
+    «var:font-size»: «num:1.25»«var:rem»;
+  }
+
+  «class:&--wide» { «var:width»: «num:100»«var:%»; }
+
+  «class:&»«class::hover»,
+  «class:&»«class::focus-visible» {
+    «var:box-shadow»: «num:0» «num:0» «num:0» «num:2»«var:px» currentColor;
+  }
+
+  «class:h2» «oper:+» «class:p» { «var:margin-top»: «num:0»; }
+}"
+`;
+
+exports[`scss > tokens > placeholders 1`] = `
+"«class:%btn-base» {
+  «var:border»: «num:0»;
+  «var:cursor»: «num:pointer»;
+}
+
+«class:.btn-primary» {
+  «kwd:@extend» «class:%btn-base»;
+  «var:background»: «var:$primary»;
+}"
+`;
+
+exports[`scss > tokens > selectors 1`] = `
+"«oper:*»,
+«oper:*»«class:::before» {
+  «var:box-sizing»: «num:border-box»;
+}
+
+«class:ul» «oper:>» «class:li»«class::not»(«class:.active») «oper:~» «class:li» {
+  «var:color»: «num:inherit»;
+}
+
+«class:input»[«var:type»«oper:=»«str:"checkbox"»]«class::checked» «oper:+» «class:label» {
+  «var:font-weight»: «num:700»;
+}
+
+«class:#main» «class:.nav» «class:a»«class::hover» {
+  «var:text-decoration»: «num:underline» «kwd:!important»;
+}"
+`;
+
+exports[`scss > tokens > strings 1`] = `
+"«kwd:@use» «str:"sass:math"»;
+
+«var:$font»: «str:"Helvetica Neue"», Arial, «num:sans-serif»;
+«var:$sep»: «str:'/'»;
+
+«class:.a»«class:::after» {
+  «var:content»: «str:"\\201C"»;
+  «var:background»: «func:url»(«str:"img/bg.png"») «num:no-repeat»;
+}"
+`;
+
+exports[`scss > tokens > variables 1`] = `
+"«var:$primary»: «num:#3498db» «kwd:!default»;
+«var:$radius»: «num:4»«var:px»;
+«var:$shadow»: «num:0» «num:2»«var:px» «num:4»«var:px» «func:rgba»(«num:0», «num:0», «num:0», «num:0.25»);
+«var:$enabled»: «bool:true» «kwd:!global»;
+«var:$fallback»: «bool:null»;
+
+«class:.a» {
+  «var:border-radius»: «var:$radius»;
+  «var:box-shadow»: «var:$shadow»;
+}"
+`;

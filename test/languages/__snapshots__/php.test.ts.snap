@@ -1,0 +1,221 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`php > tokens > attributes 1`] = `
+"«kwd:<?php»
+«kwd:#[»«class:Attribute»(«class:Attribute»«oper:::»«class:TARGET_CLASS»)]
+«kwd:final» «kwd:class» «class:Route»
+{
+    «kwd:#[»«class:Deprecated»(«var:reason»«oper::» «str:'use path instead'»)]
+    «kwd:public» «type:string» «var:$uri» «oper:=» «str:'/'»;
+
+    «kwd:#[»«class:Route»(«str:'/users/{id}'»«oper:,» «var:methods»«oper::» [«str:'GET'»«oper:,» «str:'HEAD'»])]
+    «kwd:public» «kwd:function» «func:show»(«type:int» «var:$id»)«oper::» «class:Response»
+    {
+        «kwd:return» «kwd:new» «class:Response»(«var:$id»);
+    }
+}"
+`;
+
+exports[`php > tokens > bootstrap 1`] = `
+"«kwd:<?php»
+«kwd:declare»(strict_types«oper:=»«num:1»);
+
+«kwd:require_once» «kwd:__DIR__» «oper:.» «str:'/vendor/autoload.php'»;
+
+«kwd:use» «class:App»«oper:\\»«class:Kernel»;
+«kwd:use» «kwd:function» «class:App»«oper:\\»«class:Support»«oper:\\»env;
+
+«kwd:const» «class:VERSION» «oper:=» «str:'1.4.0'»;
+
+«kwd:if» («oper:!»«func:defined»(«str:'APP_ROOT'»)) {
+    «func:define»(«str:'APP_ROOT'»«oper:,» «func:dirname»(«kwd:__DIR__»));
+}
+
+«var:$kernel» «oper:=» «kwd:new» «class:Kernel»(«func:env»(«str:'APP_ENV'»«oper:,» «str:'production'»));
+«kwd:exit»(«var:$kernel»«oper:->»«func:run»() «oper:?» «num:0» «oper::» «num:1»);"
+`;
+
+exports[`php > tokens > classes 1`] = `
+"«kwd:<?php»
+«kwd:namespace» «class:App»«oper:\\»«class:Models»;
+
+«kwd:use» «class:App»«oper:\\»«class:Contracts»«oper:\\»«class:Arrayable»;
+«kwd:use» «class:App»«oper:\\»«class:Support»«oper:\\»«class:Str»;
+
+«kwd:final» «kwd:class» «class:User» «kwd:extends» «class:Model» «kwd:implements» «class:Arrayable»«oper:,» «class:JsonSerializable»
+{
+    «kwd:public» «kwd:const» «class:ROLE_ADMIN» «oper:=» «str:'admin'»;
+
+    «kwd:protected» «kwd:static» «type:int» «var:$count» «oper:=» «num:0»;
+
+    «kwd:public» «kwd:function» «func:__construct»(
+        «kwd:private» «kwd:readonly» «type:string» «var:$name»«oper:,»
+        «kwd:private» «oper:?»«type:string» «var:$email» «oper:=» «bool:null»«oper:,»
+        «kwd:protected» «kwd:array» «var:$roles» «oper:=» []«oper:,»
+    ) {
+        «kwd:self»«oper:::»«var:$count»«oper:++»;
+    }
+
+    «kwd:public» «kwd:function» «func:getName»()«oper::» «type:string»
+    {
+        «kwd:return» «class:Str»«oper:::»«func:title»(«var:$this»«oper:->»«var:name»);
+    }
+}"
+`;
+
+exports[`php > tokens > comments 1`] = `
+"«kwd:<?php»
+«cmnt:// a single line comment
+»«cmnt:# the shell flavoured one, still a comment
+»«cmnt:/* a block comment
+   spanning two lines */»
+«var:$debug» «oper:=» «bool:false»; «cmnt:// »«err:TODO»«cmnt:: read this from the environment»"
+`;
+
+exports[`php > tokens > control flow 1`] = `
+"«kwd:<?php»
+«kwd:foreach» («var:$rows» «kwd:as» «var:$index» «oper:=>» «var:$row») {
+    «kwd:if» («var:$index» «oper:%» «num:2» «oper:===» «num:0») {
+        «kwd:continue»;
+    } «kwd:elseif» («kwd:empty»(«var:$row»)) {
+        «kwd:break»;
+    }
+
+    «kwd:try» {
+        «var:$result» «oper:=» «var:$handler»«oper:->»«func:process»(«var:$row»);
+    } «kwd:catch» («class:RuntimeException» «oper:|» «class:LogicException» «var:$e») {
+        «func:error_log»(«var:$e»«oper:->»«func:getMessage»());
+        «kwd:throw» «var:$e»;
+    } «kwd:finally» {
+        «kwd:unset»(«var:$row»);
+    }
+}
+
+«kwd:switch» («bool:true») {
+    «kwd:case» «var:$index» «oper:>» «num:1»«oper::»
+        «kwd:echo» «str:'big'»;
+        «kwd:break»;
+    «kwd:default»«oper::»
+        «kwd:echo» «str:'small'»;
+}"
+`;
+
+exports[`php > tokens > docblock 1`] = `
+"«kwd:<?php»
+«cmnt:/**
+ * Find a user by its identifier.
+ *
+ * »«kwd:@param»«cmnt: int $id The primary key
+ * »«kwd:@param»«cmnt: bool $fresh Bypass the cache
+ * »«kwd:@return»«cmnt: User|null The user, or null when unknown
+ * »«kwd:@throws»«cmnt: StorageException
+ */»
+«kwd:public» «kwd:function» «func:find»(«type:int» «var:$id»«oper:,» «type:bool» «var:$fresh» «oper:=» «bool:false»)«oper::» «oper:?»«class:User»
+{
+    «kwd:return» «var:$fresh» «oper:?» «var:$this»«oper:->»«func:reload»(«var:$id») «oper::» «var:$this»«oper:->»«var:cache»[«var:$id»] «oper:??» «bool:null»;
+}"
+`;
+
+exports[`php > tokens > functions 1`] = `
+"«kwd:<?php»
+«kwd:function» «func:slugify»(«type:string» «var:$value»«oper:,» «type:string» «var:$separator» «oper:=» «str:'-'»)«oper::» «type:string»
+{
+    «kwd:return» «func:trim»(«func:preg_replace»(«str:'/[^a-z0-9]+/i'»«oper:,» «var:$separator»«oper:,» «var:$value»)«oper:,» «var:$separator»);
+}
+
+«var:$sum» «oper:=» «kwd:fn»(«type:int» «oper:...»«var:$parts»)«oper::» «type:int» «oper:=>» «func:array_sum»(«var:$parts»);
+
+«var:$slug» «oper:=» «func:slugify»(«var:value»«oper::» «var:$title»«oper:,» «var:separator»«oper::» «str:'_'»);
+
+«kwd:function» «func:counter»()«oper::» «class:Generator»
+{
+    «kwd:yield» «kwd:from» «func:range»(«num:1»«oper:,» «num:3»);
+}
+
+«kwd:echo» «func:sprintf»(«str:'%s in %s'»«oper:,» «kwd:__FUNCTION__»«oper:,» «kwd:__FILE__»)«oper:,» «class:PHP_EOL»;"
+`;
+
+exports[`php > tokens > heredoc 1`] = `
+"«kwd:<?php»
+«var:$body» «oper:=» «str:<<<HTML
+<p>Hello, »«var:{$user->name}»«str:!</p>
+Total: »«var:$total»«esc:\\n»«str:
+HTML»;
+
+«var:$sql» «oper:=» «str:<<<'SQL'
+SELECT * FROM users WHERE name = '$name'
+SQL»;
+
+«var:$listing» «oper:=» «str:\`ls -l /tmp\`»;"
+`;
+
+exports[`php > tokens > interfaces and enums 1`] = `
+"«kwd:<?php»
+«kwd:interface» «class:Repository»
+{
+    «kwd:public» «kwd:function» «func:all»()«oper::» «type:iterable»;
+}
+
+«kwd:trait» «class:Timestamps»
+{
+    «kwd:public» «oper:?»«class:DateTimeImmutable» «var:$createdAt» «oper:=» «bool:null»;
+}
+
+«kwd:enum» «class:Status»«oper::» «type:string»
+{
+    «kwd:case» «class:Draft» «oper:=» «str:'draft'»;
+    «kwd:case» «class:Published» «oper:=» «str:'published'»;
+
+    «kwd:public» «kwd:function» «func:label»()«oper::» «type:string»
+    {
+        «kwd:return» «kwd:match» («var:$this») {
+            «kwd:self»«oper:::»«class:Draft» «oper:=>» «str:'not published yet'»«oper:,»
+            «kwd:self»«oper:::»«class:Published» «oper:=>» «str:'live'»«oper:,»
+        };
+    }
+}"
+`;
+
+exports[`php > tokens > markup 1`] = `
+"«kwd:<?php» «var:$items» «oper:=» [«str:'a'»«oper:,» «str:'b'»]; «kwd:?>»
+«oper:<»«var:ul» «class:class»«oper:=»«str:"list"»«oper:>»
+«kwd:<?php» «kwd:foreach» («var:$items» «kwd:as» «var:$item»)«oper::» «kwd:?>»
+  «oper:<»«var:li»«oper:>»«kwd:<?=» «func:htmlspecialchars»(«var:$item») «kwd:?>»«oper:</»«var:li»«oper:>»
+«kwd:<?php» «kwd:endforeach»; «kwd:?>»
+«oper:</»«var:ul»«oper:>»"
+`;
+
+exports[`php > tokens > numbers 1`] = `
+"«kwd:<?php»
+«var:$int» «oper:=» «num:42»;
+«var:$neg» «oper:=» «oper:-»«num:17»;
+«var:$hex» «oper:=» «num:0xFF_EC»;
+«var:$oct» «oper:=» «num:0o17»;
+«var:$legacy» «oper:=» «num:0755»;
+«var:$bin» «oper:=» «num:0b1010_0110»;
+«var:$big» «oper:=» «num:1_000_000»;
+«var:$float» «oper:=» «num:3.14159»;
+«var:$sci» «oper:=» «num:6.022e23»;
+«var:$tiny» «oper:=» «num:.5e-3»;"
+`;
+
+exports[`php > tokens > operators 1`] = `
+"«kwd:<?php»
+«var:$x» «oper:=» «var:$a» «oper:===» «var:$b» «oper:?» «var:$a» «oper:<=>» «var:$b» «oper::» «var:$a» «oper:??» «var:$b»;
+«var:$y» «oper:??=» «var:$z» «oper:?:» «var:$fallback»;
+«var:$value» «oper:=» «var:$obj»«oper:?->»«var:child»«oper:?->»«var:value»;
+«var:$n» «oper:=» «var:$i»«oper:++» «oper:+» «oper:--»«var:$j»;
+«var:$mask» «oper:=» «var:$flags» «oper:&» «oper:~»«kwd:self»«oper:::»«class:MASK» «oper:|» «num:0b1»;
+«var:$total» «oper:=» («type:int») «var:$raw» «oper:+» («type:float») «var:$tax»;
+«var:$text» «oper:.=» «func:implode»(«str:', '»«oper:,» «var:$parts»);
+«var:$ref» «oper:=» «oper:&»«var:$original»;
+[«var:$first»«oper:,» «oper:,» «var:$third»] «oper:=» «var:$list»;"
+`;
+
+exports[`php > tokens > strings 1`] = `
+"«kwd:<?php»
+«var:$plain» «oper:=» «str:'no $interpolation, and a \\' quote'»;
+«var:$greeting» «oper:=» «str:"Hello, »«var:$name»«str:! You have »«var:{$counts[$box]}»«str: unread."»;
+«var:$escaped» «oper:=» «str:"tab»«esc:\\t»«str:here»«esc:\\n»«str:bell»«esc:\\x07»«esc:\\u{1F600}»«str: and a »«esc:\\\\»«str: backslash"»;
+«var:$path» «oper:=» «str:'C:\\\\Users\\\\'» «oper:.» «var:$name»;"
+`;

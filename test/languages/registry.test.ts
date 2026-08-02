@@ -3,11 +3,14 @@ import { describe, expect, it } from "vitest";
 import { languages } from "../../src/languages.ts";
 
 /**
- * `js_template_literals` is a fragment grammar reached only through the rules
- * of `js`, never passed as `lang`, and it is excluded from `ShjLanguage` for
- * that reason. It is covered by the template literal case of `js.test.ts`.
+ * Fragment grammars are reached only through the `sub` of another language,
+ * never passed as `lang`, and are excluded from `ShjLanguage` for that reason.
+ *
+ * `js_template_literals` is covered by the template literal case of
+ * `js.test.ts`; `todo` by the comment case of every grammar that routes its
+ * comments through it, and by the `isTodoKeyword` allowance in `_harness.ts`.
  */
-const FRAGMENTS = new Set(["js_template_literals"]);
+const FRAGMENTS = new Set(["js_template_literals", "todo"]);
 
 describe("registry", () => {
   it("tests every bundled language", () => {

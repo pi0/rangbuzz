@@ -15,13 +15,14 @@ import { refractor } from "refractor/core";
 import { type BundledLanguage, getSingletonHighlighter } from "shiki";
 
 import bash from "refractor/bash";
-import brainfuck from "refractor/brainfuck";
 import c from "refractor/c";
+import cpp from "refractor/cpp";
+import csharp from "refractor/csharp";
 import css from "refractor/css";
 import csv from "refractor/csv";
+import dart from "refractor/dart";
 import diff from "refractor/diff";
 import docker from "refractor/docker";
-import git from "refractor/git";
 import go from "refractor/go";
 import http from "refractor/http";
 import ini from "refractor/ini";
@@ -29,6 +30,7 @@ import java from "refractor/java";
 import javascript from "refractor/javascript";
 import jsdoc from "refractor/jsdoc";
 import json from "refractor/json";
+import kotlin from "refractor/kotlin";
 import log from "refractor/log";
 import lua from "refractor/lua";
 import makefile from "refractor/makefile";
@@ -36,10 +38,15 @@ import markdown from "refractor/markdown";
 import markup from "refractor/markup";
 import nasm from "refractor/nasm";
 import perl from "refractor/perl";
+import php from "refractor/php";
+import powershell from "refractor/powershell";
 import python from "refractor/python";
 import regex from "refractor/regex";
+import ruby from "refractor/ruby";
 import rust from "refractor/rust";
+import scss from "refractor/scss";
 import sql from "refractor/sql";
+import swift from "refractor/swift";
 import toml from "refractor/toml";
 import typescript from "refractor/typescript";
 import uri from "refractor/uri";
@@ -47,13 +54,14 @@ import yaml from "refractor/yaml";
 
 for (const lang of [
   bash,
-  brainfuck,
   c,
+  cpp,
+  csharp,
   css,
   csv,
+  dart,
   diff,
   docker,
-  git,
   go,
   http,
   ini,
@@ -61,6 +69,7 @@ for (const lang of [
   javascript,
   jsdoc,
   json,
+  kotlin,
   log,
   lua,
   makefile,
@@ -68,10 +77,15 @@ for (const lang of [
   markup,
   nasm,
   perl,
+  php,
+  powershell,
   python,
   regex,
+  ruby,
   rust,
+  scss,
   sql,
+  swift,
   toml,
   typescript,
   uri,
@@ -97,23 +111,24 @@ export const STRUCTURAL: Klass[] = ["cmnt", "str"];
  *
  * A missing entry means the judge has no counterpart for that language, so it
  * simply does not vote. The languages no judge covers at all are left to the
- * snapshot and the invariants: `plain`, `todo` and `jsdoc` because they mark up
- * the inside of a comment, which the judges only ever see as one flat comment
+ * snapshot and the invariants: `plain` and `jsdoc` because they mark up the
+ * inside of a comment, which the judges only ever see as one flat comment
  * (Prism has a `jsdoc` grammar, but it is a JavaScript dialect meant for the
- * code in an `@example`, not the annotation language); `leanpub-md` because the
- * dialect has no counterpart at all; and `js_template_literals` because it is a
- * fragment reached only through the rules of `js`.
+ * code in an `@example`, not the annotation language); and the fragment
+ * grammars `js_template_literals` and `todo`, which are reached only through
+ * the `sub` of another language and so are graded wherever that language is.
  */
 export const JUDGED: Record<string, { prism?: string; shiki?: BundledLanguage }> = {
   asm: { prism: "nasm", shiki: "asm" },
   bash: { prism: "bash", shiki: "shellscript" },
-  bf: { prism: "brainfuck" },
   c: { prism: "c", shiki: "c" },
+  cpp: { prism: "cpp", shiki: "cpp" },
+  cs: { prism: "csharp", shiki: "csharp" },
   css: { prism: "css", shiki: "css" },
   csv: { prism: "csv", shiki: "csv" },
+  dart: { prism: "dart", shiki: "dart" },
   diff: { prism: "diff", shiki: "diff" },
   docker: { prism: "docker", shiki: "docker" },
-  git: { prism: "git", shiki: "git-commit" },
   go: { prism: "go", shiki: "go" },
   html: { prism: "markup", shiki: "html" },
   http: { prism: "http", shiki: "http" },
@@ -121,18 +136,26 @@ export const JUDGED: Record<string, { prism?: string; shiki?: BundledLanguage }>
   java: { prism: "java", shiki: "java" },
   js: { prism: "javascript", shiki: "javascript" },
   json: { prism: "json", shiki: "json" },
+  kt: { prism: "kotlin", shiki: "kotlin" },
   log: { prism: "log", shiki: "log" },
   lua: { prism: "lua", shiki: "lua" },
   make: { prism: "makefile", shiki: "makefile" },
   md: { prism: "markdown", shiki: "markdown" },
+  php: { prism: "php", shiki: "php" },
   pl: { prism: "perl", shiki: "perl" },
+  ps1: { prism: "powershell", shiki: "powershell" },
   py: { prism: "python", shiki: "python" },
+  rb: { prism: "ruby", shiki: "ruby" },
   regex: { prism: "regex", shiki: "regexp" },
   rs: { prism: "rust", shiki: "rust" },
+  scss: { prism: "scss", shiki: "scss" },
   sql: { prism: "sql", shiki: "sql" },
+  swift: { prism: "swift", shiki: "swift" },
   toml: { prism: "toml", shiki: "toml" },
   ts: { prism: "typescript", shiki: "typescript" },
   uri: { prism: "uri" },
+  // Prism has no Vue grammar, so Shiki votes alone here
+  vue: { shiki: "vue" },
   xml: { prism: "markup", shiki: "xml" },
   yaml: { prism: "yaml", shiki: "yaml" },
 };

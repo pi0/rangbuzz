@@ -1,8 +1,11 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 export default [
   {
-    // js objects
-    match: /(("|')((?!\2)[^\r\n\\]|\\[^])*\2|[a-zA-Z]\w*)(?=\s*:)/g,
+    // js object keys: left plain, so `{ a: 1 }` reads as a key and not a label.
+    // The `{`/`,` lookbehind is what keeps it from claiming the first branch of
+    // a ternary (`c ? "a" : "b"`) or the value of a `case "x":`, both of which
+    // are also followed by a colon but are ordinary expressions.
+    match: /(?<=[{,]\s*)(("|')((?!\2)[^\r\n\\]|\\[^])*\2|[a-zA-Z]\w*)(?=\s*:)/g,
   },
   {
     // jsdoc comments

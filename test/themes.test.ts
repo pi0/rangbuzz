@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { defaultThemes } from "../src/defaults.ts";
-import { codeToAnsi } from "../src/terminal.ts";
+import { codeToAnsi, printHighlight } from "../src/terminal.ts";
 import * as bundled from "../src/themes/index.ts";
 import type { ShjTheme, ShjThemeName, ShjToken } from "../src/types.ts";
 import githubDark from "../src/themes/github-dark.ts";
@@ -73,5 +73,28 @@ describe("terminal", () => {
         theme: { name: "custom", bg: "#000", fg: "#fff", tokens: { kwd: "#010203" } },
       }),
     ).toBe("[38;2;1;2;3mconst[0m a");
+  });
+
+  it("expands short hex colors", () => {
+    // #1a2 -> #11aa22 -> 17;170;34, and the alpha channel of #1a2f is ignored
+    for (const kwd of ["#1a2", "#1a2f"]) {
+      expect(
+        codeToAnsi("const a", {
+          lang: "js",
+          theme: { name: "custom", bg: "#000", fg: "#fff", tokens: { kwd } },
+        }),
+      ).toBe("[38;2;17;170;34mconst[0m a");
+    }
+  });
+
+  it("defaults to plain text", () => {
+    expect(codeToAnsi("const a")).toBe("const a");
+  });
+
+  it("prints the highlighted code", () => {
+    const log = vi.spyOn(console, "log").mockImplementation(() => {});
+    printHighlight("const a", { lang: "js" });
+    expect(log).toHaveBeenCalledWith("[38;2;255;124;198mconst[0m a");
+    log.mockRestore();
   });
 });

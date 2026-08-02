@@ -1,0 +1,195 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`kt > tokens > annotations 1`] = `
+"«type:@file:JvmName»(«str:"Utils"»)
+«type:@file:Suppress»(«str:"UNUSED"»)
+
+«type:@Composable»
+«kwd:fun» «func:Greeting»(«type:@StringRes» id«oper::» «class:Int»«oper:,» modifier«oper::» «class:Modifier» «oper:=» «class:Modifier») {
+  «func:Text»(text «oper:=» «func:stringResource»(id)«oper:,» modifier «oper:=» modifier)
+}
+
+«kwd:data» «kwd:class» «func:Dto»(«type:@field:Json»(name «oper:=» «str:"user_id"») «kwd:val» userId«oper::» «class:Long»)"
+`;
+
+exports[`kt > tokens > classes and objects 1`] = `
+"«kwd:class» «class:Repo» «kwd:internal» «kwd:constructor»(«kwd:private» «kwd:val» db«oper::» «class:Db») «oper::» «class:Closeable» «kwd:by» «func:db» {
+  «kwd:lateinit» «kwd:var» cache«oper::» «class:MutableMap»«oper:<»«class:String»«oper:,» «class:User»«oper:>»
+  «kwd:val» logger«oper::» «class:Logger» «kwd:by» «func:lazy» { «class:Logger»«oper:.»«func:of»(«class:Repo»«oper:::»«kwd:class») }
+
+  «kwd:init» {
+    cache «oper:=» «func:mutableMapOf»()
+  }
+
+  «kwd:companion» «kwd:object» «class:Factory» {
+    «kwd:const» «kwd:val» «class:VERSION» «oper:=» «num:3»
+
+    «type:@JvmStatic»
+    «kwd:fun» «func:create»() «oper:=» «func:Repo»(«class:Db»«oper:.»«func:open»())
+  }
+
+  «kwd:override» «kwd:fun» «func:close»() «oper:=» db«oper:.»«func:close»()
+}
+
+«kwd:interface» «class:Store»«oper:<»«class:K»«oper:,» «class:V»«oper:>» {
+  «kwd:operator» «kwd:fun» «kwd:get»(key«oper::» «class:K»)«oper::» «class:V»«oper:?»
+  «kwd:fun» «func:put»(key«oper::» «class:K»«oper:,» value«oper::» «class:V»)
+}"
+`;
+
+exports[`kt > tokens > comments 1`] = `
+"«cmnt:// a line comment
+»«cmnt:/* a block comment
+   spanning lines */»
+«cmnt:/* outer /* inner */ still outer */»
+«cmnt:// »«err:TODO»«cmnt:: nested comments are a Kotlin thing»"
+`;
+
+exports[`kt > tokens > coroutines 1`] = `
+"«kwd:suspend» «kwd:fun» «func:fetchAll»(ids«oper::» «class:List»«oper:<»«class:Int»«oper:>»)«oper::» «class:List»«oper:<»«class:User»«oper:>» «oper:=» «func:coroutineScope» {
+  ids«oper:.»«func:map» { id «oper:->» «func:async»(«class:Dispatchers»«oper:.»«class:IO») { api«oper:.»«func:fetch»(id) } }«oper:.»«func:awaitAll»()
+}
+
+«type:@Throws»(«class:IOException»«oper:::»«kwd:class»)
+«kwd:suspend» «kwd:fun» «func:load»(url«oper::» «class:String»)«oper::» «class:String» «oper:=» «func:withContext»(«class:Dispatchers»«oper:.»«class:IO») {
+  client«oper:.»«func:get»(url)«oper:.»«func:body»()
+}"
+`;
+
+exports[`kt > tokens > data classes 1`] = `
+"«kwd:package» com«oper:.»example«oper:.»app
+
+«kwd:import» kotlinx«oper:.»coroutines«oper:.»«class:Dispatchers»
+«kwd:import» kotlinx«oper:.»coroutines«oper:.»withContext
+
+«kwd:data» «kwd:class» «func:User»(«kwd:val» id«oper::» «class:Long»«oper:,» «kwd:val» name«oper::» «class:String»«oper:,» «kwd:val» email«oper::» «class:String»«oper:?» «oper:=» «bool:null») {
+  «kwd:val» initials«oper::» «class:String»
+    «kwd:get»() «oper:=» name«oper:.»«func:split»(«str:" "»)«oper:.»«func:map» { «var:it»«oper:.»«func:first»() }«oper:.»«func:joinToString»(«str:""»)
+}
+
+«kwd:enum» «kwd:class» «class:Role» { «class:ADMIN»«oper:,» «class:EDITOR»«oper:,» «class:VIEWER» }
+
+«kwd:typealias» «class:Users» «oper:=» «class:List»«oper:<»«class:User»«oper:>»"
+`;
+
+exports[`kt > tokens > extension functions 1`] = `
+"«kwd:inline» «kwd:fun» «oper:<»«kwd:reified» «class:T» «oper::» «class:Any»«oper:>» «class:Bundle»«oper:.»«func:require»(key«oper::» «class:String»)«oper::» «class:T» «oper:=»
+  «kwd:get»(key) «kwd:as»«oper:?» «class:T» «oper:?:» «func:error»(«str:"missing »«var:$key»«str:"»)
+
+«kwd:infix» «kwd:fun» «class:Int»«oper:.»«func:clampTo»(range«oper::» «class:IntRange»)«oper::» «class:Int» «oper:=» «func:coerceIn»(range)
+
+«kwd:fun» «oper:<»«class:T»«oper:>» «class:Iterable»«oper:<»«class:T»«oper:>.»«func:second»()«oper::» «class:T» «kwd:where» «class:T» «oper::» «class:Comparable»«oper:<»«class:T»«oper:>» «oper:=» «func:sorted»()[«num:1»]"
+`;
+
+exports[`kt > tokens > interpolation 1`] = `
+"«kwd:val» greeting «oper:=» «str:"Hello, »«var:$name»«str:! You are »«var:\${»user«oper:.»age«var:}»«str: years old."»
+«kwd:val» nested «oper:=» «str:"names: »«var:\${»people«oper:.»«func:map» { «var:it»«oper:.»name }«oper:.»«func:joinToString»()«var:}»«str:"»
+«kwd:val» indexed «oper:=» «str:"first = »«var:\${»list[«num:0»]«var:}»«str:, last = »«var:\${»list[list«oper:.»size «oper:-» «num:1»]«var:}»«str:"»"
+`;
+
+exports[`kt > tokens > kdoc 1`] = `
+"«cmnt:/**
+ * Sums »«var:[a]»«cmnt: and »«var:[b]»«cmnt:, saturating on overflow.
+ *
+ * »«kwd:@param»«cmnt: a the first addend
+ * »«kwd:@param»«cmnt: b the second addend
+ * »«kwd:@return»«cmnt: the sum, or [Int.MAX_VALUE]
+ */»
+«kwd:fun» «func:saturatingAdd»(a«oper::» «class:Int»«oper:,» b«oper::» «class:Int»)«oper::» «class:Int» «oper:=» a «oper:+» b"
+`;
+
+exports[`kt > tokens > lambdas and labels 1`] = `
+"«kwd:val» (name«oper:,» age) «oper:=» person
+
+users«oper:.»«func:forEach» { user «oper:->»
+  «kwd:if» (user«oper:.»age «oper:<» «num:18») «kwd:return»«var:@forEach»
+  «func:println»(«str:"»«var:\${»user«oper:.»name«var:}»«str: is »«var:\${»user«oper:.»age«var:}»«str:"»)
+}
+
+«var:loop@» «kwd:for» (i «kwd:in» «num:1»«oper:..»«num:10») {
+  «kwd:for» (j «kwd:in» «num:1»«oper:..»«num:10») «kwd:if» (i «oper:*» j «oper:>» «num:50») «kwd:break»«var:@loop»
+}
+
+«kwd:val» short «oper:=» users«oper:.»«func:map» { «var:it»«oper:.»name }«oper:.»«func:filter» { «var:it»«oper:.»«func:isNotEmpty»() }"
+`;
+
+exports[`kt > tokens > modifiers 1`] = `
+"«kwd:public» «kwd:expect» «kwd:abstract» «kwd:class» «class:Platform» {
+  «kwd:protected» «kwd:abstract» «kwd:val» name«oper::» «class:String»
+}
+
+«kwd:actual» «kwd:final» «kwd:class» «class:Jvm» «oper::» «func:Platform»() {
+  «kwd:actual» «kwd:override» «kwd:val» name«oper::» «class:String» «oper:=» «str:"jvm"»
+    «kwd:get»() «oper:=» «kwd:field»«oper:.»«func:uppercase»()
+}
+
+«kwd:annotation» «kwd:class» «class:Marker»
+«kwd:inner» «kwd:class» «func:Meters»(«kwd:val» v«oper::» «class:Double»)
+
+«kwd:tailrec» «kwd:fun» «func:gcd»(a«oper::» «class:Int»«oper:,» b«oper::» «class:Int»)«oper::» «class:Int» «oper:=» «kwd:if» (b «oper:==» «num:0») a «kwd:else» «func:gcd»(b«oper:,» a «oper:%» b)
+«kwd:external» «kwd:fun» «func:native»(«kwd:vararg» args«oper::» «class:String»)«oper::» «class:Unit»
+«kwd:inline» «kwd:fun» «func:wrap»(«kwd:noinline» f«oper::» () «oper:->» «class:Unit»«oper:,» «kwd:crossinline» g«oper::» () «oper:->» «class:Unit») «oper:=» «func:f»()"
+`;
+
+exports[`kt > tokens > nullability 1`] = `
+"«kwd:fun» «func:find»(id«oper::» «class:Int»)«oper::» «class:User»«oper:?» «oper:=» users[id]
+
+«kwd:val» len «oper:=» «func:find»(«num:1»)«oper:?.»name«oper:?.»length «oper:?:» «num:0»
+«kwd:val» forced «oper:=» «func:find»(«num:2»)«oper:!!.»name
+«kwd:val» cast «oper:=» (obj «kwd:as»«oper:?» «class:User»)«oper:?.»email«oper:.»«func:orEmpty»()
+«kwd:val» chained «oper:=» repo«oper:?.»cache«oper:?.»«func:get»(«str:"a"»)«oper:?.»«func:takeIf» { «var:it»«oper:.»id «oper:>» «num:0» }"
+`;
+
+exports[`kt > tokens > numbers 1`] = `
+"«kwd:val» ints «oper:=» «func:listOf»(«num:0»«oper:,» «num:42»«oper:,» «num:1_000_000»«oper:,» «num:0xFF»«oper:,» «num:0b1010_1010»)
+«kwd:val» longs «oper:=» «func:listOf»(«num:100L»«oper:,» «num:0xDEAD_BEEFL»«oper:,» «num:9_223_372_036_854_775_807L»)
+«kwd:val» unsigned «oper:=» «func:listOf»(«num:7u»«oper:,» «num:42uL»«oper:,» «num:0xFFu»)
+«kwd:val» floats «oper:=» «func:listOf»(«num:3.14f»«oper:,» «num:0.5F»«oper:,» «num:2.5e3»«oper:,» «num:1e-9»«oper:,» «num:6.022e23»)"
+`;
+
+exports[`kt > tokens > operators 1`] = `
+"«kwd:for» (i «kwd:in» «num:10» «oper:downTo» «num:1» «oper:step» «num:3») «func:print»(i)
+
+«kwd:val» inRange «oper:=» x «kwd:in» «num:1»«oper:..»«num:100» «oper:&&» y «oper:!»«kwd:in» «func:setOf»(«num:0»)
+«kwd:val» mask «oper:=» flags «oper:and» «num:0xF0» «oper:shl» «num:2» «oper:or» «num:1» «oper:xor» «num:3»
+«kwd:val» pair «oper:=» «str:"a"» «oper:to» «num:1»
+«kwd:val» eq «oper:=» a «oper:==» b «oper:&&» a «oper:!==» c
+i«oper:++»
+j«oper:--»
+n «oper:+=» «num:2»"
+`;
+
+exports[`kt > tokens > raw strings 1`] = `
+"«kwd:val» query «oper:=» «str:"""
+  SELECT id, name
+    FROM users
+   WHERE name = '»«var:$name»«str:' AND age > »«var:\${»minAge «oper:+» «num:1»«var:}»«str:
+"""»«oper:.»«func:trimIndent»()
+
+«kwd:val» literalDollar «oper:=» «str:"""price: »«var:\${»«str:'$'»«var:}»«str:9.99"""»"
+`;
+
+exports[`kt > tokens > sealed classes 1`] = `
+"«kwd:sealed» «kwd:class» «class:Result»«oper:<»«kwd:out» «class:T»«oper:>» {
+  «kwd:data» «kwd:class» «class:Success»«oper:<»«class:T»«oper:>»(«kwd:val» value«oper::» «class:T») «oper::» «class:Result»«oper:<»«class:T»«oper:>»()
+  «kwd:data» «kwd:class» «func:Failure»(«kwd:val» error«oper::» «class:Throwable») «oper::» «class:Result»«oper:<»«class:Nothing»«oper:>»()
+  «kwd:object» «class:Loading» «oper::» «class:Result»«oper:<»«class:Nothing»«oper:>»()
+}
+
+«kwd:fun» «oper:<»«class:T»«oper:>» «class:Result»«oper:<»«class:T»«oper:>.»«func:orNull»()«oper::» «class:T»«oper:?» «oper:=» «kwd:when» («kwd:this») {
+  «kwd:is» «class:Result»«oper:.»«class:Success» «oper:->» value
+  «kwd:is» «class:Result»«oper:.»«class:Failure» «oper:->» «bool:null»
+  «kwd:else» «oper:->» «bool:null»
+}"
+`;
+
+exports[`kt > tokens > strings 1`] = `
+"«kwd:val» plain «oper:=» «str:"double quoted"»
+«kwd:val» escaped «oper:=» «str:"he said »«esc:\\"»«str:hi»«esc:\\"»«esc:\\t»«str:and»«esc:\\n»«str:left"»
+«kwd:val» dollar «oper:=» «str:"costs »«esc:\\$»«str:5, not »«esc:\\$»«str:name"»
+«kwd:val» unicode «oper:=» «str:"»«esc:\\u00e9»«str:t»«esc:\\u00e9»«str:"»
+«kwd:val» c «oper:=» «str:'x'»
+«kwd:val» nl «oper:=» «str:'»«esc:\\n»«str:'»
+«kwd:val» quote «oper:=» «str:'»«esc:\\'»«str:'»
+«kwd:val» cp «oper:=» «str:'»«esc:\\u0041»«str:'»"
+`;

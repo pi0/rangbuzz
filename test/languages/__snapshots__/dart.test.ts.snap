@@ -1,0 +1,198 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`dart > tokens > asyncCode 1`] = `
+"«class:Future»«oper:<»«class:List»«oper:<»«class:User»«oper:>>» «func:fetchUsers»(http«oper:.»«class:Client» client) «kwd:async» {
+  «kwd:final» response «oper:=» «kwd:await» client«oper:.»«func:get»(«class:Uri»«oper:.»«func:parse»(«str:'https://api.example.com/users'»));
+  «kwd:if» (response«oper:.»statusCode «oper:!=» «num:200») {
+    «kwd:throw» «func:HttpException»(«str:'failed with »«var:\${»response«oper:.»statusCode«var:}»«str:'»);
+  }
+  «kwd:return» («func:jsonDecode»(response«oper:.»body) «kwd:as» «class:List»)«oper:.»«func:map»(«class:User»«oper:.»fromJson)«oper:.»«func:toList»();
+}
+
+«class:Stream»«oper:<»«type:int»«oper:>» «func:countdown»(«type:int» from) «kwd:async*» {
+  «kwd:for» («kwd:var» i «oper:=» from; i «oper:>» «num:0»; i«oper:--») {
+    «kwd:await» «class:Future»«oper:<»«kwd:void»«oper:>.»«func:delayed»(«kwd:const» «func:Duration»(seconds«oper::» «num:1»));
+    «kwd:yield» i;
+  }
+}"
+`;
+
+exports[`dart > tokens > cascades 1`] = `
+"«kwd:final» paint «oper:=» «func:Paint»()
+  «oper:..»color «oper:=» «class:Colors»«oper:.»red
+  «oper:..»strokeWidth «oper:=» «num:2.0»
+  «oper:..»style «oper:=» «class:PaintingStyle»«oper:.»stroke;
+
+«kwd:final» buffer «oper:=» «func:StringBuffer»()«oper:..»«func:write»(«str:'a'»)«oper:..»«func:writeln»(«str:'b'»);"
+`;
+
+exports[`dart > tokens > classes 1`] = `
+"«kwd:class» «class:User» {
+  «func:User»(«kwd:this»«oper:.»id«oper:,» «kwd:this»«oper:.»name);
+
+  «class:User»«oper:.»«func:anonymous»() «oper::» id «oper:=» «num:0»«oper:,» name «oper:=» «str:'anonymous'»;
+
+  «kwd:factory» «class:User»«oper:.»«func:fromJson»(«class:Map»«oper:<»«class:String»«oper:,» «kwd:dynamic»«oper:>» json) «oper:=>»
+      «func:User»(json[«str:'id'»] «kwd:as» «type:int»«oper:,» json[«str:'name'»] «kwd:as» «class:String»);
+
+  «kwd:final» «type:int» id;
+  «kwd:final» «class:String» name;
+
+  «class:String» «kwd:get» initials «oper:=>» name«oper:.»«func:split»(«str:' '»)«oper:.»«func:map»((p) «oper:=>» p[«num:0»])«oper:.»«func:join»();
+
+  «type:bool» «kwd:operator» «oper:==»(«class:Object» other) «oper:=>» other «kwd:is» «class:User» «oper:&&» other«oper:.»id «oper:==» id;
+
+  «var:@override»
+  «type:int» «kwd:get» hashCode «oper:=>» id«oper:.»hashCode;
+}"
+`;
+
+exports[`dart > tokens > comments 1`] = `
+"«cmnt:/// Greets a user by name.
+»«cmnt:///
+»«cmnt:/// See also »«class:[Text]»«cmnt:, »«class:[Widget.build]»«cmnt: and »«err:TODO»«cmnt:: the builder variant.
+»«cmnt:/** A legacy doc block, kept for »«class:[Greeting]»«cmnt:. */»
+«cmnt:// A plain line comment.
+»«cmnt:/* a block comment /* nested one level */ still a comment */»
+«cmnt:// »«err:FIXME»«cmnt:: replace with a builder»"
+`;
+
+exports[`dart > tokens > controlFlow 1`] = `
+"«kwd:void» «func:run»(«class:List»«oper:<»«class:String»«oper:>» args) {
+  «kwd:try» {
+    «kwd:for» («kwd:final» arg «kwd:in» args) {
+      «kwd:if» (arg «oper:==» «str:'--help'») {
+        «kwd:continue»;
+      } «kwd:else» «kwd:if» (arg«oper:.»«func:startsWith»(«str:'-'»)) {
+        «kwd:throw» «class:ArgumentError»«oper:.»«func:value»(arg);
+      }
+      «kwd:switch» (arg) {
+        «kwd:case» «str:'build'»«oper::»
+        «kwd:case» «str:'test'»«oper::»
+          «kwd:break»;
+        «kwd:default»«oper::»
+          «kwd:rethrow»;
+      }
+    }
+  } «kwd:on» «class:StateError» «kwd:catch» (e«oper:,» stack) {
+    «func:print»(«str:'»«var:$e»«esc:\\n»«var:$stack»«str:'»);
+  } «kwd:finally» {
+    done «oper:=» «bool:true»;
+  }
+}"
+`;
+
+exports[`dart > tokens > directives 1`] = `
+"«kwd:library» app«oper:.»main;
+
+«kwd:import» «str:'dart:async'»;
+«kwd:import» «str:'dart:math'» «kwd:as» math «kwd:show» max;
+«kwd:import» «str:'package:flutter/material.dart'»;
+«kwd:import» «str:'package:http/http.dart'» «kwd:as» http «kwd:show» «class:Client»«oper:,» «class:Response»;
+«kwd:import» «str:'widgets/button.dart'» «kwd:hide» «class:Internal»;
+«kwd:import» «str:'heavy.dart'» «kwd:deferred» «kwd:as» heavy;
+«kwd:export» «str:'src/api.dart'» «kwd:show» «class:Api»;
+«kwd:part» «str:'app.g.dart'»;"
+`;
+
+exports[`dart > tokens > interpolation 1`] = `
+"«kwd:final» greeting «oper:=» «str:'Hi »«var:$name»«str:, you have »«var:\${»cart«oper:.»items«oper:.»length«var:}»«str: item(s)'»;
+«kwd:final» total «oper:=» «str:"Total: »«esc:\\$»«var:\${»amount«oper:.»«func:toStringAsFixed»(«num:2»)«var:}»«str:"»;
+«kwd:final» header «oper:=» «str:'»«var:\${»user«oper:.»name«oper:.»«func:toUpperCase»()«var:}»«str: <»«var:\${»user«oper:.»email«var:}»«str:>'»;
+«kwd:final» list «oper:=» «str:'items: »«var:\${»names«oper:.»«func:map»((n) «oper:=>» n«oper:.»«func:trim»())«oper:.»«func:join»(«str:', '»)«var:}»«str:'»;
+«kwd:final» map «oper:=» «str:"point »«var:\${{»«str:'x'»«oper::» «num:1»«oper:,» «str:'y'»«oper::» «num:2»}«var:}»«str:"»;"
+`;
+
+exports[`dart > tokens > mixins 1`] = `
+"«kwd:mixin» «class:Logger» «kwd:on» «class:Object» {
+  «kwd:void» «func:log»(«class:String» message) «oper:=>» «func:print»(«str:'[»«var:$runtimeType»«str:] »«var:$message»«str:'»);
+}
+
+«kwd:abstract» «kwd:base» «kwd:class» «class:Repository»«oper:<»«class:T»«oper:>» «kwd:with» «class:Logger» {
+  «class:Future»«oper:<»«class:T»«oper:?>» «func:find»(«class:String» id);
+}
+
+«kwd:extension» «class:StringX» «kwd:on» «class:String» {
+  «type:bool» «kwd:get» isBlank «oper:=>» «func:trim»()«oper:.»isEmpty;
+}
+
+«kwd:sealed» «kwd:class» «class:Shape» {}
+
+«kwd:enum» «class:Status» {
+  idle«oper:,»
+  «func:running»(«str:'running now'»)«oper:,»
+  done;
+
+  «kwd:const» «func:Status»([«kwd:this»«oper:.»label «oper:=» «str:''»]);
+  «kwd:final» «class:String» label;
+}"
+`;
+
+exports[`dart > tokens > nullSafety 1`] = `
+"«class:String» «func:describe»(«class:User»«oper:?» user«oper:,» «class:Map»«oper:<»«class:String»«oper:,» «type:int»«oper:>?» cache) {
+  «kwd:final» name «oper:=» user«oper:?.»name «oper:??» «str:'unknown'»;
+  «kwd:late» «kwd:final» «type:int» length;
+  length «oper:=» name«oper:.»length;
+  cache «oper:??=» «oper:<»«class:String»«oper:,» «type:int»«oper:>»{};
+  cache«oper:!»[name] «oper:=» length;
+  «kwd:assert»(«oper:!»name«oper:.»isEmpty«oper:,» «str:'name must not be empty'»);
+  «kwd:return» «kwd:switch» (user) {
+    «func:User»(id«oper::» «num:0») «oper:=>» «str:'anonymous'»«oper:,»
+    _ «kwd:when» length «oper:>» «num:8» «oper:=>» «str:'a long name'»«oper:,»
+    _ «oper:=>» name«oper:,»
+  };
+}"
+`;
+
+exports[`dart > tokens > numbers 1`] = `
+"«kwd:const» «type:int» answer «oper:=» «num:42»;
+«kwd:const» «type:int» mask «oper:=» «num:0xDEADBEEF»;
+«kwd:const» «type:int» population «oper:=» «num:1_000_000»;
+«kwd:const» «type:double» pi «oper:=» «num:3.14159»;
+«kwd:const» «type:double» charge «oper:=» «num:1.6e-19»;
+«kwd:const» «type:double» avogadro «oper:=» «num:6.022e+23»;
+«kwd:const» «type:num» ratio «oper:=» «num:0.5»;"
+`;
+
+exports[`dart > tokens > rawStrings 1`] = `
+"«kwd:final» path «oper:=» «str:r'C:\\Users\\ada\\notes.txt'»;
+«kwd:final» digits «oper:=» «func:RegExp»(«str:r'^\\d{3}-\\d{4}$'»);
+«kwd:const» template «oper:=» «str:r"""no \${interpolation} and no \\escapes here"""»;"
+`;
+
+exports[`dart > tokens > strings 1`] = `
+"«kwd:final» name «oper:=» «str:'Ada'»;
+«kwd:final» greeting «oper:=» «str:"Hello, world"»;
+«kwd:final» apostrophe «oper:=» «str:'It»«esc:\\'»«str:s here'»;
+«kwd:final» escaped «oper:=» «str:"a »«esc:\\"»«str:quoted»«esc:\\"»«str: »«esc:\\u2764»«esc:\\t»«str:value»«esc:\\n»«str:"»;
+«kwd:final» joined «oper:=» «str:'one '» «str:'two'»;"
+`;
+
+exports[`dart > tokens > tripleQuoted 1`] = `
+"«kwd:const» usage «oper:=» «str:'''
+Usage: tool <command>
+  -h, --help    Show this text
+'''»;
+
+«kwd:const» markup «oper:=» «str:"""<a href="/docs">the docs</a>"""»;"
+`;
+
+exports[`dart > tokens > widget 1`] = `
+"«kwd:class» «class:Greeting» «kwd:extends» «class:StatelessWidget» {
+  «kwd:const» «func:Greeting»({«kwd:super»«oper:.»key«oper:,» «kwd:required» «kwd:this»«oper:.»name«oper:,» «kwd:this»«oper:.»color «oper:=» «class:Colors»«oper:.»blue});
+
+  «kwd:final» «class:String» name;
+  «kwd:final» «class:Color»«oper:?» color;
+
+  «var:@override»
+  «class:Widget» «func:build»(«class:BuildContext» context) {
+    «kwd:return» «func:Padding»(
+      padding«oper::» «kwd:const» «class:EdgeInsets»«oper:.»«func:all»(«num:8.0»)«oper:,»
+      child«oper::» «func:Text»(
+        «str:'Hello, »«var:$name»«str:!'»«oper:,»
+        style«oper::» «func:TextStyle»(color«oper::» color«oper:,» fontSize«oper::» «num:16»)«oper:,»
+      )«oper:,»
+    );
+  }
+}"
+`;
