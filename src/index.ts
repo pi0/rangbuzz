@@ -12,8 +12,9 @@ import type {
 } from "./types.ts";
 
 import expandData from "./common.ts";
+import { languages } from "./languages.ts";
 
-const langs: Record<string, any> = {},
+const langs: Record<string, any> = { ...languages },
   sanitize = (str = "") =>
     str.replaceAll("&", "&#38;").replaceAll?.("<", "&lt;").replaceAll?.(">", "&gt;"),
   /**
@@ -39,7 +40,7 @@ const langs: Record<string, any> = {},
  * * the text of the token
  * * the type of the token
  */
-export async function tokenize(
+export function tokenize(
   src: string,
   lang: ShjLanguage | any,
   token: (str: string, token?: ShjToken) => void,
@@ -51,8 +52,7 @@ export async function tokenize(
       match,
       cache: any[] = [],
       i = 0,
-      data =
-        typeof lang === "string" ? await (langs[lang] ??= import(`./languages/${lang}.ts`)) : lang,
+      data = typeof lang === "string" ? langs[lang] : lang,
       // make a fast shallow copy to bee able to splice lang without change the original one
       arr = [...(typeof lang === "string" ? data.default : lang.sub)];
 
@@ -86,7 +86,7 @@ export async function tokenize(
       token(src.slice(i, first.index), data.type);
       i = first.end;
       if (first.part.sub)
-        await tokenize(
+        tokenize(
           first.match,
           typeof first.part.sub === "string"
             ? first.part.sub
@@ -106,24 +106,23 @@ export async function tokenize(
 /**
  * Highlight a string passed as argument and return it
  * @example
- * elm.innerHTML = await highlightText(code, 'js');
+ * elm.innerHTML = highlightText(code, 'js');
  *
- * @async
  * @function highlightText
  * @param {string} src The code
  * @param {ShjLanguage} lang The language of the code
  * @param {Boolean} [multiline=true] If it is multiline, it will add a wrapper for the line numbering and header
  * @param {ShjOptions} [opt={}] Customization options
- * @returns {Promise<string>} The highlighted string
+ * @returns {string} The highlighted string
  */
-export async function highlightText(
+export function highlightText(
   src: string,
   lang: ShjLanguage,
   multiline = true,
   opt: ShjOptions = {},
 ) {
   let tmp = "";
-  await tokenize(src, lang, (str, type) => (tmp += toSpan(sanitize(str), type)));
+  tokenize(src, lang, (str, type) => (tmp += toSpan(sanitize(str), type)));
 
   return multiline
     ? `<div><div class="shj-numbers">${"<div></div>".repeat(opt.hideLineNumbers ? 0 : src.split("\n").length)}</div><div>${tmp}</div></div>`
@@ -133,14 +132,13 @@ export async function highlightText(
 /**
  * Highlight a DOM element by getting the new innerHTML with highlightText
  *
- * @async
  * @function highlightElement
  * @param {Element} elm The DOM element
  * @param {ShjLanguage} [lang] The language of the code (seaching by default on `elm` for a 'shj-lang-' class)
  * @param {ShjDisplayMode} [mode] The display mode (guessed by default)
  * @param {ShjOptions} [opt={}] Customization options
  */
-export async function highlightElement(
+export function highlightElement(
   elm: HTMLElement,
   lang = elm.className.match(/shj-lang-([\w-]+)/)?.[1] as ShjLanguage,
   mode?: ShjDisplayMode,
@@ -151,25 +149,25 @@ export async function highlightElement(
     `${elm.tagName == "CODE" ? "in" : txt.split("\n").length < 2 ? "one" : "multi"}line` as ShjDisplayMode;
   elm.dataset.lang = lang;
   elm.className = `${[...elm.classList].filter((className) => !className.startsWith("shj-")).join(" ")} shj-lang-${lang} shj-${mode}`;
-  elm.innerHTML = await highlightText(txt, lang, mode == "multiline", opt);
+  elm.innerHTML = highlightText(txt, lang, mode == "multiline", opt);
 }
 
 /**
  * Call highlightElement on element with a css class starting with `shj-lang-`
  *
- * @async
  * @function highlightAll
  * @param {ShjOptions} [opt={}] Customization options
  */
-export let highlightAll = async (opt?: ShjOptions) =>
-  Promise.all(
-    Array.from(document.querySelectorAll<HTMLElement>('[class*="shj-lang-"]')).map((elm) =>
-      highlightElement(elm, undefined, undefined, opt),
-    ),
-  );
+export let highlightAll = (opt?: ShjOptions) => {
+  for (const elm of document.querySelectorAll<HTMLElement>('[class*="shj-lang-"]'))
+    highlightElement(elm, undefined, undefined, opt);
+};
 
 /**
  * Load a language and add it to the langs object
+ *
+ * Every language listed in {@link ShjLanguage} is bundled and registered
+ * already; this is only needed for custom languages or to override a bundled one.
  *
  * @function loadLanguage
  * @param {string} languageName The name of the language

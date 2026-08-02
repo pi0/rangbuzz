@@ -30,7 +30,6 @@
     ".": "./dist/index.mjs",
     "./detect": "./dist/detect.mjs",
     "./terminal": "./dist/terminal.mjs",
-    "./languages/*": "./dist/languages/*.js",
     "./themes/*": "./dist/themes/*"
   },
   "scripts": {

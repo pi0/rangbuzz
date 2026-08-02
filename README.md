@@ -4,9 +4,9 @@
 
 A JavaScript syntax highlighter for the web and the terminal
 
-- **Tiny** <small>(~2kB core, ~1kB per language)</small>
+- **Tiny** <small>(~8kB min+gzip, every language included)</small>
 - **Fast** <small>(outperforms Prism and highlight.js)</small>
-- **Simple** <small>(zero dependencies)</small>
+- **Simple** <small>(zero dependencies, fully synchronous API)</small>
 
 ## Simple setup 🚀
 
@@ -43,6 +43,9 @@ elm.textContent = code;
 highlightElement(elm, detectLanguage(code));
 ```
 
+Every language is bundled and ready to use — there is nothing to preload, and
+every function returns its result directly rather than a promise.
+
 Load custom language
 
 ```js
@@ -51,14 +54,7 @@ import { loadLanguage } from "../dist/index.mjs";
 loadLanguage("language-name", customLanguage);
 ```
 
-Preload a bundled language
-
-```js
-import { loadLanguage } from "rangbuzz";
-import * as js from "rangbuzz/languages/js";
-
-loadLanguage("js", js);
-```
+Unknown languages fall back to unhighlighted text rather than throwing.
 
 ---
 
@@ -83,7 +79,7 @@ Use the npm specifier
 ```js
 import { setTheme, printHighlight } from "npm:rangbuzz/terminal";
 
-await setTheme("[theme-name]");
+setTheme("[theme-name]");
 printHighlight('console.log("hello")', "js");
 ```
 
