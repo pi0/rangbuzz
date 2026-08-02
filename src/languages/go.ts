@@ -8,6 +8,11 @@ export default [
     expand: "str",
   },
   {
+    // raw string literal, spanning as many lines as it likes
+    type: "str",
+    match: /`[^`]*`?/g,
+  },
+  {
     expand: "num",
   },
   {

@@ -1,7 +1,8 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 export default [
   {
-    match: /^#!.*|--(\[(=*)\[[^]*?--\]\2\]|.*)/g,
+    // a long comment closes on `]]`, whether or not it is written `--]]`
+    match: /^#!.*|--(\[(=*)\[[^]*?\]\2\]|.*)/g,
     sub: "todo",
   },
   {

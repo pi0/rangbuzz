@@ -8,8 +8,8 @@ exports[`lua > tokens > booleans 1`] = `
 
 exports[`lua > tokens > comments 1`] = `
 "«cmnt:-- line»
-«cmnt:--[[ block»
-spanning ]]
+«cmnt:--[[ block
+spanning ]]»
 «cmnt:-- »«err:TODO»«cmnt:: refactor»"
 `;
 

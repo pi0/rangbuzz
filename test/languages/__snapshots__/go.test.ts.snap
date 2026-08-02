@@ -28,7 +28,12 @@ exports[`go > tokens > operators 1`] = `
 }"
 `;
 
-exports[`go > tokens > strings 1`] = `"«str:"double"» «str:'r'» «str:"esc\\"aped"» \`raw\`"`;
+exports[`go > tokens > raw strings 1`] = `
+"«str:\`spanning
+lines\`» and «str:\`with "quotes"\`»"
+`;
+
+exports[`go > tokens > strings 1`] = `"«str:"double"» «str:'r'» «str:"esc\\"aped"» «str:\`raw\`»"`;
 
 exports[`go > tokens > types and calls 1`] = `
 "«kwd:type» «class:Reader» «kwd:interface» {

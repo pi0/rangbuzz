@@ -5,7 +5,19 @@ export default [
     sub: "todo",
   },
   {
-    expand: "str",
+    // raw string, with as many hashes as it was opened with: r"…", br##"…"##
+    type: "str",
+    match: /b?r(#*)"[^]*?"\1/g,
+  },
+  {
+    type: "str",
+    match: /b?"((?!")[^\r\n\\]|\\[^])*"?/g,
+  },
+  {
+    // a character literal, closed on the same line: `'a'` is one, `'a` is a
+    // lifetime and must not open a string
+    type: "str",
+    match: /b?'(\\u\{[\da-fA-F]+\}|\\[^]|[^\\'])'/g,
   },
   {
     expand: "num",
