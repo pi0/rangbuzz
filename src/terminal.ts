@@ -3,9 +3,8 @@
  * (Terminal adaptor)
  */
 
-import type { ShjTerminalOptions } from "./types.ts";
+import type { ShjCoreTerminalOptions } from "./types.ts";
 
-import { defaultThemes } from "./defaults.ts";
 import { eachToken } from "./highlight.ts";
 
 /**
@@ -28,16 +27,16 @@ const escapeSequence = (color: string) => {
  * The colors of the theme are emitted as 24 bit escape sequences.
  *
  * @example
- * console.log(codeToAnsi(code, { lang: 'js', theme: atomDark }));
+ * console.log(codeToAnsi(code, { lang: 'js', languages: { js }, theme: atomDark }));
  *
  * @function codeToAnsi
  * @param {string} code The code
- * @param {ShjTerminalOptions} [opt={}] Customization options
+ * @param {ShjCoreTerminalOptions} opt Customization options
  * @returns {string} The highlighted string
  */
-export function codeToAnsi(code: string, opt: ShjTerminalOptions = {}): string {
+export function codeToAnsi(code: string, opt: ShjCoreTerminalOptions): string {
   // a terminal has no color scheme to follow: a pair is read as its dark theme
-  const given = opt.theme ?? defaultThemes,
+  const given = opt.theme,
     theme = "light" in given ? given.dark : given;
 
   let res = "";
@@ -58,11 +57,11 @@ export function codeToAnsi(code: string, opt: ShjTerminalOptions = {}): string {
  * Highlight and print a given string
  *
  * @example
- * printHighlight(code, { lang: 'js' });
+ * printHighlight(code, { lang: 'js', languages: { js }, theme: atomDark });
  *
  * @function printHighlight
  * @param {string} code The code
- * @param {ShjTerminalOptions} [opt={}] Customization options
+ * @param {ShjCoreTerminalOptions} opt Customization options
  */
-export const printHighlight = (code: string, opt?: ShjTerminalOptions) =>
+export const printHighlight = (code: string, opt: ShjCoreTerminalOptions) =>
   console.log(codeToAnsi(code, opt));

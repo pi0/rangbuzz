@@ -12,6 +12,8 @@
   "types": "./dist/index.d.mts",
   "exports": {
     ".": "./dist/index.mjs",
+    "./core": "./dist/core.mjs",
+    "./languages": "./dist/languages.mjs",
     "./themes": "./dist/themes/index.mjs"
   },
   "scripts": {

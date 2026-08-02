@@ -122,6 +122,28 @@ export interface ShjTerminalOptions extends ShjTokenizeOptions {
 }
 
 /**
+ * The same options as {@link ShjTokenizeOptions}, as `rangbuzz/core` takes them
+ *
+ * That entry bundles nothing, so what the main entry defaults to is given
+ * explicitly instead: `languages: {}` is a call that highlights nothing.
+ */
+export type ShjCoreTokenizeOptions = ShjTokenizeOptions &
+  Required<Pick<ShjTokenizeOptions, "languages">>;
+
+/**
+ * The same options as {@link ShjOptions}, as `rangbuzz/core` takes them: the
+ * languages and the theme are required, since none is bundled
+ */
+export type ShjCoreOptions = ShjOptions & Required<Pick<ShjOptions, "languages" | "theme">>;
+
+/**
+ * The same options as {@link ShjTerminalOptions}, as `rangbuzz/core` takes
+ * them: the languages and the theme are required, since none is bundled
+ */
+export type ShjCoreTerminalOptions = ShjTerminalOptions &
+  Required<Pick<ShjTerminalOptions, "languages" | "theme">>;
+
+/**
  * * `inline` inside `code` element
  * * `oneline` inside `div` element and containing only one line
  * * `multiline` inside `div` element

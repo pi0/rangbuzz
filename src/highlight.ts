@@ -1,22 +1,24 @@
 /**
  * @module highlight
  * (Base script)
+ *
+ * The engine itself, which pulls in no grammar and no theme: both are handed
+ * over per call. This is what `rangbuzz/core` exposes; the main entry wraps it
+ * with the bundled languages and themes.
  */
 
 import type {
+  ShjCoreOptions,
+  ShjCoreTokenizeOptions,
   ShjDisplayMode,
   ShjLanguage,
   ShjLanguages,
-  ShjOptions,
   ShjTheme,
   ShjThemePair,
   ShjToken,
   ShjTokenized,
-  ShjTokenizeOptions,
 } from "./types.ts";
 
-import { defaultThemes } from "./defaults.ts";
-import { languages } from "./languages.ts";
 import { TOKENS } from "./tokens.ts";
 
 const sanitize = (str = "") =>
@@ -131,8 +133,8 @@ export const blockStyle = (theme: ShjTheme | ShjThemePair, mode: ShjDisplayMode)
  * this function will be given
  * * the text of the token
  * * the type of the token
- * @param {ShjLanguages} [langs] Custom languages, looked up before the bundled
- * ones, for the code itself and for its sub-languages
+ * @param {ShjLanguages} [langs] The languages, for the code itself and for its
+ * sub-languages
  */
 export function eachToken(
   src: string,
@@ -148,11 +150,11 @@ export function eachToken(
       sub,
       cache: any[] = [],
       i = 0,
-      // a named language is looked up — a custom one wins over a bundled one,
+      // a named language is looked up in the registry the caller handed over,
       // and may be a bare definition or a module carrying a `type`. Anything
       // else is a rule tuple we recursed into, whose `sub` holds the rules.
       named = typeof lang === "string",
-      found: any = named ? (langs?.[lang] ?? (languages as ShjLanguages)[lang]) : 0,
+      found: any = named ? langs?.[lang] : 0,
       data: any = named
         ? Array.isArray(found)
           ? { default: found }
@@ -230,7 +232,7 @@ export function eachToken(
  * which is a convention of that output rather than theme data.
  *
  * @example
- * tokenize('let a = 1', { lang: 'js' });
+ * tokenize('let a = 1', { lang: 'js', languages: { js } });
  * // [
  * //   { text: 'let', type: 'kwd' },
  * //   { text: ' a ' },
@@ -240,13 +242,13 @@ export function eachToken(
  * // ]
  *
  * @example
- * // custom languages apply to sub-languages too
+ * // the registry applies to sub-languages too
  * tokenize(code, { lang: 'mine', languages: { mine } });
  *
  * @example
  * // group into lines, keeping tokens that span a break intact
  * const lines = [[]];
- * for (const { text, type } of tokenize(code, { lang: 'js' }))
+ * for (const { text, type } of tokenize(code, { lang: 'js', languages: { js } }))
  *   text.split('\n').forEach((part, i) => {
  *     if (i) lines.push([]);
  *     if (part) lines.at(-1).push({ text: part, type });
@@ -254,10 +256,10 @@ export function eachToken(
  *
  * @function tokenize
  * @param {string} code The code
- * @param {ShjTokenizeOptions} [opt={}] Customization options
+ * @param {ShjCoreTokenizeOptions} opt Customization options
  * @returns {ShjTokenized[]} The tokens, in source order
  */
-export function tokenize(code: string, opt: ShjTokenizeOptions = {}): ShjTokenized[] {
+export function tokenize(code: string, opt: ShjCoreTokenizeOptions): ShjTokenized[] {
   const tokens: ShjTokenized[] = [];
   eachToken(
     code,
@@ -279,16 +281,15 @@ export function tokenize(code: string, opt: ShjTokenizeOptions = {}): ShjTokeniz
  * Use {@link codeToHtml} to get the code block itself.
  *
  * @example
- * elm.innerHTML = highlightText(code, { lang: 'js' });
- * elm.innerHTML = highlightText(code, { lang: 'mine', languages: { mine } });
+ * elm.innerHTML = highlightText(code, { lang: 'js', languages: { js }, theme: dark });
  *
  * @function highlightText
  * @param {string} code The code
- * @param {ShjOptions} [opt={}] Customization options
+ * @param {ShjCoreOptions} opt Customization options
  * @returns {string} The highlighted string
  */
-export function highlightText(code: string, opt: ShjOptions = {}): string {
-  const { lang = "plain", theme = defaultThemes, lineNumbers = true } = opt,
+export function highlightText(code: string, opt: ShjCoreOptions): string {
+  const { lang = "plain", theme, lineNumbers = true } = opt,
     mode = displayMode(code, opt.inline),
     badge = lang == "http" && mode == "oneline";
 
@@ -318,17 +319,16 @@ export function highlightText(code: string, opt: ShjOptions = {}): string {
  * needs no stylesheet.
  *
  * @example
- * html += codeToHtml(code, { lang: 'js' });
- * html += codeToHtml(code, { lang: 'js', theme: githubDark });
- * html += codeToHtml(code, { lang: 'mine', languages: { mine } });
+ * html += codeToHtml(code, { lang: 'js', languages: { js }, theme: githubDark });
+ * html += codeToHtml(code, { lang: 'mine', languages: { mine }, theme: githubDark });
  *
  * @function codeToHtml
  * @param {string} code The code
- * @param {ShjOptions} [opt={}] Customization options
+ * @param {ShjCoreOptions} opt Customization options
  * @returns {string} The markup of the code block
  */
-export function codeToHtml(code: string, opt: ShjOptions = {}): string {
-  const { lang = "plain", theme = defaultThemes } = opt,
+export function codeToHtml(code: string, opt: ShjCoreOptions): string {
+  const { lang = "plain", theme } = opt,
     mode = displayMode(code, opt.inline),
     tag = mode == "inline" ? "code" : "div";
 

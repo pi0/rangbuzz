@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { defaultThemes } from "../src/defaults.ts";
-import { codeToAnsi, printHighlight } from "../src/terminal.ts";
+import { codeToAnsi, printHighlight } from "../src/index.ts";
 import * as bundled from "../src/themes/index.ts";
 import type { ShjTheme, ShjThemeName, ShjToken } from "../src/types.ts";
 import githubDark from "../src/themes/github-dark.ts";

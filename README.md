@@ -22,9 +22,7 @@ import { codeToHtml } from "rangbuzz";
 html = codeToHtml('console.log("hello")', { lang: "js" });
 ```
 
-The colors of the theme are inlined as `style` attributes, so the result needs
-no stylesheet, no javascript and no hydration on the client. It works the same
-in node, in the browser, in a worker or in a template.
+The colors of the theme are inlined as `style` attributes, so the result needs no stylesheet, no javascript and no hydration on the client. It works the same in node, in the browser, in a worker or in a template.
 
 ```js
 import { codeToHtml } from "rangbuzz";
@@ -42,9 +40,7 @@ codeToHtml(code, { lang: "js", inline: true });
 codeToHtml(code, { lang: "js", lineNumbers: false });
 ```
 
-`highlightText(code, opt)` returns the content of the block only (the tokens
-and the line numbers), which is what you want when you already have the
-element.
+`highlightText(code, opt)` returns the content of the block only (the tokens and the line numbers), which is what you want when you already have the element.
 
 Auto language detection:
 
@@ -54,13 +50,9 @@ import { codeToHtml, detectLanguage } from "rangbuzz";
 codeToHtml(code, { lang: detectLanguage(code) });
 ```
 
-Every language is bundled and ready to use — there is nothing to preload, and
-every function returns its result directly rather than a promise. Unknown
-languages fall back to unhighlighted text rather than throwing.
+Every language is bundled and ready to use — there is nothing to preload, and every function returns its result directly rather than a promise. Unknown languages fall back to unhighlighted text rather than throwing. To bundle only what you use instead, reach for [`rangbuzz/core`](#core).
 
-A custom language is passed to the call that needs it, rather than registered
-globally. Custom languages are looked up before the bundled ones, so they can
-also override a bundled language, and they apply to sub-languages too:
+A custom language is passed to the call that needs it, rather than registered globally. Custom languages are looked up before the bundled ones, so they can also override a bundled language, and they apply to sub-languages too:
 
 ```js
 import { codeToHtml } from "rangbuzz";
@@ -68,16 +60,13 @@ import { codeToHtml } from "rangbuzz";
 codeToHtml(code, { lang: "mine", languages: { mine: customLanguage } });
 ```
 
-A language is an array of rules — `import * as mine from "./mine.js"` works as
-well, for a module with the rules as its default export.
+A language is an array of rules — `import * as mine from "./mine.js"` works as well, for a module with the rules as its default export.
 
 ---
 
 ### Tokens
 
-`tokenize(code, opt)` is the layer everything else is built on. It returns the
-tokens themselves, so you can render them your own way — into JSX, into another
-markup, or into whatever your output format is:
+`tokenize(code, opt)` is the layer everything else is built on. It returns the tokens themselves, so you can render them your own way — into JSX, into another markup, or into whatever your output format is:
 
 ```js
 import { tokenize } from "rangbuzz";
@@ -92,23 +81,11 @@ tokenize("let a = 1", { lang: "js" });
 // ]
 ```
 
-It takes the same `lang` and `languages` options as the other entry points.
-Tokens come back in source order, are never empty, and their `text` is raw —
-nothing is escaped — so joining them gives the input back. Text that no rule
-matched has no `type`, and an unknown language or a broken grammar yields the
-whole code as a single untyped token rather than throwing.
+It takes the same `lang` and `languages` options as the other entry points. Tokens come back in source order, are never empty, and their `text` is raw nothing is escaped so joining them gives the input back. Text that no rule matched has no `type`, and an unknown language or a broken grammar yields the whole code as a single untyped token rather than throwing.
 
-The `type` is one of `deleted`, `err`, `var`, `section`, `kwd`, `class`,
-`cmnt`, `insert`, `type`, `func`, `bool`, `num`, `oper`, `str`, `esc` — the
-same keys a [theme](#themes-) assigns colors to. The one style a theme does not
-carry is the italic `cmnt` is rendered with in html, which is a convention of
-that output rather than theme data.
+The `type` is one of `deleted`, `err`, `var`, `section`, `kwd`, `class`, `cmnt`, `insert`, `type`, `func`, `bool`, `num`, `oper`, `str`, `esc` — the same keys a [theme](#themes-) assigns colors to. The one style a theme does not carry is the italic `cmnt` is rendered with in html, which is a convention of that output rather than theme data.
 
-**A token may span line breaks.** A block comment, a template literal or a run
-of plain text is a single token however many lines it covers. So to render line
-by line, tokenize the whole code **once** and split the tokens — tokenizing
-each line on its own loses every construct that crosses a break, and does it
-silently:
+**A token may span line breaks.** A block comment, a template literal or a run of plain text is a single token however many lines it covers. So to render line by line, tokenize the whole code **once** and split the tokens — tokenizing each line on its own loses every construct that crosses a break, and does it silently:
 
 ```js
 // ✗ each line tokenized in isolation
@@ -138,9 +115,46 @@ import { atomDark } from "rangbuzz/themes";
 printHighlight('console.log("hello")', { lang: "js", theme: atomDark });
 ```
 
-Every theme works in the terminal, its colors are emitted as 24 bit escape
-sequences (a light/dark pair is read as its dark theme). `codeToAnsi` returns
-the string instead of printing it.
+Every theme works in the terminal, its colors are emitted as 24 bit escape sequences (a light/dark pair is read as its dark theme). `codeToAnsi` returns the string instead of printing it.
+
+---
+
+### Core
+
+The main entry bundles every language and the two default themes, so a call needs nothing but the code. `rangbuzz/core` is the same API with **nothing bundled**: the languages and the theme are required options, so only what you hand it ends up in your bundle.
+
+The bundled grammars live in `rangbuzz/languages`, each a named export of its own, so you pay for the ones you name and nothing else:
+
+```js
+import { codeToHtml } from "rangbuzz/core";
+import { js, ts } from "rangbuzz/languages";
+import { githubDark } from "rangbuzz/themes";
+
+codeToHtml(code, { lang: "js", languages: { js, ts }, theme: githubDark });
+```
+
+The export names are the registry keys, so `{ js, ts }` is a complete registry already and a custom grammar sits next to them as `{ js, mine }`, exactly as it does on the main entry. `languages` is exported too, as the same object the main entry uses, for the rare case where you want every grammar through the core API.
+
+`languages` is the whole registry the call resolves names against the language of the code itself, and every sub-language it reaches. Nothing is registered globally and nothing is loaded behind your back: `languages: {}` highlights nothing, and an unknown language degrades to plain text rather than throwing, here as everywhere else.
+
+That last part is what to watch for, because **grammars delegate to other grammars**, and a name you did not pass leaves that region unhighlighted:
+
+```js
+import { js, js_template_literals, jsdoc, regex, todo } from "rangbuzz/languages";
+
+// `js` on its own: the code is highlighted, but template literals and
+// comments come back as plain text
+tokenize(code, { lang: "js", languages: { js } });
+
+// javascript, whole
+tokenize(code, { lang: "js", languages: { js, jsdoc, js_template_literals, regex, todo } });
+```
+
+- **`todo`** is the one to remember: nearly every grammar routes its comments through it — that is what picks `TODO`/`FIXME` out of them, and what carries the comment color itself. Without it, comments are not highlighted at all.
+- `js` and `ts` reach for `jsdoc`, `js_template_literals`, `regex` and `todo`; `html` for `css`, `js` and `todo`; `php` for `html`, `jsdoc` and `todo`; `c` for `asm`, `make` for `bash`.
+- `md`, `http`, `vue`, `astro` and `svelte` pick their sub-language from the code itself (a fence language, an embedded block), so they highlight whatever you happened to pass and leave the rest plain.
+
+The core entry exports the same functions as the main one — `codeToHtml`, `highlightText`, `tokenize`, `codeToAnsi`, `printHighlight` and `detectLanguage` and behaves identically otherwise. Bundled together, the core, the five javascript grammars above and a theme come to ~3.5kB min+gzip.
 
 ## Languages supported 🌐
 
@@ -193,16 +207,11 @@ the string instead of printing it.
 
 ## Themes 🌈
 
-A theme is plain data: a color per token type. The same object drives the
-inline styles and the terminal.
+A theme is plain data: a color per token type. The same object drives the inline styles and the terminal.
 
-By default, code is highlighted with the **two bundled themes** — `default` for
-light and `dark` for dark — inlined as [`light-dark()`][light-dark] colors, so a
-code block follows the color scheme of the reader on its own. They are the only
-two themes the main entry pulls in.
+By default, code is highlighted with the **two bundled themes** — `default` for light and `dark` for dark — inlined as [`light-dark()`][light-dark] colors, so a code block follows the color scheme of the reader on its own. They are the only two themes the main entry pulls in.
 
-Every other theme lives in `rangbuzz/themes`, and only ends up in your bundle if
-you import it:
+Every other theme lives in `rangbuzz/themes`, and only ends up in your bundle if you import it:
 
 ```js
 import { codeToHtml } from "rangbuzz";
@@ -221,8 +230,7 @@ codeToHtml(code, { lang: "js", theme: githubDark });
 | github-light       | `githubLight`      |
 | visual-studio-dark | `visualStudioDark` |
 
-Each theme is a named export of its own. Writing a custom theme is just an
-object:
+Each theme is a named export of its own. Writing a custom theme is just an object:
 
 ```js
 codeToHtml(code, {
@@ -243,6 +251,4 @@ codeToHtml(code, {
 
 [MIT](./LICENSE)
 
-This project is a fork of [Speed Highlight JS](https://github.com/speed-highlight/core)
-by [matubu](https://mathias.ninja) and contributors, which is dedicated to the public
-domain under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). This fork is redistributed under MIT. See [LICENSE](./LICENSE) for details.
+This project is a fork of [Speed Highlight JS](https://github.com/speed-highlight/core) by [matubu](https://mathias.ninja) and contributors, which is dedicated to the public domain under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). This fork is redistributed under MIT. See [LICENSE](./LICENSE) for details.
