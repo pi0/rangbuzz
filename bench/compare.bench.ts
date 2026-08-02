@@ -1,13 +1,24 @@
 /**
  * The same corpus through the other highlighters — `pnpm bench:compare`.
  *
- * Shiki, Prism and highlight.js, against us. Shiki twice: once on Oniguruma
- * compiled to WebAssembly, which is what it uses unless told otherwise, and
- * once on [its JavaScript `RegExp` engine][engine], which trades some grammar
- * compatibility for not shipping the WebAssembly — the comparison closest to
- * ours, since that engine and this library are running the same primitive.
- * Strict, not `forgiving`: every grammar the corpus needs compiles under it, so
- * nothing here is being highlighted by a pattern that was quietly given up on.
+ * Shiki, Prism, highlight.js and Speed Highlight, against us. Shiki twice: once
+ * on Oniguruma compiled to WebAssembly, which is what it uses unless told
+ * otherwise, and once on [its JavaScript `RegExp` engine][engine], which trades
+ * some grammar compatibility for not shipping the WebAssembly — the comparison
+ * closest to ours, since that engine and this library are running the same
+ * primitive. Strict, not `forgiving`: every grammar the corpus needs compiles
+ * under it, so nothing here is being highlighted by a pattern that was quietly
+ * given up on.
+ *
+ * Speed Highlight is the project this one is a fork of, and so is the one row
+ * that answers what the fork did rather than what a different design costs: its
+ * grammars are the ancestors of ours and its output is token for token the same
+ * shape. It is measured as it ships, which means `highlightText()` and means
+ * awaiting it — its tokenizer is an `async function` that awaits itself through
+ * every sub-language, so the promise is not a detail of how a grammar is
+ * loaded, it is in the call every one of its users makes. Being synchronous is
+ * most of what this fork is, so that await is inside the timing rather than
+ * around it.
  *
  * The point is not a headline number, it is a fair one, so what is measured is
  * spelled out:
@@ -23,13 +34,14 @@
  *   promise.
  * - **Not the same output, and this matters.** We and Shiki inline the theme as
  *   `style` attributes: the result needs no stylesheet, and both pay for the
- *   colour lookup and the attribute on every token. Prism and highlight.js emit
- *   class names and leave the colours to a stylesheet you ship separately, so
- *   they are doing strictly less work per token. Read their numbers as a
- *   ceiling, not as a like-for-like.
+ *   colour lookup and the attribute on every token. Prism, highlight.js and
+ *   Speed Highlight emit class names and leave the colours to a stylesheet you
+ *   ship separately, so they are doing strictly less work per token. Read their
+ *   numbers as a ceiling, not as a like-for-like.
  * - **Warm.** Every contender is fully loaded before the timer starts — Shiki's
  *   grammars and theme compiled into the highlighter, Prism's components
- *   loaded, highlight.js imported. What each of them spent getting there is a
+ *   loaded, highlight.js imported, Speed Highlight's grammars pulled into the
+ *   cache it loads them through. What each of them spent getting there is a
  *   column of the table at the end, because it is real cost that a benchmark
  *   like this hides: we have almost none of it, the registry is a static
  *   object, and everyone else pays it once per process. It is timed from cold
@@ -59,8 +71,9 @@
  * Which grammar each highlighter is asked for comes from one map per contender:
  * Shiki's and Prism's are the ones the test suite already keeps in
  * `test/languages/_judges.ts`, so the comparison cannot pair a language with
- * the wrong grammar; {@link HLJS} below is the third, and is keyed by
- * `ShjLanguage` so adding a language fails typecheck until it is decided.
+ * the wrong grammar; {@link HLJS} and {@link SPEED} below are the other two,
+ * and are keyed by `ShjLanguage` so adding a language fails typecheck until it
+ * is decided.
  *
  * These are not the same tool and the numbers should not be read as if they
  * were. Shiki runs the TextMate grammars VS Code itself runs and is more
@@ -84,6 +97,7 @@ import { fileURLToPath } from "node:url";
 import { styleText } from "node:util";
 import { gzipSync } from "node:zlib";
 
+import { highlightText, type ShjLanguage as SpeedLanguage } from "@speed-highlight/core";
 import hljs from "highlight.js";
 import { bench, compact, do_not_optimize, group, run, summary } from "mitata";
 import Prism from "prismjs";
@@ -151,6 +165,69 @@ const HLJS: Record<ShjLanguage, string | null> = {
   yaml: "yaml",
 };
 
+/**
+ * Our language -> the grammar Speed Highlight knows it by, `null` where it has
+ * none.
+ *
+ * The one map that is mostly an identity, because these are the names this
+ * library inherited: where a row is `null` the language is one the fork added,
+ * and the handful of names that differ are not renames but grammars that were
+ * written here from scratch. Nothing is aliased onto a near neighbour — its `c`
+ * is not asked to stand in for C++ the way highlight.js's `ini` genuinely does
+ * stand in for TOML — so a `null` means a user of it has no grammar, not that
+ * one was hard to choose.
+ *
+ * Its `bf`, `git` and `leanpub-md` have no counterpart on our side, and its
+ * `todo` and `js_template_literals` are fragments here as they are there, so
+ * none of the five can appear in a map keyed by `ShjLanguage`.
+ */
+const SPEED: Record<ShjLanguage, SpeedLanguage | null> = {
+  asm: "asm",
+  astro: null,
+  bash: "bash",
+  c: "c",
+  cpp: null,
+  cs: null,
+  css: "css",
+  csv: "csv",
+  dart: null,
+  diff: "diff",
+  docker: "docker",
+  go: "go",
+  graphql: null,
+  html: "html",
+  http: "http",
+  ini: "ini",
+  java: "java",
+  js: "js",
+  jsdoc: "jsdoc",
+  json: "json",
+  kt: null,
+  less: null,
+  log: "log",
+  lua: "lua",
+  make: "make",
+  md: "md",
+  php: null,
+  pl: "pl",
+  plain: "plain",
+  ps1: null,
+  py: "py",
+  rb: null,
+  regex: "regex",
+  rs: "rs",
+  scss: null,
+  sql: "sql",
+  svelte: null,
+  swift: null,
+  toml: "toml",
+  ts: "ts",
+  uri: "uri",
+  vue: null,
+  xml: "xml",
+  yaml: "yaml",
+};
+
 /** One highlighter, asked for a string of HTML */
 interface Contender {
   /** What it is called in the output */
@@ -158,7 +235,18 @@ interface Contender {
   /** The grammar it knows one of our languages by, `undefined` where it has none */
   grammar: (lang: ShjLanguage) => string | undefined;
   /** Highlight one block with the grammar {@link Contender.grammar} returned */
-  html: (code: string, grammar: string) => string;
+  html: (code: string, grammar: string) => string | Promise<string>;
+  /**
+   * Whether {@link Contender.html} hands back a promise
+   *
+   * Speed Highlight's is the only one that does, and awaiting it is part of
+   * what it costs rather than an artifact of measuring it — see the top of this
+   * file. The other four are timed in a plain synchronous loop all the same:
+   * awaiting a value that is not a promise is still a turn of the microtask
+   * queue per block, and there is no reason to charge four contenders for a
+   * fifth one's signature.
+   */
+  awaits?: true;
   /**
    * The module a consumer bundles to get {@link Contender.html} back
    *
@@ -182,6 +270,19 @@ interface Contender {
    * `clike` — and ours brings the registry whole whatever it was asked for.
    */
   carries: RegExp;
+  /**
+   * Match {@link Contender.carries} against the bundle's code, not its modules
+   *
+   * Speed Highlight publishes an entry that is already bundled: every grammar
+   * it has is inlined in that one file, behind a map from the specifier each
+   * used to be imported by to the copy now sitting beside it. So there is no
+   * module left for a bundler to name — and no way to ask for fewer of them
+   * either, since that map is reachable from `highlightText`, which is the
+   * whole public API, so its thirty-odd grammars are in the bundle whichever
+   * one this run wanted. The specifiers survive minification as string keys,
+   * and are what its count is taken over.
+   */
+  inlined?: true;
 }
 
 /** The package root, which is where a bare specifier has to resolve from */
@@ -277,6 +378,19 @@ createRequire(import.meta.url)("prismjs/components/index.js")(
   CORPUS.flatMap((c) => JUDGED[c.lang]?.prism ?? []),
 );
 
+// Speed Highlight has no highlighter to build and no registry to fill: it loads
+// a grammar the first time something asks for it and caches it under its name,
+// which is a load the other four have already done by now. So the corpus is run
+// through it once, which is the only way in — and the whole corpus rather than a
+// token of each language, because a sub-language is loaded the same way, on the
+// first line of code that reaches it.
+await Promise.all(
+  CORPUS.flatMap((c) => {
+    const grammar = SPEED[c.lang];
+    return grammar ? c.snippets.map((code) => highlightText(code, grammar, false)) : [];
+  }),
+);
+
 const CONTENDERS: Contender[] = [
   {
     name: "rangi",
@@ -290,6 +404,29 @@ const CONTENDERS: Contender[] = [
 import { githubDark } from ${JSON.stringify(`${SRC}themes/index.ts`)};
 
 export default (code, lang) => codeToHtml(code, { lang, theme: githubDark, lineNumbers: false });`,
+  },
+  {
+    // `multiline: false` for the same reason ours runs with `lineNumbers:
+    // false` — it is the same gutter, built the same way, and neither row
+    // should be paying for markup the other is not
+    name: "speed-highlight",
+    grammar: (lang) => SPEED[lang] ?? undefined,
+    // the cast is the map above being narrower than this signature: `grammar`
+    // returned one of its values, which is a grammar it has by construction
+    html: (code, lang) => highlightText(code, lang as SpeedLanguage, false),
+    awaits: true,
+    carries: /"\.\/languages\/[^"]+\.js"/g,
+    inlined: true,
+    // no registration and no highlighter to build: the entry is the API, and
+    // the grammars come with it whether or not they are wanted. What the
+    // warmup above does in this process, the bundle does at its top level, so
+    // what the `warmup` column times is the same work.
+    ship: (grammars) =>
+      `import { highlightText } from "@speed-highlight/core";
+
+await Promise.all(${JSON.stringify(grammars)}.map((lang) => highlightText("", lang, false)));
+
+export default (code, lang) => highlightText(code, lang, false);`,
   },
   {
     name: "shiki (oniguruma)",
@@ -378,9 +515,16 @@ const face = (name: string, corpora: Corpus[]) => {
             c.snippets.map((code) => ({ code, grammar: contender.grammar(c.lang)! })),
           );
 
-        bench(contender.name, () => {
-          for (const b of blocks) do_not_optimize(contender.html(b.code, b.grammar));
-        })
+        bench(
+          contender.name,
+          contender.awaits
+            ? async () => {
+                for (const b of blocks) do_not_optimize(await contender.html(b.code, b.grammar));
+              }
+            : () => {
+                for (const b of blocks) do_not_optimize(contender.html(b.code, b.grammar));
+              },
+        )
           .baseline(ours)
           .highlight(ours ? SELECTION : undefined);
       }
@@ -413,8 +557,9 @@ await run();
 // rather than over them, where it would be read before there was anything to
 // apply it to.
 console.log(
-  "\nnote: prism and highlight.js emit class names where we and shiki inline the theme," +
-    "\n      so they do less work per token and need a stylesheet shipped with the page",
+  "\nnote: prism, highlight.js and speed-highlight emit class names where we and shiki" +
+    "\n      inline the theme, so they do less work per token and need a stylesheet" +
+    "\n      shipped with the page",
 );
 
 const VIRTUAL_ENTRY = "\0compare-entry";
@@ -468,20 +613,25 @@ type Chunks = Awaited<ReturnType<typeof build>>;
  * @param chunks The bundle, from {@link build}
  * @param carries Which of its modules is a grammar, from
  * {@link Contender.carries}
+ * @param inlined Read `carries` over the code instead, from
+ * {@link Contender.inlined}
  * @returns Its sizes, in bytes, and how many grammars it carries
  */
 const weigh = (
   chunks: Chunks,
   carries: RegExp,
+  inlined?: true,
 ): { min: number; gzip: number; grammars: number } => ({
   min: chunks.reduce((sum, chunk) => sum + Buffer.byteLength(chunk.code), 0),
   gzip: gzipSync(chunks.map((chunk) => chunk.code).join(""), { level: 9 }).length,
   grammars: new Set(
-    chunks
-      .flatMap((chunk) => Object.keys(chunk.modules))
-      // the ids are paths, and `carries` is written with `/` in it
-      .map((id) => id.replaceAll(sep, "/"))
-      .filter((id) => carries.test(id)),
+    inlined
+      ? chunks.flatMap((chunk) => chunk.code.match(carries) ?? [])
+      : chunks
+          .flatMap((chunk) => Object.keys(chunk.modules))
+          // the ids are paths, and `carries` is written with `/` in it
+          .map((id) => id.replaceAll(sep, "/"))
+          .filter((id) => carries.test(id)),
   ).size,
 });
 
@@ -557,9 +707,13 @@ const BOOT = evaluate({ [RUNNER]: "console.log(performance.now());" });
  * where every other contender loads JavaScript that was built before it was
  * published.
  *
- * One thing it cannot capture: highlight.js compiles a grammar the first time
- * it is asked for it rather than at registration, so part of its own warmup is
- * paid inside the timings above instead of here.
+ * Two things it cannot capture, both of them the same shape: highlight.js
+ * compiles a grammar the first time it is asked for it rather than at
+ * registration, and Speed Highlight builds a sub-language's rules the first
+ * time a line of code reaches it, which asking for the language itself does not
+ * do. So part of each one's warmup is paid inside the timings above instead of
+ * here — and in Speed Highlight's case it is the part that a grammar with a
+ * sub-language, which is most of the interesting ones, would pay.
  *
  * @param chunks The bundle, from {@link build}
  * @returns Milliseconds, with {@link BOOT} taken off
@@ -613,7 +767,7 @@ for (const contender of CONTENDERS) {
 
   weighed.push({
     name: contender.name,
-    ...weigh(chunks, contender.carries),
+    ...weigh(chunks, contender.carries, contender.inlined),
     built,
     warmup: cold(chunks),
   });

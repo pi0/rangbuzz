@@ -9,6 +9,9 @@ importers:
 
   .:
     devDependencies:
+      '@speed-highlight/core':
+        specifier: ^1.2.22
+        version: 1.2.22
       '@types/node':
         specifier: latest
         version: 26.1.2
@@ -726,6 +729,9 @@ packages:
 
   '@shikijs/vscode-textmate@10.0.2':
     resolution: {integrity: sha512-83yeghZ2xxin3Nj8z1NMd/NCuca+gsYXswywDy5bHvwlWL8tpTQmzGeUuHd9FC3E/SBEMvzJRwWEOz5gGes9Qg==}
+
+  '@speed-highlight/core@1.2.22':
+    resolution: {integrity: sha512-XEUMtc8zk6oKA5pyl+KqmVfk66ep978VbK+nBw5HfgThGhqYiokP0QYrnHY4U2A2vbzr7cUS1IeXt/poO3KA9g==}
 
   '@standard-schema/spec@1.1.0':
     resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
@@ -2228,6 +2234,8 @@ snapshots:
       '@types/hast': 3.0.5
 
   '@shikijs/vscode-textmate@10.0.2': {}
+
+  '@speed-highlight/core@1.2.22': {}
 
   '@standard-schema/spec@1.1.0': {}
 

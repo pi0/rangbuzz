@@ -31,6 +31,7 @@
     "typecheck": "tsgo --noEmit --skipLibCheck"
   },
   "devDependencies": {
+    "@speed-highlight/core": "^1.2.22",
     "@types/node": "latest",
     "@types/prismjs": "^1.26.6",
     "@typescript/native-preview": "latest",
