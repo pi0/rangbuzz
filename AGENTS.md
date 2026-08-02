@@ -8,7 +8,7 @@
 - `src/terminal.ts` — `codeToAnsi()` / `printHighlight()`, same tokens as 24-bit escapes.
 - `src/core.ts` — the `./core` entry, re-exporting those functions as they are; their `languages` and `theme` options are required (`ShjCore*Options` in `src/types.ts`, the main option types with those two made required).
 - `src/index.ts` — the `.` entry: the same functions, wrapped to fill in the bundled registry and `defaultThemes`. Custom languages are merged over the bundled ones, so they still win and still apply to sub-languages.
-- `src/detect.ts` — `detectLanguage()`, scored regex heuristics.
+- `src/detect.ts` — `detectLanguage()`, scored regex heuristics. Nothing else in `src/` may import it: it is a public function the caller opts into, and a grammar reaching for it would put it in every bundle (`test/bundle.test.ts` fails if one does). A grammar picks its sub-language out of the code itself or leaves it plain.
 - `src/languages/*.ts` — one file per grammar, default-exporting `ShjLanguageDefinition` (an array of `[match, type?, sub?]` rule tuples; a rule with a `sub` but no `type` leaves a hole, `[/…/g, , "js"]`). `src/common.ts` exports the shared rules (`num`, `str`, `strDouble`), imported and dropped into a grammar as is.
 - `src/languages.ts` — static registry of every grammar; `ShjLanguage` is derived from it. It is the `./languages` entry too, so every grammar is also a named export under its exact registry key (the four that carry a `type` are assembled into `{ default, type }` there); a test asserts the exports and the registry stay in step.
 - `src/themes/*.ts` — one file per theme (plain data: `bg`, `fg`, `tokens` per token type); `src/themes/index.ts` re-exports them and derives `ShjThemeName`.
@@ -18,8 +18,9 @@
 - `test/` — vitest, asserts exact output strings.
 - `test/bundle.test.ts` — bundles `codeToHtml` out of `.` and `./core` with rolldown (a dev dependency) and checks the result against `BUNDLES`: its min+gzip `size`, and the `modules` of `src/` it is allowed to reach, which is what catches an import that leaks a theme or the registry into an entry that should not carry it. The size has 2% of headroom upward and none downward, so a shrink fails too: take the win by recording the size the failure prints. Whenever you do, re-measure the approximate figures in the README (two of them, the feature list and the core entry section) and the one below — they are prose, so nothing else keeps them honest.
 - `test/languages/` — one file per grammar, each an inline corpus handed to `testLanguage()` (`_harness.ts`) plus the differences from the judges it is allowed to have. `_judges.ts` holds the cross check against Prism (`refractor`) and Shiki, both dev dependencies.
+- `bench/` — mitata (a dev dependency), run with `node`, not Vitest. `highlight.bench.ts` measures the library on its own: per grammar throughput, what each output layer costs, what the default options cost, and how the cost scales with the size of a single input. `compare.bench.ts` puts the same corpus through Shiki, with what is and is not being measured written down at the top of the file. Neither keeps a corpus of its own — `_corpus.ts` reads the one in `test/languages/`, by pointing the test files' `_harness.ts` import at the `testLanguage()` in `_collect.ts`, which only records. So a language added to the test suite is benchmarked without anything here being touched, and the corpus cannot drift from the one the grammars are asserted against.
 
-Four build entries (`build.config.ts`): `.` → `src/index.ts`, `./core` → `src/core.ts`, `./languages` → `src/languages.ts`, `./themes` → `src/themes/index.ts`. Everything else must stay reachable only from those, so themes stay tree-shakeable. Nothing `src/core.ts` reaches may import `src/languages.ts` or `src/defaults.ts` — that is the whole point of the entry, and it is what keeps it ~3kB min+gzip for every export, ~1.5kB for `codeToHtml` alone, against ~13.5kB for the main one.
+Four build entries (`build.config.ts`): `.` → `src/index.ts`, `./core` → `src/core.ts`, `./languages` → `src/languages.ts`, `./themes` → `src/themes/index.ts`. Everything else must stay reachable only from those, so themes stay tree-shakeable. Nothing `src/core.ts` reaches may import `src/languages.ts` or `src/defaults.ts` — that is the whole point of the entry, and it is what keeps it ~3kB min+gzip for every export, ~1.5kB for `codeToHtml` alone, against ~12.5kB for the main one.
 
 ## Conventions
 
@@ -34,4 +35,4 @@ Four build entries (`build.config.ts`): `.` → `src/index.ts`, `./core` → `sr
 
 ## Commands
 
-`pnpm test` (lint + typecheck + vitest w/ coverage) · `pnpm dev` (vitest watch) · `pnpm build` (obuild) · `pnpm fmt` (automd + oxlint --fix + oxfmt) · `pnpm language-stats` (rank the bundled grammars against GitHub usage; needs network).
+`pnpm test` (lint + typecheck + vitest w/ coverage) · `pnpm dev` (vitest watch) · `pnpm build` (obuild) · `pnpm fmt` (automd + oxlint --fix + oxfmt) · `pnpm bench` (mitata, over the test corpus) · `pnpm bench:compare` (the same corpus through Shiki) · `pnpm language-stats` (rank the bundled grammars against GitHub usage; needs network).

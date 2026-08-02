@@ -22,12 +22,10 @@ const SRC = fileURLToPath(new URL("../src/", import.meta.url));
 const BUNDLES = {
   ".": {
     entry: "index.ts",
-    size: 13_810,
+    size: 12_594,
     grammars: true,
     modules: [
       "common.ts",
-      // `md` and `http` resolve their sub-language with it, so the grammars pull it in
-      "detect.ts",
       "defaults.ts",
       "highlight.ts",
       "index.ts",

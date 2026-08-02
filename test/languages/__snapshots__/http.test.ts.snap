@@ -5,7 +5,7 @@ exports[`http > tokens > body 1`] = `
 «var:Content-Type»«oper::» application/json
 
 {
-  «str:"a"»: 1
+  "a": 1
 }"
 `;
 
