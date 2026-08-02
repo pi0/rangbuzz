@@ -22,7 +22,11 @@ import type {
 import { TOKENS } from "./tokens.ts";
 
 const sanitize = (str = "") =>
-    str.replaceAll("&", "&#38;").replaceAll?.("<", "&lt;").replaceAll?.(">", "&gt;"),
+    // most tokens carry none of the three, and the test is one pass where the
+    // replacements are three passes and two intermediate strings
+    /[&<>]/.test(str)
+      ? str.replaceAll("&", "&#38;").replaceAll?.("<", "&lt;").replaceAll?.(">", "&gt;")
+      : str,
   /**
    * Sanitize a string used as an attribute value
    *
@@ -294,6 +298,12 @@ export function highlightText(code: string, opt: ShjCoreOptions): string {
     badge = lang == "http" && mode == "oneline";
 
   let tmp = "";
+  // the theme is read once per token *type*, not once per token: a block has a
+  // handful of types and hundreds of tokens, and the styles of a type are the
+  // same string every time. Per call rather than module level, so a theme that
+  // is mutated between two calls still takes effect.
+  const styles: Partial<Record<ShjToken, string>> = {};
+
   eachToken(
     code,
     lang,
@@ -301,7 +311,8 @@ export function highlightText(code: string, opt: ShjCoreOptions): string {
       str = sanitize(str);
       if (!token) return (tmp += str);
 
-      const style = badge && token == "kwd" ? httpBadge : tokenStyle(theme, token);
+      const style =
+        badge && token == "kwd" ? httpBadge : (styles[token] ??= tokenStyle(theme, token));
       tmp += style ? `<span style="${style}">${str}</span>` : str;
     },
     opt.languages,
