@@ -1,21 +1,21 @@
 # 🎨 rangi
 
-[![NPM Version](https://badge.fury.io/js/rangi.svg)](https://badge.fury.io/js/rangi) ![NPM Downloads](https://img.shields.io/npm/dm/rangi)
+🎨 A tiny syntax highlighter
 
-Syntax highlighter that turns code into self contained HTML — or into ANSI for the terminal — in a single synchronous call. Forked from [Speed Highlight JS](https://github.com/speed-highlight/core).
+Rangi is a fork of [Speed Highlight JS](https://github.com/speed-highlight/core).
 
-- **Tiny** <small>(~12.5kB min+gzip with every language and the default themes bundled, ~1.5kB for `codeToHtml` from [`rangi/core`](#core))</small>
-- **Fast** <small>(outperforms every other highlighter!)</small>
-- **Simple** <small>(zero dependencies, nothing async, no stylesheet to load, no global registry)</small>
-- **Complete** <small>(44 languages, 7 themes, language detection, terminal output, and raw tokens to render your own way)</small>
+- **Tiny** <small>(**~12.5kB** min+gzip with every language and the default themes bundled, **~1.5kB** for `codeToHtml` from [`rangi/core`](#core))</small>
+- **Fast** <small>(outperforms other highlighters in our benchmarks)</small>
+- **Simple** <small>(zero dependencies, fully synchronous, no stylesheet to load, and no global registry)</small>
+- **Complete** <small>(**44 languages**, 7 themes, language detection, terminal output, and raw tokens for custom rendering)</small>
 
-## Quick Start 🚀
+### Quick Start 🚀
 
 ```bash
 npx nypm i rangi
 ```
 
-Highlight a string, get self contained markup:
+Highlight a string and get self-contained HTML:
 
 ```js
 import { codeToHtml } from "rangi";
@@ -23,27 +23,27 @@ import { codeToHtml } from "rangi";
 html = codeToHtml('console.log("hello")', { lang: "js" });
 ```
 
-The colors of the theme are inlined as `style` attributes, so the result needs no stylesheet, no javascript and no hydration on the client. It works the same in node, in the browser, in a worker or in a template.
+Theme colors are inlined as `style` attributes, so the result needs no stylesheet, client-side JavaScript, or hydration. It works the same whether you use it in Node.js, a browser, a worker, or a template.
 
 ```js
 import { codeToHtml } from "rangi";
 import { githubDark, githubLight } from "rangi/themes";
 
-// a specific theme, or a light/dark pair
+// Use a specific theme or a light/dark pair
 codeToHtml(code, { lang: "js", theme: githubDark });
 codeToHtml(code, { lang: "js", theme: { light: githubLight, dark: githubDark } });
 
-// an inline `<code>` element instead of a block (a block is `multiline` when
-// the code has a line break, `oneline` otherwise)
+// Return an inline `<code>` element instead of a block (blocks are `multiline`
+// when the code contains a line break and `oneline` otherwise)
 codeToHtml(code, { lang: "js", inline: true });
 
-// no gutter
+// Hide the line-number gutter
 codeToHtml(code, { lang: "js", lineNumbers: false });
 ```
 
-`highlightText(code, opt)` returns the content of the block only (the tokens and the line numbers), which is what you want when you already have the element.
+`highlightText(code, opt)` returns only the contents of the block: its tokens and line numbers. Use it when you already have a wrapper element.
 
-Auto language detection:
+Detect the language automatically:
 
 ```js
 import { codeToHtml, detectLanguage } from "rangi";
@@ -51,65 +51,21 @@ import { codeToHtml, detectLanguage } from "rangi";
 codeToHtml(code, { lang: detectLanguage(code) });
 ```
 
-Every language is bundled and ready to use — there is nothing to preload, and every function returns its result directly rather than a promise. Unknown languages fall back to unhighlighted text rather than throwing. To bundle only what you use instead, reach for [`rangi/core`](#core).
+Every language is bundled and ready to use, with nothing to preload. All functions return their results directly instead of promises. Unknown languages fall back to plain text rather than throwing an error. To bundle only the languages you use, choose [`rangi/core`](#core).
 
-A custom language is passed to the call that needs it, rather than registered globally. Custom languages are looked up before the bundled ones, so they can also override a bundled language, and they apply to sub-languages too:
+Pass a custom language directly to the call that needs it instead of registering it globally. Custom languages take precedence over bundled languages, so they can override them and are also available to sub-languages:
 
 ```js
 import { codeToHtml } from "rangi";
 
-codeToHtml(code, { lang: "mine", languages: { mine: customLanguage } });
+codeToHtml(code, { lang: "mine", languages: { custom: customLanguage } });
 ```
 
-A language is an array of rules — `import * as mine from "./mine.js"` works as well, for a module with the rules as its default export.
+A language is an array of rules. If those rules are a module's default export, `import * as mine from "./mine.js"` works too.
 
----
+## Terminal
 
-### Tokens
-
-`tokenize(code, opt)` is the layer everything else is built on. It returns the tokens themselves, so you can render them your own way — into JSX, into another markup, or into whatever your output format is:
-
-```js
-import { tokenize } from "rangi";
-
-tokenize("let a = 1", { lang: "js" });
-// [
-//   { text: "let", type: "kwd" },
-//   { text: " a " },
-//   { text: "=", type: "oper" },
-//   { text: " " },
-//   { text: "1", type: "num" }
-// ]
-```
-
-It takes the same `lang` and `languages` options as the other entry points. Tokens come back in source order, are never empty, and their `text` is raw nothing is escaped so joining them gives the input back. Text that no rule matched has no `type`, and an unknown language or a broken grammar yields the whole code as a single untyped token rather than throwing.
-
-The `type` is one of `deleted`, `err`, `var`, `section`, `kwd`, `class`, `cmnt`, `insert`, `type`, `func`, `bool`, `num`, `oper`, `str`, `esc` — the same keys a [theme](#themes-) assigns colors to. The one style a theme does not carry is the italic `cmnt` is rendered with in html, which is a convention of that output rather than theme data.
-
-**A token may span line breaks.** A block comment, a template literal or a run of plain text is a single token however many lines it covers. So to render line by line, tokenize the whole code **once** and split the tokens — tokenizing each line on its own loses every construct that crosses a break, and does it silently:
-
-```js
-// ✗ each line tokenized in isolation
-"const a = 1; /* multi\nline */".split("\n").map((line) => tokenize(line, { lang: "js" }));
-
-// the second line comes back as [{ text: "line " }, { text: "*/", type: "oper" }]
-// — the comment is gone, and `*/` was read as an operator
-
-// ✓ tokenize once, then split the tokens
-const lines = [[]];
-for (const { text, type } of tokenize(code, { lang: "js" })) {
-  text.split("\n").forEach((part, i) => {
-    if (i) lines.push([]);
-    if (part) lines.at(-1).push({ text: part, type });
-  });
-}
-```
-
----
-
-### Terminal
-
-Highlight a file directly from the command line:
+Highlight a file from the command line:
 
 ```bash
 npx rangi src/index.ts
@@ -122,15 +78,13 @@ import { atomDark } from "rangi/themes";
 printHighlight('console.log("hello")', { lang: "js", theme: atomDark });
 ```
 
-Every theme works in the terminal, its colors are emitted as 24 bit escape sequences (a light/dark pair is read as its dark theme). `codeToAnsi` returns the string instead of printing it.
+Every theme works in the terminal, where its colors are emitted as 24-bit escape sequences. For a light/dark pair, the terminal uses the dark theme. `codeToAnsi` returns the highlighted string instead of printing it.
 
----
+## Core
 
-### Core
+The main entry point bundles every language and both default themes, so they are ready to use. `rangi/core` provides the same API with **nothing bundled**. Its `languages` and `theme` options are required, so your bundle includes only what you provide.
 
-The main entry bundles every language and the two default themes, so a call needs nothing but the code. `rangi/core` is the same API with **nothing bundled**: the languages and the theme are required options, so only what you hand it ends up in your bundle.
-
-The bundled grammars live in `rangi/languages`, each a named export of its own, so you pay for the ones you name and nothing else:
+Each bundled grammar is available as a named export from `rangi/languages`, so your bundle includes only the ones you import:
 
 ```js
 import { codeToHtml } from "rangi/core";
@@ -140,11 +94,11 @@ import { githubDark } from "rangi/themes";
 codeToHtml(code, { lang: "js", languages: { js, ts }, theme: githubDark });
 ```
 
-The export names are the registry keys, so `{ js, ts }` is a complete registry already and a custom grammar sits next to them as `{ js, mine }`, exactly as it does on the main entry. `languages` is exported too, as the same object the main entry uses, for the rare case where you want every grammar through the core API.
+Export names match their language keys, so you can pass `{ js, ts }` directly as the `languages` option. Add a custom grammar alongside them as `{ js, custom }`, just as you would with the main entry point. If you need every grammar through the core API, import the full `languages` object used by the main entry point.
 
-`languages` is the whole registry the call resolves names against the language of the code itself, and every sub-language it reaches. Nothing is registered globally and nothing is loaded behind your back: `languages: {}` highlights nothing, and an unknown language degrades to plain text rather than throwing, here as everywhere else.
+The highlighter uses the grammars provided in `languages` for both the selected language and any sub-languages it needs. Nothing is registered globally or loaded implicitly: `languages: {}` applies no highlighting, and unknown languages fall back to plain text instead of throwing an error.
 
-That last part is what to watch for, because **grammars delegate to other grammars**, and a name you did not pass leaves that region unhighlighted:
+Keep in mind that **grammars can delegate to other grammars**. If you omit a required grammar, its region remains unhighlighted:
 
 ```js
 import { js, js_template_literals, jsdoc, regex, todo } from "rangi/languages";
@@ -153,11 +107,11 @@ import { js, js_template_literals, jsdoc, regex, todo } from "rangi/languages";
 // comments come back as plain text
 tokenize(code, { lang: "js", languages: { js } });
 
-// javascript, whole
+// Complete JavaScript highlighting
 tokenize(code, { lang: "js", languages: { js, jsdoc, js_template_literals, regex, todo } });
 ```
 
-The core entry exports the same functions as the main one — `codeToHtml`, `highlightText`, `tokenize`, `codeToAnsi`, `printHighlight` and `detectLanguage` and behaves identically otherwise. Bundled together, the core, the five javascript grammars above and a theme come to ~2.5kB min+gzip — against ~12.5kB for the main entry, which carries every grammar.
+The core entry exports the same functions as the main entry.
 
 ## Languages supported 🌐
 
@@ -173,11 +127,11 @@ The core entry exports the same functions as the main one — `codeToHtml`, `hig
 | csv              | punctuation, ...                                                |                    |
 | dart             | comment, string, keyword, class, ...                            | ✅                 |
 | diff             | deleted, insert, keyword, section                               | ✅                 |
-| docker           | instruction keyword, ...bash syntax                             | ✅                 |
+| docker           | instruction keyword, embedded bash syntax                       | ✅                 |
 | go               | comment, string, raw string, number, keyword, class, ...        | ✅                 |
 | graphql          | comment, string, type, field, directive, variable, ...          | ✅                 |
 | html             | doctype, embedded css/js, tag, attribute, ...                   | ✅                 |
-| http             | keywork, string, punctuation, variable, version                 | ✅                 |
+| http             | keyword, string, punctuation, variable, version                 | ✅                 |
 | ini              | comment, section, key, value, ...                               |                    |
 | java             | comment, string, number, keyword, operator, class, ...          | ✅                 |
 | javascript (js)  | basic syntax, regex, jsdoc, json, template literals             | ✅                 |
@@ -187,7 +141,7 @@ The core entry exports the same functions as the main one — `codeToHtml`, `hig
 | less             | comment, string, variable, mixin, nesting, ...                  | ✅                 |
 | log              | number, string, comment, errors                                 |                    |
 | lua              | comment, string, keyword, boolean, number, function, ...        | ✅                 |
-| makefile (make)  | comment, variable, target, .PHONY, ...bash in recipes           | ✅                 |
+| makefile (make)  | comment, variable, target, .PHONY, embedded bash in recipes     | ✅                 |
 | markdown (md)    | heading, bold, italic, code fence, inline code, list, link, ... | ✅                 |
 | perl (pl)        | comment, string, number, keyword, operator, function            | ✅                 |
 | php              | comment, string, variable, keyword, ...                         | ✅                 |
@@ -210,11 +164,11 @@ The core entry exports the same functions as the main one — `codeToHtml`, `hig
 
 ## Themes 🌈
 
-A theme is plain data: a color per token type. The same object drives the inline styles and the terminal.
+A theme is a plain object that assigns a color to each token type. The same object powers both inline styles and terminal output.
 
-By default, code is highlighted with the **two bundled themes** — `default` for light and `dark` for dark — inlined as [`light-dark()`][light-dark] colors, so a code block follows the color scheme of the reader on its own. They are the only two themes the main entry pulls in.
+By default, rangi uses its **two bundled themes**: `default` for light mode and `dark` for dark mode. Their colors are inlined with [`light-dark()`][light-dark], so each code block automatically follows the reader's color scheme. These are the only themes included by the main entry point.
 
-Every other theme lives in `rangi/themes`, and only ends up in your bundle if you import it:
+All other themes are available from `rangi/themes` and are included in your bundle only when you import them:
 
 ```js
 import { codeToHtml } from "rangi";
@@ -233,7 +187,7 @@ codeToHtml(code, { lang: "js", theme: githubDark });
 | github-light       | `githubLight`      |
 | visual-studio-dark | `visualStudioDark` |
 
-Each theme is a named export of its own. Writing a custom theme is just an object:
+Each theme is a named export. A custom theme is simply an object:
 
 ```js
 codeToHtml(code, {
@@ -250,10 +204,50 @@ codeToHtml(code, {
 
 [light-dark]: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark
 
+## Tokenizer
+
+`tokenize(code, opt)` is the foundation of the other APIs. It returns raw tokens, giving you full control over how to render them—as JSX, other markup, or any format you need:
+
+```js
+import { tokenize } from "rangi";
+
+tokenize("let a = 1", { lang: "js" });
+// [
+//   { text: "let", type: "kwd" },
+//   { text: " a " },
+//   { text: "=", type: "oper" },
+//   { text: " " },
+//   { text: "1", type: "num" }
+// ]
+```
+
+It accepts the same `lang` and `languages` options as the other entry points. Tokens are returned in source order, and individual tokens are never empty. Their `text` is raw and unescaped, so joining the token text recreates the original input. Unmatched text has no `type`. An unknown language or invalid grammar returns the entire input as one untyped token instead of throwing an error.
+
+The `type` is one of `deleted`, `err`, `var`, `section`, `kwd`, `class`, `cmnt`, `insert`, `type`, `func`, `bool`, `num`, `oper`, `str`, and `esc`. These are the same keys that a [theme](#themes-) uses to assign colors. Themes do not define italics for `cmnt`; that styling is an HTML output convention.
+
+**A token may span multiple lines.** A block comment, template literal, or plain-text segment remains a single token regardless of how many lines it covers. To render line by line, tokenize the complete code **once**, then split the tokens. Tokenizing each line separately silently breaks constructs that cross line boundaries:
+
+```js
+// ✗ Tokenize each line in isolation
+"const a = 1; /* multi\nline */".split("\n").map((line) => tokenize(line, { lang: "js" }));
+
+// The second line becomes [{ text: "line " }, { text: "*/", type: "oper" }].
+// The comment is lost, and `*/` is interpreted as an operator.
+
+// ✓ Tokenize once, then split the tokens
+const lines = [[]];
+for (const { text, type } of tokenize(code, { lang: "js" })) {
+  text.split("\n").forEach((part, i) => {
+    if (i) lines.push([]);
+    if (part) lines.at(-1).push({ text: part, type });
+  });
+}
+```
+
 ## License 📄
 
 [MIT](./LICENSE)
 
-This project is a fork of [Speed Highlight JS](https://github.com/speed-highlight/core) by [matubu](https://mathias.ninja) and contributors, which is dedicated to the public domain under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). This fork is redistributed under MIT. See [LICENSE](./LICENSE) for details.
+This project is a fork of [Speed Highlight JS](https://github.com/speed-highlight/core) by [matubu](https://mathias.ninja) and its contributors. The original project is dedicated to the public domain under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/), while this fork is distributed under the MIT license. See [LICENSE](./LICENSE) for details.
 
-Thanks to [@kamikazechaser](https://github.com/kamikazechaser) for donating `rangi` npm package namespace.
+Thanks to [@kamikazechaser](https://github.com/kamikazechaser) for donating the `rangi` package name on npm.
