@@ -4,13 +4,13 @@
   "description": "Lightweight JavaScript syntax highlighter",
   "license": "MIT",
   "repository": "pi0/rangi",
-  "files": [
-    "dist"
-  ],
   "bin": {
     "rangi": "./dist/cli.mjs",
     "rcat": "./dist/cli.mjs"
   },
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "sideEffects": false,
   "types": "./dist/index.d.mts",
