@@ -22,7 +22,7 @@ const SRC = fileURLToPath(new URL("../src/", import.meta.url));
 const BUNDLES = {
   ".": {
     entry: "index.ts",
-    size: 12_617,
+    size: 12_818,
     grammars: true,
     modules: [
       "common.ts",

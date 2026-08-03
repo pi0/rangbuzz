@@ -116,7 +116,9 @@ import { type Corpus, CORPUS, PICKED, size } from "./_corpus.ts";
  * none.
  *
  * `toml` is not a mistake: highlight.js highlights TOML with its INI grammar,
- * under an alias, and that is the grammar a user of it gets.
+ * under an alias, and that is the grammar a user of it gets. `jsx` and `tsx`
+ * are the same case: aliases of its `javascript` and `typescript`, whose
+ * grammars carry what JSX handling it has.
  */
 const HLJS: Record<ShjLanguage, string | null> = {
   asm: "x86asm",
@@ -139,6 +141,7 @@ const HLJS: Record<ShjLanguage, string | null> = {
   js: "javascript",
   jsdoc: null,
   json: "json",
+  jsx: "javascript",
   kt: "kotlin",
   less: "less",
   log: null,
@@ -159,6 +162,7 @@ const HLJS: Record<ShjLanguage, string | null> = {
   swift: "swift",
   toml: "ini",
   ts: "typescript",
+  tsx: "typescript",
   uri: null,
   vue: null,
   xml: "xml",
@@ -202,6 +206,7 @@ const SPEED: Record<ShjLanguage, SpeedLanguage | null> = {
   js: "js",
   jsdoc: "jsdoc",
   json: "json",
+  jsx: null,
   kt: null,
   less: null,
   log: "log",
@@ -222,6 +227,7 @@ const SPEED: Record<ShjLanguage, SpeedLanguage | null> = {
   swift: null,
   toml: "toml",
   ts: "ts",
+  tsx: null,
   uri: "uri",
   vue: null,
   xml: "xml",

@@ -4,10 +4,10 @@
 
 Syntax highlighter that turns code into self contained HTML — or into ANSI for the terminal — in a single synchronous call. Forked from [Speed Highlight JS](https://github.com/speed-highlight/core).
 
-- **Tiny** <small>(~12.5kB min+gzip with every language and the default themes bundled, ~1.5kB for `codeToHtml` from [`rangi/core`](#core))</small>
+- **Tiny** <small>(~12.8kB min+gzip with every language and the default themes bundled, ~1.5kB for `codeToHtml` from [`rangi/core`](#core))</small>
 - **Fast** <small>(outperforms every other highlighter!)</small>
 - **Simple** <small>(zero dependencies, nothing async, no stylesheet to load, no global registry)</small>
-- **Complete** <small>(44 languages, 7 themes, language detection, terminal output, and raw tokens to render your own way)</small>
+- **Complete** <small>(46 languages, 7 themes, language detection, terminal output, and raw tokens to render your own way)</small>
 
 ## Quick Start 🚀
 
@@ -151,7 +151,7 @@ tokenize(code, { lang: "js", languages: { js } });
 tokenize(code, { lang: "js", languages: { js, jsdoc, js_template_literals, regex, todo } });
 ```
 
-The core entry exports the same functions as the main one — `codeToHtml`, `highlightText`, `tokenize`, `codeToAnsi`, `printHighlight` and `detectLanguage` and behaves identically otherwise. Bundled together, the core, the five javascript grammars above and a theme come to ~2.5kB min+gzip — against ~12.5kB for the main entry, which carries every grammar.
+The core entry exports the same functions as the main one — `codeToHtml`, `highlightText`, `tokenize`, `codeToAnsi`, `printHighlight` and `detectLanguage` and behaves identically otherwise. Bundled together, the core, the five javascript grammars above and a theme come to ~2.5kB min+gzip — against ~12.8kB for the main entry, which carries every grammar.
 
 ## Languages supported 🌐
 
@@ -177,6 +177,7 @@ The core entry exports the same functions as the main one — `codeToHtml`, `hig
 | javascript (js)  | basic syntax, regex, jsdoc, json, template literals             | ✅                 |
 | jsdoc            | tag, type, param name                                           |                    |
 | json             | string, number, bool, ...                                       |                    |
+| jsx              | js syntax, tags, attributes, expressions, fragments             | ✅                 |
 | kotlin (kt)      | comment, string, keyword, class, ...                            | ✅                 |
 | less             | comment, string, variable, mixin, nesting, ...                  | ✅                 |
 | log              | number, string, comment, errors                                 |                    |
@@ -196,6 +197,7 @@ The core entry exports the same functions as the main one — `codeToHtml`, `hig
 | svelte           | template, script, style, logic blocks, directives, ...          | ✅                 |
 | swift            | comment, string, keyword, class, ...                            | ✅                 |
 | toml             | comment, table, string, bool, variable                          |                    |
+| tsx              | ts syntax, tags, attributes, expressions, fragments             | ✅                 |
 | typescript (ts)  | js syntax, ts keyword, types                                    | ✅                 |
 | uri              | scheme, host, port, query, fragment, ...                        | ✅                 |
 | vue              | template, script, style, directives, ...                        | ✅                 |

@@ -1,0 +1,42 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`tsx > tokens > comments 1`] = `
+"«cmnt:// view
+»«kwd:const» view «oper:=» «oper:<»«oper:>»«oper:{»«cmnt:/* »«err:TODO»«cmnt:: paginate */»«oper:}»«oper:<»«var:Footer» «class:year»«oper:={»«num:2025»«oper:}» «oper:/>»«oper:</»«oper:>»;"
+`;
+
+exports[`tsx > tokens > hooks and generics 1`] = `
+"«kwd:export» «kwd:function» «func:useToggle»(initial«type:: boolean») {
+  «kwd:const» [on«oper:,» setOn] «oper:=» useState«oper:<»boolean«oper:>»(initial);
+  «kwd:const» strict«type:: boolean» «oper:=» «bool:true»;
+  «kwd:const» label «oper:=» on «oper:?» «str:"on"» «oper::» «str:"off"»;
+  «kwd:return» { on«oper:,» label«oper:,» strict«oper:,» toggle«oper::» () «kwd:=>» «func:setOn»(«oper:!»on) } «kwd:as» «kwd:const»;
+}"
+`;
+
+exports[`tsx > tokens > typed component 1`] = `
+"«kwd:interface» «class:Props» {
+  title«type:: string»;
+  count«oper:?:» number;
+  onSave«oper::» () «kwd:=>» «kwd:void»;
+}
+
+«kwd:export» «kwd:const» «class:Panel» «oper:=» ({ title«oper:,» count«oper:,» onSave }«oper::» «class:Props») «kwd:=>» (
+  «oper:<»«var:section» «class:className»«oper:=»«str:"panel"»«oper:>»
+    «oper:<»«var:h2»«oper:>»«oper:{»title«oper:.»«func:toUpperCase»()«oper:}»«oper:</»«var:h2»«oper:>»
+    «oper:<»«var:button» «class:onClick»«oper:={»onSave«oper:}» «class:disabled»«oper:={»count «oper:===» «num:0»«oper:}»«oper:>»
+      save «oper:{»count«oper:}» drafts
+    «oper:</»«var:button»«oper:>»
+  «oper:</»«var:section»«oper:>»
+);"
+`;
+
+exports[`tsx > tokens > typed expressions 1`] = `
+"«kwd:const» rows «oper:=» (
+  «oper:<»«var:ul» «class:data-kind»«oper:=»«str:"list"»«oper:>»
+    «oper:{»items«oper:.»«func:map»((item«oper::» «class:Item») «kwd:=>» (
+      «oper:<»«var:li» «class:key»«oper:={»item«oper:.»id«oper:}»«oper:>»«oper:{»item«oper:.»name «kwd:as» string«oper:}»«oper:</»«var:li»«oper:>»
+    ))«oper:}»
+  «oper:</»«var:ul»«oper:>»
+);"
+`;

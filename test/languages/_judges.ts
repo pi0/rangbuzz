@@ -31,6 +31,7 @@ import java from "refractor/java";
 import javascript from "refractor/javascript";
 import jsdoc from "refractor/jsdoc";
 import json from "refractor/json";
+import jsx from "refractor/jsx";
 import kotlin from "refractor/kotlin";
 import less from "refractor/less";
 import log from "refractor/log";
@@ -50,6 +51,7 @@ import scss from "refractor/scss";
 import sql from "refractor/sql";
 import swift from "refractor/swift";
 import toml from "refractor/toml";
+import tsx from "refractor/tsx";
 import typescript from "refractor/typescript";
 import uri from "refractor/uri";
 import yaml from "refractor/yaml";
@@ -72,6 +74,7 @@ for (const lang of [
   javascript,
   jsdoc,
   json,
+  jsx,
   kotlin,
   less,
   log,
@@ -91,6 +94,7 @@ for (const lang of [
   sql,
   swift,
   toml,
+  tsx,
   typescript,
   uri,
   yaml,
@@ -143,6 +147,7 @@ export const JUDGED: Record<string, { prism?: string; shiki?: BundledLanguage }>
   java: { prism: "java", shiki: "java" },
   js: { prism: "javascript", shiki: "javascript" },
   json: { prism: "json", shiki: "json" },
+  jsx: { prism: "jsx", shiki: "jsx" },
   kt: { prism: "kotlin", shiki: "kotlin" },
   less: { prism: "less", shiki: "less" },
   log: { prism: "log", shiki: "log" },
@@ -162,6 +167,7 @@ export const JUDGED: Record<string, { prism?: string; shiki?: BundledLanguage }>
   swift: { prism: "swift", shiki: "swift" },
   toml: { prism: "toml", shiki: "toml" },
   ts: { prism: "typescript", shiki: "typescript" },
+  tsx: { prism: "tsx", shiki: "tsx" },
   uri: { prism: "uri" },
   // Prism has no Vue grammar, so Shiki votes alone here
   vue: { shiki: "vue" },

@@ -24,6 +24,24 @@ const languages: [ShjLanguage, ...[RegExp, number][]][] = [
     ],
   ],
   [
+    "jsx",
+    [
+      /<[A-Z][\w.]*[^\n<>]*>|<\/[A-Z][\w.]*>|=\{|=>\s*\(?\s*<[a-zA-Z]|(?<!=)>\{[^{]|<\/[a-z][\w.]*>\s*[;,)]/g,
+      20,
+    ],
+  ],
+  [
+    "tsx",
+    [
+      /<[A-Z][\w.]*[^\n<>]*>|<\/[A-Z][\w.]*>|=\{|=>\s*\(?\s*<[a-zA-Z]|(?<!=)>\{[^{]|<\/[a-z][\w.]*>\s*[;,)]/g,
+      20,
+    ],
+    [
+      /\b(implements|interface|namespace|declare|readonly|satisfies)\b|:\s*(string|number|boolean|void)\b/g,
+      10,
+    ],
+  ],
+  [
     "py",
     [
       /\b(def|print|await|async|class|and|or|lambda|import|from|self|asyncio|pass|True|False|None|__init__)\b/g,
