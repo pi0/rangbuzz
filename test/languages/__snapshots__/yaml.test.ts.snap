@@ -7,6 +7,36 @@ exports[`yaml > tokens > anchors 1`] = `
   <<«oper::» *anchor"
 `;
 
+exports[`yaml > tokens > block scalar boundaries 1`] = `
+"«var:nested»«oper::»
+  «var:literal»«oper::» «str:|-
+    # scalar text
+»  «var:next»«oper::» value
+«var:root»«oper::» «str:>
+  folded text
+»«cmnt:# a comment»
+«var:name»«oper::» «str:"v"»"
+`;
+
+exports[`yaml > tokens > block scalar lookalikes 1`] = `
+"<!«oper:-»«oper:-» x «oper:-»«oper:-»>
+
+«cmnt:# a comment»
+
+«var:name»«oper::» «str:"v"»
+«var:note»«oper::» a > b"
+`;
+
+exports[`yaml > tokens > block scalar properties 1`] = `
+"«var:tagged»«oper::» «type:!!str» «str:>
+  text
+»«oper:-» «var:anchored»«oper::» &copy «str:|
+    text
+»? «str:|
+  block key
+»«oper::» value"
+`;
+
 exports[`yaml > tokens > block scalars 1`] = `
 "«var:literal»«oper::» «str:|
   raw line
@@ -46,6 +76,15 @@ exports[`yaml > tokens > numbers 1`] = `
 «var:float»«oper::» «num:3.14»
 «var:negative»«oper::» «oper:-»«num:1»
 «var:version»«oper::» «num:1.2.3»"
+`;
+
+exports[`yaml > tokens > sequence block scalar boundaries 1`] = `
+"«oper:-» «var:key»«oper::» «str:|2-
+    scalar
+»  «var:next»«oper::» value
+«oper:-» «oper:-» «str:>+
+    nested scalar
+»  «oper:-» next"
 `;
 
 exports[`yaml > tokens > sequences 1`] = `

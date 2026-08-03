@@ -8,6 +8,12 @@ exports[`md > tokens > fenced code 1`] = `
 »«kwd:\`\`\`»"
 `;
 
+exports[`md > tokens > fenced code with metadata 1`] = `
+"«kwd:\`\`\`js [file.js] {1,3-5} twoslash diff title="x"»
+«kwd:const» a «oper:=» «num:1»
+«kwd:\`\`\`»"
+`;
+
 exports[`md > tokens > fenced without language 1`] = `
 "«kwd:\`\`\`»
 plain text
@@ -15,13 +21,15 @@ plain text
 `;
 
 exports[`md > tokens > headings 1`] = `
-"# One
+"«section:# One»
 
-Two
-«cmnt:===»
+«section:## Two ##»
 
-Three
-«cmnt:---»"
+«section:Three
+===»
+
+«section:Four
+---»"
 `;
 
 exports[`md > tokens > inline code 1`] = `"use «str:\`const a = 1\`» here"`;
