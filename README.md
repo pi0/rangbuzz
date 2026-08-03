@@ -115,54 +115,54 @@ The core entry exports the same functions as the main entry.
 
 ## Languages supported 🌐
 
-| Name    | Aliases              | Language detection |
-| ------- | -------------------- | ------------------ |
-| asm     |                      | ✅                 |
-| astro   |                      | ✅                 |
-| bash    | sh, shell, zsh       | ✅                 |
-| c       | h                    | ✅                 |
-| cpp     | cc, cxx, hpp         | ✅                 |
-| cs      | csharp               | ✅                 |
-| css     |                      | ✅                 |
-| csv     |                      |                    |
-| dart    |                      | ✅                 |
-| diff    | patch                | ✅                 |
-| docker  | dockerfile           | ✅                 |
-| go      | golang               | ✅                 |
-| graphql | gql                  | ✅                 |
-| html    | htm                  | ✅                 |
-| http    |                      | ✅                 |
-| ini     |                      |                    |
-| java    |                      | ✅                 |
-| js      | javascript, mjs, cjs | ✅                 |
-| jsdoc   |                      |                    |
-| json    |                      |                    |
-| jsx     |                      | ✅                 |
-| kt      | kotlin, kts          | ✅                 |
-| less    |                      | ✅                 |
-| log     |                      |                    |
-| lua     |                      | ✅                 |
-| make    | makefile, mk         | ✅                 |
-| md      | markdown             | ✅                 |
-| php     |                      | ✅                 |
-| pl      | perl                 | ✅                 |
-| plain   | text, txt            |                    |
-| ps1     | powershell, pwsh     | ✅                 |
-| py      | python               | ✅                 |
-| rb      | ruby                 | ✅                 |
-| regex   |                      |                    |
-| rs      | rust                 | ✅                 |
-| scss    |                      | ✅                 |
-| sql     |                      | ✅                 |
-| svelte  |                      | ✅                 |
-| swift   |                      | ✅                 |
-| toml    |                      |                    |
-| ts      | typescript, mts, cts | ✅                 |
-| tsx     |                      | ✅                 |
-| uri     | url                  | ✅                 |
-| vue     |                      | ✅                 |
-| xml     | svg                  | ✅                 |
-| yaml    | yml                  |                    |
+| Name    | Aliases                     | Language detection |
+| ------- | --------------------------- | ------------------ |
+| asm     |                             | ✅                 |
+| astro   |                             | ✅                 |
+| bash    | sh, shell, zsh              | ✅                 |
+| c       | h                           | ✅                 |
+| cpp     | cc, cxx, hpp                | ✅                 |
+| cs      | csharp                      | ✅                 |
+| css     |                             | ✅                 |
+| csv     |                             |                    |
+| dart    |                             | ✅                 |
+| diff    | patch                       | ✅                 |
+| docker  | dockerfile                  | ✅                 |
+| go      | golang                      | ✅                 |
+| graphql | gql                         | ✅                 |
+| html    | htm                         | ✅                 |
+| http    |                             | ✅                 |
+| ini     |                             |                    |
+| java    |                             | ✅                 |
+| js      | javascript, mjs, cjs        | ✅                 |
+| jsdoc   |                             |                    |
+| json    | jsonc, json5, jsonl, ndjson |                    |
+| jsx     |                             | ✅                 |
+| kt      | kotlin, kts                 | ✅                 |
+| less    |                             | ✅                 |
+| log     |                             |                    |
+| lua     |                             | ✅                 |
+| make    | makefile, mk                | ✅                 |
+| md      | markdown                    | ✅                 |
+| php     |                             | ✅                 |
+| pl      | perl                        | ✅                 |
+| plain   | text, txt                   |                    |
+| ps1     | powershell, pwsh            | ✅                 |
+| py      | python                      | ✅                 |
+| rb      | ruby                        | ✅                 |
+| regex   |                             |                    |
+| rs      | rust                        | ✅                 |
+| scss    |                             | ✅                 |
+| sql     |                             | ✅                 |
+| svelte  |                             | ✅                 |
+| swift   |                             | ✅                 |
+| toml    |                             |                    |
+| ts      | typescript, mts, cts        | ✅                 |
+| tsx     |                             | ✅                 |
+| uri     | url                         | ✅                 |
+| vue     |                             | ✅                 |
+| xml     | svg                         | ✅                 |
+| yaml    | yml                         |                    |
 
 An alias is the same grammar under another name, so it works everywhere the name itself does — as the `lang` option, as the language of a markdown code fence, and as a named export of `rangi/languages`:
 
