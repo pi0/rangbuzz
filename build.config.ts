@@ -4,7 +4,13 @@ export default defineBuildConfig({
   entries: [
     {
       type: "bundle",
-      input: ["./src/index.ts", "./src/core.ts", "./src/languages.ts", "./src/themes/index.ts"],
+      input: [
+        "./src/index.ts",
+        "./src/core.ts",
+        "./src/cli.ts",
+        "./src/languages.ts",
+        "./src/themes/index.ts",
+      ],
     },
   ],
   hooks: {

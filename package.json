@@ -7,6 +7,10 @@
   "files": [
     "dist"
   ],
+  "bin": {
+    "rangi": "./dist/cli.mjs",
+    "rcat": "./dist/cli.mjs"
+  },
   "type": "module",
   "sideEffects": false,
   "types": "./dist/index.d.mts",
@@ -22,6 +26,7 @@
     "bench:profile": "node bench/profile.bench.ts",
     "build": "obuild",
     "dev": "vitest dev",
+    "rangi": "node ./src/cli.ts",
     "fmt": "automd && oxlint . --fix && oxfmt .",
     "language-stats": "node scripts/language-stats.ts",
     "lint": "oxlint . && oxfmt --check .",
