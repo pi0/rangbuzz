@@ -6,13 +6,7 @@
  * explicitly filled in: every bundled grammar, and the two bundled themes.
  */
 
-import type {
-  ShjCoreOptions,
-  ShjOptions,
-  ShjTerminalOptions,
-  ShjTokenized,
-  ShjTokenizeOptions,
-} from "./types.ts";
+import type { ShjOptions, ShjTerminalOptions, ShjTokenized, ShjTokenizeOptions } from "./types.ts";
 
 import { defaultThemes } from "./defaults.ts";
 import {
@@ -29,10 +23,16 @@ import { codeToAnsi as coreCodeToAnsi } from "./terminal.ts";
  * Custom languages are merged over the bundled ones, so they are still looked
  * up first, and still apply to sub-languages.
  *
+ * A theme is always filled in, even in class mode where it goes unused, so the
+ * result satisfies the terminal options too — which have no class mode to make
+ * one optional.
+ *
  * @function
  * @ignore
  */
-const bundled = (opt: ShjOptions): ShjCoreOptions => ({
+const bundled = (
+  opt: ShjOptions,
+): ShjOptions & Required<Pick<ShjOptions, "languages" | "theme">> => ({
   ...opt,
   languages: opt.languages ? { ...languages, ...opt.languages } : languages,
   theme: opt.theme ?? defaultThemes,

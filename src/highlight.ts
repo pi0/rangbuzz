@@ -74,10 +74,11 @@ const sanitize = (str = "") =>
    * @ignore
    * @param {number} lines The number of lines
    * @param {ShjTheme|ShjThemePair} theme The theme
+   * @param {boolean} [classes] Leave the styling to the stylesheet
    * @returns A HTML string
    */
-  gutter = (lines: number, theme: ShjTheme | ShjThemePair) =>
-    `<div class="shj-numbers" style="padding-left:5px;padding-right:10px;text-align:right;opacity:0.5;user-select:none;color:${color(theme, (theme) => theme.numbers ?? theme.tokens.cmnt) ?? "inherit"}">${Array.from({ length: lines }, (_, i) => `<div>${i + 1}</div>`).join("")}</div>`,
+  gutter = (lines: number, theme: ShjTheme | ShjThemePair, classes?: boolean) =>
+    `<div class="shj-numbers"${classes ? "" : ` style="padding-left:5px;padding-right:10px;text-align:right;opacity:0.5;user-select:none;color:${color(theme, (theme) => theme.numbers ?? theme.tokens.cmnt) ?? "inherit"}"`}>${Array.from({ length: lines }, (_, i) => `<div>${i + 1}</div>`).join("")}</div>`,
   // one line http requests display their method as a badge
   httpBadge = "background:#25f;color:#fff;padding:5px 7px;border-radius:5px",
   /**
@@ -284,6 +285,9 @@ export function tokenize(code: string, opt: ShjCoreTokenizeOptions): ShjTokenize
  *
  * Use {@link codeToHtml} to get the code block itself.
  *
+ * With `classes: true` the tokens carry a `shj-<type>` class instead of an
+ * inline color, and the gutter is left to the stylesheet.
+ *
  * @example
  * elm.innerHTML = highlightText(code, { lang: 'js', languages: { js }, theme: dark });
  *
@@ -293,9 +297,11 @@ export function tokenize(code: string, opt: ShjCoreTokenizeOptions): ShjTokenize
  * @returns {string} The highlighted string
  */
 export function highlightText(code: string, opt: ShjCoreOptions): string {
-  const { lang = "plain", theme, lineNumbers = true } = opt,
+  const { lang = "plain", lineNumbers = true, classes } = opt,
+    // unused in class mode, which is the only way it may be missing
+    theme = opt.theme as ShjTheme | ShjThemePair,
     mode = displayMode(code, opt.inline),
-    badge = lang == "http" && mode == "oneline";
+    badge = !classes && lang == "http" && mode == "oneline";
 
   let tmp = "";
   // the theme is read once per token *type*, not once per token: a block has a
@@ -310,6 +316,7 @@ export function highlightText(code: string, opt: ShjCoreOptions): string {
     (str, token) => {
       str = sanitize(str);
       if (!token) return (tmp += str);
+      if (classes) return (tmp += `<span class="shj-${token}">${str}</span>`);
 
       const style =
         badge && token == "kwd" ? httpBadge : (styles[token] ??= tokenStyle(theme, token));
@@ -319,7 +326,7 @@ export function highlightText(code: string, opt: ShjCoreOptions): string {
   );
 
   return mode == "multiline"
-    ? `<div style="display:flex;overflow:auto">${lineNumbers ? gutter(code.split("\n").length, theme) : ""}<div style="flex:1;outline:none">${tmp}</div></div>`
+    ? `<div ${classes ? `class="shj-scroll"` : `style="display:flex;overflow:auto"`}>${lineNumbers ? gutter(code.split("\n").length, theme, classes) : ""}<div ${classes ? `class="shj-code"` : `style="flex:1;outline:none"`}>${tmp}</div></div>`
     : tmp;
 }
 
@@ -327,11 +334,16 @@ export function highlightText(code: string, opt: ShjCoreOptions): string {
  * Highlight a string and return the markup of a complete code block
  *
  * The colors of the theme are inlined, so the result is self contained and
- * needs no stylesheet.
+ * needs no stylesheet. Pass `classes: true` to emit class names instead and
+ * style the block yourself.
  *
  * @example
  * html += codeToHtml(code, { lang: 'js', languages: { js }, theme: githubDark });
  * html += codeToHtml(code, { lang: 'mine', languages: { mine }, theme: githubDark });
+ *
+ * @example
+ * // no `style` attribute anywhere: bring your own stylesheet
+ * html += codeToHtml(code, { lang: 'js', languages: { js }, classes: true });
  *
  * @function codeToHtml
  * @param {string} code The code
@@ -339,9 +351,9 @@ export function highlightText(code: string, opt: ShjCoreOptions): string {
  * @returns {string} The markup of the code block
  */
 export function codeToHtml(code: string, opt: ShjCoreOptions): string {
-  const { lang = "plain", theme } = opt,
+  const { lang = "plain", classes } = opt,
     mode = displayMode(code, opt.inline),
     tag = mode == "inline" ? "code" : "div";
 
-  return `<${tag} class="shj-lang-${attr(lang)} shj-${mode}" data-lang="${attr(lang)}" style="${blockStyle(theme, mode)}">${highlightText(code, { ...opt, lang })}</${tag}>`;
+  return `<${tag} class="${classes ? "shj " : ""}shj-lang-${attr(lang)} shj-${mode}" data-lang="${attr(lang)}"${classes ? "" : ` style="${blockStyle(opt.theme as ShjTheme | ShjThemePair, mode)}"`}>${highlightText(code, { ...opt, lang })}</${tag}>`;
 }

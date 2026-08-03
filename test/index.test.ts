@@ -161,6 +161,64 @@ describe("codeToHtml", () => {
   });
 });
 
+describe("codeToHtml with classes", () => {
+  it("styles nothing inline", () => {
+    expect(codeToHtml("a = 1", { lang: "js", classes: true })).toBe(
+      `<div class="shj shj-lang-js shj-oneline" data-lang="js">a <span class="shj-oper">=</span> <span class="shj-num">1</span></div>`,
+    );
+  });
+
+  it("ignores a theme it is given anyway", () => {
+    expect(codeToHtml("a = 1", { lang: "js", classes: true, theme: githubDark })).not.toContain(
+      "style=",
+    );
+  });
+
+  it("names the gutter and the code of a multiline block", () => {
+    expect(codeToHtml("const a\n// hi", { lang: "js", classes: true })).toBe(
+      `<div class="shj shj-lang-js shj-multiline" data-lang="js">` +
+        `<div class="shj-scroll">` +
+        `<div class="shj-numbers"><div>1</div><div>2</div></div>` +
+        `<div class="shj-code"><span class="shj-kwd">const</span> a\n<span class="shj-cmnt">// hi</span></div>` +
+        `</div></div>`,
+    );
+
+    // the gutter is still optional, and the wrappers survive without it
+    const bare = codeToHtml("a\nb", { lang: "plain", classes: true, lineNumbers: false });
+    expect(bare).not.toContain("shj-numbers");
+    expect(bare).toContain(`<div class="shj-scroll"><div class="shj-code">a\nb</div>`);
+  });
+
+  it("renders inline code in a code element", () => {
+    expect(codeToHtml("a = 1", { lang: "js", classes: true, inline: true })).toBe(
+      `<code class="shj shj-lang-js shj-inline" data-lang="js">a <span class="shj-oper">=</span> <span class="shj-num">1</span></code>`,
+    );
+  });
+
+  it("leaves the http badge to the stylesheet", () => {
+    // the method is a plain `kwd`; `.shj-lang-http.shj-oneline .shj-kwd` badges it
+    expect(codeToHtml("GET /api", { lang: "http", classes: true })).toBe(
+      `<div class="shj shj-lang-http shj-oneline" data-lang="http"><span class="shj-kwd">GET</span> /api</div>`,
+    );
+  });
+
+  it("sanitizes the code and the language name", () => {
+    expect(codeToHtml("<script>", { lang: "plain", classes: true })).toContain("&lt;script&gt;");
+    expect(codeToHtml("a", { lang: '"><script>' as never, classes: true })).toContain(
+      `class="shj shj-lang-&#34;&gt;&lt;script&gt; shj-oneline"`,
+    );
+  });
+
+  it("names a class after the token type, whichever it is", () => {
+    // `esc` is the one type no bundled theme colors: as a class it needs no
+    // special case, and the stylesheet can reach it like any other
+    const html = codeToHtml(String.raw`x = "a\nb"`, { lang: "rb", classes: true });
+
+    expect(html).toContain(`<span class="shj-str">`);
+    expect(html).toContain(`<span class="shj-esc">\\n</span>`);
+  });
+});
+
 describe("detectLanguage", () => {
   it("detects known languages", () => {
     expect(detectLanguage(`import { a } from "b";\nexport const c = () => a;`)).toBe("js");

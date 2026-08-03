@@ -96,6 +96,22 @@ export interface ShjOptions extends ShjTokenizeOptions {
    */
   theme?: ShjTheme | ShjThemePair;
   /**
+   * Emit class names instead of inline styles
+   *
+   * The markup then carries no `style` attribute at all: the block is
+   * `shj shj-lang-<lang> shj-<mode>`, each typed token is a `shj-<type>` span,
+   * and a multiline block wraps its gutter and its code in `shj-scroll` and
+   * `shj-code`. Nothing is styled until you supply a stylesheet — including
+   * `white-space:pre`, without which the code collapses.
+   *
+   * {@link ShjOptions.theme} is unused in this mode. To keep the styles inline
+   * and only move the colors out, leave this off and pass the `cssVariables`
+   * theme instead.
+   *
+   * @default false
+   */
+  classes?: boolean;
+  /**
    * Render the code as an inline `<code>` element instead of a block
    *
    * A block is `multiline` when the code contains a line break, `oneline`
@@ -135,8 +151,13 @@ export type ShjCoreTokenizeOptions = ShjTokenizeOptions &
 /**
  * The same options as {@link ShjOptions}, as `rangi/core` takes them: the
  * languages and the theme are required, since none is bundled
+ *
+ * `classes: true` renders no color at all, so it takes the place of the theme
+ * rather than being passed alongside one.
  */
-export type ShjCoreOptions = ShjOptions & Required<Pick<ShjOptions, "languages" | "theme">>;
+export type ShjCoreOptions = ShjOptions &
+  Required<Pick<ShjOptions, "languages">> &
+  ({ classes: true } | Required<Pick<ShjOptions, "theme">>);
 
 /**
  * The same options as {@link ShjTerminalOptions}, as `rangi/core` takes

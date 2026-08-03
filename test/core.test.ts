@@ -58,6 +58,15 @@ describe("core", () => {
     expect(html.endsWith(`<span style="color:#79c0ff">1</span></div>`)).toBe(true);
   });
 
+  it("renders class names without any theme at all", () => {
+    expect(highlightText("const", { lang: "js", languages, classes: true })).toBe(
+      `<span class="shj-kwd">const</span>`,
+    );
+    expect(codeToHtml("a = 1", { lang: "js", languages, classes: true })).toBe(
+      `<div class="shj shj-lang-js shj-oneline" data-lang="js">a <span class="shj-oper">=</span> <span class="shj-num">1</span></div>`,
+    );
+  });
+
   it("colors the terminal output with the given theme", () => {
     // #ff7b72 -> 255;123;114
     expect(codeToAnsi("const a", { lang: "js", languages, theme: githubDark })).toBe(

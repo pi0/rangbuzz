@@ -2,13 +2,19 @@ import { describe, expect, it, vi } from "vitest";
 import { defaultThemes } from "../src/defaults.ts";
 import { codeToAnsi, printHighlight } from "../src/index.ts";
 import * as bundled from "../src/themes/index.ts";
+// the full list, so a new token type has to be given a custom property too
+import { TOKENS as ALL_TOKENS } from "../src/tokens.ts";
 import type { ShjTheme, ShjThemeName, ShjToken } from "../src/types.ts";
 import githubDark from "../src/themes/github-dark.ts";
 
 const THEMES: ShjTheme[] = Object.values(bundled);
 
+// the one theme that carries custom properties rather than colors
+const COLORED: ShjTheme[] = THEMES.filter((theme) => theme !== bundled.cssVariables);
+
 const NAMES: ShjThemeName[] = [
   "atom-dark",
+  "css-variables",
   "dark",
   "default",
   "github-dark",
@@ -36,7 +42,7 @@ const TOKENS: ShjToken[] = [
 
 describe("themes", () => {
   it("exposes every theme as plain data", () => {
-    for (const theme of THEMES) {
+    for (const theme of COLORED) {
       const name = theme.name;
       expect(theme.bg).toMatch(/^#[\da-f]{3,8}$/);
       expect(theme.fg).toMatch(/^#[\da-f]{3,8}$/);
@@ -47,6 +53,19 @@ describe("themes", () => {
 
   it("names every bundled theme in `ShjThemeName`", () => {
     expect(THEMES.map((theme) => theme.name).sort()).toEqual([...NAMES].sort());
+  });
+
+  it("defers every color of the css-variables theme to a custom property", () => {
+    const theme = bundled.cssVariables;
+
+    expect(theme.bg).toBe("var(--shj-bg)");
+    expect(theme.fg).toBe("var(--shj-fg)");
+    // the line numbers keep falling back to the comment color
+    expect(theme.numbers).toBe("var(--shj-numbers,var(--shj-cmnt))");
+    // every token type, `esc` included — the caller owns the whole palette
+    for (const token of ALL_TOKENS) expect(theme.tokens[token], token).toBe(`var(--shj-${token})`);
+    // nothing is left to resolve against a color scheme
+    expect(theme.scheme).toBeUndefined();
   });
 });
 
@@ -89,6 +108,17 @@ describe("terminal", () => {
 
   it("defaults to plain text", () => {
     expect(codeToAnsi("const a")).toBe("const a");
+  });
+
+  it("leaves a color it cannot resolve uncolored", () => {
+    // a custom property has no channels to emit: it must not become `NaN`
+    expect(codeToAnsi("const a", { lang: "js", theme: bundled.cssVariables })).toBe("const a");
+    expect(
+      codeToAnsi("const a", {
+        lang: "js",
+        theme: { name: "custom", bg: "#000", fg: "#fff", tokens: { kwd: "rebeccapurple" } },
+      }),
+    ).toBe("const a");
   });
 
   it("prints the highlighted code", () => {

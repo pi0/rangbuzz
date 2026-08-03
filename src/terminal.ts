@@ -24,7 +24,9 @@ const escapeSequence = (color: string) => {
 /**
  * Highlight a string and return a string that can directly be printed
  *
- * The colors of the theme are emitted as 24 bit escape sequences.
+ * The colors of the theme are emitted as 24 bit escape sequences. A color a
+ * terminal cannot be given — anything that is not hex, such as the custom
+ * properties of the `cssVariables` theme — leaves its tokens uncolored.
  *
  * @example
  * console.log(codeToAnsi(code, { lang: 'js', languages: { js }, theme: atomDark }));
@@ -44,8 +46,10 @@ export function codeToAnsi(code: string, opt: ShjCoreTerminalOptions): string {
     code,
     opt.lang ?? "plain",
     (str, token) => {
-      const color = token && theme.tokens[token];
-      res += color ? `${escapeSequence(color)}${str}\x1b[0m` : str;
+      // only a hex color can become an escape sequence: a `var(--x)` or a
+      // named one would parse to `NaN` channels, so it is left uncolored
+      const color = token ? theme.tokens[token] : undefined;
+      res += color?.[0] == "#" ? `${escapeSequence(color)}${str}\x1b[0m` : str;
     },
     opt.languages,
   );

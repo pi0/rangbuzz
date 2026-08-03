@@ -32,12 +32,16 @@
  *   Shiki is measured through `highlighter.codeToHtml()`, its synchronous
  *   method, not the top level one that loads a grammar on demand and returns a
  *   promise.
- * - **Not the same output, and this matters.** We and Shiki inline the theme as
- *   `style` attributes: the result needs no stylesheet, and both pay for the
- *   colour lookup and the attribute on every token. Prism, highlight.js and
- *   Speed Highlight emit class names and leave the colours to a stylesheet you
- *   ship separately, so they are doing strictly less work per token. Read their
- *   numbers as a ceiling, not as a like-for-like.
+ * - **Two outputs, and a row each.** We and Shiki inline the theme as `style`
+ *   attributes: the result needs no stylesheet, and both pay for the colour
+ *   lookup and the attribute on every token. Prism, highlight.js and Speed
+ *   Highlight emit class names and leave the colours to a stylesheet you ship
+ *   separately, which is strictly less work per token. So there are two rows of
+ *   ours rather than one caveat: `rangi` is the default, inlined, to be read
+ *   against Shiki; `rangi (classes)` is the same call with `classes: true`,
+ *   emitting the same shape of markup the other three do and looking up no
+ *   colour either, to be read against them. Nobody's numbers need discounting
+ *   by hand.
  * - **Warm.** Every contender is fully loaded before the timer starts — Shiki's
  *   grammars and theme compiled into the highlighter, Prism's components
  *   loaded, highlight.js imported, Speed Highlight's grammars pulled into the
@@ -47,9 +51,13 @@
  *   object, and everyone else pays it once per process. It is timed from cold
  *   in a process of its own rather than here, which is the only way to get it
  *   honestly — see {@link cold}.
- * - **Ours as the baseline**, with `lineNumbers: false`, which is the closest
- *   our markup gets to theirs, and `github-dark` on both sides that have a
- *   theme.
+ * - **Nobody as the baseline.** The summary is measured from whichever row came
+ *   out fastest rather than from ours, so the ordering is the run's and not a
+ *   frame we chose. The bundle table below it does anchor on our default row,
+ *   because a size is only interesting as a multiple of something and there it
+ *   is the thing being explained. Ours runs with `lineNumbers: false`, which is
+ *   the closest our markup gets to theirs, and `github-dark` on both sides that
+ *   have a theme.
  * - **What it weighs, once the timings are in.** Each contender is then bundled
  *   for the browser out of the very call the benchmark just ran — same
  *   grammars, same theme, same entry points its own documentation says to ship
@@ -238,6 +246,15 @@ const SPEED: Record<ShjLanguage, SpeedLanguage | null> = {
 interface Contender {
   /** What it is called in the output */
   name: string;
+  /**
+   * Whether this row is us
+   *
+   * Two of them are, one per output mode, and both are marked so neither is
+   * read as somebody else's. The first is also what the bundle table's sizes
+   * are a multiple of — that one needs an anchor, and it is the mode this
+   * library defaults to.
+   */
+  mine?: true;
   /** The grammar it knows one of our languages by, `undefined` where it has none */
   grammar: (lang: ShjLanguage) => string | undefined;
   /** Highlight one block with the grammar {@link Contender.grammar} returned */
@@ -400,6 +417,7 @@ await Promise.all(
 const CONTENDERS: Contender[] = [
   {
     name: "rangi",
+    mine: true,
     grammar: (lang) => lang,
     html: (code, lang) => codeToHtml(code, { lang, theme: githubDark, lineNumbers: false }),
     // the grammars are not chosen: the main entry is the registry, whichever
@@ -410,6 +428,25 @@ const CONTENDERS: Contender[] = [
 import { githubDark } from ${JSON.stringify(`${SRC}themes/index.ts`)};
 
 export default (code, lang) => codeToHtml(code, { lang, theme: githubDark, lineNumbers: false });`,
+  },
+  {
+    // The same call with `classes: true`, which is the mode that emits
+    // `shj-`prefixed class names and no `style` attribute — the markup Prism,
+    // highlight.js and Speed Highlight emit, and so the row to read against
+    // theirs. No theme is passed because none is consulted: the colours are a
+    // stylesheet's problem in this mode, exactly as they are in theirs.
+    name: "rangi (classes)",
+    mine: true,
+    grammar: (lang) => lang,
+    html: (code, lang) => codeToHtml(code, { lang, classes: true, lineNumbers: false }),
+    carries: /\/src\/languages\/[^/]+\.ts$/,
+    // one import lighter than the row above, and only one: the main entry pulls
+    // the two default themes in whether or not a call reads them, so what class
+    // mode takes out of the bundle is `github-dark` and nothing else
+    ship: () =>
+      `import { codeToHtml } from ${JSON.stringify(`${SRC}index.ts`)};
+
+export default (code, lang) => codeToHtml(code, { lang, classes: true, lineNumbers: false });`,
   },
   {
     // `multiline: false` for the same reason ours runs with `lineNumbers:
@@ -495,18 +532,19 @@ export default (code, lang) => hljs.highlight(code, { language: lang, ignoreIlle
 ];
 
 /**
- * Every contender over the same corpora, ours first and as the baseline
+ * Every contender over the same corpora, ours first and nominated for nothing
  *
  * Only the ones with a grammar for every language in `corpora` take part, so a
  * group is always a comparison over identical bytes.
  */
 /**
- * How our own row is marked in the benchmarks.
+ * How our own rows are marked in the benchmarks.
  *
- * The table at the end paints it as a rainbow; mitata cannot, since `highlight`
- * takes one colour for the whole label and puts it in front of the text rather
- * than through it. So the row gets the one colour nothing else in its output
- * uses — the numbers are yellow, the names are plain, the notes are grey.
+ * The table at the end paints the baseline as a rainbow; mitata cannot, since
+ * `highlight` takes one colour for the whole label and puts it in front of the
+ * text rather than through it. So both of our rows get the one colour nothing
+ * else in its output uses — the numbers are yellow, the names are plain, the
+ * notes are grey.
  */
 const SELECTION = "magenta";
 
@@ -516,10 +554,9 @@ const face = (name: string, corpora: Corpus[]) => {
   group(name, () => {
     summary(() => {
       for (const contender of running) {
-        const ours = contender == CONTENDERS[0],
-          blocks = corpora.flatMap((c) =>
-            c.snippets.map((code) => ({ code, grammar: contender.grammar(c.lang)! })),
-          );
+        const blocks = corpora.flatMap((c) =>
+          c.snippets.map((code) => ({ code, grammar: contender.grammar(c.lang)! })),
+        );
 
         bench(
           contender.name,
@@ -531,8 +568,10 @@ const face = (name: string, corpora: Corpus[]) => {
                 for (const b of blocks) do_not_optimize(contender.html(b.code, b.grammar));
               },
         )
-          .baseline(ours)
-          .highlight(ours ? SELECTION : undefined);
+          // no `.baseline()`: mitata then measures its summary from whichever
+          // row came out fastest, which is the ordering worth reading and one
+          // we do not get to nominate ourselves for
+          .highlight(contender.mine ? SELECTION : undefined);
       }
     });
   });
@@ -557,16 +596,6 @@ compact(() => {
 });
 
 await run();
-
-// The one caveat that changes how a row is read, so it goes with the rows
-// rather than only in the comment at the top of this file — and under them
-// rather than over them, where it would be read before there was anything to
-// apply it to.
-console.log(
-  "\nnote: prism, highlight.js and speed-highlight emit class names where we and shiki" +
-    "\n      inline the theme, so they do less work per token and need a stylesheet" +
-    "\n      shipped with the page",
-);
 
 const VIRTUAL_ENTRY = "\0compare-entry";
 
@@ -745,6 +774,7 @@ await build("export default 0;");
 
 const weighed: {
   name: string;
+  mine?: true;
   min: number;
   gzip: number;
   grammars: number;
@@ -752,8 +782,8 @@ const weighed: {
   warmup: number;
 }[] = [];
 
-// One contender at a time, because bundling is timed as well: five rolldown
-// builds racing each other for the same cores would be five numbers about the
+// One contender at a time, because bundling is timed as well: six rolldown
+// builds racing each other for the same cores would be six numbers about the
 // machine rather than about the input.
 for (const contender of CONTENDERS) {
   // one name can serve two of our languages — Prism highlights both HTML and
@@ -773,6 +803,7 @@ for (const contender of CONTENDERS) {
 
   weighed.push({
     name: contender.name,
+    mine: contender.mine,
     ...weigh(chunks, contender.carries, contender.inlined),
     built,
     warmup: cold(chunks),
@@ -835,9 +866,15 @@ const line = (row: string[], paint: (column: number) => Paint) =>
     .map((cell, i) => tint(paint(i), cell))
     .join("   ")}`;
 
-/** Green where we are the smaller bundle, red where we are not */
-const versus = (bytes: number, ours?: number): Paint =>
-  !ours || bytes == ours ? "gray" : bytes > ours ? "green" : "red";
+/**
+ * Green where we are the smaller bundle, red where we are not
+ *
+ * Grey for our own other row: a ratio between our two output modes is not a
+ * contest, and painting it red for being the smaller of the two would read as
+ * a loss.
+ */
+const versus = (bytes: number, ours?: number, mine?: true): Paint =>
+  mine || !ours || bytes == ours ? "gray" : bytes > ours ? "green" : "red";
 
 /** How many characters a hue takes to come back round */
 const RAINBOW = 40;
@@ -865,7 +902,7 @@ const hue = (turn: number): Paint => {
 };
 
 /**
- * Our own row, painted as a rainbow
+ * The baseline row, painted as a rainbow
  *
  * It is the one every other row is a multiple of, so it should be findable
  * without reading the names — and none of the rules above can mark it, because
@@ -882,6 +919,28 @@ const hue = (turn: number): Paint => {
 const rainbow = (row: string[]) =>
   `  ${[...laid(row).join("   ")].map((character, i) => tint(hue(i), character)).join("")}`;
 
+/**
+ * How one cell of a row that is not the baseline is painted
+ *
+ * Our other output mode gets {@link SELECTION} on its name, the same colour
+ * mitata marked both of our rows with above, so it is still ours at a glance
+ * without being mistaken for the row the ratios are against.
+ *
+ * @param w The row's measurements
+ * @param column Which cell
+ * @returns Its colour
+ */
+const paint = (w: (typeof weighed)[number], column: number): Paint =>
+  column == 0
+    ? [w.mine ? SELECTION : "cyan", "bold"]
+    : column == 1
+      ? versus(w.min, baseline?.min, w.mine)
+      : column == 2
+        ? versus(w.gzip, baseline?.gzip, w.mine)
+        : column == 3
+          ? "gray"
+          : "magenta";
+
 console.log(
   // labelled the way the groups above are, so it is clear the table covers the
   // run that just happened and not some fixed set of languages
@@ -892,19 +951,7 @@ console.log(
       line(rows[0]!, () => "gray"),
       tint("gray", `  ${"-".repeat(widths.reduce((sum, w) => sum + w + 3, -3))}`),
       ...sorted.map((w, i) =>
-        w == baseline
-          ? rainbow(rows[i + 1]!)
-          : line(rows[i + 1]!, (column) =>
-              column == 0
-                ? ["cyan", "bold"]
-                : column == 1
-                  ? versus(w.min, baseline?.min)
-                  : column == 2
-                    ? versus(w.gzip, baseline?.gzip)
-                    : column == 3
-                      ? "gray"
-                      : "magenta",
-            ),
+        w == baseline ? rainbow(rows[i + 1]!) : line(rows[i + 1]!, (column) => paint(w, column)),
       ),
     ].join("\n") +
     "\n",
