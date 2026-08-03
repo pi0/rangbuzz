@@ -4,34 +4,16 @@ import { readFileSync } from "node:fs";
 import { basename, extname } from "node:path";
 
 import { codeToAnsi, detectLanguage } from "./index.ts";
+import { languages } from "./languages.ts";
 
-const aliases: Record<string, string> = {
-  cjs: "js",
-  cts: "ts",
-  cxx: "cpp",
-  gql: "graphql",
-  h: "c",
-  hpp: "cpp",
-  htm: "html",
-  jsx: "js",
-  markdown: "md",
-  mjs: "js",
-  mts: "ts",
-  patch: "diff",
-  sh: "bash",
-  svg: "xml",
-  tsx: "ts",
-  txt: "plain",
-  yml: "yaml",
-};
-
+// the registry knows the aliases, so an extension and a `Dockerfile` style
+// name are looked up in it as they are; anything it does not know is detected
+// from the code rather than highlighted as a language that does not exist
 const language = (file: string, code: string) => {
-  const name = basename(file).toLowerCase();
-  if (name === "dockerfile") return "docker";
-  if (name === "makefile") return "make";
+  const name = basename(file).toLowerCase(),
+    lang = extname(name).slice(1) || name;
 
-  const extension = extname(name).slice(1);
-  return aliases[extension] || extension || detectLanguage(code);
+  return Object.hasOwn(languages, lang) ? lang : detectLanguage(code);
 };
 
 const files = process.argv.slice(2);

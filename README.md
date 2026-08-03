@@ -4,7 +4,7 @@
 
 Rangi is a fork of [Speed Highlight JS](https://github.com/speed-highlight/core).
 
-- **Tiny** <small>(**~12.8kB** min+gzip with every language and the default themes bundled, **~1.5kB** for `codeToHtml` from [`rangi/core`](#core))</small>
+- **Tiny** <small>(**~13.1kB** min+gzip with every language and the default themes bundled, **~1.5kB** for `codeToHtml` from [`rangi/core`](#core))</small>
 - **Fast** <small>(outperforms other highlighters in our benchmarks)</small>
 - **Simple** <small>(zero dependencies, fully synchronous, no stylesheet to load, and no global registry)</small>
 - **Complete** <small>(**46 languages**, 7 themes, language detection, terminal output, and raw tokens for custom rendering)</small>
@@ -115,54 +115,62 @@ The core entry exports the same functions as the main entry.
 
 ## Languages supported 🌐
 
-| Name             | Support                                                         | Language detection |
-| ---------------- | --------------------------------------------------------------- | ------------------ |
-| asm              | comment, string, number, section, instruction                   | ✅                 |
-| astro            | frontmatter, embedded ts/css, expressions, directives, ...      | ✅                 |
-| bash             | comment, string, variable, path, keyword, function, ...         | ✅                 |
-| c                | comment, string, number, include, keyword, class, ...           | ✅                 |
-| c# (cs)          | comment, string, keyword, class, ...                            | ✅                 |
-| c++ (cpp)        | raw strings, digit separators, ...                              | ✅                 |
-| css              | comment, str, selector, units, function, ...                    | ✅                 |
-| csv              | punctuation, ...                                                |                    |
-| dart             | comment, string, keyword, class, ...                            | ✅                 |
-| diff             | deleted, insert, keyword, section                               | ✅                 |
-| docker           | instruction keyword, embedded bash syntax                       | ✅                 |
-| go               | comment, string, raw string, number, keyword, class, ...        | ✅                 |
-| graphql          | comment, string, type, field, directive, variable, ...          | ✅                 |
-| html             | doctype, embedded css/js, tag, attribute, ...                   | ✅                 |
-| http             | keyword, string, punctuation, variable, version                 | ✅                 |
-| ini              | comment, section, key, value, ...                               |                    |
-| java             | comment, string, number, keyword, operator, class, ...          | ✅                 |
-| javascript (js)  | basic syntax, regex, jsdoc, json, template literals             | ✅                 |
-| jsdoc            | tag, type, param name                                           |                    |
-| json             | string, number, bool, ...                                       |                    |
-| jsx              | js syntax, tags, attributes, expressions, fragments             | ✅                 |
-| kotlin (kt)      | comment, string, keyword, class, ...                            | ✅                 |
-| less             | comment, string, variable, mixin, nesting, ...                  | ✅                 |
-| log              | number, string, comment, errors                                 |                    |
-| lua              | comment, string, keyword, boolean, number, function, ...        | ✅                 |
-| makefile (make)  | comment, variable, target, .PHONY, embedded bash in recipes     | ✅                 |
-| markdown (md)    | heading, bold, italic, code fence, inline code, list, link, ... | ✅                 |
-| perl (pl)        | comment, string, number, keyword, operator, function            | ✅                 |
-| php              | comment, string, variable, keyword, ...                         | ✅                 |
-| plain            | double-quoted string                                            |                    |
-| powershell (ps1) | comment, string, variable, cmdlet, ...                          | ✅                 |
-| python (py)      | comment, string, f-string, keyword, boolean, class, ...         | ✅                 |
-| regex            | count, set, ...                                                 |                    |
-| ruby (rb)        | comment, string, symbol, keyword, ...                           | ✅                 |
-| rust (rs)        | comment, string, raw string, char, keyword, class, ...          | ✅                 |
-| scss             | comment, string, variable, nesting, ...                         | ✅                 |
-| sql              | number, string, function, ...                                   | ✅                 |
-| svelte           | template, script, style, logic blocks, directives, ...          | ✅                 |
-| swift            | comment, string, keyword, class, ...                            | ✅                 |
-| toml             | comment, table, string, bool, variable                          |                    |
-| tsx              | ts syntax, tags, attributes, expressions, fragments             | ✅                 |
-| typescript (ts)  | js syntax, ts keyword, types                                    | ✅                 |
-| uri              | scheme, host, port, query, fragment, ...                        | ✅                 |
-| vue              | template, script, style, directives, ...                        | ✅                 |
-| xml              | comment, CDATA, tag, attribute, entity, ...                     | ✅                 |
-| yaml             | comment, numbers, variable, string, bool                        |                    |
+| Name    | Aliases              | Language detection |
+| ------- | -------------------- | ------------------ |
+| asm     |                      | ✅                 |
+| astro   |                      | ✅                 |
+| bash    | sh, shell, zsh       | ✅                 |
+| c       | h                    | ✅                 |
+| cpp     | cc, cxx, hpp         | ✅                 |
+| cs      | csharp               | ✅                 |
+| css     |                      | ✅                 |
+| csv     |                      |                    |
+| dart    |                      | ✅                 |
+| diff    | patch                | ✅                 |
+| docker  | dockerfile           | ✅                 |
+| go      | golang               | ✅                 |
+| graphql | gql                  | ✅                 |
+| html    | htm                  | ✅                 |
+| http    |                      | ✅                 |
+| ini     |                      |                    |
+| java    |                      | ✅                 |
+| js      | javascript, mjs, cjs | ✅                 |
+| jsdoc   |                      |                    |
+| json    |                      |                    |
+| jsx     |                      | ✅                 |
+| kt      | kotlin, kts          | ✅                 |
+| less    |                      | ✅                 |
+| log     |                      |                    |
+| lua     |                      | ✅                 |
+| make    | makefile, mk         | ✅                 |
+| md      | markdown             | ✅                 |
+| php     |                      | ✅                 |
+| pl      | perl                 | ✅                 |
+| plain   | text, txt            |                    |
+| ps1     | powershell, pwsh     | ✅                 |
+| py      | python               | ✅                 |
+| rb      | ruby                 | ✅                 |
+| regex   |                      |                    |
+| rs      | rust                 | ✅                 |
+| scss    |                      | ✅                 |
+| sql     |                      | ✅                 |
+| svelte  |                      | ✅                 |
+| swift   |                      | ✅                 |
+| toml    |                      |                    |
+| ts      | typescript, mts, cts | ✅                 |
+| tsx     |                      | ✅                 |
+| uri     | url                  | ✅                 |
+| vue     |                      | ✅                 |
+| xml     | svg                  | ✅                 |
+| yaml    | yml                  |                    |
+
+An alias is the same grammar under another name, so it works everywhere the name itself does — as the `lang` option, as the language of a markdown code fence, and as a named export of `rangi/languages`:
+
+```js
+codeToHtml(code, { lang: "yml" }); // the same as `lang: "yaml"`
+
+import { python } from "rangi/languages"; // the `py` grammar itself
+```
 
 ## Themes 🌈
 

@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import { describe, expect, it } from "vitest";
-import { languages } from "../../src/languages.ts";
+import { aliases, languages } from "../../src/languages.ts";
 
 /**
  * Fragment grammars are reached only through the `sub` of another language,
@@ -12,6 +12,13 @@ import { languages } from "../../src/languages.ts";
  */
 const FRAGMENTS = new Set(["js_template_literals", "todo"]);
 
+/**
+ * An alias is another name for a grammar that is registered — and tested —
+ * under its own name, so it asks for no test file of its own. That the two
+ * registries hold the very same definitions is `languages.test.ts`.
+ */
+const isAlias = (lang: string) => lang in aliases;
+
 describe("registry", () => {
   it("tests every bundled language", () => {
     const tested = new Set(
@@ -21,7 +28,9 @@ describe("registry", () => {
         .map((f) => f.replace(".test.ts", "")),
     );
 
-    expect(Object.keys(languages).filter((l) => !FRAGMENTS.has(l) && !tested.has(l))).toEqual([]);
+    expect(
+      Object.keys(languages).filter((l) => !FRAGMENTS.has(l) && !isAlias(l) && !tested.has(l)),
+    ).toEqual([]);
     // and nothing tests a language that no longer exists
     expect([...tested].filter((l) => !(l in languages))).toEqual([]);
   });

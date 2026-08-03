@@ -124,6 +124,96 @@ export {
   yaml,
 };
 
+/** Every alias of {@link aliases}, exported under its own name as well */
+export {
+  bash as sh,
+  bash as shell,
+  bash as zsh,
+  c as h,
+  cpp as cc,
+  cpp as cxx,
+  cpp as hpp,
+  cs as csharp,
+  diff as patch,
+  docker as dockerfile,
+  go as golang,
+  graphql as gql,
+  html as htm,
+  js as cjs,
+  js as javascript,
+  js as mjs,
+  kt as kotlin,
+  kt as kts,
+  make as makefile,
+  make as mk,
+  md as markdown,
+  pl as perl,
+  plain as text,
+  plain as txt,
+  ps1 as powershell,
+  ps1 as pwsh,
+  py as python,
+  rb as ruby,
+  rs as rust,
+  ts as cts,
+  ts as mts,
+  ts as typescript,
+  uri as url,
+  xml as svg,
+  yaml as yml,
+};
+
+/**
+ * The alternative names a bundled language answers to, keyed by the name it is
+ * looked up under and holding the very grammar it stands for.
+ *
+ * They are spread into {@link languages}, so an alias is accepted anywhere a
+ * language name is — the `lang` option, the `sub` of a grammar — and is a named
+ * export of this entry like any other language: `yml` is the `yaml` grammar
+ * itself, not a copy of it.
+ *
+ * Kept as a registry of its own so that the canonical name of a language stays
+ * knowable: {@link ShjLanguage} is the languages, {@link ShjLanguageAlias} the
+ * other names they may be asked for.
+ */
+export const aliases = {
+  cc: cpp,
+  cjs: js,
+  csharp: cs,
+  cts: ts,
+  cxx: cpp,
+  dockerfile: docker,
+  golang: go,
+  gql: graphql,
+  h: c,
+  hpp: cpp,
+  htm: html,
+  javascript: js,
+  kotlin: kt,
+  kts: kt,
+  makefile: make,
+  markdown: md,
+  mjs: js,
+  mk: make,
+  mts: ts,
+  patch: diff,
+  perl: pl,
+  powershell: ps1,
+  pwsh: ps1,
+  python: py,
+  ruby: rb,
+  rust: rs,
+  sh: bash,
+  shell: bash,
+  svg: xml,
+  text: plain,
+  txt: plain,
+  typescript: ts,
+  url: uri,
+  yml: yaml,
+  zsh: bash,
+} satisfies ShjLanguages;
+
 /**
  * Every bundled language definition, keyed by language name.
  *
@@ -131,6 +221,9 @@ export {
  * the `languages` option may take. The few that also carry a `type` — the token
  * type applied to whatever their own rules leave unmatched — are given in
  * module shape instead, the other half of {@link ShjLanguageModule}.
+ *
+ * The {@link aliases} are in here too, under the alternative names they stand
+ * for, so a lookup is a plain property read whichever name the caller used.
  *
  * This is what the main entry hands the engine, so importing it pulls every
  * grammar in — which is the whole point of that entry, and the opposite of what
@@ -185,7 +278,14 @@ export const languages = {
   vue,
   xml,
   yaml,
+  ...aliases,
 } satisfies ShjLanguages;
+
+/**
+ * An alternative name a bundled language also answers to, derived from
+ * {@link aliases}
+ */
+export type ShjLanguageAlias = keyof typeof aliases;
 
 /**
  * Name of a bundled language, derived from {@link languages}.
@@ -194,5 +294,12 @@ export const languages = {
  * of another language, never passed as the `lang` option. `js_template_literals`
  * belongs to `js`; `todo` is what marks `TODO`/`FIXME` up inside the comments of
  * every other grammar, which is the only place it is meant to be used.
+ *
+ * The aliases are left out too: they are names of the same languages, listed by
+ * {@link ShjLanguageAlias}, and this is the one name per language — what a map
+ * keyed by language is keyed by.
  */
-export type ShjLanguage = Exclude<keyof typeof languages, "js_template_literals" | "todo">;
+export type ShjLanguage = Exclude<
+  keyof typeof languages,
+  "js_template_literals" | "todo" | ShjLanguageAlias
+>;

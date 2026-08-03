@@ -4,10 +4,10 @@
 
 // Both names are derived from the registries themselves, so that adding a
 // language or a theme is a one line change in a single file.
-import type { ShjLanguage } from "./languages.ts";
+import type { ShjLanguage, ShjLanguageAlias } from "./languages.ts";
 import type { ShjToken } from "./tokens.ts";
 
-export type { ShjLanguage, ShjToken };
+export type { ShjLanguage, ShjLanguageAlias, ShjToken };
 export type { ShjThemeName } from "./themes/index.ts";
 
 /**
@@ -47,11 +47,13 @@ export interface ShjTokenizeOptions {
   /**
    * The language of the code
    *
-   * Any name of {@link ShjTokenizeOptions.languages} is accepted as well.
+   * An alias of a bundled language — `yml`, `mjs`, `python` — names the same
+   * grammar as the language itself does. Any name of
+   * {@link ShjTokenizeOptions.languages} is accepted as well.
    *
    * @default "plain"
    */
-  lang?: ShjLanguage | (string & {});
+  lang?: ShjLanguage | ShjLanguageAlias | (string & {});
   /**
    * Custom languages, keyed by language name
    *
