@@ -182,6 +182,25 @@ describe("detectLanguage", () => {
     ).toBe("tsx");
     expect(detectLanguage("")).toBe("plain");
   });
+
+  it("detects json by its shape", () => {
+    expect(detectLanguage(`{\n  "name": "app",\n  "version": "1.0.0"\n}`)).toBe("json");
+    expect(detectLanguage(`[\n  { "id": 1 },\n  { "id": 2 }\n]`)).toBe("json");
+    expect(detectLanguage(`{"a":1}\n{"a":2}\n{"a":3}`)).toBe("json");
+    // the aliased dialects: comments and unquoted keys
+    expect(detectLanguage(`{\n  // a comment\n  "strict": true,\n  "lib": ["ES2023"]\n}`)).toBe(
+      "json",
+    );
+    expect(detectLanguage(`{ unquoted: 'single', hex: 0xff, trailing: [1, 2,] }`)).toBe("json");
+    // a url in a value is not a uri document
+    expect(detectLanguage(`{ "url": "https://x.dev", "name": "x" }`)).toBe("json");
+    // and what only looks like it: a fragment of something else, a call
+    expect(detectLanguage(`true false null`)).toBe("plain");
+    expect(detectLanguage(`export const a = { name: "x", run() { return this.name; } };`)).toBe(
+      "js",
+    );
+    expect(detectLanguage(`{ nodes(first: 10, archived: false) { id } }`)).toBe("plain");
+  });
 });
 
 describe("token types", () => {

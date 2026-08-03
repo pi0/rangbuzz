@@ -52,7 +52,10 @@ const languages: [ShjLanguage, ...[RegExp, number][]][] = [
   ["pl", [/#!(\/usr)?\/bin\/perl/g, 500], [/\b(use|print)\b|\$/g, 10]],
   ["lua", [/#!(\/usr)?\/bin\/lua/g, 500]],
   ["make", [/\b(ifneq|endif|if|elif|then|fi|echo|.PHONY|^[a-z]+ ?:$)\b|\$/gm, 10]],
-  ["uri", [/https?:|mailto:|tel:|ftp:/g, 30]],
+  // a uri document is uris, one per line — a url sitting in a string or a
+  // comment belongs to whatever language put it there, and there is one in
+  // most json files
+  ["uri", [/^\s*(https?|mailto|tel|ftp):\S+\s*$/gm, 30]],
   ["css", [/^(@import|@page|@media|(\.|#)[a-z]+)/gm, 20]],
   ["diff", [/^[+><-]/gm, 10], [/^@@ ?[-+,0-9 ]+ ?@@/gm, 25]],
   ["md", [/^(>|\t\*|\t\d+.)/gm, 10], [/\[.*\](.*)/g, 10]],
@@ -91,7 +94,20 @@ const languages: [ShjLanguage, ...[RegExp, number][]][] = [
   ["java", [/^import\s+java/gm, 500]],
   ["asm", [/^(section|global main|extern|\t(call|mov|ret))/gm, 100]],
   ["css", [/^(@import|@page|@media|(\.|#)[a-z]+)/gm, 20]],
-  ["json", [/\b(true|false|null|\{})\b|"[^"]+":/g, 10]],
+  // a json document is one value: it opens with `{`, `[` or `"` and closes at
+  // the very end, which is what tells it from a fragment of something else —
+  // no keyword to go on, so the shape carries it, and stays well under what a
+  // language with a signature of its own scores. what it cannot rule out is a
+  // graphql selection set or a bare js object literal, hence the call: json
+  // has no parentheses outside a string, so one is worth a key or three
+  // against. a penalty rather than an exclusion, because a string may well
+  // contain one and a document full of keys should survive it
+  [
+    "json",
+    [/^\s*(?:[[{][^]*[\]}]|"(?:[^"\\]|\\.)*")\s*$/g, 25],
+    [/"[^"\n]*"\s*:/g, 6],
+    [/[\w$]\(/g, -20],
+  ],
   ["yaml", [/^(\s+)?[a-z][a-z0-9]*:/gim, 10]],
 ];
 

@@ -51,6 +51,8 @@ import { codeToHtml, detectLanguage } from "rangi";
 codeToHtml(code, { lang: detectLanguage(code) });
 ```
 
+It scores the code against every language it knows and returns the best match, or `plain` when nothing scores high enough. Give it the whole document: some languages are told apart by how they open and close — json has no keyword to go on and is recognised by being a single `{`, `[` or `"` value — so a snippet cut out of the middle scores lower than the same code entire.
+
 Every language is bundled and ready to use, with nothing to preload. All functions return their results directly instead of promises. Unknown languages fall back to plain text rather than throwing an error. To bundle only the languages you use, choose [`rangi/core`](#core).
 
 Pass a custom language directly to the call that needs it instead of registering it globally. Custom languages take precedence over bundled languages, so they can override them and are also available to sub-languages:
@@ -136,7 +138,7 @@ The core entry exports the same functions as the main entry.
 | java    |                             | ✅                 |
 | js      | javascript, mjs, cjs        | ✅                 |
 | jsdoc   |                             |                    |
-| json    | jsonc, json5, jsonl, ndjson |                    |
+| json    | jsonc, json5, jsonl, ndjson | ✅                 |
 | jsx     |                             | ✅                 |
 | kt      | kotlin, kts                 | ✅                 |
 | less    |                             | ✅                 |
@@ -162,7 +164,7 @@ The core entry exports the same functions as the main entry.
 | uri     | url                         | ✅                 |
 | vue     |                             | ✅                 |
 | xml     | svg                         | ✅                 |
-| yaml    | yml                         |                    |
+| yaml    | yml                         | ✅                 |
 
 An alias is the same grammar under another name, so it works everywhere the name itself does — as the `lang` option, as the language of a markdown code fence, and as a named export of `rangi/languages`:
 
