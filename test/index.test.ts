@@ -165,6 +165,21 @@ describe("detectLanguage", () => {
   it("detects known languages", () => {
     expect(detectLanguage(`import { a } from "b";\nexport const c = () => a;`)).toBe("js");
     expect(detectLanguage("SELECT * FROM users;")).toBe("sql");
+    expect(
+      detectLanguage(
+        `const App = () => (\n  <Card title="hi">\n    <Avatar src={url} />\n    {items.map((i) => <Row key={i} />)}\n  </Card>\n);`,
+      ),
+    ).toBe("jsx");
+    expect(
+      detectLanguage(
+        `import React from "react";\nexport const App = () => <div className="app">{msg}</div>;`,
+      ),
+    ).toBe("jsx");
+    expect(
+      detectLanguage(
+        `interface Props { title: string; count: number }\nexport const Panel = ({ title, count }: Props) => (\n  <Section title={title}>\n    <Badge count={count} />\n  </Section>\n);`,
+      ),
+    ).toBe("tsx");
     expect(detectLanguage("")).toBe("plain");
   });
 });

@@ -4,10 +4,10 @@
 
 Rangi is a fork of [Speed Highlight JS](https://github.com/speed-highlight/core).
 
-- **Tiny** <small>(**~12.5kB** min+gzip with every language and the default themes bundled, **~1.5kB** for `codeToHtml` from [`rangi/core`](#core))</small>
+- **Tiny** <small>(**~12.8kB** min+gzip with every language and the default themes bundled, **~1.5kB** for `codeToHtml` from [`rangi/core`](#core))</small>
 - **Fast** <small>(outperforms other highlighters in our benchmarks)</small>
 - **Simple** <small>(zero dependencies, fully synchronous, no stylesheet to load, and no global registry)</small>
-- **Complete** <small>(**44 languages**, 7 themes, language detection, terminal output, and raw tokens for custom rendering)</small>
+- **Complete** <small>(**46 languages**, 7 themes, language detection, terminal output, and raw tokens for custom rendering)</small>
 
 ### Quick Start 🚀
 
@@ -137,6 +137,7 @@ The core entry exports the same functions as the main entry.
 | javascript (js)  | basic syntax, regex, jsdoc, json, template literals             | ✅                 |
 | jsdoc            | tag, type, param name                                           |                    |
 | json             | string, number, bool, ...                                       |                    |
+| jsx              | js syntax, tags, attributes, expressions, fragments             | ✅                 |
 | kotlin (kt)      | comment, string, keyword, class, ...                            | ✅                 |
 | less             | comment, string, variable, mixin, nesting, ...                  | ✅                 |
 | log              | number, string, comment, errors                                 |                    |
@@ -156,6 +157,7 @@ The core entry exports the same functions as the main entry.
 | svelte           | template, script, style, logic blocks, directives, ...          | ✅                 |
 | swift            | comment, string, keyword, class, ...                            | ✅                 |
 | toml             | comment, table, string, bool, variable                          |                    |
+| tsx              | ts syntax, tags, attributes, expressions, fragments             | ✅                 |
 | typescript (ts)  | js syntax, ts keyword, types                                    | ✅                 |
 | uri              | scheme, host, port, query, fragment, ...                        | ✅                 |
 | vue              | template, script, style, directives, ...                        | ✅                 |

@@ -32,6 +32,7 @@ import jsTemplateLiteralsRules, {
 } from "./languages/js_template_literals.ts";
 import jsdocRules, { type as jsdocType } from "./languages/jsdoc.ts";
 import json from "./languages/json.ts";
+import jsx from "./languages/jsx.ts";
 import kt from "./languages/kt.ts";
 import less from "./languages/less.ts";
 import log from "./languages/log.ts";
@@ -53,6 +54,7 @@ import swift from "./languages/swift.ts";
 import todoRules, { type as todoType } from "./languages/todo.ts";
 import toml from "./languages/toml.ts";
 import ts from "./languages/ts.ts";
+import tsx from "./languages/tsx.ts";
 import uri from "./languages/uri.ts";
 import vue from "./languages/vue.ts";
 import xml from "./languages/xml.ts";
@@ -95,6 +97,7 @@ export {
   java,
   js,
   json,
+  jsx,
   kt,
   less,
   log,
@@ -114,6 +117,7 @@ export {
   swift,
   toml,
   ts,
+  tsx,
   uri,
   vue,
   xml,
@@ -154,6 +158,7 @@ export const languages = {
   js_template_literals,
   jsdoc,
   json,
+  jsx,
   kt,
   less,
   log,
@@ -175,6 +180,7 @@ export const languages = {
   todo,
   toml,
   ts,
+  tsx,
   uri,
   vue,
   xml,
