@@ -3,28 +3,18 @@ import { testLanguage } from "./_harness.ts";
 testLanguage(
   "md",
   {
-    headings: `# One\n\nTwo\n===\n\nThree\n---`,
+    headings: `# One\n\n## Two ##\n\nThree\n===\n\nFour\n---`,
     emphasis: `*italic* **bold** _under_ ~~struck~~`,
     "inline code": "use `const a = 1` here",
     "fenced code": "```js\nconst a = 1; // c\n```",
+    "fenced code with metadata":
+      '```js [file.js] {1,3-5} twoslash diff title="x"\nconst a = 1\n```',
     "fenced without language": "```\nplain text\n```",
     quotes: `> quoted line\n> more`,
     lists: `* one\n* two\n\n1. first\n2. second`,
     links: `[text](https://a.b) and <https://c.d>`,
   },
   [
-    {
-      text: "===",
-      judges: "other",
-      shj: "cmnt",
-      why: "a setext underline is colored like the comment it visually is",
-    },
-    {
-      text: "---",
-      judges: "other",
-      shj: "cmnt",
-      why: "a setext underline is colored like the comment it visually is",
-    },
     {
       text: "> quoted line",
       judges: "other",

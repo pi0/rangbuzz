@@ -1,8 +1,9 @@
 import type { ShjLanguageDefinition } from "../types.ts";
-import { CLASS, CMNT, FUNC, KWD, OPER, STR, VAR } from "../tokens.ts";
+import { CLASS, CMNT, FUNC, KWD, OPER, SECTION, STR, VAR } from "../tokens.ts";
 
 const definition: ShjLanguageDefinition = [
-  [/^>.*|(=|-)\1+/gm, CMNT],
+  [/^ {0,3}(?:#{1,6}(?:[ \t]+.*)?|.+\n {0,3}(?:=+|-+)[ \t]*)$/gm, SECTION],
+  [/^>.*|^(=|-)\1+$/gm, CMNT],
   [/\*\*.*?\*\*/g, CLASS],
   [
     /^(`{3,})(.*)\n[^]*?^\1[ \t]*$/gm,
@@ -12,7 +13,7 @@ const definition: ShjLanguageDefinition = [
       KWD,
       // the fence says what it holds, or it is left plain: guessing at the
       // content of an undeclared fence is not worth pulling `detectLanguage` in
-      [[/\n[^]*(?=```)/g, , code.split("\n")[0]!.slice(3)]],
+      [[/\n[^]*(?=^`+[ \t]*$)/gm, , code.split("\n")[0]!.match(/^`+\s*(\S*)/)?.[1]]],
     ],
   ],
   [/`[^`]*`/g, STR],
