@@ -1,14 +1,26 @@
 /**
  * The same corpus through the other highlighters — `pnpm bench:compare`.
  *
- * Shiki, Prism, highlight.js and Speed Highlight, against us. Shiki twice: once
- * on Oniguruma compiled to WebAssembly, which is what it uses unless told
- * otherwise, and once on [its JavaScript `RegExp` engine][engine], which trades
- * some grammar compatibility for not shipping the WebAssembly — the comparison
- * closest to ours, since that engine and this library are running the same
- * primitive. Strict, not `forgiving`: every grammar the corpus needs compiles
- * under it, so nothing here is being highlighted by a pattern that was quietly
- * given up on.
+ * Shiki, Prism, highlight.js, arborium and Speed Highlight, against us. Shiki
+ * twice: once on Oniguruma compiled to WebAssembly, which is what it uses unless
+ * told otherwise, and once on [its JavaScript `RegExp` engine][engine], which
+ * trades some grammar compatibility for not shipping the WebAssembly — the
+ * comparison closest to ours, since that engine and this library are running the
+ * same primitive. Strict, not `forgiving`: every grammar the corpus needs
+ * compiles under it, so nothing here is being highlighted by a pattern that was
+ * quietly given up on.
+ *
+ * arborium is the far end of that range: tree-sitter, one WebAssembly module per
+ * grammar, driven by a second one that resolves the injections between them. It
+ * parses where everyone else matches, and it is the only contender whose
+ * grammars are not part of what it ships — they are fetched from a CDN the first
+ * time a language comes up. Both of those are the row rather than footnotes to
+ * it, so both are measured: the timings load every grammar the run needs before
+ * the clock starts, and the bundle table counts the WebAssembly beside the
+ * bundle as part of what the page has to have downloaded. Its `highlight()` is
+ * awaited for the same reason Speed Highlight's is, below — the host that drives
+ * the parsers loads them through an asynchronous callback, so the promise is in
+ * the call every user of it makes.
  *
  * Speed Highlight is the project this one is a fork of, and so is the one row
  * that answers what the fork did rather than what a different design costs: its
@@ -28,24 +40,28 @@
  *   every contender has a grammar for, so the totals are over identical bytes;
  *   the count it prints is of those, not of the corpus. `--lang` is how to see
  *   one of the languages that misses the cut, against whoever does have it.
- * - **Same call.** One string of code in, one string of HTML out, synchronous.
- *   Shiki is measured through `highlighter.codeToHtml()`, its synchronous
- *   method, not the top level one that loads a grammar on demand and returns a
- *   promise.
+ * - **Same call.** One string of code in, one string of HTML out. Shiki is
+ *   measured through `highlighter.codeToHtml()`, its synchronous method, not the
+ *   top level one that loads a grammar on demand and returns a promise. Speed
+ *   Highlight and arborium have no synchronous method to measure, and the two
+ *   paragraphs above and below say why theirs is awaited inside the timing.
  * - **Two outputs, and a row each.** We and Shiki inline the theme as `style`
  *   attributes: the result needs no stylesheet, and both pay for the colour
- *   lookup and the attribute on every token. Prism, highlight.js and Speed
- *   Highlight emit class names and leave the colours to a stylesheet you ship
- *   separately, which is strictly less work per token. So there are two rows of
- *   ours rather than one caveat: `rangi` is the default, inlined, to be read
- *   against Shiki; `rangi (classes)` is the same call with `classes: true`,
- *   emitting the same shape of markup the other three do and looking up no
- *   colour either, to be read against them. Nobody's numbers need discounting
- *   by hand.
+ *   lookup and the attribute on every token. Prism, highlight.js, Speed
+ *   Highlight and arborium leave the colours to a stylesheet you ship separately
+ *   — the first three as class names, arborium as one custom element per token
+ *   type, `<a-k>` and `<a-s>` — which is strictly less work per token. So there
+ *   are two rows of ours rather than one caveat: `rangi` is the default,
+ *   inlined, to be read against Shiki; `rangi (classes)` is the same call with
+ *   `classes: true`, emitting the same shape of markup the other four do and
+ *   looking up no colour either, to be read against them. Nobody's numbers need
+ *   discounting by hand.
  * - **Warm.** Every contender is fully loaded before the timer starts — Shiki's
  *   grammars and theme compiled into the highlighter, Prism's components
  *   loaded, highlight.js imported, Speed Highlight's grammars pulled into the
- *   cache it loads them through. What each of them spent getting there is a
+ *   cache it loads them through, arborium's host and every grammar the run
+ *   reaches instantiated out of `node_modules` rather than off the CDN it would
+ *   otherwise go to. What each of them spent getting there is a
  *   column of the table at the end, because it is real cost that a benchmark
  *   like this hides: we have almost none of it, the registry is a static
  *   object, and everyone else pays it once per process. It is timed from cold
@@ -70,23 +86,32 @@
  *   the registry whole, so our row pays for every grammar we have while
  *   everyone else pays only for the ones this run compares. `rangi/core` is
  *   the entry that undoes that, and it is deliberately not what is weighed
- *   here. How many grammars that came to is
- *   counted off the bundle rather than off the list each contender was handed,
- *   because a grammar that embeds another brings it along: ask Shiki for `html`
- *   and JavaScript and CSS arrive with it, ask Prism for `typescript` and
- *   `clike` does.
+ *   here. arborium is the other odd one out, in the other direction: a bundler
+ *   cannot reach its grammars at all, since each is a WebAssembly module its
+ *   loader fetches by name at runtime. Weighing only what rolldown can see
+ *   would put it first in the table at a few kilobytes, which is the opposite
+ *   of true, so the modules it would have fetched are read off disk and ship
+ *   beside the bundle — counted in both sizes and written next to it for the
+ *   cold start, since a page that has not downloaded them cannot colour a
+ *   token. How many grammars that came to is counted off the bundle rather than
+ *   off the list each contender was handed, because a grammar that embeds
+ *   another brings it along: ask Shiki for `html` and JavaScript and CSS arrive
+ *   with it, ask Prism for `typescript` and `clike` does, and ask arborium for
+ *   anything with an injection in it and the injected grammar is another
+ *   megabyte of WebAssembly.
  *
  * Which grammar each highlighter is asked for comes from one map per contender:
  * Shiki's and Prism's are the ones the test suite already keeps in
  * `test/languages/_judges.ts`, so the comparison cannot pair a language with
- * the wrong grammar; {@link HLJS} and {@link SPEED} below are the other two,
- * and are keyed by `ShjLanguage` so adding a language fails typecheck until it
- * is decided.
+ * the wrong grammar; {@link HLJS}, {@link SPEED} and {@link ARBORIUM} below are
+ * the other three, and are keyed by `ShjLanguage` so adding a language fails
+ * typecheck until it is decided.
  *
  * These are not the same tool and the numbers should not be read as if they
  * were. Shiki runs the TextMate grammars VS Code itself runs and is more
- * accurate than a few hundred regexes can be. It is fair to say we are faster
- * and smaller. It is not fair to leave out what that costs.
+ * accurate than a few hundred regexes can be, and arborium runs a real parser
+ * per language and knows what a token *is*. It is fair to say we are faster and
+ * smaller. It is not fair to leave out what that costs.
  *
  * [engine]: https://shiki.style/guide/regex-engines#javascript-regexp-engine
  *
@@ -97,7 +122,7 @@
  */
 
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import { join, sep } from "node:path";
@@ -105,6 +130,7 @@ import { fileURLToPath } from "node:url";
 import { styleText } from "node:util";
 import { gzipSync } from "node:zlib";
 
+import { highlight as arborium, setConfig as arboriumConfig } from "@arborium/arborium";
 import { highlightText, type ShjLanguage as SpeedLanguage } from "@speed-highlight/core";
 import hljs from "highlight.js";
 import { bench, compact, do_not_optimize, group, run, summary } from "mitata";
@@ -242,6 +268,70 @@ const SPEED: Record<ShjLanguage, SpeedLanguage | null> = {
   yaml: "yaml",
 };
 
+/**
+ * Our language -> the grammar arborium knows it by, `null` where it has none.
+ *
+ * A row here is also a package: every grammar is its own `@arborium/<name>`, a
+ * WebAssembly module of a megabyte or so, and the ones named below are dev
+ * dependencies so the benchmark can load them off disk instead of the CDN the
+ * library would otherwise reach for. Adding a row means adding the package.
+ *
+ * `jsx` is its `javascript` and not a grammar of its own — tree-sitter's
+ * JavaScript parses JSX — where `tsx` is separate, as it is upstream. Two of the
+ * `null`s are not missing grammars: `@arborium/perl` traps on any input at all
+ * and `@arborium/php` traps on a heredoc, both as of 2.18.1, and a WebAssembly
+ * trap takes the process with it rather than degrading to plain text, so neither
+ * can be run. The rest are languages it does not have.
+ */
+const ARBORIUM: Record<ShjLanguage, string | null> = {
+  asm: "x86asm",
+  astro: null,
+  bash: "bash",
+  c: "c",
+  cpp: "cpp",
+  cs: "c-sharp",
+  css: "css",
+  csv: null,
+  dart: "dart",
+  diff: "diff",
+  docker: "dockerfile",
+  go: "go",
+  graphql: "graphql",
+  html: "html",
+  http: null,
+  ini: "ini",
+  java: "java",
+  js: "javascript",
+  jsdoc: "jsdoc",
+  json: "json",
+  jsx: "javascript",
+  kt: "kotlin",
+  less: null,
+  log: null,
+  lua: "lua",
+  make: "make",
+  md: "markdown",
+  php: null,
+  pl: null,
+  plain: null,
+  ps1: "powershell",
+  py: "python",
+  rb: "ruby",
+  regex: "regex",
+  rs: "rust",
+  scss: "scss",
+  sql: "sql",
+  svelte: "svelte",
+  swift: "swift",
+  toml: "toml",
+  ts: "typescript",
+  tsx: "tsx",
+  uri: null,
+  vue: "vue",
+  xml: "xml",
+  yaml: "yaml",
+};
+
 /** One highlighter, asked for a string of HTML */
 interface Contender {
   /** What it is called in the output */
@@ -262,12 +352,12 @@ interface Contender {
   /**
    * Whether {@link Contender.html} hands back a promise
    *
-   * Speed Highlight's is the only one that does, and awaiting it is part of
-   * what it costs rather than an artifact of measuring it — see the top of this
-   * file. The other four are timed in a plain synchronous loop all the same:
-   * awaiting a value that is not a promise is still a turn of the microtask
-   * queue per block, and there is no reason to charge four contenders for a
-   * fifth one's signature.
+   * Speed Highlight's and arborium's do, and awaiting them is part of what they
+   * cost rather than an artifact of measuring them — see the top of this file.
+   * The other five are timed in a plain synchronous loop all the same: awaiting
+   * a value that is not a promise is still a turn of the microtask queue per
+   * block, and there is no reason to charge five contenders for the signature
+   * of the other two.
    */
   awaits?: true;
   /**
@@ -283,6 +373,19 @@ interface Contender {
    * @returns The source of the entry, as a bundler would find it on disk
    */
   ship: (grammars: string[]) => string;
+  /**
+   * The files {@link Contender.ship}'s entry needs beside it rather than in it
+   *
+   * Only arborium has any. Its grammars are WebAssembly modules its loader
+   * fetches by name, so there is nothing for a bundler to pull in and no honest
+   * way to leave them out either — a page that has not downloaded them cannot
+   * highlight anything. They are weighed with the bundle and written into the
+   * directory the cold start runs in, which is where the entry looks for them.
+   *
+   * @param grammars The same list {@link Contender.ship} was handed
+   * @returns The files, keyed by the name the entry resolves them under
+   */
+  beside?: (grammars: string[]) => Record<string, Uint8Array>;
   /**
    * How that contender spells a grammar, as a bundler names the module
    *
@@ -381,6 +484,61 @@ const highlighter = await createHighlighterCore({
 });
 
 export default (code, lang) => highlighter.codeToHtml(code, { lang, theme: "github-dark" });`;
+
+/**
+ * One of arborium's WebAssembly modules, as the bytes that instantiate it
+ *
+ * `import.meta.resolve` rather than `require.resolve`: the `.wasm` files are
+ * behind an `import` condition, which the CommonJS resolver does not take.
+ *
+ * @param specifier The module, as its package exports it
+ * @returns Its bytes
+ */
+const arboriumWasm = (specifier: string): Uint8Array =>
+  readFileSync(fileURLToPath(import.meta.resolve(specifier)));
+
+/**
+ * Every grammar arborium has ended up loading, itself and injections alike.
+ *
+ * Its bundle has to carry the grammars a language reaches as well as the
+ * language, and there is no list of those to read: `injectionLanguages()` is
+ * what a grammar declares, not what it turns out to want — its JavaScript
+ * declares nothing and then asks for `jsdoc` and `regex` on the first comment.
+ * So the warmup below is what enumerates them, by recording what the loader was
+ * asked to resolve while the corpus went through it.
+ */
+const arboriumLoaded = new Set<string>();
+
+// Off disk, not off jsDelivr: the default resolvers `import()` a URL, which Node
+// will not do, and a benchmark that went to the network per grammar would be
+// timing the network. `debug` is dropped because the default logger is `console`
+// and it narrates every load; a warning or an error still gets through, since a
+// grammar that failed to load is a row that is quietly measuring nothing.
+arboriumConfig({
+  logger: { debug: () => {}, warn: console.warn, error: console.error },
+  resolveHostJs: () => import("@arborium/arborium/arborium_host.js"),
+  resolveHostWasm: () => arboriumWasm("@arborium/arborium/arborium_host_bg.wasm"),
+  resolveJs: ({ language }) => {
+    arboriumLoaded.add(language);
+    return import(`@arborium/${language}/grammar.js`);
+  },
+  resolveWasm: ({ language }) => arboriumWasm(`@arborium/${language}/grammar_bg.wasm`),
+});
+
+/**
+ * What an arborium bundle has to carry to highlight what the run highlighted
+ *
+ * The grammars it was handed, plus everything {@link arboriumLoaded} saw go past
+ * — which is the same list its `ship` and its `beside` have to agree on, since
+ * one imports the JavaScript half of each grammar and the other writes out the
+ * WebAssembly half.
+ *
+ * @param grammars The grammars of the languages measured
+ * @returns Them and the ones they inject
+ */
+const arboriumNeeds = (grammars: string[]): string[] => [
+  ...new Set([...grammars, ...arboriumLoaded]),
+];
 
 const shikiLangs = CORPUS.flatMap((c) => JUDGED[c.lang]?.shiki ?? []);
 
@@ -495,6 +653,52 @@ export default (code, lang) => highlightText(code, lang, false);`,
     ),
   },
   {
+    name: "arborium",
+    grammar: (lang) => ARBORIUM[lang] ?? undefined,
+    // its one entry point, and a promise by construction: the host that walks
+    // the tree resolves an injected grammar through an asynchronous callback,
+    // so there is no synchronous door into it the way Shiki has one
+    html: (code, lang) => arborium(lang, code),
+    awaits: true,
+    carries: /\/@arborium\/[^/]+\/grammar\.js$/,
+    // The JavaScript half of a grammar is a wasm-bindgen wrapper a bundler can
+    // see; the half that does the work is the `.wasm` next to it, and that one
+    // only ever arrives through the loader. So the entry registers each grammar
+    // itself, out of files written beside the bundle, rather than leaving the
+    // loader to go to the CDN — which is what makes this row weighable at all.
+    // The empty highlight at the end is what pulls the host in: registering a
+    // grammar does not, and a bundle whose first real call still has 150 kB of
+    // WebAssembly to instantiate has not finished starting up.
+    ship: (grammars) => {
+      const needs = arboriumNeeds(grammars);
+
+      return `import { highlight, registerGrammar, setConfig } from "@arborium/arborium";
+import * as host from "@arborium/arborium/arborium_host.js";
+${needs.map((g, i) => `import * as lang${i} from "@arborium/${g}/grammar.js";`).join("\n")}
+import { readFile } from "node:fs/promises";
+
+const wasm = (name) => readFile(new URL(name, import.meta.url));
+
+setConfig({ resolveHostJs: () => host, resolveHostWasm: () => wasm("host.wasm") });
+
+${needs.map((g, i) => `await registerGrammar(lang${i}, await wasm("${g}.wasm"));`).join("\n")}
+await highlight(${JSON.stringify(needs[0])}, "");
+
+export default (code, lang) => highlight(lang, code);`;
+    },
+    // `node:fs` above, where a browser would `fetch` the same URLs: the cold
+    // start is timed in a Node process, and the bytes and the instantiation —
+    // which is all this column is about — are the same either way
+    beside: (grammars) =>
+      Object.fromEntries([
+        ["host.wasm", arboriumWasm("@arborium/arborium/arborium_host_bg.wasm")],
+        ...arboriumNeeds(grammars).map((g) => [
+          `${g}.wasm`,
+          arboriumWasm(`@arborium/${g}/grammar_bg.wasm`),
+        ]),
+      ]),
+  },
+  {
     name: "prism",
     grammar: (lang) => JUDGED[lang]?.prism,
     html: (code, lang) => Prism.highlight(code, Prism.languages[lang]!, lang),
@@ -581,6 +785,24 @@ const covers = (c: Corpus) => CONTENDERS.every((x) => x.grammar(c.lang)),
   shared = CORPUS.filter(covers),
   bytes = shared.reduce((sum, c) => sum + c.bytes, 0);
 
+/** The corpora the run compares, which is what each bundle has to cover */
+const measured = PICKED ?? shared,
+  covered = measured.map((c) => c.lang);
+
+// arborium is warmed last because it is the only warmup that has to know what
+// the run is: nothing is registered up front, so what a language pulls in is
+// discovered by highlighting it, and highlighting every language would leave
+// {@link arboriumLoaded} describing the whole corpus rather than this run. The
+// grammars are read off disk here, so the load is one `readFileSync` and an
+// instantiation apiece rather than a request; what the same work costs from
+// cold, over the network or not, is the `warmup` column of the table at the end.
+await Promise.all(
+  measured.flatMap((c) => {
+    const grammar = ARBORIUM[c.lang];
+    return grammar ? c.snippets.map((code) => arborium(grammar, code)) : [];
+  }),
+);
+
 console.log(
   PICKED
     ? // per language, a group takes whoever has that grammar, so nothing is dropped
@@ -646,6 +868,8 @@ type Chunks = Awaited<ReturnType<typeof build>>;
  * the same way it is in the bytes.
  *
  * @param chunks The bundle, from {@link build}
+ * @param beside What ships next to it, from {@link Contender.beside} — weighed
+ * with it, since a browser downloads both before either is any use
  * @param carries Which of its modules is a grammar, from
  * {@link Contender.carries}
  * @param inlined Read `carries` over the code instead, from
@@ -654,21 +878,31 @@ type Chunks = Awaited<ReturnType<typeof build>>;
  */
 const weigh = (
   chunks: Chunks,
+  beside: Record<string, Uint8Array>,
   carries: RegExp,
   inlined?: true,
-): { min: number; gzip: number; grammars: number } => ({
-  min: chunks.reduce((sum, chunk) => sum + Buffer.byteLength(chunk.code), 0),
-  gzip: gzipSync(chunks.map((chunk) => chunk.code).join(""), { level: 9 }).length,
-  grammars: new Set(
-    inlined
-      ? chunks.flatMap((chunk) => chunk.code.match(carries) ?? [])
-      : chunks
-          .flatMap((chunk) => Object.keys(chunk.modules))
-          // the ids are paths, and `carries` is written with `/` in it
-          .map((id) => id.replaceAll(sep, "/"))
-          .filter((id) => carries.test(id)),
-  ).size,
-});
+): { min: number; gzip: number; grammars: number } => {
+  const files = [
+    ...chunks.map((chunk) => Buffer.from(chunk.code)),
+    ...Object.values(beside).map((bytes) => Buffer.from(bytes)),
+  ];
+
+  return {
+    min: files.reduce((sum, file) => sum + file.length, 0),
+    // one stream over the lot, as the chunks alone were: what a page downloads
+    // is not one response, but neither is it one per contender
+    gzip: gzipSync(Buffer.concat(files), { level: 9 }).length,
+    grammars: new Set(
+      inlined
+        ? chunks.flatMap((chunk) => chunk.code.match(carries) ?? [])
+        : chunks
+            .flatMap((chunk) => Object.keys(chunk.modules))
+            // the ids are paths, and `carries` is written with `/` in it
+            .map((id) => id.replaceAll(sep, "/"))
+            .filter((id) => carries.test(id)),
+    ).size,
+  };
+};
 
 /** How many times a cold start is taken, of which the best one counts */
 const COLD_RUNS = 3;
@@ -690,10 +924,11 @@ const RUNNER = "warmup.mjs";
  * nothing resolves out of `node_modules` by accident — a bundle has no bare
  * specifiers left to resolve.
  *
- * @param files The modules to write, keyed by file name
+ * @param files The modules to write, keyed by file name; bytes rather than a
+ * string where what is being written is WebAssembly
  * @returns Milliseconds from the start of the process to the end of the runner
  */
-const evaluate = (files: Record<string, string>): number => {
+const evaluate = (files: Record<string, string | Uint8Array>): number => {
   const dir = mkdtempSync(join(tmpdir(), "rangi-warmup-"));
 
   try {
@@ -706,7 +941,13 @@ const evaluate = (files: Record<string, string>): number => {
             // a warning on stderr is passed through rather than read as the answer
             encoding: "utf8",
             stdio: ["ignore", "pipe", "inherit"],
-          }).trim(),
+          })
+            .trimEnd()
+            // the last line, not the only one: arborium's loader narrates every
+            // grammar it instantiates through `console.debug`, and the runner
+            // prints the number it was written to print after all of that
+            .split("\n")
+            .at(-1)!,
         ),
       ),
     );
@@ -748,25 +989,27 @@ const BOOT = evaluate({ [RUNNER]: "console.log(performance.now());" });
  * time a line of code reaches it, which asking for the language itself does not
  * do. So part of each one's warmup is paid inside the timings above instead of
  * here — and in Speed Highlight's case it is the part that a grammar with a
- * sub-language, which is most of the interesting ones, would pay.
+ * sub-language, which is most of the interesting ones, would pay. arborium is
+ * the one row where the whole of it lands here instead: its entry instantiates
+ * every grammar it was given before it exports anything, so the column is mostly
+ * WebAssembly compilation, and there is a lot of it.
  *
  * @param chunks The bundle, from {@link build}
+ * @param beside What ships next to it, from {@link Contender.beside}, written
+ * into the same directory because that is where the entry looks for it
  * @returns Milliseconds, with {@link BOOT} taken off
  */
-const cold = (chunks: Chunks): number =>
+const cold = (chunks: Chunks, beside: Record<string, Uint8Array>): number =>
   Math.max(
     0,
     evaluate({
       ...Object.fromEntries(chunks.map((chunk) => [chunk.fileName, chunk.code])),
+      ...beside,
       [RUNNER]: `import ${JSON.stringify(
         `./${chunks.find((chunk) => chunk.isEntry)!.fileName}`,
       )};\nconsole.log(performance.now());`,
     }) - BOOT,
   );
-
-/** The corpora the run compared, which is what each bundle has to cover */
-const measured = PICKED ?? shared,
-  covered = measured.map((c) => c.lang);
 
 // rolldown pays for its own start up on the first build of a process; a
 // throwaway one takes that out of whichever row happens to go first
@@ -782,8 +1025,8 @@ const weighed: {
   warmup: number;
 }[] = [];
 
-// One contender at a time, because bundling is timed as well: six rolldown
-// builds racing each other for the same cores would be six numbers about the
+// One contender at a time, because bundling is timed as well: seven rolldown
+// builds racing each other for the same cores would be seven numbers about the
 // machine rather than about the input.
 for (const contender of CONTENDERS) {
   // one name can serve two of our languages — Prism highlights both HTML and
@@ -797,6 +1040,7 @@ for (const contender of CONTENDERS) {
   if (!grammars.length) continue;
 
   const source = contender.ship(grammars),
+    beside = contender.beside?.(grammars) ?? {},
     at = performance.now(),
     chunks = await build(source),
     built = performance.now() - at;
@@ -804,9 +1048,9 @@ for (const contender of CONTENDERS) {
   weighed.push({
     name: contender.name,
     mine: contender.mine,
-    ...weigh(chunks, contender.carries, contender.inlined),
+    ...weigh(chunks, beside, contender.carries, contender.inlined),
     built,
-    warmup: cold(chunks),
+    warmup: cold(chunks, beside),
   });
 }
 
