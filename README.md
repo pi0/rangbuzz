@@ -109,6 +109,12 @@ for (const { text, type } of tokenize(code, { lang: "js" })) {
 
 ### Terminal
 
+Highlight a file directly from the command line:
+
+```bash
+npx rangi src/index.ts
+```
+
 ```js
 import { printHighlight } from "rangi";
 import { atomDark } from "rangi/themes";
