@@ -1,5 +1,6 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, CLASS, CMNT, ESC, FUNC, KWD, NUM, OPER, STR, TYPE, VAR } from "../tokens.ts";
+import { bracket } from "../common.ts";
 
 // `$name`, `$env:PATH`, `$script:x`, `${odd name}`, `$_`, `$?`, a `$(…)`
 // subexpression (one level of nesting) and an `@splat`
@@ -43,4 +44,5 @@ export default [
   // method or attribute call
   [/[a-z_]\w*(?=\s*\()/gi, FUNC],
   [/::|[-=+*/%!<>|&,;.@]+/g, OPER],
+  bracket,
 ] as ShjLanguageDefinition;

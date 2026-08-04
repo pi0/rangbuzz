@@ -1,32 +1,63 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`json > tokens > booleans 1`] = `"{ «var:"yes"»: «bool:true», «var:"no"»: «bool:false», «var:"nothing"»: «num:null» }"`;
+exports[`json > tokens > booleans 1`] = `"«bracket:{» «var:"yes"»: «bool:true», «var:"no"»: «bool:false», «var:"nothing"»: «num:null» «bracket:}»"`;
 
-exports[`json > tokens > escapes 1`] = `"{ «var:"quote"»: «str:"a \\" b"», «var:"unicode"»: «str:"\\u00e9"» }"`;
+exports[`json > tokens > escapes 1`] = `"«bracket:{» «var:"quote"»: «str:"a \\" b"», «var:"unicode"»: «str:"\\u00e9"» «bracket:}»"`;
 
-exports[`json > tokens > json5 1`] = `"{ «var:unquoted»: «str:'single'», «var:hex»: «num:0xff», «var:big»: «num:Infinity», «var:nan»: «num:NaN», «var:trailing»: [«num:1», «num:2»,] }"`;
+exports[`json > tokens > json5 1`] = `"«bracket:{» «var:unquoted»: «str:'single'», «var:hex»: «num:0xff», «var:big»: «num:Infinity», «var:nan»: «num:NaN», «var:trailing»: «bracket:[»«num:1», «num:2»,«bracket:]» «bracket:}»"`;
 
 exports[`json > tokens > jsonc 1`] = `
-"{
+"«bracket:{»
   «cmnt:// line comment
 »  «var:"a"»: «num:1», «cmnt:/* block
   comment */»
   «var:"url"»: «str:"https://x.dev"» «cmnt:// not a comment above
-»}"
+»«bracket:}»"
 `;
 
 exports[`json > tokens > nested 1`] = `
-"{
-  «var:"list"»: [«num:1», «str:"two"», { «var:"a"»: «bool:true» }],
-  «var:"empty"»: {}
-}"
+"«bracket:{»
+  «var:"list"»: «bracket:[»«num:1», «str:"two"», «bracket:{» «var:"a"»: «bool:true» «bracket:}»«bracket:]»,
+  «var:"empty"»: «bracket:{»«bracket:}»
+«bracket:}»"
 `;
 
-exports[`json > tokens > numbers 1`] = `"{ «var:"int"»: «num:42», «var:"float"»: «num:3.14», «var:"exp"»: «num:1e-9», «var:"negative"»: -«num:1» }"`;
+exports[`json > tokens > numbers 1`] = `"«bracket:{» «var:"int"»: «num:42», «var:"float"»: «num:3.14», «var:"exp"»: «num:1e-9», «var:"negative"»: -«num:1» «bracket:}»"`;
 
 exports[`json > tokens > object 1`] = `
-"{
+"«bracket:{»
   «var:"name"»: «str:"app"»,
   «var:"version"»: «str:"1.0.0"»
-}"
+«bracket:}»"
+`;
+
+exports[`json tokens booleans 1`] = `"«bracket:{» «var:"yes"»: «bool:true», «var:"no"»: «bool:false», «var:"nothing"»: «num:null» «bracket:}»"`;
+
+exports[`json tokens escapes 1`] = `"«bracket:{» «var:"quote"»: «str:"a \\" b"», «var:"unicode"»: «str:"\\u00e9"» «bracket:}»"`;
+
+exports[`json tokens json5 1`] = `"«bracket:{» «var:unquoted»: «str:'single'», «var:hex»: «num:0xff», «var:big»: «num:Infinity», «var:nan»: «num:NaN», «var:trailing»: «bracket:[»«num:1», «num:2»,«bracket:]» «bracket:}»"`;
+
+exports[`json tokens jsonc 1`] = `
+"«bracket:{»
+  «cmnt:// line comment
+»  «var:"a"»: «num:1», «cmnt:/* block
+  comment */»
+  «var:"url"»: «str:"https://x.dev"» «cmnt:// not a comment above
+»«bracket:}»"
+`;
+
+exports[`json tokens nested 1`] = `
+"«bracket:{»
+  «var:"list"»: «bracket:[»«num:1», «str:"two"», «bracket:{» «var:"a"»: «bool:true» «bracket:}»«bracket:]»,
+  «var:"empty"»: «bracket:{»«bracket:}»
+«bracket:}»"
+`;
+
+exports[`json tokens numbers 1`] = `"«bracket:{» «var:"int"»: «num:42», «var:"float"»: «num:3.14», «var:"exp"»: «num:1e-9», «var:"negative"»: -«num:1» «bracket:}»"`;
+
+exports[`json tokens object 1`] = `
+"«bracket:{»
+  «var:"name"»: «str:"app"»,
+  «var:"version"»: «str:"1.0.0"»
+«bracket:}»"
 `;

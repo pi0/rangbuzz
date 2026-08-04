@@ -1,6 +1,6 @@
 import type { ShjLanguageComponent, ShjLanguageDefinition } from "../types.ts";
 import { BOOL, CLASS, FUNC, KWD, NUM, OPER, STR, VAR } from "../tokens.ts";
-import { str } from "../common.ts";
+import { bracket, str } from "../common.ts";
 
 /**
  * The rules Scss shares with Less, exported so the two grammars are the very
@@ -86,4 +86,5 @@ export default [
   func,
   oper,
   word,
+  bracket,
 ] as ShjLanguageDefinition;

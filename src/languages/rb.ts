@@ -1,5 +1,6 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, CLASS, ESC, FUNC, KWD, NUM, OPER, STR, TYPE, VAR } from "../tokens.ts";
+import { bracket } from "../common.ts";
 
 // what a double quoted string, a heredoc body, a backtick command and a `%Q()`
 // literal all carry: backslash escapes and `#{...}` interpolation (one level of
@@ -68,4 +69,5 @@ export default [
   // kept out of it so that `&:name` and `a ? b : c` do not swallow the colon
   // a symbol starts with
   [/:+[-+*/%~!&|^<>=?,.]*|[-+*/%~!&|^<>=?,.]+/g, OPER],
+  bracket,
 ] as ShjLanguageDefinition;

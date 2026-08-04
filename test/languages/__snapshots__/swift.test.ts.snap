@@ -1,12 +1,12 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`swift > tokens > closures 1`] = `
-"«kwd:let» names «oper:=» people«oper:.»map { «var:$0»«oper:.»name }«oper:.»filter { «oper:!»«var:$0»«oper:.»isEmpty }«oper:.»«func:sorted»()
-«kwd:let» total «oper:=» orders«oper:.»«func:reduce»(into«oper::» «num:0») { sum«oper:,» order «kwd:in» sum «oper:+=» order«oper:.»total }
-«kwd:let» byName «oper:=» people«oper:.»«func:sorted»(by«oper::» «var:\\.name»)
-«class:DispatchQueue»«oper:.»main«oper:.»«kwd:async» { [«kwd:weak» «kwd:self»] «kwd:in»
-  «kwd:self»«oper:?.»«func:reload»()
-}"
+"«kwd:let» names «oper:=» people«oper:.»map «bracket:{» «var:$0»«oper:.»name «bracket:}»«oper:.»filter «bracket:{» «oper:!»«var:$0»«oper:.»isEmpty «bracket:}»«oper:.»«func:sorted»«bracket:(»«bracket:)»
+«kwd:let» total «oper:=» orders«oper:.»«func:reduce»«bracket:(»into«oper::» «num:0»«bracket:)» «bracket:{» sum«oper:,» order «kwd:in» sum «oper:+=» order«oper:.»total «bracket:}»
+«kwd:let» byName «oper:=» people«oper:.»«func:sorted»«bracket:(»by«oper::» «var:\\.name»«bracket:)»
+«class:DispatchQueue»«oper:.»main«oper:.»«kwd:async» «bracket:{» «bracket:[»«kwd:weak» «kwd:self»«bracket:]» «kwd:in»
+  «kwd:self»«oper:?.»«func:reload»«bracket:(»«bracket:)»
+«bracket:}»"
 `;
 
 exports[`swift > tokens > comments 1`] = `
@@ -27,84 +27,84 @@ exports[`swift > tokens > comments 1`] = `
 `;
 
 exports[`swift > tokens > concurrency 1`] = `
-"«kwd:@available»(iOS «num:15»«oper:,» «oper:*»)
-«kwd:actor» «class:Loader» {
-  «kwd:private» «kwd:var» cache«oper::» [«class:URL»«oper::» «class:Data»] «oper:=» [«oper::»]
+"«kwd:@available»«bracket:(»iOS «num:15»«oper:,» «oper:*»«bracket:)»
+«kwd:actor» «class:Loader» «bracket:{»
+  «kwd:private» «kwd:var» cache«oper::» «bracket:[»«class:URL»«oper::» «class:Data»«bracket:]» «oper:=» «bracket:[»«oper::»«bracket:]»
 
-  «kwd:func» «func:load»(from url«oper::» «class:URL») «kwd:async» «kwd:throws» «oper:->» «class:Data» {
-    «kwd:guard» «kwd:let» cached «oper:=» cache[url] «kwd:else» {
-      «kwd:let» (data«oper:,» «kwd:_») «oper:=» «kwd:try» «kwd:await» «class:URLSession»«oper:.»shared«oper:.»«func:data»(from«oper::» url)
-      cache[url] «oper:=» data
+  «kwd:func» «func:load»«bracket:(»from url«oper::» «class:URL»«bracket:)» «kwd:async» «kwd:throws» «oper:->» «class:Data» «bracket:{»
+    «kwd:guard» «kwd:let» cached «oper:=» cache«bracket:[»url«bracket:]» «kwd:else» «bracket:{»
+      «kwd:let» «bracket:(»data«oper:,» «kwd:_»«bracket:)» «oper:=» «kwd:try» «kwd:await» «class:URLSession»«oper:.»shared«oper:.»«func:data»«bracket:(»from«oper::» url«bracket:)»
+      cache«bracket:[»url«bracket:]» «oper:=» data
       «kwd:return» data
-    }
+    «bracket:}»
     «kwd:return» cached
-  }
-}"
+  «bracket:}»
+«bracket:}»"
 `;
 
 exports[`swift > tokens > control 1`] = `
-"«kwd:func» «func:process»(«kwd:_» values«oper::» «kwd:inout» [«class:Int»]) {
-  «kwd:defer» { values«oper:.»«func:removeAll»() }
-  outer«oper::» «kwd:for» (i«oper:,» v) «kwd:in» values«oper:.»«func:enumerated»() {
-    «kwd:if» v «oper:==» «num:0» { «kwd:continue» outer }
-    «kwd:while» v «oper:>» i { «kwd:break» }
-  }
-  «kwd:repeat» { values«oper:.»«func:append»(«num:0») } «kwd:while» values«oper:.»count «oper:<» «num:3»
-}
+"«kwd:func» «func:process»«bracket:(»«kwd:_» values«oper::» «kwd:inout» «bracket:[»«class:Int»«bracket:]»«bracket:)» «bracket:{»
+  «kwd:defer» «bracket:{» values«oper:.»«func:removeAll»«bracket:(»«bracket:)» «bracket:}»
+  outer«oper::» «kwd:for» «bracket:(»i«oper:,» v«bracket:)» «kwd:in» values«oper:.»«func:enumerated»«bracket:(»«bracket:)» «bracket:{»
+    «kwd:if» v «oper:==» «num:0» «bracket:{» «kwd:continue» outer «bracket:}»
+    «kwd:while» v «oper:>» i «bracket:{» «kwd:break» «bracket:}»
+  «bracket:}»
+  «kwd:repeat» «bracket:{» values«oper:.»«func:append»«bracket:(»«num:0»«bracket:)» «bracket:}» «kwd:while» values«oper:.»count «oper:<» «num:3»
+«bracket:}»
 
-«kwd:indirect» «kwd:enum» «class:Tree» {
-  «kwd:case» «func:leaf»(«class:Int»)
-  «kwd:case» «func:node»(«class:Tree»«oper:,» «class:Tree»)
-}"
+«kwd:indirect» «kwd:enum» «class:Tree» «bracket:{»
+  «kwd:case» «func:leaf»«bracket:(»«class:Int»«bracket:)»
+  «kwd:case» «func:node»«bracket:(»«class:Tree»«oper:,» «class:Tree»«bracket:)»
+«bracket:}»"
 `;
 
 exports[`swift > tokens > declarations 1`] = `
 "«kwd:import» «class:Foundation»
 
-«kwd:typealias» «class:Completion» «oper:=» («class:Result»«oper:<»«class:Data»«oper:,» «class:Error»«oper:>») «oper:->» «class:Void»
+«kwd:typealias» «class:Completion» «oper:=» «bracket:(»«class:Result»«oper:<»«class:Data»«oper:,» «class:Error»«oper:>»«bracket:)» «oper:->» «class:Void»
 
-«kwd:final» «kwd:class» «class:Store»«oper::» «class:NSObject» {
-  «kwd:static» «kwd:let» shared «oper:=» «class:Store»()
-  «kwd:private»(«kwd:set») «kwd:var» items«oper::» [«class:Item»] «oper:=» []
+«kwd:final» «kwd:class» «class:Store»«oper::» «class:NSObject» «bracket:{»
+  «kwd:static» «kwd:let» shared «oper:=» «class:Store»«bracket:(»«bracket:)»
+  «kwd:private»«bracket:(»«kwd:set»«bracket:)» «kwd:var» items«oper::» «bracket:[»«class:Item»«bracket:]» «oper:=» «bracket:[»«bracket:]»
 
-  «kwd:override» «kwd:init»() { «kwd:super»«oper:.»«kwd:init»() }
-  «kwd:deinit» { items«oper:.»«func:removeAll»() }
+  «kwd:override» «kwd:init»«bracket:(»«bracket:)» «bracket:{» «kwd:super»«oper:.»«kwd:init»«bracket:(»«bracket:)» «bracket:}»
+  «kwd:deinit» «bracket:{» items«oper:.»«func:removeAll»«bracket:(»«bracket:)» «bracket:}»
 
-  «kwd:var» isEmpty«oper::» «class:Bool» {
-    «kwd:get» { items«oper:.»isEmpty }
-    «kwd:set» { «kwd:if» newValue { items«oper:.»«func:removeAll»() } }
-  }
+  «kwd:var» isEmpty«oper::» «class:Bool» «bracket:{»
+    «kwd:get» «bracket:{» items«oper:.»isEmpty «bracket:}»
+    «kwd:set» «bracket:{» «kwd:if» newValue «bracket:{» items«oper:.»«func:removeAll»«bracket:(»«bracket:)» «bracket:}» «bracket:}»
+  «bracket:}»
 
-  «kwd:var» tracked «oper:=» «num:0» {
-    «kwd:didSet» { «func:print»(«str:"was »«esc:\\(»oldValue«esc:)»«str:"») }
-    «kwd:willSet» { }
-  }
-}"
+  «kwd:var» tracked «oper:=» «num:0» «bracket:{»
+    «kwd:didSet» «bracket:{» «func:print»«bracket:(»«str:"was »«esc:\\(»oldValue«esc:)»«str:"»«bracket:)» «bracket:}»
+    «kwd:willSet» «bracket:{» «bracket:}»
+  «bracket:}»
+«bracket:}»"
 `;
 
 exports[`swift > tokens > directives 1`] = `
 "«kwd:#if» «class:DEBUG»
-  «func:print»(«kwd:#function»«oper:,» «kwd:#line»«oper:,» «kwd:#file»)
-«kwd:#elseif» «func:os»(macOS)
-  «kwd:let» action «oper:=» «kwd:#selector»(«class:AppDelegate»«oper:.»«func:reload»(«kwd:_»«oper::»))
+  «func:print»«bracket:(»«kwd:#function»«oper:,» «kwd:#line»«oper:,» «kwd:#file»«bracket:)»
+«kwd:#elseif» «func:os»«bracket:(»macOS«bracket:)»
+  «kwd:let» action «oper:=» «kwd:#selector»«bracket:(»«class:AppDelegate»«oper:.»«func:reload»«bracket:(»«kwd:_»«oper::»«bracket:)»«bracket:)»
 «kwd:#else»
-  «kwd:#warning»(«str:"unsupported platform"»)
+  «kwd:#warning»«bracket:(»«str:"unsupported platform"»«bracket:)»
 «kwd:#endif»"
 `;
 
 exports[`swift > tokens > generics 1`] = `
-"«kwd:struct» «class:Stack»«oper:<»«class:Element»«oper:>» {
-  «kwd:private» «kwd:var» storage«oper::» [«class:Element»] «oper:=» []
+"«kwd:struct» «class:Stack»«oper:<»«class:Element»«oper:>» «bracket:{»
+  «kwd:private» «kwd:var» storage«oper::» «bracket:[»«class:Element»«bracket:]» «oper:=» «bracket:[»«bracket:]»
 
-  «kwd:mutating» «kwd:func» «func:push»(«kwd:_» item«oper::» «class:Element») { storage«oper:.»«func:append»(item) }
-  «kwd:subscript»(i«oper::» «class:Int») «oper:->» «class:Element» { storage[i] }
-}
+  «kwd:mutating» «kwd:func» «func:push»«bracket:(»«kwd:_» item«oper::» «class:Element»«bracket:)» «bracket:{» storage«oper:.»«func:append»«bracket:(»item«bracket:)» «bracket:}»
+  «kwd:subscript»«bracket:(»i«oper::» «class:Int»«bracket:)» «oper:->» «class:Element» «bracket:{» storage«bracket:[»i«bracket:]» «bracket:}»
+«bracket:}»
 
-«kwd:func» «func:firstIndex»«oper:<»«class:C»«oper::» «class:Collection»«oper:>»(of value«oper::» «class:C»«oper:.»«class:Element»«oper:,» «kwd:in» c«oper::» «class:C») «oper:->» «class:Int»«oper:?»
-  «kwd:where» «class:C»«oper:.»«class:Element»«oper::» «class:Equatable» { «bool:nil» }
+«kwd:func» «func:firstIndex»«oper:<»«class:C»«oper::» «class:Collection»«oper:>»«bracket:(»of value«oper::» «class:C»«oper:.»«class:Element»«oper:,» «kwd:in» c«oper::» «class:C»«bracket:)» «oper:->» «class:Int»«oper:?»
+  «kwd:where» «class:C»«oper:.»«class:Element»«oper::» «class:Equatable» «bracket:{» «bool:nil» «bracket:}»
 
-«kwd:func» «func:make»() «oper:->» «kwd:some» «class:Shape» { «class:Circle»() }
-«kwd:let» shape«oper::» «kwd:any» «class:Shape» «oper:=» «class:Circle»()"
+«kwd:func» «func:make»«bracket:(»«bracket:)» «oper:->» «kwd:some» «class:Shape» «bracket:{» «class:Circle»«bracket:(»«bracket:)» «bracket:}»
+«kwd:let» shape«oper::» «kwd:any» «class:Shape» «oper:=» «class:Circle»«bracket:(»«bracket:)»"
 `;
 
 exports[`swift > tokens > multiline 1`] = `
@@ -116,52 +116,52 @@ exports[`swift > tokens > multiline 1`] = `
 `;
 
 exports[`swift > tokens > numbers 1`] = `
-"«kwd:let» ints «oper:=» [«num:0»«oper:,» «num:42»«oper:,» «num:1_000_000»]
+"«kwd:let» ints «oper:=» «bracket:[»«num:0»«oper:,» «num:42»«oper:,» «num:1_000_000»«bracket:]»
 «kwd:let» hex «oper:=» «num:0xFF_FF»
 «kwd:let» hexFloat «oper:=» «num:0x1p4»
 «kwd:let» oct «oper:=» «num:0o755»
 «kwd:let» bin «oper:=» «num:0b1010_0101»
-«kwd:let» floats «oper:=» [«num:3.14»«oper:,» «num:6.02e23»«oper:,» «num:1.5e-9»]"
+«kwd:let» floats «oper:=» «bracket:[»«num:3.14»«oper:,» «num:6.02e23»«oper:,» «num:1.5e-9»«bracket:]»"
 `;
 
 exports[`swift > tokens > optionals 1`] = `
 "«kwd:var» nickname«oper::» «class:String»«oper:?»
 «kwd:let» length «oper:=» nickname«oper:?.»count «oper:??» «num:0»
-«kwd:if» «kwd:let» name «oper:=» nickname«oper:,» «oper:!»name«oper:.»isEmpty {
-  «func:print»(name«oper:.»«func:uppercased»())
-}
-«kwd:guard» «kwd:let» first «oper:=» names«oper:.»first «kwd:as»«oper:?» «class:String» «kwd:else» { «kwd:return» «bool:nil» }
-«kwd:let» forced «oper:=» nickname«oper:!.»«func:trimmingCharacters»(«kwd:in»«oper::» «oper:.»whitespaces)"
+«kwd:if» «kwd:let» name «oper:=» nickname«oper:,» «oper:!»name«oper:.»isEmpty «bracket:{»
+  «func:print»«bracket:(»name«oper:.»«func:uppercased»«bracket:(»«bracket:)»«bracket:)»
+«bracket:}»
+«kwd:guard» «kwd:let» first «oper:=» names«oper:.»first «kwd:as»«oper:?» «class:String» «kwd:else» «bracket:{» «kwd:return» «bool:nil» «bracket:}»
+«kwd:let» forced «oper:=» nickname«oper:!.»«func:trimmingCharacters»«bracket:(»«kwd:in»«oper::» «oper:.»whitespaces«bracket:)»"
 `;
 
 exports[`swift > tokens > patterns 1`] = `
-"«kwd:enum» «class:Outcome» {
-  «kwd:case» «func:success»(«class:Int»)
-  «kwd:case» «func:failure»(«class:Error»«oper:,» retry«oper::» «class:Bool»)
-}
+"«kwd:enum» «class:Outcome» «bracket:{»
+  «kwd:case» «func:success»«bracket:(»«class:Int»«bracket:)»
+  «kwd:case» «func:failure»«bracket:(»«class:Error»«oper:,» retry«oper::» «class:Bool»«bracket:)»
+«bracket:}»
 
-«kwd:switch» outcome {
-«kwd:case» «oper:.»«func:success»(«kwd:let» value) «kwd:where» value «oper:>» «num:0»«oper::»
-  «func:print»(«str:"ok »«esc:\\(»value«esc:)»«str:"»)
-«kwd:case» «oper:.»success«oper:,» «oper:.»«func:failure»(«kwd:_»«oper:,» retry«oper::» «bool:false»)«oper::»
+«kwd:switch» outcome «bracket:{»
+«kwd:case» «oper:.»«func:success»«bracket:(»«kwd:let» value«bracket:)» «kwd:where» value «oper:>» «num:0»«oper::»
+  «func:print»«bracket:(»«str:"ok »«esc:\\(»value«esc:)»«str:"»«bracket:)»
+«kwd:case» «oper:.»success«oper:,» «oper:.»«func:failure»«bracket:(»«kwd:_»«oper:,» retry«oper::» «bool:false»«bracket:)»«oper::»
   «kwd:fallthrough»
-«kwd:case» «oper:.»«func:failure»(«kwd:let» error«oper:,» «kwd:_»)«oper::»
+«kwd:case» «oper:.»«func:failure»«bracket:(»«kwd:let» error«oper:,» «kwd:_»«bracket:)»«oper::»
   «kwd:throw» error
 «kwd:default»«oper::»
   «kwd:break»
-}"
+«bracket:}»"
 `;
 
 exports[`swift > tokens > protocols 1`] = `
-"«kwd:protocol» «class:Repository» {
+"«kwd:protocol» «class:Repository» «bracket:{»
   «kwd:associatedtype» «class:Item»«oper::» «class:Identifiable»
-  «kwd:var» count«oper::» «class:Int» { «kwd:get» }
-  «kwd:func» «func:fetch»(id«oper::» «class:Item»«oper:.»«class:ID») «kwd:throws» «oper:->» «class:Item»
-}
+  «kwd:var» count«oper::» «class:Int» «bracket:{» «kwd:get» «bracket:}»
+  «kwd:func» «func:fetch»«bracket:(»id«oper::» «class:Item»«oper:.»«class:ID»«bracket:)» «kwd:throws» «oper:->» «class:Item»
+«bracket:}»
 
-«kwd:extension» «class:Repository» «kwd:where» «class:Item»«oper::» «class:Equatable» {
-  «kwd:func» «func:contains»(«kwd:_» item«oper::» «class:Item») «oper:->» «class:Bool» { «bool:true» }
-}"
+«kwd:extension» «class:Repository» «kwd:where» «class:Item»«oper::» «class:Equatable» «bracket:{»
+  «kwd:func» «func:contains»«bracket:(»«kwd:_» item«oper::» «class:Item»«bracket:)» «oper:->» «class:Bool» «bracket:{» «bool:true» «bracket:}»
+«bracket:}»"
 `;
 
 exports[`swift > tokens > raw 1`] = `
@@ -179,18 +179,213 @@ exports[`swift > tokens > strings 1`] = `
 `;
 
 exports[`swift > tokens > swiftui 1`] = `
-"«kwd:struct» «class:ContentView»«oper::» «class:View» {
+"«kwd:struct» «class:ContentView»«oper::» «class:View» «bracket:{»
   «kwd:@State» «kwd:private» «kwd:var» count «oper:=» «num:0»
-  «kwd:@Environment»(«var:\\.colorScheme») «kwd:private» «kwd:var» scheme
+  «kwd:@Environment»«bracket:(»«var:\\.colorScheme»«bracket:)» «kwd:private» «kwd:var» scheme
   «kwd:@Binding» «kwd:var» title«oper::» «class:String»
 
-  «kwd:var» body«oper::» «kwd:some» «class:View» {
-    «class:VStack»(spacing«oper::» «num:12») {
-      «class:Text»(«str:"Tapped »«esc:\\(»count«esc:)»«str: time»«esc:\\(»count «oper:==» «num:1» «oper:?» «str:""» «oper::» «str:"s"»«esc:)»«str:"»)
-        «oper:.»«func:font»(«oper:.»headline)
-      «class:Button»(«str:"Tap me"») { count «oper:+=» «num:1» }
-    }
-    «oper:.»«func:padding»()
-  }
-}"
+  «kwd:var» body«oper::» «kwd:some» «class:View» «bracket:{»
+    «class:VStack»«bracket:(»spacing«oper::» «num:12»«bracket:)» «bracket:{»
+      «class:Text»«bracket:(»«str:"Tapped »«esc:\\(»count«esc:)»«str: time»«esc:\\(»count «oper:==» «num:1» «oper:?» «str:""» «oper::» «str:"s"»«esc:)»«str:"»«bracket:)»
+        «oper:.»«func:font»«bracket:(»«oper:.»headline«bracket:)»
+      «class:Button»«bracket:(»«str:"Tap me"»«bracket:)» «bracket:{» count «oper:+=» «num:1» «bracket:}»
+    «bracket:}»
+    «oper:.»«func:padding»«bracket:(»«bracket:)»
+  «bracket:}»
+«bracket:}»"
+`;
+
+exports[`swift tokens closures 1`] = `
+"«kwd:let» names «oper:=» people«oper:.»map «bracket:{» «var:$0»«oper:.»name «bracket:}»«oper:.»filter «bracket:{» «oper:!»«var:$0»«oper:.»isEmpty «bracket:}»«oper:.»«func:sorted»«bracket:(»«bracket:)»
+«kwd:let» total «oper:=» orders«oper:.»«func:reduce»«bracket:(»into«oper::» «num:0»«bracket:)» «bracket:{» sum«oper:,» order «kwd:in» sum «oper:+=» order«oper:.»total «bracket:}»
+«kwd:let» byName «oper:=» people«oper:.»«func:sorted»«bracket:(»by«oper::» «var:\\.name»«bracket:)»
+«class:DispatchQueue»«oper:.»main«oper:.»«kwd:async» «bracket:{» «bracket:[»«kwd:weak» «kwd:self»«bracket:]» «kwd:in»
+  «kwd:self»«oper:?.»«func:reload»«bracket:(»«bracket:)»
+«bracket:}»"
+`;
+
+exports[`swift tokens comments 1`] = `
+"«cmnt:// a plain line comment
+»«cmnt:/// A greeting for the given name.
+»«cmnt:///
+»«cmnt:/// »«kwd:- Parameter»«cmnt: name: who to greet
+»«cmnt:/// »«kwd:- Returns»«cmnt:: the greeting
+»«cmnt:/**
+ A block doc comment.
+ »«kwd:- Note»«cmnt:: these nest too
+ */»
+«cmnt:/* regular block
+   spanning lines */»
+«cmnt:/* outer /* nested */ still outer */»
+«cmnt:// »«err:TODO»«cmnt:: localize this
+»«cmnt:// »«insert:CHANGED»«cmnt:: switched to async/await»"
+`;
+
+exports[`swift tokens concurrency 1`] = `
+"«kwd:@available»«bracket:(»iOS «num:15»«oper:,» «oper:*»«bracket:)»
+«kwd:actor» «class:Loader» «bracket:{»
+  «kwd:private» «kwd:var» cache«oper::» «bracket:[»«class:URL»«oper::» «class:Data»«bracket:]» «oper:=» «bracket:[»«oper::»«bracket:]»
+
+  «kwd:func» «func:load»«bracket:(»from url«oper::» «class:URL»«bracket:)» «kwd:async» «kwd:throws» «oper:->» «class:Data» «bracket:{»
+    «kwd:guard» «kwd:let» cached «oper:=» cache«bracket:[»url«bracket:]» «kwd:else» «bracket:{»
+      «kwd:let» «bracket:(»data«oper:,» «kwd:_»«bracket:)» «oper:=» «kwd:try» «kwd:await» «class:URLSession»«oper:.»shared«oper:.»«func:data»«bracket:(»from«oper::» url«bracket:)»
+      cache«bracket:[»url«bracket:]» «oper:=» data
+      «kwd:return» data
+    «bracket:}»
+    «kwd:return» cached
+  «bracket:}»
+«bracket:}»"
+`;
+
+exports[`swift tokens control 1`] = `
+"«kwd:func» «func:process»«bracket:(»«kwd:_» values«oper::» «kwd:inout» «bracket:[»«class:Int»«bracket:]»«bracket:)» «bracket:{»
+  «kwd:defer» «bracket:{» values«oper:.»«func:removeAll»«bracket:(»«bracket:)» «bracket:}»
+  outer«oper::» «kwd:for» «bracket:(»i«oper:,» v«bracket:)» «kwd:in» values«oper:.»«func:enumerated»«bracket:(»«bracket:)» «bracket:{»
+    «kwd:if» v «oper:==» «num:0» «bracket:{» «kwd:continue» outer «bracket:}»
+    «kwd:while» v «oper:>» i «bracket:{» «kwd:break» «bracket:}»
+  «bracket:}»
+  «kwd:repeat» «bracket:{» values«oper:.»«func:append»«bracket:(»«num:0»«bracket:)» «bracket:}» «kwd:while» values«oper:.»count «oper:<» «num:3»
+«bracket:}»
+
+«kwd:indirect» «kwd:enum» «class:Tree» «bracket:{»
+  «kwd:case» «func:leaf»«bracket:(»«class:Int»«bracket:)»
+  «kwd:case» «func:node»«bracket:(»«class:Tree»«oper:,» «class:Tree»«bracket:)»
+«bracket:}»"
+`;
+
+exports[`swift tokens declarations 1`] = `
+"«kwd:import» «class:Foundation»
+
+«kwd:typealias» «class:Completion» «oper:=» «bracket:(»«class:Result»«oper:<»«class:Data»«oper:,» «class:Error»«oper:>»«bracket:)» «oper:->» «class:Void»
+
+«kwd:final» «kwd:class» «class:Store»«oper::» «class:NSObject» «bracket:{»
+  «kwd:static» «kwd:let» shared «oper:=» «class:Store»«bracket:(»«bracket:)»
+  «kwd:private»«bracket:(»«kwd:set»«bracket:)» «kwd:var» items«oper::» «bracket:[»«class:Item»«bracket:]» «oper:=» «bracket:[»«bracket:]»
+
+  «kwd:override» «kwd:init»«bracket:(»«bracket:)» «bracket:{» «kwd:super»«oper:.»«kwd:init»«bracket:(»«bracket:)» «bracket:}»
+  «kwd:deinit» «bracket:{» items«oper:.»«func:removeAll»«bracket:(»«bracket:)» «bracket:}»
+
+  «kwd:var» isEmpty«oper::» «class:Bool» «bracket:{»
+    «kwd:get» «bracket:{» items«oper:.»isEmpty «bracket:}»
+    «kwd:set» «bracket:{» «kwd:if» newValue «bracket:{» items«oper:.»«func:removeAll»«bracket:(»«bracket:)» «bracket:}» «bracket:}»
+  «bracket:}»
+
+  «kwd:var» tracked «oper:=» «num:0» «bracket:{»
+    «kwd:didSet» «bracket:{» «func:print»«bracket:(»«str:"was »«esc:\\(»oldValue«esc:)»«str:"»«bracket:)» «bracket:}»
+    «kwd:willSet» «bracket:{» «bracket:}»
+  «bracket:}»
+«bracket:}»"
+`;
+
+exports[`swift tokens directives 1`] = `
+"«kwd:#if» «class:DEBUG»
+  «func:print»«bracket:(»«kwd:#function»«oper:,» «kwd:#line»«oper:,» «kwd:#file»«bracket:)»
+«kwd:#elseif» «func:os»«bracket:(»macOS«bracket:)»
+  «kwd:let» action «oper:=» «kwd:#selector»«bracket:(»«class:AppDelegate»«oper:.»«func:reload»«bracket:(»«kwd:_»«oper::»«bracket:)»«bracket:)»
+«kwd:#else»
+  «kwd:#warning»«bracket:(»«str:"unsupported platform"»«bracket:)»
+«kwd:#endif»"
+`;
+
+exports[`swift tokens generics 1`] = `
+"«kwd:struct» «class:Stack»«oper:<»«class:Element»«oper:>» «bracket:{»
+  «kwd:private» «kwd:var» storage«oper::» «bracket:[»«class:Element»«bracket:]» «oper:=» «bracket:[»«bracket:]»
+
+  «kwd:mutating» «kwd:func» «func:push»«bracket:(»«kwd:_» item«oper::» «class:Element»«bracket:)» «bracket:{» storage«oper:.»«func:append»«bracket:(»item«bracket:)» «bracket:}»
+  «kwd:subscript»«bracket:(»i«oper::» «class:Int»«bracket:)» «oper:->» «class:Element» «bracket:{» storage«bracket:[»i«bracket:]» «bracket:}»
+«bracket:}»
+
+«kwd:func» «func:firstIndex»«oper:<»«class:C»«oper::» «class:Collection»«oper:>»«bracket:(»of value«oper::» «class:C»«oper:.»«class:Element»«oper:,» «kwd:in» c«oper::» «class:C»«bracket:)» «oper:->» «class:Int»«oper:?»
+  «kwd:where» «class:C»«oper:.»«class:Element»«oper::» «class:Equatable» «bracket:{» «bool:nil» «bracket:}»
+
+«kwd:func» «func:make»«bracket:(»«bracket:)» «oper:->» «kwd:some» «class:Shape» «bracket:{» «class:Circle»«bracket:(»«bracket:)» «bracket:}»
+«kwd:let» shape«oper::» «kwd:any» «class:Shape» «oper:=» «class:Circle»«bracket:(»«bracket:)»"
+`;
+
+exports[`swift tokens multiline 1`] = `
+"«kwd:let» query «oper:=» «str:"""
+    SELECT *
+    FROM users
+    WHERE name = "»«esc:\\(»name«esc:)»«str:"
+    """»"
+`;
+
+exports[`swift tokens numbers 1`] = `
+"«kwd:let» ints «oper:=» «bracket:[»«num:0»«oper:,» «num:42»«oper:,» «num:1_000_000»«bracket:]»
+«kwd:let» hex «oper:=» «num:0xFF_FF»
+«kwd:let» hexFloat «oper:=» «num:0x1p4»
+«kwd:let» oct «oper:=» «num:0o755»
+«kwd:let» bin «oper:=» «num:0b1010_0101»
+«kwd:let» floats «oper:=» «bracket:[»«num:3.14»«oper:,» «num:6.02e23»«oper:,» «num:1.5e-9»«bracket:]»"
+`;
+
+exports[`swift tokens optionals 1`] = `
+"«kwd:var» nickname«oper::» «class:String»«oper:?»
+«kwd:let» length «oper:=» nickname«oper:?.»count «oper:??» «num:0»
+«kwd:if» «kwd:let» name «oper:=» nickname«oper:,» «oper:!»name«oper:.»isEmpty «bracket:{»
+  «func:print»«bracket:(»name«oper:.»«func:uppercased»«bracket:(»«bracket:)»«bracket:)»
+«bracket:}»
+«kwd:guard» «kwd:let» first «oper:=» names«oper:.»first «kwd:as»«oper:?» «class:String» «kwd:else» «bracket:{» «kwd:return» «bool:nil» «bracket:}»
+«kwd:let» forced «oper:=» nickname«oper:!.»«func:trimmingCharacters»«bracket:(»«kwd:in»«oper::» «oper:.»whitespaces«bracket:)»"
+`;
+
+exports[`swift tokens patterns 1`] = `
+"«kwd:enum» «class:Outcome» «bracket:{»
+  «kwd:case» «func:success»«bracket:(»«class:Int»«bracket:)»
+  «kwd:case» «func:failure»«bracket:(»«class:Error»«oper:,» retry«oper::» «class:Bool»«bracket:)»
+«bracket:}»
+
+«kwd:switch» outcome «bracket:{»
+«kwd:case» «oper:.»«func:success»«bracket:(»«kwd:let» value«bracket:)» «kwd:where» value «oper:>» «num:0»«oper::»
+  «func:print»«bracket:(»«str:"ok »«esc:\\(»value«esc:)»«str:"»«bracket:)»
+«kwd:case» «oper:.»success«oper:,» «oper:.»«func:failure»«bracket:(»«kwd:_»«oper:,» retry«oper::» «bool:false»«bracket:)»«oper::»
+  «kwd:fallthrough»
+«kwd:case» «oper:.»«func:failure»«bracket:(»«kwd:let» error«oper:,» «kwd:_»«bracket:)»«oper::»
+  «kwd:throw» error
+«kwd:default»«oper::»
+  «kwd:break»
+«bracket:}»"
+`;
+
+exports[`swift tokens protocols 1`] = `
+"«kwd:protocol» «class:Repository» «bracket:{»
+  «kwd:associatedtype» «class:Item»«oper::» «class:Identifiable»
+  «kwd:var» count«oper::» «class:Int» «bracket:{» «kwd:get» «bracket:}»
+  «kwd:func» «func:fetch»«bracket:(»id«oper::» «class:Item»«oper:.»«class:ID»«bracket:)» «kwd:throws» «oper:->» «class:Item»
+«bracket:}»
+
+«kwd:extension» «class:Repository» «kwd:where» «class:Item»«oper::» «class:Equatable» «bracket:{»
+  «kwd:func» «func:contains»«bracket:(»«kwd:_» item«oper::» «class:Item»«bracket:)» «oper:->» «class:Bool» «bracket:{» «bool:true» «bracket:}»
+«bracket:}»"
+`;
+
+exports[`swift tokens raw 1`] = `
+"«kwd:let» pattern «oper:=» «str:#"\\d{3}-\\d{4}"#»
+«kwd:let» windows «oper:=» «str:#"C:\\Users\\admin\\Documents"#»
+«kwd:let» mixed «oper:=» «str:##"a "# that stays raw"##»
+«kwd:let» embedded «oper:=» «str:#"id = »«esc:\\#(»user«oper:.»id«esc:)»«str:"#»"
+`;
+
+exports[`swift tokens strings 1`] = `
+"«kwd:let» plain «oper:=» «str:"hello, world"»
+«kwd:let» escaped «oper:=» «str:"tab»«esc:\\t»«str:newline»«esc:\\n»«str:quote»«esc:\\"»«str:backslash»«esc:\\\\»«str:"»
+«kwd:let» unicode «oper:=» «str:"»«esc:\\u{1F600}»«str: and »«esc:\\u{2764}»«str:"»
+«kwd:let» greeting «oper:=» «str:"»«esc:\\(»user«oper:.»name«esc:)»«str: has »«esc:\\(»items«oper:.»count«esc:)»«str: item»«esc:\\(»items«oper:.»count «oper:==» «num:1» «oper:?» «str:""» «oper::» «str:"s"»«esc:)»«str:"»"
+`;
+
+exports[`swift tokens swiftui 1`] = `
+"«kwd:struct» «class:ContentView»«oper::» «class:View» «bracket:{»
+  «kwd:@State» «kwd:private» «kwd:var» count «oper:=» «num:0»
+  «kwd:@Environment»«bracket:(»«var:\\.colorScheme»«bracket:)» «kwd:private» «kwd:var» scheme
+  «kwd:@Binding» «kwd:var» title«oper::» «class:String»
+
+  «kwd:var» body«oper::» «kwd:some» «class:View» «bracket:{»
+    «class:VStack»«bracket:(»spacing«oper::» «num:12»«bracket:)» «bracket:{»
+      «class:Text»«bracket:(»«str:"Tapped »«esc:\\(»count«esc:)»«str: time»«esc:\\(»count «oper:==» «num:1» «oper:?» «str:""» «oper::» «str:"s"»«esc:)»«str:"»«bracket:)»
+        «oper:.»«func:font»«bracket:(»«oper:.»headline«bracket:)»
+      «class:Button»«bracket:(»«str:"Tap me"»«bracket:)» «bracket:{» count «oper:+=» «num:1» «bracket:}»
+    «bracket:}»
+    «oper:.»«func:padding»«bracket:(»«bracket:)»
+  «bracket:}»
+«bracket:}»"
 `;

@@ -1,5 +1,6 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, CLASS, CMNT, ESC, FUNC, KWD, NUM, OPER, STR, VAR } from "../tokens.ts";
+import { bracket } from "../common.ts";
 import todo from "./todo.ts";
 
 // `\(…)` interpolation: its delimiter carries the hashes the literal was opened
@@ -45,4 +46,5 @@ export default [
   [/[/*+:?&|%^~=!,<>.^-]+/g, OPER],
   [/\b[A-Z]\w*\b/g, CLASS],
   [/\b[a-zA-Z_]\w*(?=\s*\()/g, FUNC],
+  bracket,
 ] as ShjLanguageDefinition;

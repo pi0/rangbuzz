@@ -39,3 +39,43 @@ exports[`make > tokens > variables 1`] = `
 «section:build:»
 	«var:$(CC)» «var:$(FLAGS)»«kwd: -o» out main.c"
 `;
+
+exports[`make tokens comments 1`] = `
+"«cmnt:# a comment»
+«cmnt:# »«err:TODO»«cmnt:: parallel builds»"
+`;
+
+exports[`make tokens conditionals 1`] = `
+"«kwd:ifneq» «oper:($(»OS«oper:)»,Windows_NT«oper:)»
+«var:SHELL» = /bin/sh
+«kwd:endif»"
+`;
+
+exports[`make tokens numbers 1`] = `
+"«var:JOBS» = «num:4»
+
+«section:run:»
+	«func:make»«kwd: -j» «num:4»"
+`;
+
+exports[`make tokens strings 1`] = `
+"«section:greet:»
+	«func:echo» «str:"hello"»"
+`;
+
+exports[`make tokens targets 1`] = `
+"«class:.PHONY:» all clean
+
+«section:all:» build test
+
+«section:clean:»
+	«func:rm»«kwd: -rf» dist"
+`;
+
+exports[`make tokens variables 1`] = `
+"«var:CC» = gcc
+«var:FLAGS» = -O2
+
+«section:build:»
+	«var:$(CC)» «var:$(FLAGS)»«kwd: -o» out main.c"
+`;

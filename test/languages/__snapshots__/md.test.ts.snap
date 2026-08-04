@@ -48,3 +48,52 @@ exports[`md > tokens > quotes 1`] = `
 "«cmnt:> quoted line»
 «cmnt:> more»"
 `;
+
+exports[`md tokens emphasis 1`] = `"«kwd:*italic*» «class:**bold**» «kwd:_under_» «var:~~struck~~»"`;
+
+exports[`md tokens fenced code 1`] = `
+"«kwd:\`\`\`js»
+«kwd:const» a «oper:=» «num:1»; «cmnt:// c
+»«kwd:\`\`\`»"
+`;
+
+exports[`md tokens fenced code with metadata 1`] = `
+"«kwd:\`\`\`js [file.js] {1,3-5} twoslash diff title="x"»
+«kwd:const» a «oper:=» «num:1»
+«kwd:\`\`\`»"
+`;
+
+exports[`md tokens fenced without language 1`] = `
+"«kwd:\`\`\`»
+plain text
+«kwd:\`\`\`»"
+`;
+
+exports[`md tokens headings 1`] = `
+"«section:# One»
+
+«section:## Two ##»
+
+«section:Three
+===»
+
+«section:Four
+---»"
+`;
+
+exports[`md tokens inline code 1`] = `"use «str:\`const a = 1\`» here"`;
+
+exports[`md tokens links 1`] = `"«oper:[text]»«func:(https://a.b)» and «func:<https://c.d>»"`;
+
+exports[`md tokens lists 1`] = `
+"«kwd:* »one
+«kwd:* »two
+«kwd:
+1. »first
+«kwd:2. »second"
+`;
+
+exports[`md tokens quotes 1`] = `
+"«cmnt:> quoted line»
+«cmnt:> more»"
+`;

@@ -1,6 +1,6 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { CMNT, FUNC, KWD, NUM, OPER } from "../tokens.ts";
-import { num, str } from "../common.ts";
+import { bracket, num, str } from "../common.ts";
 export default [
   [/(;|#).*/gm, CMNT],
   str,
@@ -19,4 +19,5 @@ export default [
   // instruction (ex: "mov")
   [/^[ \t]*[a-z][a-z\d]*\b/gm, KWD],
   [/%|\$/g, OPER],
+  bracket,
 ] as ShjLanguageDefinition;

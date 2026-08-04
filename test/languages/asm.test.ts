@@ -7,4 +7,5 @@ testLanguage("asm", {
   strings: `msg db "hello", 0xa`,
   numbers: `\tmov ebx, 42\n\tadd ecx, 0xff`,
   operands: `\tmovl $0x1, %eax`,
+  memory: `\tmov eax, [ebx+8]\n\tmovl (%esp), %eax`,
 });

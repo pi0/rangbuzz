@@ -1,7 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`svelte > tokens > await blocks 1`] = `
-"«oper:{#»«kwd:await» «func:load»()«oper:}»
+"«oper:{#»«kwd:await» «func:load»«bracket:(»«bracket:)»«oper:}»
   «oper:<»«var:p»«oper:>»waiting«oper:</»«var:p»«oper:>»
 «oper:{:»«kwd:then» user«oper:}»
   «oper:<»«var:p»«oper:>»«oper:{»user«oper:.»name«oper:}»«oper:</»«var:p»«oper:>»
@@ -31,7 +31,7 @@ exports[`svelte > tokens > directives 1`] = `
 
 exports[`svelte > tokens > each blocks 1`] = `
 "«oper:<»«var:ul» «class:class»«oper:=»«str:"list"»«oper:>»
-  «oper:{#»«kwd:each» items «kwd:as» item«oper:,» «func:i» (item«oper:.»id)«oper:}»
+  «oper:{#»«kwd:each» items «kwd:as» item«oper:,» «func:i» «bracket:(»item«oper:.»id«bracket:)»«oper:}»
     «oper:<»«var:li»«oper:>»«oper:{»i«oper:}». «oper:{»item«oper:.»label«oper:}»«oper:</»«var:li»«oper:>»
   «oper:{:»«kwd:else»«oper:}»
     «oper:<»«var:li»«oper:>»nothing here«oper:</»«var:li»«oper:>»
@@ -51,7 +51,7 @@ exports[`svelte > tokens > if blocks 1`] = `
 
 exports[`svelte > tokens > interpolation 1`] = `
 "«oper:<»«var:p»«oper:>»«oper:{»user«oper:.»name«oper:}»«oper:</»«var:p»«oper:>»
-«oper:<»«var:p»«oper:>»«oper:{»«str:"Total: "» «oper:+» total«oper:.»«func:toFixed»(«num:2»)«oper:}»«oper:</»«var:p»«oper:>»
+«oper:<»«var:p»«oper:>»«oper:{»«str:"Total: "» «oper:+» total«oper:.»«func:toFixed»«bracket:(»«num:2»«bracket:)»«oper:}»«oper:</»«var:p»«oper:>»
 «oper:<»«var:p»«oper:>»«oper:{»items«oper:.»length«oper:}» left«oper:</»«var:p»«oper:>»
 «oper:<»«var:p»«oper:>»«oper:{»price «oper:*» «num:1.2»«oper:}»«oper:</»«var:p»«oper:>»"
 `;
@@ -66,7 +66,7 @@ exports[`svelte > tokens > modern events 1`] = `
 exports[`svelte > tokens > script module 1`] = `
 "«oper:<»«var:script» «class:context»«oper:=»«str:"module"»«oper:>»
   «cmnt:// shared by every instance
-»  «kwd:export» «kwd:const» «func:load» «oper:=» () «kwd:=>» «str:"data"»;
+»  «kwd:export» «kwd:const» «func:load» «oper:=» «bracket:(»«bracket:)» «kwd:=>» «str:"data"»;
 «oper:</»«var:script»«oper:>»
 
 «oper:<»«var:script» «class:module»«oper:>»
@@ -76,30 +76,30 @@ exports[`svelte > tokens > script module 1`] = `
 
 exports[`svelte > tokens > single file component 1`] = `
 "«oper:<»«var:script» «class:lang»«oper:=»«str:"ts"»«oper:>»
-  «kwd:let» count «oper:=» «func:$state»(«num:0»);
+  «kwd:let» count «oper:=» «func:$state»«bracket:(»«num:0»«bracket:)»;
 
-  «kwd:const» double «oper:=» «func:$derived»(count «oper:*» «num:2»);
+  «kwd:const» double «oper:=» «func:$derived»«bracket:(»count «oper:*» «num:2»«bracket:)»;
 «oper:</»«var:script»«oper:>»
 
-«oper:<»«var:button» «kwd:onclick»«oper:={»() «kwd:=>» count«oper:++»«oper:}»«oper:>»
+«oper:<»«var:button» «kwd:onclick»«oper:={»«bracket:(»«bracket:)» «kwd:=>» count«oper:++»«oper:}»«oper:>»
   clicked «oper:{»count«oper:}» times
 «oper:</»«var:button»«oper:>»
 
 «oper:<»«var:style»«oper:>»
-  «kwd:button» {
+  «kwd:button» «bracket:{»
     «var:color»: «num:#09f»;
-  }
+  «bracket:}»
 «oper:</»«var:style»«oper:>»"
 `;
 
 exports[`svelte > tokens > snippets and render 1`] = `
-"«oper:{#»«kwd:snippet» «func:row»(item«oper:,» index)«oper:}»
+"«oper:{#»«kwd:snippet» «func:row»«bracket:(»item«oper:,» index«bracket:)»«oper:}»
   «oper:<»«var:tr»«oper:>»«oper:<»«var:td»«oper:>»«oper:{»index«oper:}»«oper:</»«var:td»«oper:>»«oper:<»«var:td»«oper:>»«oper:{»item«oper:.»name«oper:}»«oper:</»«var:td»«oper:>»«oper:</»«var:tr»«oper:>»
 «oper:{/»«kwd:snippet»«oper:}»
 
 «oper:<»«var:table»«oper:>»
   «oper:{#»«kwd:each» rows «kwd:as» row«oper:}»
-    «oper:{@»«kwd:render» «func:row»(row«oper:,» «num:0»)«oper:}»
+    «oper:{@»«kwd:render» «func:row»«bracket:(»row«oper:,» «num:0»«bracket:)»«oper:}»
   «oper:{/»«kwd:each»«oper:}»
 «oper:</»«var:table»«oper:>»"
 `;
@@ -108,17 +108,143 @@ exports[`svelte > tokens > style scss 1`] = `
 "«oper:<»«var:style» «class:lang»«oper:=»«str:"scss"»«oper:>»
   «var:$brand»: «num:#09f»;
 
-  «class:.card» {
+  «class:.card» «bracket:{»
     «var:color»: «var:$brand»;
 
-    «class:&»«class::hover» {
+    «class:&»«class::hover» «bracket:{»
       «var:color»: «var:$brand»;
-    }
-  }
+    «bracket:}»
+  «bracket:}»
 «oper:</»«var:style»«oper:>»"
 `;
 
 exports[`svelte > tokens > template tags 1`] = `
+"«oper:<»«var:div»«oper:>»
+  «oper:{@»«kwd:html» «str:"<b>bold</b>"»«oper:}»
+  «oper:{@»«kwd:const» area «oper:=» width «oper:*» height«oper:}»
+  «oper:{@»«kwd:debug» area«oper:,» width«oper:}»
+«oper:</»«var:div»«oper:>»"
+`;
+
+exports[`svelte tokens await blocks 1`] = `
+"«oper:{#»«kwd:await» «func:load»«bracket:(»«bracket:)»«oper:}»
+  «oper:<»«var:p»«oper:>»waiting«oper:</»«var:p»«oper:>»
+«oper:{:»«kwd:then» user«oper:}»
+  «oper:<»«var:p»«oper:>»«oper:{»user«oper:.»name«oper:}»«oper:</»«var:p»«oper:>»
+«oper:{:»«kwd:catch» error«oper:}»
+  «oper:<»«var:p» «class:class»«oper:=»«str:"err"»«oper:>»«oper:{»error«oper:.»message«oper:}»«oper:</»«var:p»«oper:>»
+«oper:{/»«kwd:await»«oper:}»
+
+«oper:{#»«kwd:key» id«oper:}»
+  «oper:<»«var:Chart» {«class:id»} «oper:/>»
+«oper:{/»«kwd:key»«oper:}»"
+`;
+
+exports[`svelte tokens comments 1`] = `
+"«cmnt:<!-- the header -->»
+«cmnt:<!-- »«err:TODO»«cmnt:: extract a component -->»
+«oper:<»«var:p»«oper:>»a «var:&amp;» b «var:&lt;» c«oper:</»«var:p»«oper:>»"
+`;
+
+exports[`svelte tokens directives 1`] = `
+"«oper:<»«var:form» «kwd:on:submit|preventDefault»«oper:={»save«oper:}»«oper:>»
+  «oper:<»«var:input» «kwd:bind:value»«oper:={»form«oper:.»name«oper:}» «class:type»«oper:=»«str:"text"» «class:required» «oper:/>»
+  «oper:<»«var:div» «kwd:use:tooltip»«oper:={»«str:"hello"»«oper:}» «kwd:transition:fade» «kwd:in:fly» «kwd:out:slide» «kwd:animate:flip»«oper:>»«oper:</»«var:div»«oper:>»
+  «oper:<»«var:span» «kwd:class:active»«oper:={»selected«oper:}» «kwd:style:color»«oper:={»hue«oper:}» «kwd:on:click»«oper:={»pick«oper:}»«oper:>»pick«oper:</»«var:span»«oper:>»
+  «oper:<»«var:slot» «class:name»«oper:=»«str:"footer"» «kwd:let:year» «oper:/>»
+«oper:</»«var:form»«oper:>»"
+`;
+
+exports[`svelte tokens each blocks 1`] = `
+"«oper:<»«var:ul» «class:class»«oper:=»«str:"list"»«oper:>»
+  «oper:{#»«kwd:each» items «kwd:as» item«oper:,» «func:i» «bracket:(»item«oper:.»id«bracket:)»«oper:}»
+    «oper:<»«var:li»«oper:>»«oper:{»i«oper:}». «oper:{»item«oper:.»label«oper:}»«oper:</»«var:li»«oper:>»
+  «oper:{:»«kwd:else»«oper:}»
+    «oper:<»«var:li»«oper:>»nothing here«oper:</»«var:li»«oper:>»
+  «oper:{/»«kwd:each»«oper:}»
+«oper:</»«var:ul»«oper:>»"
+`;
+
+exports[`svelte tokens if blocks 1`] = `
+"«oper:{#»«kwd:if» state «oper:===» «str:"loading"»«oper:}»
+  «oper:<»«var:p»«oper:>»Loading«oper:</»«var:p»«oper:>»
+«oper:{:»«kwd:else» «kwd:if» error«oper:}»
+  «oper:<»«var:p»«oper:>»«oper:{»error«oper:.»message«oper:}»«oper:</»«var:p»«oper:>»
+«oper:{:»«kwd:else»«oper:}»
+  «oper:<»«var:p»«oper:>»Ready«oper:</»«var:p»«oper:>»
+«oper:{/»«kwd:if»«oper:}»"
+`;
+
+exports[`svelte tokens interpolation 1`] = `
+"«oper:<»«var:p»«oper:>»«oper:{»user«oper:.»name«oper:}»«oper:</»«var:p»«oper:>»
+«oper:<»«var:p»«oper:>»«oper:{»«str:"Total: "» «oper:+» total«oper:.»«func:toFixed»«bracket:(»«num:2»«bracket:)»«oper:}»«oper:</»«var:p»«oper:>»
+«oper:<»«var:p»«oper:>»«oper:{»items«oper:.»length«oper:}» left«oper:</»«var:p»«oper:>»
+«oper:<»«var:p»«oper:>»«oper:{»price «oper:*» «num:1.2»«oper:}»«oper:</»«var:p»«oper:>»"
+`;
+
+exports[`svelte tokens modern events 1`] = `
+"«oper:<»«var:button» «kwd:onclick»«oper:={»handleClick«oper:}» «kwd:onmouseenter»«oper:={»hover«oper:}» «class:disabled»«oper:={»busy«oper:}»«oper:>»
+  Save
+«oper:</»«var:button»«oper:>»
+«oper:<»«var:Nested» {...«class:rest»} {«class:value»} «kwd:bind:this»«oper:={»node«oper:}» «oper:/>»"
+`;
+
+exports[`svelte tokens script module 1`] = `
+"«oper:<»«var:script» «class:context»«oper:=»«str:"module"»«oper:>»
+  «cmnt:// shared by every instance
+»  «kwd:export» «kwd:const» «func:load» «oper:=» «bracket:(»«bracket:)» «kwd:=>» «str:"data"»;
+«oper:</»«var:script»«oper:>»
+
+«oper:<»«var:script» «class:module»«oper:>»
+  «kwd:let» total «oper:=» «num:0»;
+«oper:</»«var:script»«oper:>»"
+`;
+
+exports[`svelte tokens single file component 1`] = `
+"«oper:<»«var:script» «class:lang»«oper:=»«str:"ts"»«oper:>»
+  «kwd:let» count «oper:=» «func:$state»«bracket:(»«num:0»«bracket:)»;
+
+  «kwd:const» double «oper:=» «func:$derived»«bracket:(»count «oper:*» «num:2»«bracket:)»;
+«oper:</»«var:script»«oper:>»
+
+«oper:<»«var:button» «kwd:onclick»«oper:={»«bracket:(»«bracket:)» «kwd:=>» count«oper:++»«oper:}»«oper:>»
+  clicked «oper:{»count«oper:}» times
+«oper:</»«var:button»«oper:>»
+
+«oper:<»«var:style»«oper:>»
+  «kwd:button» «bracket:{»
+    «var:color»: «num:#09f»;
+  «bracket:}»
+«oper:</»«var:style»«oper:>»"
+`;
+
+exports[`svelte tokens snippets and render 1`] = `
+"«oper:{#»«kwd:snippet» «func:row»«bracket:(»item«oper:,» index«bracket:)»«oper:}»
+  «oper:<»«var:tr»«oper:>»«oper:<»«var:td»«oper:>»«oper:{»index«oper:}»«oper:</»«var:td»«oper:>»«oper:<»«var:td»«oper:>»«oper:{»item«oper:.»name«oper:}»«oper:</»«var:td»«oper:>»«oper:</»«var:tr»«oper:>»
+«oper:{/»«kwd:snippet»«oper:}»
+
+«oper:<»«var:table»«oper:>»
+  «oper:{#»«kwd:each» rows «kwd:as» row«oper:}»
+    «oper:{@»«kwd:render» «func:row»«bracket:(»row«oper:,» «num:0»«bracket:)»«oper:}»
+  «oper:{/»«kwd:each»«oper:}»
+«oper:</»«var:table»«oper:>»"
+`;
+
+exports[`svelte tokens style scss 1`] = `
+"«oper:<»«var:style» «class:lang»«oper:=»«str:"scss"»«oper:>»
+  «var:$brand»: «num:#09f»;
+
+  «class:.card» «bracket:{»
+    «var:color»: «var:$brand»;
+
+    «class:&»«class::hover» «bracket:{»
+      «var:color»: «var:$brand»;
+    «bracket:}»
+  «bracket:}»
+«oper:</»«var:style»«oper:>»"
+`;
+
+exports[`svelte tokens template tags 1`] = `
 "«oper:<»«var:div»«oper:>»
   «oper:{@»«kwd:html» «str:"<b>bold</b>"»«oper:}»
   «oper:{@»«kwd:const» area «oper:=» width «oper:*» height«oper:}»

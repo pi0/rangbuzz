@@ -15,3 +15,19 @@ exports[`csv > tokens > rows 1`] = `
 ada«oper:,»36«oper:,»london
 alan«oper:,»41«oper:,»wilmslow"
 `;
+
+exports[`csv tokens empty 1`] = `
+"a«oper:,»«oper:,»c
+«oper:,»«oper:,»"
+`;
+
+exports[`csv tokens quoted 1`] = `
+"name«oper:,»note
+«str:"last, first"»«oper:,»«str:"said "»«str:"hi"»«str:""»"
+`;
+
+exports[`csv tokens rows 1`] = `
+"name«oper:,»age«oper:,»city
+ada«oper:,»36«oper:,»london
+alan«oper:,»41«oper:,»wilmslow"
+`;

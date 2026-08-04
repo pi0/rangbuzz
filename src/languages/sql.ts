@@ -1,6 +1,7 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, FUNC, KWD, NUM, OPER, VAR } from "../tokens.ts";
-import { str } from "../common.ts";
+import { bracket, str } from "../common.ts";
+
 export default [
   [/--.*\n?|\/\*((?!\*\/)[^])*(\*\/)?/g, , "todo"],
   str,
@@ -19,4 +20,5 @@ export default [
     OPER,
   ],
   [/@\S+/g, VAR],
+  bracket,
 ] as ShjLanguageDefinition;

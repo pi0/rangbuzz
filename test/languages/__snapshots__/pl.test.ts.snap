@@ -6,18 +6,18 @@ exports[`pl > tokens > comments 1`] = `
 `;
 
 exports[`pl > tokens > functions 1`] = `
-"«kwd:print» «func:join»(«str:","»«oper:,» sort keys «oper:%»h);
-«func:push»(@a«oper:,» «num:1»);"
+"«kwd:print» «func:join»«bracket:(»«str:","»«oper:,» sort keys «oper:%»h«bracket:)»;
+«func:push»«bracket:(»@a«oper:,» «num:1»«bracket:)»;"
 `;
 
 exports[`pl > tokens > keywords 1`] = `
 "«kwd:use» strict;
-«kwd:my» @list «oper:=» («num:1»«oper:,» «num:2»);
-«kwd:foreach» «kwd:my» $«func:i» (@list) {
+«kwd:my» @list «oper:=» «bracket:(»«num:1»«oper:,» «num:2»«bracket:)»;
+«kwd:foreach» «kwd:my» $«func:i» «bracket:(»@list«bracket:)» «bracket:{»
   «kwd:next» «kwd:if» $i;
   «kwd:last» «kwd:unless» $i;
-}
-«kwd:sub» f { «kwd:return» «num:1» }"
+«bracket:}»
+«kwd:sub» f «bracket:{» «kwd:return» «num:1» «bracket:}»"
 `;
 
 exports[`pl > tokens > numbers 1`] = `
@@ -29,10 +29,48 @@ exports[`pl > tokens > numbers 1`] = `
 
 exports[`pl > tokens > operators 1`] = `
 "$x «oper:=» $y «oper:+» $z «oper:*» «num:2»;
-«kwd:if» ($a eq «str:"b"» «oper:&&» $c «oper:!=» «num:1») { $s .«oper:=» «str:"x"» }"
+«kwd:if» «bracket:(»$a eq «str:"b"» «oper:&&» $c «oper:!=» «num:1»«bracket:)» «bracket:{» $s .«oper:=» «str:"x"» «bracket:}»"
 `;
 
 exports[`pl > tokens > strings 1`] = `
+"«kwd:my» $s «oper:=» «str:"double $var"»;
+«kwd:my» $t «oper:=» «str:'single'»;
+«kwd:print» «str:"esc\\"aped"»;"
+`;
+
+exports[`pl tokens comments 1`] = `
+"«cmnt:# a comment»
+«kwd:my» $x «oper:=» «num:1»;  «cmnt:# »«err:TODO»«cmnt:: rename»"
+`;
+
+exports[`pl tokens functions 1`] = `
+"«kwd:print» «func:join»«bracket:(»«str:","»«oper:,» sort keys «oper:%»h«bracket:)»;
+«func:push»«bracket:(»@a«oper:,» «num:1»«bracket:)»;"
+`;
+
+exports[`pl tokens keywords 1`] = `
+"«kwd:use» strict;
+«kwd:my» @list «oper:=» «bracket:(»«num:1»«oper:,» «num:2»«bracket:)»;
+«kwd:foreach» «kwd:my» $«func:i» «bracket:(»@list«bracket:)» «bracket:{»
+  «kwd:next» «kwd:if» $i;
+  «kwd:last» «kwd:unless» $i;
+«bracket:}»
+«kwd:sub» f «bracket:{» «kwd:return» «num:1» «bracket:}»"
+`;
+
+exports[`pl tokens numbers 1`] = `
+"«kwd:my» $a «oper:=» «num:0»;
+«kwd:my» $b «oper:=» «num:42»;
+«kwd:my» $c «oper:=» «num:3.14»;
+«kwd:my» $d «oper:=» «num:0xff»;"
+`;
+
+exports[`pl tokens operators 1`] = `
+"$x «oper:=» $y «oper:+» $z «oper:*» «num:2»;
+«kwd:if» «bracket:(»$a eq «str:"b"» «oper:&&» $c «oper:!=» «num:1»«bracket:)» «bracket:{» $s .«oper:=» «str:"x"» «bracket:}»"
+`;
+
+exports[`pl tokens strings 1`] = `
 "«kwd:my» $s «oper:=» «str:"double $var"»;
 «kwd:my» $t «oper:=» «str:'single'»;
 «kwd:print» «str:"esc\\"aped"»;"

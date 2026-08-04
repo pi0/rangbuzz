@@ -10,32 +10,32 @@ exports[`rs > tokens > comments 1`] = `
 exports[`rs > tokens > escapes 1`] = `"«str:'\\n'» «str:'\\''» «str:'\\u{1F600}'»"`;
 
 exports[`rs > tokens > keywords 1`] = `
-"«kwd:pub» «kwd:fn» «func:main»() «oper:->» «class:Result»«oper:<»()«oper:,» «class:Error»«oper:>» {
-    «kwd:let» «kwd:mut» v «oper:=» «class:Vec»«oper:::»«func:new»();
-    «kwd:match» v«oper:.»«func:pop»() {
-        «class:Some»(x) «oper:=>» x«oper:,»
-        «class:None» «oper:=>» «kwd:return» «class:Ok»(())«oper:,»
-    }
-}"
+"«kwd:pub» «kwd:fn» «func:main»«bracket:(»«bracket:)» «oper:->» «class:Result»«oper:<»«bracket:(»«bracket:)»«oper:,» «class:Error»«oper:>» «bracket:{»
+    «kwd:let» «kwd:mut» v «oper:=» «class:Vec»«oper:::»«func:new»«bracket:(»«bracket:)»;
+    «kwd:match» v«oper:.»«func:pop»«bracket:(»«bracket:)» «bracket:{»
+        «class:Some»«bracket:(»x«bracket:)» «oper:=>» x«oper:,»
+        «class:None» «oper:=>» «kwd:return» «class:Ok»«bracket:(»«bracket:(»«bracket:)»«bracket:)»«oper:,»
+    «bracket:}»
+«bracket:}»"
 `;
 
 exports[`rs > tokens > lifetimes 1`] = `
-"«kwd:fn» longest«oper:<»'a«oper:>»(a«oper::» «oper:&»'a str«oper:,» b«oper::» «oper:&»'a str) «oper:->» «oper:&»'a str {
-    «kwd:if» a«oper:.»«func:len»() «oper:>» b«oper:.»«func:len»() { a } «kwd:else» { b }
-}"
+"«kwd:fn» longest«oper:<»'a«oper:>»«bracket:(»a«oper::» «oper:&»'a str«oper:,» b«oper::» «oper:&»'a str«bracket:)» «oper:->» «oper:&»'a str «bracket:{»
+    «kwd:if» a«oper:.»«func:len»«bracket:(»«bracket:)» «oper:>» b«oper:.»«func:len»«bracket:(»«bracket:)» «bracket:{» a «bracket:}» «kwd:else» «bracket:{» b «bracket:}»
+«bracket:}»"
 `;
 
 exports[`rs > tokens > macros 1`] = `
-"«func:println»«oper:!»(«str:"{} {}"»«oper:,» a«oper:,» b);
-#[«func:derive»(«class:Debug»«oper:,» «class:Clone»)]
-«kwd:enum» «class:E» { «class:A»«oper:,» «class:B» }"
+"«func:println»«oper:!»«bracket:(»«str:"{} {}"»«oper:,» a«oper:,» b«bracket:)»;
+#«bracket:[»«func:derive»«bracket:(»«class:Debug»«oper:,» «class:Clone»«bracket:)»«bracket:]»
+«kwd:enum» «class:E» «bracket:{» «class:A»«oper:,» «class:B» «bracket:}»"
 `;
 
 exports[`rs > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:1e9» «num:0xff» «num:0b1011» «num:0o17» «num:1_000» 1u8 «num:2.0f32»"`;
 
 exports[`rs > tokens > operators 1`] = `
 "«kwd:let» z «oper:=» x «oper:+» y «oper:*» «num:2» «oper:-» «num:1»;
-«kwd:if» a «oper:==» b «oper:&&» c «oper:!=» d «oper:||» «oper:!»e { z «oper:<<=» «num:1» }"
+«kwd:if» a «oper:==» b «oper:&&» c «oper:!=» d «oper:||» «oper:!»e «bracket:{» z «oper:<<=» «num:1» «bracket:}»"
 `;
 
 exports[`rs > tokens > raw strings 1`] = `"«str:r"raw \\d"» «str:r#"with "quotes""#» «str:br##"bytes"##»"`;
@@ -43,11 +43,63 @@ exports[`rs > tokens > raw strings 1`] = `"«str:r"raw \\d"» «str:r#"with "quo
 exports[`rs > tokens > strings 1`] = `"«str:"double"» «str:'c'» «str:"esc\\"aped"» «str:b"bytes"» «str:b'x'»"`;
 
 exports[`rs > tokens > types 1`] = `
-"«kwd:struct» «class:Point» {
+"«kwd:struct» «class:Point» «bracket:{»
     x«oper::» i32«oper:,»
-}
+«bracket:}»
 
-«kwd:impl» «class:Display» «kwd:for» «class:Point» {
-    «kwd:fn» «func:fmt»(«oper:&»«kwd:self»«oper:,» f«oper::» «oper:&»«kwd:mut» «class:Formatter») {}
-}"
+«kwd:impl» «class:Display» «kwd:for» «class:Point» «bracket:{»
+    «kwd:fn» «func:fmt»«bracket:(»«oper:&»«kwd:self»«oper:,» f«oper::» «oper:&»«kwd:mut» «class:Formatter»«bracket:)» «bracket:{»«bracket:}»
+«bracket:}»"
+`;
+
+exports[`rs tokens comments 1`] = `
+"«cmnt:// line
+»«cmnt:/* block */»
+«cmnt:/// doc
+»«cmnt://! inner »«err:TODO»«cmnt:: x»"
+`;
+
+exports[`rs tokens escapes 1`] = `"«str:'\\n'» «str:'\\''» «str:'\\u{1F600}'»"`;
+
+exports[`rs tokens keywords 1`] = `
+"«kwd:pub» «kwd:fn» «func:main»«bracket:(»«bracket:)» «oper:->» «class:Result»«oper:<»«bracket:(»«bracket:)»«oper:,» «class:Error»«oper:>» «bracket:{»
+    «kwd:let» «kwd:mut» v «oper:=» «class:Vec»«oper:::»«func:new»«bracket:(»«bracket:)»;
+    «kwd:match» v«oper:.»«func:pop»«bracket:(»«bracket:)» «bracket:{»
+        «class:Some»«bracket:(»x«bracket:)» «oper:=>» x«oper:,»
+        «class:None» «oper:=>» «kwd:return» «class:Ok»«bracket:(»«bracket:(»«bracket:)»«bracket:)»«oper:,»
+    «bracket:}»
+«bracket:}»"
+`;
+
+exports[`rs tokens lifetimes 1`] = `
+"«kwd:fn» longest«oper:<»'a«oper:>»«bracket:(»a«oper::» «oper:&»'a str«oper:,» b«oper::» «oper:&»'a str«bracket:)» «oper:->» «oper:&»'a str «bracket:{»
+    «kwd:if» a«oper:.»«func:len»«bracket:(»«bracket:)» «oper:>» b«oper:.»«func:len»«bracket:(»«bracket:)» «bracket:{» a «bracket:}» «kwd:else» «bracket:{» b «bracket:}»
+«bracket:}»"
+`;
+
+exports[`rs tokens macros 1`] = `
+"«func:println»«oper:!»«bracket:(»«str:"{} {}"»«oper:,» a«oper:,» b«bracket:)»;
+#«bracket:[»«func:derive»«bracket:(»«class:Debug»«oper:,» «class:Clone»«bracket:)»«bracket:]»
+«kwd:enum» «class:E» «bracket:{» «class:A»«oper:,» «class:B» «bracket:}»"
+`;
+
+exports[`rs tokens numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:1e9» «num:0xff» «num:0b1011» «num:0o17» «num:1_000» 1u8 «num:2.0f32»"`;
+
+exports[`rs tokens operators 1`] = `
+"«kwd:let» z «oper:=» x «oper:+» y «oper:*» «num:2» «oper:-» «num:1»;
+«kwd:if» a «oper:==» b «oper:&&» c «oper:!=» d «oper:||» «oper:!»e «bracket:{» z «oper:<<=» «num:1» «bracket:}»"
+`;
+
+exports[`rs tokens raw strings 1`] = `"«str:r"raw \\d"» «str:r#"with "quotes""#» «str:br##"bytes"##»"`;
+
+exports[`rs tokens strings 1`] = `"«str:"double"» «str:'c'» «str:"esc\\"aped"» «str:b"bytes"» «str:b'x'»"`;
+
+exports[`rs tokens types 1`] = `
+"«kwd:struct» «class:Point» «bracket:{»
+    x«oper::» i32«oper:,»
+«bracket:}»
+
+«kwd:impl» «class:Display» «kwd:for» «class:Point» «bracket:{»
+    «kwd:fn» «func:fmt»«bracket:(»«oper:&»«kwd:self»«oper:,» f«oper::» «oper:&»«kwd:mut» «class:Formatter»«bracket:)» «bracket:{»«bracket:}»
+«bracket:}»"
 `;

@@ -1,33 +1,33 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`cs > tokens > async methods 1`] = `
-"[«type:Obsolete»(«str:"use FetchAsync instead"»)]
-«kwd:public» «kwd:async» «class:Task»«oper:<»«class:IReadOnlyList»«oper:<»«class:User»«oper:>>» «func:LoadAsync»(«kwd:int» page«oper:,» «class:CancellationToken» ct «oper:=» «kwd:default»)
-{
-    «kwd:await» «kwd:using» «kwd:var» conn «oper:=» «kwd:await» «class:Pool»«oper:.»«func:OpenAsync»(ct);
-    «kwd:var» rows «oper:=» «kwd:await» conn«oper:.»«func:QueryAsync»«oper:<»«class:User»«oper:>»(«str:"SELECT * FROM Users"»«oper:,» ct);
-    «kwd:return» rows«oper:.»«func:ToList»();
-}"
+"«bracket:[»«type:Obsolete»«bracket:(»«str:"use FetchAsync instead"»«bracket:)»«bracket:]»
+«kwd:public» «kwd:async» «class:Task»«oper:<»«class:IReadOnlyList»«oper:<»«class:User»«oper:>>» «func:LoadAsync»«bracket:(»«kwd:int» page«oper:,» «class:CancellationToken» ct «oper:=» «kwd:default»«bracket:)»
+«bracket:{»
+    «kwd:await» «kwd:using» «kwd:var» conn «oper:=» «kwd:await» «class:Pool»«oper:.»«func:OpenAsync»«bracket:(»ct«bracket:)»;
+    «kwd:var» rows «oper:=» «kwd:await» conn«oper:.»«func:QueryAsync»«oper:<»«class:User»«oper:>»«bracket:(»«str:"SELECT * FROM Users"»«oper:,» ct«bracket:)»;
+    «kwd:return» rows«oper:.»«func:ToList»«bracket:(»«bracket:)»;
+«bracket:}»"
 `;
 
 exports[`cs > tokens > class declaration 1`] = `
-"[«type:Serializable»]
-«kwd:public» «kwd:sealed» «kwd:class» «class:Repository»«oper:<»«class:T»«oper:>» «oper::» «class:IRepository»«oper:<»«class:T»«oper:>,» «class:IDisposable» «kwd:where» «class:T» «oper::» «kwd:class»«oper:,» «kwd:new»()
-{
-    «kwd:private» «kwd:readonly» «class:Dictionary»«oper:<»«kwd:string»«oper:,» «class:T»«oper:>» _items «oper:=» «kwd:new»();
+"«bracket:[»«type:Serializable»«bracket:]»
+«kwd:public» «kwd:sealed» «kwd:class» «class:Repository»«oper:<»«class:T»«oper:>» «oper::» «class:IRepository»«oper:<»«class:T»«oper:>,» «class:IDisposable» «kwd:where» «class:T» «oper::» «kwd:class»«oper:,» «kwd:new»«bracket:(»«bracket:)»
+«bracket:{»
+    «kwd:private» «kwd:readonly» «class:Dictionary»«oper:<»«kwd:string»«oper:,» «class:T»«oper:>» _items «oper:=» «kwd:new»«bracket:(»«bracket:)»;
 
-    «kwd:public» «kwd:string»«oper:?» «class:Name» { «kwd:get»; «kwd:init»; }
+    «kwd:public» «kwd:string»«oper:?» «class:Name» «bracket:{» «kwd:get»; «kwd:init»; «bracket:}»
 
     «kwd:public» «kwd:int» «class:Count» «oper:=>» _items«oper:.»«class:Count»;
 
-    «kwd:public» «func:Repository»(«class:IEnumerable»«oper:<»«class:T»«oper:>» seed)
-    {
-        «kwd:foreach» («kwd:var» item «kwd:in» seed)
-            «func:Add»(item);
-    }
+    «kwd:public» «func:Repository»«bracket:(»«class:IEnumerable»«oper:<»«class:T»«oper:>» seed«bracket:)»
+    «bracket:{»
+        «kwd:foreach» «bracket:(»«kwd:var» item «kwd:in» seed«bracket:)»
+            «func:Add»«bracket:(»item«bracket:)»;
+    «bracket:}»
 
-    «kwd:public» «kwd:void» «func:Dispose»() { }
-}"
+    «kwd:public» «kwd:void» «func:Dispose»«bracket:(»«bracket:)» «bracket:{» «bracket:}»
+«bracket:}»"
 `;
 
 exports[`cs > tokens > comments 1`] = `
@@ -44,23 +44,23 @@ exports[`cs > tokens > doc comments 1`] = `
 »«cmnt:/// </»«var:summary»«cmnt:>
 »«cmnt:/// <»«var:param»«cmnt: name=»«str:"a"»«cmnt:>The left operand.</»«var:param»«cmnt:>
 »«cmnt:/// <»«var:returns»«cmnt:>The sum, see <»«var:see»«cmnt: cref=»«str:"Math.Abs"»«cmnt:/>.</»«var:returns»«cmnt:>
-»«kwd:public» «kwd:static» «kwd:int» «func:Add»(«kwd:int» a«oper:,» «kwd:int» b) «oper:=>» a «oper:+» b;"
+»«kwd:public» «kwd:static» «kwd:int» «func:Add»«bracket:(»«kwd:int» a«oper:,» «kwd:int» b«bracket:)» «oper:=>» a «oper:+» b;"
 `;
 
 exports[`cs > tokens > generic methods 1`] = `
-"«kwd:public» «kwd:static» «class:TOut» «func:Map»«oper:<»«class:TIn»«oper:,» «class:TOut»«oper:>»(«class:TIn» input«oper:,» «class:Func»«oper:<»«class:TIn»«oper:,» «class:TOut»«oper:>» f) «kwd:where» «class:TOut» «oper::» «kwd:notnull»
-{
-    «kwd:return» «func:f»(input);
-}
+"«kwd:public» «kwd:static» «class:TOut» «func:Map»«oper:<»«class:TIn»«oper:,» «class:TOut»«oper:>»«bracket:(»«class:TIn» input«oper:,» «class:Func»«oper:<»«class:TIn»«oper:,» «class:TOut»«oper:>» f«bracket:)» «kwd:where» «class:TOut» «oper::» «kwd:notnull»
+«bracket:{»
+    «kwd:return» «func:f»«bracket:(»input«bracket:)»;
+«bracket:}»
 
-«kwd:var» list «oper:=» «func:Map»«oper:<»«kwd:string»«oper:,» «kwd:int»«oper:>»(«str:"42"»«oper:,» «kwd:int»«oper:.»«class:Parse»);
-«kwd:var» q «oper:=» «kwd:new» «class:List»«oper:<»«class:Dictionary»«oper:<»«kwd:string»«oper:,» «kwd:object»«oper:>>»();"
+«kwd:var» list «oper:=» «func:Map»«oper:<»«kwd:string»«oper:,» «kwd:int»«oper:>»«bracket:(»«str:"42"»«oper:,» «kwd:int»«oper:.»«class:Parse»«bracket:)»;
+«kwd:var» q «oper:=» «kwd:new» «class:List»«oper:<»«class:Dictionary»«oper:<»«kwd:string»«oper:,» «kwd:object»«oper:>>»«bracket:(»«bracket:)»;"
 `;
 
 exports[`cs > tokens > interpolated strings 1`] = `
 "«kwd:var» line «oper:=» «str:$"»«kwd:{»user«oper:.»«class:Name»«oper:,-»«num:10»«kwd:}»«str: owes »«kwd:{»balance«str::C2»«kwd:}»«str: on »«kwd:{»due«str::yyyy-MM-dd»«kwd:}»«str:"»;
 «kwd:var» dir «oper:=» «str:$@"»«kwd:{»root«kwd:}»«str:\\logs\\»«kwd:{»«class:DateTime»«oper:.»«class:Now»«oper:.»«class:Year»«kwd:}»«str:"»;
-«class:Console»«oper:.»«func:WriteLine»(«str:$"»«kwd:{»count«kwd:}»«str: of »«kwd:{»total«kwd:}»«str: done"»);"
+«class:Console»«oper:.»«func:WriteLine»«bracket:(»«str:$"»«kwd:{»count«kwd:}»«str: of »«kwd:{»total«kwd:}»«str: done"»«bracket:)»;"
 `;
 
 exports[`cs > tokens > linq 1`] = `
@@ -68,9 +68,9 @@ exports[`cs > tokens > linq 1`] = `
             «kwd:where» u«oper:.»«class:Age» «oper:>=» «num:18» «oper:&&» u«oper:.»«class:Name» «oper:!=» «bool:null»
             «kwd:orderby» u«oper:.»«class:Name» «kwd:descending»«oper:,» u«oper:.»«class:Age»
             «kwd:group» u «kwd:by» u«oper:.»«class:City» «kwd:into» g
-            «kwd:select» «kwd:new» { «class:City» «oper:=» g«oper:.»«class:Key»«oper:,» «class:Count» «oper:=» g«oper:.»«func:Count»() };
+            «kwd:select» «kwd:new» «bracket:{» «class:City» «oper:=» g«oper:.»«class:Key»«oper:,» «class:Count» «oper:=» g«oper:.»«func:Count»«bracket:(»«bracket:)» «bracket:}»;
 
-«kwd:var» top «oper:=» users«oper:.»«func:Where»(u «oper:=>» u«oper:.»«class:Active»)«oper:.»«func:Select»(u «oper:=>» u«oper:.»«class:Name»)«oper:.»«func:Take»(«num:5»)«oper:.»«func:ToArray»();"
+«kwd:var» top «oper:=» users«oper:.»«func:Where»«bracket:(»u «oper:=>» u«oper:.»«class:Active»«bracket:)»«oper:.»«func:Select»«bracket:(»u «oper:=>» u«oper:.»«class:Name»«bracket:)»«oper:.»«func:Take»«bracket:(»«num:5»«bracket:)»«oper:.»«func:ToArray»«bracket:(»«bracket:)»;"
 `;
 
 exports[`cs > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14f» «num:2.5d» «num:19.99m» «num:1_000_000» «num:0xFF_FF» «num:0b1010_0101» «num:1e-9» «num:6.02e23» «num:7UL» «num:.5f» «num:255L»"`;
@@ -80,9 +80,9 @@ exports[`cs > tokens > operators 1`] = `
 y «oper:=» p «oper:==» q «oper:?» r «oper:&&» s «oper::» t «oper:??» u;
 name «oper:??=» obj«oper:?.»«class:Field» «oper:??» «str:"anon"»;
 flags «oper:|=» «class:Mask»«oper:.»«class:Read» «oper:|» «class:Mask»«oper:.»«class:Write»;
-n «oper:=» «oper:~»m «oper:^» (i «oper:<<» «num:2») «oper:>>» «num:1»;
-«kwd:var» slice «oper:=» items[«num:1»«oper:..^»«num:1»];
-«kwd:checked» { total «oper:+=» «num:1»; }"
+n «oper:=» «oper:~»m «oper:^» «bracket:(»i «oper:<<» «num:2»«bracket:)» «oper:>>» «num:1»;
+«kwd:var» slice «oper:=» items«bracket:[»«num:1»«oper:..^»«num:1»«bracket:]»;
+«kwd:checked» «bracket:{» total «oper:+=» «num:1»; «bracket:}»"
 `;
 
 exports[`cs > tokens > preprocessor 1`] = `
@@ -104,19 +104,19 @@ exports[`cs > tokens > raw strings 1`] = `
 `;
 
 exports[`cs > tokens > records and patterns 1`] = `
-"«kwd:public» «kwd:record» «func:Point»(«kwd:int» «class:X»«oper:,» «kwd:int» «class:Y»)
-{
-    «kwd:public» «class:Point» «class:Shifted» «oper:=>» «kwd:this» «kwd:with» { «class:X» «oper:=» «class:X» «oper:+» «num:1» };
-}
+"«kwd:public» «kwd:record» «func:Point»«bracket:(»«kwd:int» «class:X»«oper:,» «kwd:int» «class:Y»«bracket:)»
+«bracket:{»
+    «kwd:public» «class:Point» «class:Shifted» «oper:=>» «kwd:this» «kwd:with» «bracket:{» «class:X» «oper:=» «class:X» «oper:+» «num:1» «bracket:}»;
+«bracket:}»
 
-«kwd:static» «kwd:string» «func:Describe»(«kwd:object» o) «oper:=>» o «kwd:switch»
-{
-    «class:Point» { «class:X»«oper::» «num:0»«oper:,» «class:Y»«oper::» «num:0» } «oper:=>» «str:"origin"»«oper:,»
+«kwd:static» «kwd:string» «func:Describe»«bracket:(»«kwd:object» o«bracket:)» «oper:=>» o «kwd:switch»
+«bracket:{»
+    «class:Point» «bracket:{» «class:X»«oper::» «num:0»«oper:,» «class:Y»«oper::» «num:0» «bracket:}» «oper:=>» «str:"origin"»«oper:,»
     «class:Point» p «kwd:when» p«oper:.»«class:X» «oper:>» «num:0» «oper:=>» «str:$"right of »«kwd:{»p«oper:.»«class:Y»«kwd:}»«str:"»«oper:,»
     «kwd:int» «kwd:and» «oper:>» «num:10» «oper:=>» «str:"big"»«oper:,»
     «bool:null» «oper:=>» «str:"nothing"»«oper:,»
     _ «oper:=>» «str:"unknown"»«oper:,»
-};"
+«bracket:}»;"
 `;
 
 exports[`cs > tokens > strings 1`] = `
@@ -129,16 +129,161 @@ exports[`cs > tokens > strings 1`] = `
 
 exports[`cs > tokens > unsafe and pointers 1`] = `
 "«kwd:unsafe»
-{
-    «kwd:fixed» («kwd:byte»«oper:*» p «oper:=» «oper:&»buffer[«num:0»])
-    {
+«bracket:{»
+    «kwd:fixed» «bracket:(»«kwd:byte»«oper:*» p «oper:=» «oper:&»buffer«bracket:[»«num:0»«bracket:]»«bracket:)»
+    «bracket:{»
         «oper:*»p «oper:=» «num:0xFF»;
-        «class:Marshal»«oper:.»«func:Copy»((«class:IntPtr»)p«oper:,» dest«oper:,» «num:0»«oper:,» len);
-    }
-}"
+        «class:Marshal»«oper:.»«func:Copy»«bracket:(»«bracket:(»«class:IntPtr»«bracket:)»p«oper:,» dest«oper:,» «num:0»«oper:,» len«bracket:)»;
+    «bracket:}»
+«bracket:}»"
 `;
 
 exports[`cs > tokens > verbatim strings 1`] = `
+"«kwd:var» path «oper:=» «str:@"C:\\Program Files\\App"»;
+«kwd:var» sql «oper:=» «str:@"SELECT *
+FROM ""Users""
+WHERE Id = 1"»;"
+`;
+
+exports[`cs tokens async methods 1`] = `
+"«bracket:[»«type:Obsolete»«bracket:(»«str:"use FetchAsync instead"»«bracket:)»«bracket:]»
+«kwd:public» «kwd:async» «class:Task»«oper:<»«class:IReadOnlyList»«oper:<»«class:User»«oper:>>» «func:LoadAsync»«bracket:(»«kwd:int» page«oper:,» «class:CancellationToken» ct «oper:=» «kwd:default»«bracket:)»
+«bracket:{»
+    «kwd:await» «kwd:using» «kwd:var» conn «oper:=» «kwd:await» «class:Pool»«oper:.»«func:OpenAsync»«bracket:(»ct«bracket:)»;
+    «kwd:var» rows «oper:=» «kwd:await» conn«oper:.»«func:QueryAsync»«oper:<»«class:User»«oper:>»«bracket:(»«str:"SELECT * FROM Users"»«oper:,» ct«bracket:)»;
+    «kwd:return» rows«oper:.»«func:ToList»«bracket:(»«bracket:)»;
+«bracket:}»"
+`;
+
+exports[`cs tokens class declaration 1`] = `
+"«bracket:[»«type:Serializable»«bracket:]»
+«kwd:public» «kwd:sealed» «kwd:class» «class:Repository»«oper:<»«class:T»«oper:>» «oper::» «class:IRepository»«oper:<»«class:T»«oper:>,» «class:IDisposable» «kwd:where» «class:T» «oper::» «kwd:class»«oper:,» «kwd:new»«bracket:(»«bracket:)»
+«bracket:{»
+    «kwd:private» «kwd:readonly» «class:Dictionary»«oper:<»«kwd:string»«oper:,» «class:T»«oper:>» _items «oper:=» «kwd:new»«bracket:(»«bracket:)»;
+
+    «kwd:public» «kwd:string»«oper:?» «class:Name» «bracket:{» «kwd:get»; «kwd:init»; «bracket:}»
+
+    «kwd:public» «kwd:int» «class:Count» «oper:=>» _items«oper:.»«class:Count»;
+
+    «kwd:public» «func:Repository»«bracket:(»«class:IEnumerable»«oper:<»«class:T»«oper:>» seed«bracket:)»
+    «bracket:{»
+        «kwd:foreach» «bracket:(»«kwd:var» item «kwd:in» seed«bracket:)»
+            «func:Add»«bracket:(»item«bracket:)»;
+    «bracket:}»
+
+    «kwd:public» «kwd:void» «func:Dispose»«bracket:(»«bracket:)» «bracket:{» «bracket:}»
+«bracket:}»"
+`;
+
+exports[`cs tokens comments 1`] = `
+"«cmnt:// a line comment
+»«cmnt:/* a block comment
+   spanning two lines */»
+«kwd:int» x «oper:=» «num:0»; «cmnt:// »«err:TODO»«cmnt:: rename
+»«cmnt:/* unterminated»"
+`;
+
+exports[`cs tokens doc comments 1`] = `
+"«cmnt:/// <»«var:summary»«cmnt:>
+»«cmnt:/// Adds <»«var:paramref»«cmnt: name=»«str:"a"»«cmnt:/> to <»«var:paramref»«cmnt: name=»«str:"b"»«cmnt:/>.
+»«cmnt:/// </»«var:summary»«cmnt:>
+»«cmnt:/// <»«var:param»«cmnt: name=»«str:"a"»«cmnt:>The left operand.</»«var:param»«cmnt:>
+»«cmnt:/// <»«var:returns»«cmnt:>The sum, see <»«var:see»«cmnt: cref=»«str:"Math.Abs"»«cmnt:/>.</»«var:returns»«cmnt:>
+»«kwd:public» «kwd:static» «kwd:int» «func:Add»«bracket:(»«kwd:int» a«oper:,» «kwd:int» b«bracket:)» «oper:=>» a «oper:+» b;"
+`;
+
+exports[`cs tokens generic methods 1`] = `
+"«kwd:public» «kwd:static» «class:TOut» «func:Map»«oper:<»«class:TIn»«oper:,» «class:TOut»«oper:>»«bracket:(»«class:TIn» input«oper:,» «class:Func»«oper:<»«class:TIn»«oper:,» «class:TOut»«oper:>» f«bracket:)» «kwd:where» «class:TOut» «oper::» «kwd:notnull»
+«bracket:{»
+    «kwd:return» «func:f»«bracket:(»input«bracket:)»;
+«bracket:}»
+
+«kwd:var» list «oper:=» «func:Map»«oper:<»«kwd:string»«oper:,» «kwd:int»«oper:>»«bracket:(»«str:"42"»«oper:,» «kwd:int»«oper:.»«class:Parse»«bracket:)»;
+«kwd:var» q «oper:=» «kwd:new» «class:List»«oper:<»«class:Dictionary»«oper:<»«kwd:string»«oper:,» «kwd:object»«oper:>>»«bracket:(»«bracket:)»;"
+`;
+
+exports[`cs tokens interpolated strings 1`] = `
+"«kwd:var» line «oper:=» «str:$"»«kwd:{»user«oper:.»«class:Name»«oper:,-»«num:10»«kwd:}»«str: owes »«kwd:{»balance«str::C2»«kwd:}»«str: on »«kwd:{»due«str::yyyy-MM-dd»«kwd:}»«str:"»;
+«kwd:var» dir «oper:=» «str:$@"»«kwd:{»root«kwd:}»«str:\\logs\\»«kwd:{»«class:DateTime»«oper:.»«class:Now»«oper:.»«class:Year»«kwd:}»«str:"»;
+«class:Console»«oper:.»«func:WriteLine»«bracket:(»«str:$"»«kwd:{»count«kwd:}»«str: of »«kwd:{»total«kwd:}»«str: done"»«bracket:)»;"
+`;
+
+exports[`cs tokens linq 1`] = `
+"«kwd:var» names «oper:=» «kwd:from» u «kwd:in» users
+            «kwd:where» u«oper:.»«class:Age» «oper:>=» «num:18» «oper:&&» u«oper:.»«class:Name» «oper:!=» «bool:null»
+            «kwd:orderby» u«oper:.»«class:Name» «kwd:descending»«oper:,» u«oper:.»«class:Age»
+            «kwd:group» u «kwd:by» u«oper:.»«class:City» «kwd:into» g
+            «kwd:select» «kwd:new» «bracket:{» «class:City» «oper:=» g«oper:.»«class:Key»«oper:,» «class:Count» «oper:=» g«oper:.»«func:Count»«bracket:(»«bracket:)» «bracket:}»;
+
+«kwd:var» top «oper:=» users«oper:.»«func:Where»«bracket:(»u «oper:=>» u«oper:.»«class:Active»«bracket:)»«oper:.»«func:Select»«bracket:(»u «oper:=>» u«oper:.»«class:Name»«bracket:)»«oper:.»«func:Take»«bracket:(»«num:5»«bracket:)»«oper:.»«func:ToArray»«bracket:(»«bracket:)»;"
+`;
+
+exports[`cs tokens numbers 1`] = `"«num:0» «num:42» «num:3.14f» «num:2.5d» «num:19.99m» «num:1_000_000» «num:0xFF_FF» «num:0b1010_0101» «num:1e-9» «num:6.02e23» «num:7UL» «num:.5f» «num:255L»"`;
+
+exports[`cs tokens operators 1`] = `
+"x «oper:=» a «oper:+» b «oper:*» c «oper:/» d «oper:%» e;
+y «oper:=» p «oper:==» q «oper:?» r «oper:&&» s «oper::» t «oper:??» u;
+name «oper:??=» obj«oper:?.»«class:Field» «oper:??» «str:"anon"»;
+flags «oper:|=» «class:Mask»«oper:.»«class:Read» «oper:|» «class:Mask»«oper:.»«class:Write»;
+n «oper:=» «oper:~»m «oper:^» «bracket:(»i «oper:<<» «num:2»«bracket:)» «oper:>>» «num:1»;
+«kwd:var» slice «oper:=» items«bracket:[»«num:1»«oper:..^»«num:1»«bracket:]»;
+«kwd:checked» «bracket:{» total «oper:+=» «num:1»; «bracket:}»"
+`;
+
+exports[`cs tokens preprocessor 1`] = `
+"«kwd:#nullable» enable
+«kwd:#region» Helpers
+«kwd:#if» DEBUG && !RELEASE
+«kwd:#warning» debug build
+«kwd:#pragma» warning disable CS0168
+«kwd:#else»
+«kwd:#define» TRACE
+«kwd:#endif»
+«kwd:#endregion»"
+`;
+
+exports[`cs tokens raw strings 1`] = `
+"«kwd:var» json «oper:=» «str:"""
+  { "id": 1, "tags": ["a", "b"] }
+  """»;"
+`;
+
+exports[`cs tokens records and patterns 1`] = `
+"«kwd:public» «kwd:record» «func:Point»«bracket:(»«kwd:int» «class:X»«oper:,» «kwd:int» «class:Y»«bracket:)»
+«bracket:{»
+    «kwd:public» «class:Point» «class:Shifted» «oper:=>» «kwd:this» «kwd:with» «bracket:{» «class:X» «oper:=» «class:X» «oper:+» «num:1» «bracket:}»;
+«bracket:}»
+
+«kwd:static» «kwd:string» «func:Describe»«bracket:(»«kwd:object» o«bracket:)» «oper:=>» o «kwd:switch»
+«bracket:{»
+    «class:Point» «bracket:{» «class:X»«oper::» «num:0»«oper:,» «class:Y»«oper::» «num:0» «bracket:}» «oper:=>» «str:"origin"»«oper:,»
+    «class:Point» p «kwd:when» p«oper:.»«class:X» «oper:>» «num:0» «oper:=>» «str:$"right of »«kwd:{»p«oper:.»«class:Y»«kwd:}»«str:"»«oper:,»
+    «kwd:int» «kwd:and» «oper:>» «num:10» «oper:=>» «str:"big"»«oper:,»
+    «bool:null» «oper:=>» «str:"nothing"»«oper:,»
+    _ «oper:=>» «str:"unknown"»«oper:,»
+«bracket:}»;"
+`;
+
+exports[`cs tokens strings 1`] = `
+"«kwd:var» s «oper:=» «str:"a »«esc:\\"»«str:quoted»«esc:\\"»«str: word»«esc:\\n»«str:"»;
+«kwd:var» c «oper:=» «str:'»«esc:\\'»«str:'»;
+«kwd:var» nl «oper:=» «str:'»«esc:\\n»«str:'»;
+«kwd:var» u «oper:=» «str:"»«esc:\\u00e9»«str: »«esc:\\x41»«str: »«esc:\\U0001F600»«str:"»;
+«kwd:var» empty «oper:=» «str:""»;"
+`;
+
+exports[`cs tokens unsafe and pointers 1`] = `
+"«kwd:unsafe»
+«bracket:{»
+    «kwd:fixed» «bracket:(»«kwd:byte»«oper:*» p «oper:=» «oper:&»buffer«bracket:[»«num:0»«bracket:]»«bracket:)»
+    «bracket:{»
+        «oper:*»p «oper:=» «num:0xFF»;
+        «class:Marshal»«oper:.»«func:Copy»«bracket:(»«bracket:(»«class:IntPtr»«bracket:)»p«oper:,» dest«oper:,» «num:0»«oper:,» len«bracket:)»;
+    «bracket:}»
+«bracket:}»"
+`;
+
+exports[`cs tokens verbatim strings 1`] = `
 "«kwd:var» path «oper:=» «str:@"C:\\Program Files\\App"»;
 «kwd:var» sql «oper:=» «str:@"SELECT *
 FROM ""Users""

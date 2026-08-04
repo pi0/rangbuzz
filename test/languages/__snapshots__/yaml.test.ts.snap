@@ -91,8 +91,8 @@ exports[`yaml > tokens > sequences 1`] = `
 "«var:list»«oper::»
   «oper:-» one
   «oper:-» two
-«var:inline»«oper::» [«num:1», «num:2», «num:3»]
-«var:map»«oper::» { «var:a»«oper::» «num:1» }"
+«var:inline»«oper::» «bracket:[»«num:1», «num:2», «num:3»«bracket:]»
+«var:map»«oper::» «bracket:{» «var:a»«oper::» «num:1» «bracket:}»"
 `;
 
 exports[`yaml > tokens > strings 1`] = `
@@ -102,6 +102,112 @@ exports[`yaml > tokens > strings 1`] = `
 `;
 
 exports[`yaml > tokens > tags 1`] = `
+"«var:date»«oper::» «type:!!timestamp» «num:2024»«oper:-»«num:01»«oper:-»«num:01»
+«var:blob»«oper::» «type:!!binary» abc"
+`;
+
+exports[`yaml tokens anchors 1`] = `
+"«var:base»«oper::» &anchor
+  «var:a»«oper::» «num:1»
+«var:derived»«oper::»
+  <<«oper::» *anchor"
+`;
+
+exports[`yaml tokens block scalar boundaries 1`] = `
+"«var:nested»«oper::»
+  «var:literal»«oper::» «str:|-
+    # scalar text
+»  «var:next»«oper::» value
+«var:root»«oper::» «str:>
+  folded text
+»«cmnt:# a comment»
+«var:name»«oper::» «str:"v"»"
+`;
+
+exports[`yaml tokens block scalar lookalikes 1`] = `
+"<!«oper:-»«oper:-» x «oper:-»«oper:-»>
+
+«cmnt:# a comment»
+
+«var:name»«oper::» «str:"v"»
+«var:note»«oper::» a > b"
+`;
+
+exports[`yaml tokens block scalar properties 1`] = `
+"«var:tagged»«oper::» «type:!!str» «str:>
+  text
+»«oper:-» «var:anchored»«oper::» &copy «str:|
+    text
+»? «str:|
+  block key
+»«oper::» value"
+`;
+
+exports[`yaml tokens block scalars 1`] = `
+"«var:literal»«oper::» «str:|
+  raw line
+»«var:folded»«oper::» «str:>
+  folded line»"
+`;
+
+exports[`yaml tokens booleans 1`] = `
+"«var:on»«oper::» «bool:Yes»
+«var:off»«oper::» «bool:No»
+«var:lower»«oper::» true
+«var:nothing»«oper::» null"
+`;
+
+exports[`yaml tokens comments 1`] = `
+"«cmnt:# a comment»
+«var:key»«oper::» value «cmnt:# »«err:TODO»«cmnt:: check»"
+`;
+
+exports[`yaml tokens documents 1`] = `
+"«oper:-»«oper:-»«oper:-»
+«var:a»«oper::» «num:1»
+«oper:-»«oper:-»«oper:-»
+«var:b»«oper::» «num:2»
+..."
+`;
+
+exports[`yaml tokens mappings 1`] = `
+"«var:name»«oper::» app
+«var:nested»«oper::»
+  «var:a»«oper::» «num:1»
+  «var:b»«oper::» two"
+`;
+
+exports[`yaml tokens numbers 1`] = `
+"«var:int»«oper::» «num:42»
+«var:float»«oper::» «num:3.14»
+«var:negative»«oper::» «oper:-»«num:1»
+«var:version»«oper::» «num:1.2.3»"
+`;
+
+exports[`yaml tokens sequence block scalar boundaries 1`] = `
+"«oper:-» «var:key»«oper::» «str:|2-
+    scalar
+»  «var:next»«oper::» value
+«oper:-» «oper:-» «str:>+
+    nested scalar
+»  «oper:-» next"
+`;
+
+exports[`yaml tokens sequences 1`] = `
+"«var:list»«oper::»
+  «oper:-» one
+  «oper:-» two
+«var:inline»«oper::» «bracket:[»«num:1», «num:2», «num:3»«bracket:]»
+«var:map»«oper::» «bracket:{» «var:a»«oper::» «num:1» «bracket:}»"
+`;
+
+exports[`yaml tokens strings 1`] = `
+"«var:single»«oper::» «str:'quoted'»
+«var:double»«oper::» «str:"quoted"»
+«var:plain»«oper::» unquoted text"
+`;
+
+exports[`yaml tokens tags 1`] = `
 "«var:date»«oper::» «type:!!timestamp» «num:2024»«oper:-»«num:01»«oper:-»«num:01»
 «var:blob»«oper::» «type:!!binary» abc"
 `;

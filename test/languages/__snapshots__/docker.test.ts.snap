@@ -21,7 +21,7 @@ exports[`docker > tokens > instructions 1`] = `
 «kwd:COPY» . .
 «kwd:RUN» npm ci
 «kwd:EXPOSE» «num:3000»
-«kwd:CMD» [«str:"node"», «str:"index.js"»]"
+«kwd:CMD» «bracket:[»«str:"node"», «str:"index.js"»«bracket:]»"
 `;
 
 exports[`docker > tokens > numbers 1`] = `
@@ -31,10 +31,50 @@ exports[`docker > tokens > numbers 1`] = `
 
 exports[`docker > tokens > strings 1`] = `
 "«kwd:LABEL» «var:description»«oper:=»«str:"an image"»
-«kwd:ENTRYPOINT» [«str:"sh"», «str:"-c"», «str:"echo hi"»]"
+«kwd:ENTRYPOINT» «bracket:[»«str:"sh"», «str:"-c"», «str:"echo hi"»«bracket:]»"
 `;
 
 exports[`docker > tokens > variables 1`] = `
+"«kwd:ARG» «var:VERSION»«oper:=»«num:1.0»
+«kwd:ENV» «var:PATH»«oper:=»/usr/local/bin:«var:$PATH»
+«kwd:RUN» echo «var:\${VERSION}»"
+`;
+
+exports[`docker tokens booleans 1`] = `
+"«kwd:RUN» echo «bool:true»
+«kwd:RUN» echo «bool:false»"
+`;
+
+exports[`docker tokens commands 1`] = `
+"«kwd:RUN» apk «kwd:add» curl «kwd:&&» «func:npm» ci
+«kwd:RUN» «oper:./configure»"
+`;
+
+exports[`docker tokens comments 1`] = `
+"«cmnt:# syntax=docker/dockerfile:1»
+«cmnt:# »«err:TODO»«cmnt:: pin digest»"
+`;
+
+exports[`docker tokens instructions 1`] = `
+"«kwd:FROM» node:«num:20»-alpine AS build
+«kwd:WORKDIR» «oper:/app»
+«kwd:COPY» . .
+«kwd:RUN» npm ci
+«kwd:EXPOSE» «num:3000»
+«kwd:CMD» «bracket:[»«str:"node"», «str:"index.js"»«bracket:]»"
+`;
+
+exports[`docker tokens numbers 1`] = `
+"«kwd:FROM» alpine:«num:3.19»
+«kwd:EXPOSE» «num:8080»"
+`;
+
+exports[`docker tokens strings 1`] = `
+"«kwd:LABEL» «var:description»«oper:=»«str:"an image"»
+«kwd:ENTRYPOINT» «bracket:[»«str:"sh"», «str:"-c"», «str:"echo hi"»«bracket:]»"
+`;
+
+exports[`docker tokens variables 1`] = `
 "«kwd:ARG» «var:VERSION»«oper:=»«num:1.0»
 «kwd:ENV» «var:PATH»«oper:=»/usr/local/bin:«var:$PATH»
 «kwd:RUN» echo «var:\${VERSION}»"

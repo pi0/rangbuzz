@@ -8,3 +8,12 @@ exports[`plain > tokens > text 1`] = `
 "just some words
 over two lines"
 `;
+
+exports[`plain tokens no other rule 1`] = `"# not a comment, 42 not a number, const not a keyword"`;
+
+exports[`plain tokens quoted 1`] = `"a «str:"quoted"» span stays a string"`;
+
+exports[`plain tokens text 1`] = `
+"just some words
+over two lines"
+`;

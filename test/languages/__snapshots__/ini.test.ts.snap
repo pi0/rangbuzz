@@ -26,3 +26,30 @@ exports[`ini > tokens > values 1`] = `
 «var:empty »«oper:=»
 «var:path »«oper:=»«str: /usr/local»"
 `;
+
+exports[`ini tokens comments 1`] = `
+"«cmnt:; semicolon comment»
+«cmnt:# hash comment»
+«var:key »«oper:=»«str: 1 ; TODO: check»"
+`;
+
+exports[`ini tokens numbers 1`] = `
+"«var:port »«oper:=»«str: 8080»
+«var:ratio »«oper:=»«str: 0.5»
+«var:negative »«oper:=»«str: -1»"
+`;
+
+exports[`ini tokens sections 1`] = `
+"«section:[server]»
+«var:host »«oper:=»«str: localhost»
+«section:
+[client]»
+«var:port »«oper:=»«str: 8080»"
+`;
+
+exports[`ini tokens values 1`] = `
+"«var:name »«oper:=»«str: app»
+«var:quoted »«oper:=»«str: "a value"»
+«var:empty »«oper:=»
+«var:path »«oper:=»«str: /usr/local»"
+`;

@@ -1,6 +1,6 @@
 import type { ShjLanguageComponent, ShjLanguageDefinition } from "../types.ts";
 import { FUNC, KWD, OPER, STR, VAR } from "../tokens.ts";
-import { str } from "../common.ts";
+import { bracket, str } from "../common.ts";
 import { bool, comment, elem, func, hex, oper, prop, sel, unit, url, word } from "./scss.ts";
 
 // `@{name}` interpolates anywhere — selector, property name, value, and inside
@@ -37,4 +37,5 @@ export default [
   func,
   oper,
   word,
+  bracket,
 ] as ShjLanguageDefinition;

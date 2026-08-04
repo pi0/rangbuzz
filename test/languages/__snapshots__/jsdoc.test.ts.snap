@@ -20,3 +20,24 @@ exports[`jsdoc > tokens > types 1`] = `
  * »«kwd:@returns»«cmnt: »«class:{Promise<void>}»«cmnt:
  */»"
 `;
+
+exports[`jsdoc tokens optional 1`] = `"«cmnt:/** »«kwd:@param»«cmnt: »«class:{string}»«cmnt: »«var:[name="a"]»«cmnt: the name */»"`;
+
+exports[`jsdoc tokens prose 1`] = `"«cmnt:/** Describes what the function does. */»"`;
+
+exports[`jsdoc tokens tags 1`] = `"«cmnt:/** »«kwd:@param»«cmnt: »«kwd:@returns»«cmnt: »«kwd:@example»«cmnt: »«kwd:@deprecated»«cmnt: */»"`;
+
+exports[`jsdoc tokens todo 1`] = `
+"«cmnt:/**
+ * »«err:TODO»«cmnt:: document this
+ * »«insert:CHANGED»«cmnt: the signature, »«insert:FIX»«cmnt: applied
+ * »«oper:QUESTION»«cmnt:: still needed?
+ */»"
+`;
+
+exports[`jsdoc tokens types 1`] = `
+"«cmnt:/**
+ * »«kwd:@param»«cmnt: »«class:{string|number}»«cmnt: a
+ * »«kwd:@returns»«cmnt: »«class:{Promise<void>}»«cmnt:
+ */»"
+`;

@@ -3,9 +3,9 @@
 exports[`py > tokens > booleans 1`] = `"«bool:True» «bool:False» «bool:None»"`;
 
 exports[`py > tokens > classes 1`] = `
-"«kwd:class» «func:Foo»(«class:Bar»«oper:,» metaclass«oper:=»«class:Meta»):
-    «kwd:def» «func:__init__»(self):
-        «func:super»().«func:__init__»()"
+"«kwd:class» «func:Foo»«bracket:(»«class:Bar»«oper:,» metaclass«oper:=»«class:Meta»«bracket:)»:
+    «kwd:def» «func:__init__»«bracket:(»self«bracket:)»:
+        «func:super»«bracket:(»«bracket:)».«func:__init__»«bracket:(»«bracket:)»"
 `;
 
 exports[`py > tokens > comments 1`] = `
@@ -14,7 +14,7 @@ x «oper:=» «num:1»  «cmnt:# »«err:TODO»«cmnt:: trailing»"
 `;
 
 exports[`py > tokens > control flow 1`] = `
-"«kwd:for» i «kwd:in» «func:range»(«num:3»):
+"«kwd:for» i «kwd:in» «func:range»«bracket:(»«num:3»«bracket:)»:
     «kwd:if» i «kwd:in» xs «kwd:and» «kwd:not» done:
         «kwd:continue»
     «kwd:elif» i «kwd:is» «bool:None»:
@@ -24,7 +24,7 @@ exports[`py > tokens > control flow 1`] = `
 `;
 
 exports[`py > tokens > docstrings 1`] = `
-"«kwd:def» «func:f»():
+"«kwd:def» «func:f»«bracket:(»«bracket:)»:
     «cmnt:"""One line.
 
     More text.
@@ -39,9 +39,9 @@ exports[`py > tokens > f-strings 1`] = `
 `;
 
 exports[`py > tokens > keywords 1`] = `
-"«kwd:async» «kwd:def» «func:fetch»(url):
-    «kwd:async» «kwd:with» «func:session»() «kwd:as» s:
-        «kwd:return» «kwd:await» s.«func:get»(url)"
+"«kwd:async» «kwd:def» «func:fetch»«bracket:(»url«bracket:)»:
+    «kwd:async» «kwd:with» «func:session»«bracket:(»«bracket:)» «kwd:as» s:
+        «kwd:return» «kwd:await» s.«func:get»«bracket:(»url«bracket:)»"
 `;
 
 exports[`py > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:1e-9» «num:0xff» «num:0b101» «num:0o17» «num:1_000» 2j"`;
@@ -53,3 +53,57 @@ x «oper:=» y «oper:!=» z «oper:<=» w
 `;
 
 exports[`py > tokens > strings 1`] = `"«str:"double"» «str:'single'» «str:"esc\\"aped"» r«str:"raw\\d"» b«str:"bytes"»"`;
+
+exports[`py tokens booleans 1`] = `"«bool:True» «bool:False» «bool:None»"`;
+
+exports[`py tokens classes 1`] = `
+"«kwd:class» «func:Foo»«bracket:(»«class:Bar»«oper:,» metaclass«oper:=»«class:Meta»«bracket:)»:
+    «kwd:def» «func:__init__»«bracket:(»self«bracket:)»:
+        «func:super»«bracket:(»«bracket:)».«func:__init__»«bracket:(»«bracket:)»"
+`;
+
+exports[`py tokens comments 1`] = `
+"«cmnt:# line»
+x «oper:=» «num:1»  «cmnt:# »«err:TODO»«cmnt:: trailing»"
+`;
+
+exports[`py tokens control flow 1`] = `
+"«kwd:for» i «kwd:in» «func:range»«bracket:(»«num:3»«bracket:)»:
+    «kwd:if» i «kwd:in» xs «kwd:and» «kwd:not» done:
+        «kwd:continue»
+    «kwd:elif» i «kwd:is» «bool:None»:
+        «kwd:break»
+«kwd:else»:
+    «kwd:pass»"
+`;
+
+exports[`py tokens docstrings 1`] = `
+"«kwd:def» «func:f»«bracket:(»«bracket:)»:
+    «cmnt:"""One line.
+
+    More text.
+    """»"
+`;
+
+exports[`py tokens f-strings 1`] = `
+"«str:f"»«var:{»a«oper:!»r«var:}»«str: and »«var:{»b:«oper:>»«num:10»«var:}»«str:"»
+«str:f'»«var:{»x«var:}»«str:'»
+«str:f"""»«var:{»y«var:}»«str:
+»«var:{»z«var:}»«str:"""»"
+`;
+
+exports[`py tokens keywords 1`] = `
+"«kwd:async» «kwd:def» «func:fetch»«bracket:(»url«bracket:)»:
+    «kwd:async» «kwd:with» «func:session»«bracket:(»«bracket:)» «kwd:as» s:
+        «kwd:return» «kwd:await» s.«func:get»«bracket:(»url«bracket:)»"
+`;
+
+exports[`py tokens numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:1e-9» «num:0xff» «num:0b101» «num:0o17» «num:1_000» 2j"`;
+
+exports[`py tokens operators 1`] = `
+"a «oper:=» b «oper:+» c «oper:*» d «oper://» e «oper:%» f «oper:**» g
+x «oper:=» y «oper:!=» z «oper:<=» w
+«kwd:lambda» q: q @ r"
+`;
+
+exports[`py tokens strings 1`] = `"«str:"double"» «str:'single'» «str:"esc\\"aped"» r«str:"raw\\d"» b«str:"bytes"»"`;

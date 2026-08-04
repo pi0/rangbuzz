@@ -1,6 +1,6 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, CLASS, FUNC, KWD, NUM, OPER, STR } from "../tokens.ts";
-import { str } from "../common.ts";
+import { bracket, str } from "../common.ts";
 export default [
   [/\/\/.*\n?|\/\*((?!\*\/)[^])*(\*\/)?/g, , "todo"],
   // raw string: the delimiter is whatever sits between R" and (, and closes it
@@ -19,4 +19,5 @@ export default [
   [/[/*+:?&|%^~=!,<>.^-]+/g, OPER],
   [/[a-zA-Z_][\w_]*(?=\s*\()/g, FUNC],
   [/\b[A-Z][\w_]*\b|\b[a-z_]\w*(?=::)/g, CLASS],
+  bracket,
 ] as ShjLanguageDefinition;

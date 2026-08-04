@@ -1,5 +1,6 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, CLASS, ESC, FUNC, KWD, NUM, OPER, STR, TYPE, VAR } from "../tokens.ts";
+import { bracket } from "../common.ts";
 
 // `$name` and `${expr}`, the only holes a Kotlin string literal has; one level
 // of nested braces covers the lambdas and the calls that show up in practice
@@ -70,4 +71,5 @@ export default [
   // a call, or the receiver of a trailing lambda: `lazy { … }`
   [/[a-zA-Z_]\w*(?=\s*\()|[a-z_]\w*(?=\s*\{)/g, FUNC],
   [/\b[A-Z]\w*\b/g, CLASS],
+  bracket,
 ] as ShjLanguageDefinition;
