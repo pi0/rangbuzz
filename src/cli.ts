@@ -70,27 +70,28 @@ Options:
   --help, -h      Show help message
 `;
   console.log(helpMessage);
-} else {
-  const theme = flags.theme ? (await themes[flags.theme]()).default : undefined;
-  const files = flags.files.length ? flags.files : ["-"];
-  for (let i = 0; i < files.length; i++) {
-    const filename = files[i]!;
-    try {
-      const code = readFileSync(filename === "-" ? 0 : filename, "utf8");
-      if (files.length > 1) {
-        const line = "─".repeat(process.stdout.columns || 80);
-        process.stdout.write(`\x1b[90m${line}\n• ${filename}\n${line}\x1b[0m\n`);
-      }
-      process.stdout.write(
-        codeToAnsi(code, {
-          lang: filename === "-" ? detectLanguage(code) : language(filename, code),
-          theme,
-        }),
-      );
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      console.error(`rangi: ${filename}: ${message}`);
-      process.exitCode = 1;
+  process.exit(0);
+}
+
+const theme = flags.theme ? (await themes[flags.theme]()).default : undefined;
+const files = flags.files.length ? flags.files : ["-"];
+for (let i = 0; i < files.length; i++) {
+  const filename = files[i]!;
+  try {
+    const code = readFileSync(filename === "-" ? 0 : filename, "utf8");
+    if (files.length > 1) {
+      const line = "─".repeat(process.stdout.columns || 80);
+      process.stdout.write(`\x1b[90m${line}\n• ${filename}\n${line}\x1b[0m\n`);
     }
+    process.stdout.write(
+      codeToAnsi(code, {
+        lang: filename === "-" ? detectLanguage(code) : language(filename, code),
+        theme,
+      }),
+    );
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`rangi: ${filename}: ${message}`);
+    process.exitCode = 1;
   }
 }
