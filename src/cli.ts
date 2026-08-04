@@ -71,19 +71,25 @@ Options:
 `;
   console.log(helpMessage);
 } else {
-  const { theme, files } = flags;
-  for (const file of files.length ? files : ["-"]) {
+  const theme = flags.theme ? (await themes[flags.theme]()).default : undefined;
+  const files = flags.files.length ? flags.files : ["-"];
+  for (let i = 0; i < files.length; i++) {
+    const filename = files[i]!;
     try {
-      const code = readFileSync(file === "-" ? 0 : file, "utf8");
+      const code = readFileSync(filename === "-" ? 0 : filename, "utf8");
+      if (files.length > 1) {
+        const line = "─".repeat(process.stdout.columns || 80);
+        process.stdout.write(`\x1b[90m${line}\n• ${filename}\n${line}\x1b[0m\n`);
+      }
       process.stdout.write(
         codeToAnsi(code, {
-          lang: file === "-" ? detectLanguage(code) : language(file, code),
-          theme: theme ? (await themes[theme]()).default : undefined,
+          lang: filename === "-" ? detectLanguage(code) : language(filename, code),
+          theme,
         }),
       );
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
-      console.error(`rangi: ${file}: ${message}`);
+      console.error(`rangi: ${filename}: ${message}`);
       process.exitCode = 1;
     }
   }
