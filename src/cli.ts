@@ -2,22 +2,11 @@
 
 import { readFileSync } from "node:fs";
 import { basename, extname } from "node:path";
+import { parseArgs } from "node:util";
 
-import type { ShjTheme, ShjThemeName } from "./types.ts";
 import { codeToAnsi, detectLanguage } from "./index.ts";
 import { languages } from "./languages.ts";
-
-// each theme is its own module, loaded only when asked for.
-const themes = {
-  "atom-dark": () => import("./themes/atom-dark.ts"),
-  "css-variables": () => import("./themes/css-variables.ts"),
-  dark: () => import("./themes/dark.ts"),
-  default: () => import("./themes/default.ts"),
-  "github-dark": () => import("./themes/github-dark.ts"),
-  "github-dim": () => import("./themes/github-dim.ts"),
-  "github-light": () => import("./themes/github-light.ts"),
-  "visual-studio-dark": () => import("./themes/visual-studio-dark.ts"),
-} satisfies Record<ShjThemeName, () => Promise<{ default: ShjTheme }>>;
+import * as themes from "./themes/index.ts";
 
 // the registry knows the aliases, so an extension and a `Dockerfile` style
 // name are looked up in it as they are; anything it does not know is detected
@@ -29,52 +18,38 @@ const language = (file: string, code: string) => {
   return Object.hasOwn(languages, lang) ? lang : detectLanguage(code);
 };
 
-const args = process.argv.slice(2);
-const flags = {
-  help: false,
-  theme: undefined as ShjThemeName | undefined,
-  files: new Array<string>(),
-};
+const parsedArgs = parseArgs({
+  allowPositionals: true,
+  options: {
+    help: { type: "boolean", short: "h" },
+    theme: { type: "string" },
+  },
+});
 
-for (let i = 0; i < args.length; i++) {
-  const arg = args[i]!;
-  if (arg === "--theme" || arg.startsWith("--theme=")) {
-    const name = arg === "--theme" ? args[++i] : arg.slice("--theme=".length);
-    if (!name) {
-      console.error("rangi: --theme requires a theme name");
-      process.exit(1);
-    }
-    if (!Object.hasOwn(themes, name)) {
-      console.error(`rangi: unknown theme: ${name}`);
-      process.exit(1);
-    }
-    flags.theme = name as ShjThemeName;
-    continue;
-  }
-  if (arg === "--help" || arg === "-h") {
-    flags.help = true;
-    continue;
-  }
-  if (arg.startsWith("-") && arg !== "-") {
-    console.error(`rangi: unknown option: ${arg}`);
-    process.exit(1);
-  }
-  flags.files.push(arg);
+const { values: flags, positionals: args } = parsedArgs;
+const themeMap = new Map(Object.values(themes).map((theme) => [theme.name, theme]));
+const theme = flags.theme ? themeMap.get(flags.theme as string) : undefined;
+if (flags.theme === "") {
+  console.error("rangi: --theme requires a theme name");
+  process.exit(1);
+}
+if (flags.theme && !theme) {
+  console.error(`rangi: unknown theme: ${flags.theme}`);
+  process.exit(1);
 }
 
-if (process.stdin.isTTY && (!flags.files.length || flags.help)) {
+if (process.stdin.isTTY && flags.help) {
   const helpMessage = `Usage: rangi [OPTIONS] [files ...]
 
 Options:
-  --theme <name>  Use a specified theme (available themes: ${Object.keys(themes).join(", ")})
+  --theme <name>  Use a specified theme (available themes: ${Array.from(themeMap.keys()).join(", ")})
   --help, -h      Show help message
 `;
   console.log(helpMessage);
   process.exit(0);
 }
 
-const theme = flags.theme ? (await themes[flags.theme]()).default : undefined;
-const files = flags.files.length ? flags.files : ["-"];
+const files = args.length ? args : ["-"];
 for (let i = 0; i < files.length; i++) {
   const filename = files[i]!;
   try {
