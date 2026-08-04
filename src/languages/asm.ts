@@ -1,6 +1,7 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { CMNT, FUNC, KWD, NUM, OPER } from "../tokens.ts";
 import { bracket, num, str } from "../common.ts";
+
 export default [
   [/(;|#).*/gm, CMNT],
   str,

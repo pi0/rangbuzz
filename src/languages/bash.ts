@@ -1,6 +1,7 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, FUNC, KWD, OPER, STR, VAR } from "../tokens.ts";
 import { bracket, num } from "../common.ts";
+
 let variable = [/\$\w+|\${[^}]*}|\$\([^)]*\)/g, VAR];
 
 export default [
