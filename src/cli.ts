@@ -2,9 +2,11 @@
 
 import { readFileSync } from "node:fs";
 import { basename, extname } from "node:path";
+import { parseArgs } from "node:util";
 
 import { codeToAnsi, detectLanguage } from "./index.ts";
 import { languages } from "./languages.ts";
+import * as themes from "./themes/index.ts";
 
 // the registry knows the aliases, so an extension and a `Dockerfile` style
 // name are looked up in it as they are; anything it does not know is detected
@@ -16,21 +18,55 @@ const language = (file: string, code: string) => {
   return Object.hasOwn(languages, lang) ? lang : detectLanguage(code);
 };
 
-const files = process.argv.slice(2);
-if (!files.length && process.stdin.isTTY) {
-  console.log("Usage: rangi [file ...]\n       command | rangi");
+const parsedArgs = parseArgs({
+  allowPositionals: true,
+  options: {
+    help: { type: "boolean", short: "h" },
+    theme: { type: "string" },
+  },
+});
+
+const { values: flags, positionals: args } = parsedArgs;
+const themeMap = new Map(Object.values(themes).map((theme) => [theme.name, theme]));
+const theme = flags.theme ? themeMap.get(flags.theme as string) : undefined;
+if (flags.theme === "") {
+  console.error("rangi: --theme requires a theme name");
+  process.exit(1);
+}
+if (flags.theme && !theme) {
+  console.error(`rangi: unknown theme: ${flags.theme}`);
+  process.exit(1);
+}
+
+if (process.stdin.isTTY && flags.help) {
+  const helpMessage = `Usage: rangi [OPTIONS] [files ...]
+
+Options:
+  --theme <name>  Use a specified theme (available themes: ${Array.from(themeMap.keys()).join(", ")})
+  --help, -h      Show help message
+`;
+  console.log(helpMessage);
   process.exit(0);
 }
 
-for (const file of files.length ? files : ["-"]) {
+const files = args.length ? args : ["-"];
+for (let i = 0; i < files.length; i++) {
+  const filename = files[i]!;
   try {
-    const code = readFileSync(file === "-" ? 0 : file, "utf8");
+    const code = readFileSync(filename === "-" ? 0 : filename, "utf8");
+    if (files.length > 1) {
+      const line = "─".repeat(process.stdout.columns || 80);
+      process.stdout.write(`\x1b[90m${line}\n• ${filename}\n${line}\x1b[0m\n`);
+    }
     process.stdout.write(
-      codeToAnsi(code, { lang: file === "-" ? detectLanguage(code) : language(file, code) }),
+      codeToAnsi(code, {
+        lang: filename === "-" ? detectLanguage(code) : language(filename, code),
+        theme,
+      }),
     );
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    console.error(`rangi: ${file}: ${message}`);
+    console.error(`rangi: ${filename}: ${message}`);
     process.exitCode = 1;
   }
 }
