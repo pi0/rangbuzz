@@ -29,33 +29,3 @@ exports[`html > tokens > inline js 1`] = `
   «kwd:const» a «oper:=» «str:"x"»; «cmnt:// c
 »«oper:</»«var:script»«oper:>»"
 `;
-
-exports[`html tokens attributes 1`] = `"«oper:<»«var:a» «class:href»«oper:=»«str:"https://a.b"» «class:data-x»«oper:=»«str:'y'» «class:disabled»«oper:>»link«oper:</»«var:a»«oper:>»"`;
-
-exports[`html tokens comments 1`] = `
-"«cmnt:<!-- a comment -->»
-«cmnt:<!-- »«err:TODO»«cmnt:: fill in -->»"
-`;
-
-exports[`html tokens elements 1`] = `
-"«oper:<!»«var:doctype»«class: html»«oper:>»
-«oper:<»«var:html» «class:lang»«oper:=»«str:"en"»«oper:>»
-  «oper:<»«var:body»«oper:>»
-    «oper:<»«var:p»«oper:>»text«oper:</»«var:p»«oper:>»
-  «oper:</»«var:body»«oper:>»
-«oper:</»«var:html»«oper:>»"
-`;
-
-exports[`html tokens entities 1`] = `"«oper:<»«var:p»«oper:>»a «var:&amp;» b «var:&lt;» c«oper:</»«var:p»«oper:>»"`;
-
-exports[`html tokens inline css 1`] = `
-"«oper:<»«var:style»«oper:>»
-  «var:.a» «bracket:{» «var:color»: «num:red»; «bracket:}»
-«oper:</»«var:style»«oper:>»"
-`;
-
-exports[`html tokens inline js 1`] = `
-"«oper:<»«var:script»«oper:>»
-  «kwd:const» a «oper:=» «str:"x"»; «cmnt:// c
-»«oper:</»«var:script»«oper:>»"
-`;

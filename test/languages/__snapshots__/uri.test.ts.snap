@@ -14,18 +14,3 @@ exports[`uri > tokens > port 1`] = `"«class:http»«oper::»«oper:/»«oper:/�
 exports[`uri > tokens > query 1`] = `"«class:https»«oper::»«oper:/»«oper:/»«var:example.com»«oper:/»search«oper:?»«oper:q=»term«oper:&»«oper:page=»2"`;
 
 exports[`uri > tokens > url 1`] = `"«class:https»«oper::»«oper:/»«oper:/»«var:example.com»«oper:/»path«oper:/»to«oper:/»page"`;
-
-exports[`uri tokens comments 1`] = `
-"«cmnt:# a note»
-«class:https»«oper::»«oper:/»«oper:/»«var:example.com»"
-`;
-
-exports[`uri tokens fragment 1`] = `"«class:https»«oper::»«oper:/»«oper:/»«var:example.com»«oper:/»doc«func:#section»"`;
-
-exports[`uri tokens mail 1`] = `"«class:mailto»«oper::»«func:user.name@»«var:example.com»"`;
-
-exports[`uri tokens port 1`] = `"«class:http»«oper::»«oper:/»«oper:/»localhost«num::8080»«oper:/»api"`;
-
-exports[`uri tokens query 1`] = `"«class:https»«oper::»«oper:/»«oper:/»«var:example.com»«oper:/»search«oper:?»«oper:q=»term«oper:&»«oper:page=»2"`;
-
-exports[`uri tokens url 1`] = `"«class:https»«oper::»«oper:/»«oper:/»«var:example.com»«oper:/»path«oper:/»to«oper:/»page"`;

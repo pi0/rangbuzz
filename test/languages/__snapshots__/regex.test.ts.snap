@@ -14,18 +14,3 @@ exports[`regex > tokens > comments 1`] = `
 exports[`regex > tokens > escapes 1`] = `"«oper:/»«kwd:\\d»«kwd:\\w»«kwd:\\s»«kwd:\\.»«kwd:\\/»«oper:/»"`;
 
 exports[`regex > tokens > quantifiers 1`] = `"«oper:/a»«var:*»«oper:b»«var:+»«oper:c»«var:{2,4}»«oper:/»"`;
-
-exports[`regex tokens alternation 1`] = `"«oper:/one»«kwd:|»«oper:two»«kwd:|»«oper:three/»"`;
-
-exports[`regex tokens anchors 1`] = `"«oper:/»«kwd:^»«oper:start.end»«kwd:$»«oper:/»"`;
-
-exports[`regex tokens classes 1`] = `"«oper:/»«num:[a-z0-9_]»«var:+»«num:[^abc]»«oper:/»"`;
-
-exports[`regex tokens comments 1`] = `
-"«cmnt:a plain line is not a regex»«oper:
-/»«kwd:^»«oper:ok»«kwd:$»«oper:/»"
-`;
-
-exports[`regex tokens escapes 1`] = `"«oper:/»«kwd:\\d»«kwd:\\w»«kwd:\\s»«kwd:\\.»«kwd:\\/»«oper:/»"`;
-
-exports[`regex tokens quantifiers 1`] = `"«oper:/a»«var:*»«oper:b»«var:+»«oper:c»«var:{2,4}»«oper:/»"`;
