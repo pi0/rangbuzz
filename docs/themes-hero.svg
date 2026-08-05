@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1314" height="355"
-  viewBox="0 0 1314 355" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
-  <title>rangi — 24 bundled themes</title>
+<svg xmlns="http://www.w3.org/2000/svg" width="1335" height="385"
+  viewBox="0 0 1335 385" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
+  <title>rangi — 26 bundled themes</title>
   <g transform="translate(18 18)">
     <rect width="365" height="101" rx="8" fill="#161b22"/>
     <rect width="365" height="101" rx="8" fill="none"
@@ -230,7 +230,63 @@
       <text y="78.0"><tspan x="28.4" fill="#c472fb" textLength="72.0" lengthAdjust="spacingAndGlyphs">codeToHtml</tspan><tspan x="100.4" fill="#a1a1a1" textLength="7.2" lengthAdjust="spacingAndGlyphs">(</tspan><tspan x="107.6" fill="#ededed" textLength="28.8" lengthAdjust="spacingAndGlyphs">code</tspan><tspan x="136.4" fill="#f12b82" textLength="7.2" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="150.8" fill="#a1a1a1" textLength="7.2" lengthAdjust="spacingAndGlyphs">{</tspan><tspan x="165.2" fill="#ededed" textLength="28.8" lengthAdjust="spacingAndGlyphs">lang</tspan><tspan x="194.0" fill="#f12b82" textLength="7.2" lengthAdjust="spacingAndGlyphs">:</tspan><tspan x="208.4" fill="#00ca50" textLength="28.8" lengthAdjust="spacingAndGlyphs">"ts"</tspan><tspan x="237.2" fill="#f12b82" textLength="7.2" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="251.6" fill="#ededed" textLength="7.2" lengthAdjust="spacingAndGlyphs">n</tspan><tspan x="258.8" fill="#f12b82" textLength="7.2" lengthAdjust="spacingAndGlyphs">:</tspan><tspan x="273.2" fill="#006efe" textLength="7.2" lengthAdjust="spacingAndGlyphs">0</tspan><tspan x="287.6" fill="#a1a1a1" textLength="7.2" lengthAdjust="spacingAndGlyphs">}</tspan><tspan x="294.8" fill="#a1a1a1" textLength="7.2" lengthAdjust="spacingAndGlyphs">)</tspan><tspan x="302.0" fill="#ededed" textLength="7.2" lengthAdjust="spacingAndGlyphs">;</tspan></text>
     </g>
   </g>
-  <g transform="translate(450 18)">
+  <g transform="translate(457 18)">
+    <rect width="365" height="101" rx="8" fill="#2d353b"/>
+    <rect width="365" height="101" rx="8" fill="none"
+      stroke="#d3c6aa" stroke-opacity=".22"/>
+    <text x="14" y="19.5" font-size="12.5" font-weight="600" fill="#d3c6aa"
+      textLength="112.5"
+      lengthAdjust="spacingAndGlyphs">everforest-dark</text>
+    <g>
+      <g><title>fg — #d3c6aa</title><rect x="173.0" y="11" width="8" height="8" rx="2.7" fill="#d3c6aa"/></g>
+      <g><title>numbers — #859289</title><rect x="183.0" y="11" width="8" height="8" rx="2.7" fill="#859289"/></g>
+      <g><title>deleted — #e67e80</title><rect x="193.0" y="11" width="8" height="8" rx="2.7" fill="#e67e80"/></g>
+      <g><title>err — #e67e80</title><rect x="203.0" y="11" width="8" height="8" rx="2.7" fill="#e67e80"/></g>
+      <g><title>var — #83c092</title><rect x="213.0" y="11" width="8" height="8" rx="2.7" fill="#83c092"/></g>
+      <g><title>section — #e67e80</title><rect x="223.0" y="11" width="8" height="8" rx="2.7" fill="#e67e80"/></g>
+      <g><title>kwd — #e67e80</title><rect x="233.0" y="11" width="8" height="8" rx="2.7" fill="#e67e80"/></g>
+      <g><title>class — #7fbbb3</title><rect x="243.0" y="11" width="8" height="8" rx="2.7" fill="#7fbbb3"/></g>
+      <g><title>cmnt — #859289</title><rect x="253.0" y="11" width="8" height="8" rx="2.7" fill="#859289"/></g>
+      <g><title>insert — #a7c080</title><rect x="263.0" y="11" width="8" height="8" rx="2.7" fill="#a7c080"/></g>
+      <g><title>type — #7fbbb3</title><rect x="273.0" y="11" width="8" height="8" rx="2.7" fill="#7fbbb3"/></g>
+      <g><title>func — #a7c080</title><rect x="283.0" y="11" width="8" height="8" rx="2.7" fill="#a7c080"/></g>
+      <g><title>bool — #d699b6</title><rect x="293.0" y="11" width="8" height="8" rx="2.7" fill="#d699b6"/></g>
+      <g><title>num — #d699b6</title><rect x="303.0" y="11" width="8" height="8" rx="2.7" fill="#d699b6"/></g>
+      <g><title>oper — #e69875</title><rect x="313.0" y="11" width="8" height="8" rx="2.7" fill="#e69875"/></g>
+      <g><title>str — #dbbc7f</title><rect x="323.0" y="11" width="8" height="8" rx="2.7" fill="#dbbc7f"/></g>
+      <g><title>esc — inherits fg</title><rect x="333.0" y="11" width="8" height="8" rx="2.7" fill="none" stroke="#d3c6aa" stroke-opacity=".35" stroke-dasharray="2 2"/></g>
+      <g><title>bracket — #d3c6aa</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#d3c6aa"/></g>
+    </g>
+  </g>
+  <g transform="translate(464 48)">
+    <rect width="365" height="101" rx="8" fill="#fdf6e3"/>
+    <rect width="365" height="101" rx="8" fill="none"
+      stroke="#5c6a72" stroke-opacity=".22"/>
+    <text x="14" y="19.5" font-size="12.5" font-weight="600" fill="#5c6a72"
+      textLength="120.0"
+      lengthAdjust="spacingAndGlyphs">everforest-light</text>
+    <g>
+      <g><title>fg — #5c6a72</title><rect x="173.0" y="11" width="8" height="8" rx="2.7" fill="#5c6a72"/></g>
+      <g><title>numbers — #939f91</title><rect x="183.0" y="11" width="8" height="8" rx="2.7" fill="#939f91"/></g>
+      <g><title>deleted — #f85552</title><rect x="193.0" y="11" width="8" height="8" rx="2.7" fill="#f85552"/></g>
+      <g><title>err — #f85552</title><rect x="203.0" y="11" width="8" height="8" rx="2.7" fill="#f85552"/></g>
+      <g><title>var — #35a77c</title><rect x="213.0" y="11" width="8" height="8" rx="2.7" fill="#35a77c"/></g>
+      <g><title>section — #f85552</title><rect x="223.0" y="11" width="8" height="8" rx="2.7" fill="#f85552"/></g>
+      <g><title>kwd — #f85552</title><rect x="233.0" y="11" width="8" height="8" rx="2.7" fill="#f85552"/></g>
+      <g><title>class — #3a94c5</title><rect x="243.0" y="11" width="8" height="8" rx="2.7" fill="#3a94c5"/></g>
+      <g><title>cmnt — #939f91</title><rect x="253.0" y="11" width="8" height="8" rx="2.7" fill="#939f91"/></g>
+      <g><title>insert — #8da101</title><rect x="263.0" y="11" width="8" height="8" rx="2.7" fill="#8da101"/></g>
+      <g><title>type — #3a94c5</title><rect x="273.0" y="11" width="8" height="8" rx="2.7" fill="#3a94c5"/></g>
+      <g><title>func — #8da101</title><rect x="283.0" y="11" width="8" height="8" rx="2.7" fill="#8da101"/></g>
+      <g><title>bool — #df69ba</title><rect x="293.0" y="11" width="8" height="8" rx="2.7" fill="#df69ba"/></g>
+      <g><title>num — #df69ba</title><rect x="303.0" y="11" width="8" height="8" rx="2.7" fill="#df69ba"/></g>
+      <g><title>oper — #f57d26</title><rect x="313.0" y="11" width="8" height="8" rx="2.7" fill="#f57d26"/></g>
+      <g><title>str — #dfa000</title><rect x="323.0" y="11" width="8" height="8" rx="2.7" fill="#dfa000"/></g>
+      <g><title>esc — inherits fg</title><rect x="333.0" y="11" width="8" height="8" rx="2.7" fill="none" stroke="#5c6a72" stroke-opacity=".35" stroke-dasharray="2 2"/></g>
+      <g><title>bracket — #5c6a72</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#5c6a72"/></g>
+    </g>
+  </g>
+  <g transform="translate(471 78)">
     <rect width="365" height="101" rx="8" fill="#0d1117"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#e6edf3" stroke-opacity=".22"/>
@@ -258,7 +314,7 @@
       <g><title>bracket — #8b949e</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#8b949e"/></g>
     </g>
   </g>
-  <g transform="translate(457 48)">
+  <g transform="translate(478 108)">
     <rect width="365" height="101" rx="8" fill="#fff"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#1f2328" stroke-opacity=".22"/>
@@ -286,7 +342,7 @@
       <g><title>bracket — #57606a</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#57606a"/></g>
     </g>
   </g>
-  <g transform="translate(464 78)">
+  <g transform="translate(485 138)">
     <rect width="365" height="101" rx="8" fill="#22272e"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#adbac7" stroke-opacity=".22"/>
@@ -314,7 +370,7 @@
       <g><title>bracket — #768390</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#768390"/></g>
     </g>
   </g>
-  <g transform="translate(471 108)">
+  <g transform="translate(492 168)">
     <rect width="365" height="101" rx="8" fill="#282828"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#ebdbb2" stroke-opacity=".22"/>
@@ -342,7 +398,7 @@
       <g><title>bracket — #ebdbb2</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#ebdbb2"/></g>
     </g>
   </g>
-  <g transform="translate(478 138)">
+  <g transform="translate(499 198)">
     <rect width="365" height="101" rx="8" fill="#fbf1c7"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#3c3836" stroke-opacity=".22"/>
@@ -370,35 +426,7 @@
       <g><title>bracket — #3c3836</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#3c3836"/></g>
     </g>
   </g>
-  <g transform="translate(485 168)">
-    <rect width="365" height="101" rx="8" fill="#272822"/>
-    <rect width="365" height="101" rx="8" fill="none"
-      stroke="#f8f8f2" stroke-opacity=".22"/>
-    <text x="14" y="19.5" font-size="12.5" font-weight="600" fill="#f8f8f2"
-      textLength="52.5"
-      lengthAdjust="spacingAndGlyphs">monokai</text>
-    <g>
-      <g><title>fg — #f8f8f2</title><rect x="173.0" y="11" width="8" height="8" rx="2.7" fill="#f8f8f2"/></g>
-      <g><title>numbers — #75715e</title><rect x="183.0" y="11" width="8" height="8" rx="2.7" fill="#75715e"/></g>
-      <g><title>deleted — #f92672</title><rect x="193.0" y="11" width="8" height="8" rx="2.7" fill="#f92672"/></g>
-      <g><title>err — #f92672</title><rect x="203.0" y="11" width="8" height="8" rx="2.7" fill="#f92672"/></g>
-      <g><title>var — #f8f8f2</title><rect x="213.0" y="11" width="8" height="8" rx="2.7" fill="#f8f8f2"/></g>
-      <g><title>section — #f92672</title><rect x="223.0" y="11" width="8" height="8" rx="2.7" fill="#f92672"/></g>
-      <g><title>kwd — #f92672</title><rect x="233.0" y="11" width="8" height="8" rx="2.7" fill="#f92672"/></g>
-      <g><title>class — #a6e22e</title><rect x="243.0" y="11" width="8" height="8" rx="2.7" fill="#a6e22e"/></g>
-      <g><title>cmnt — #75715e</title><rect x="253.0" y="11" width="8" height="8" rx="2.7" fill="#75715e"/></g>
-      <g><title>insert — #a6e22e</title><rect x="263.0" y="11" width="8" height="8" rx="2.7" fill="#a6e22e"/></g>
-      <g><title>type — #66d9ef</title><rect x="273.0" y="11" width="8" height="8" rx="2.7" fill="#66d9ef"/></g>
-      <g><title>func — #a6e22e</title><rect x="283.0" y="11" width="8" height="8" rx="2.7" fill="#a6e22e"/></g>
-      <g><title>bool — #ae81ff</title><rect x="293.0" y="11" width="8" height="8" rx="2.7" fill="#ae81ff"/></g>
-      <g><title>num — #ae81ff</title><rect x="303.0" y="11" width="8" height="8" rx="2.7" fill="#ae81ff"/></g>
-      <g><title>oper — #f8f8f2</title><rect x="313.0" y="11" width="8" height="8" rx="2.7" fill="#f8f8f2"/></g>
-      <g><title>str — #e6db74</title><rect x="323.0" y="11" width="8" height="8" rx="2.7" fill="#e6db74"/></g>
-      <g><title>esc — inherits fg</title><rect x="333.0" y="11" width="8" height="8" rx="2.7" fill="none" stroke="#f8f8f2" stroke-opacity=".35" stroke-dasharray="2 2"/></g>
-      <g><title>bracket — #f8f8f2</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#f8f8f2"/></g>
-    </g>
-  </g>
-  <g transform="translate(492 198)">
+  <g transform="translate(506 228)">
     <rect width="365" height="101" rx="8" fill="#1f1f1f"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#cccccc" stroke-opacity=".22"/>
@@ -426,7 +454,7 @@
       <g><title>bracket — #cccccc</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#cccccc"/></g>
     </g>
   </g>
-  <g transform="translate(499 228)">
+  <g transform="translate(513 258)">
     <rect width="365" height="101" rx="8" fill="#ffffff"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#3b3b3b" stroke-opacity=".22"/>
@@ -459,7 +487,35 @@
       <text y="78.0"><tspan x="28.4" fill="#795e26" textLength="72.0" lengthAdjust="spacingAndGlyphs">codeToHtml</tspan><tspan x="100.4" fill="#3b3b3b" textLength="7.2" lengthAdjust="spacingAndGlyphs">(</tspan><tspan x="107.6" fill="#3b3b3b" textLength="28.8" lengthAdjust="spacingAndGlyphs">code</tspan><tspan x="136.4" fill="#000000" textLength="7.2" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="150.8" fill="#3b3b3b" textLength="7.2" lengthAdjust="spacingAndGlyphs">{</tspan><tspan x="165.2" fill="#3b3b3b" textLength="28.8" lengthAdjust="spacingAndGlyphs">lang</tspan><tspan x="194.0" fill="#000000" textLength="7.2" lengthAdjust="spacingAndGlyphs">:</tspan><tspan x="208.4" fill="#a31515" textLength="28.8" lengthAdjust="spacingAndGlyphs">"ts"</tspan><tspan x="237.2" fill="#000000" textLength="7.2" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="251.6" fill="#3b3b3b" textLength="7.2" lengthAdjust="spacingAndGlyphs">n</tspan><tspan x="258.8" fill="#000000" textLength="7.2" lengthAdjust="spacingAndGlyphs">:</tspan><tspan x="273.2" fill="#098658" textLength="7.2" lengthAdjust="spacingAndGlyphs">0</tspan><tspan x="287.6" fill="#3b3b3b" textLength="7.2" lengthAdjust="spacingAndGlyphs">}</tspan><tspan x="294.8" fill="#3b3b3b" textLength="7.2" lengthAdjust="spacingAndGlyphs">)</tspan><tspan x="302.0" fill="#3b3b3b" textLength="7.2" lengthAdjust="spacingAndGlyphs">;</tspan></text>
     </g>
   </g>
-  <g transform="translate(882 18)">
+  <g transform="translate(896 18)">
+    <rect width="365" height="101" rx="8" fill="#272822"/>
+    <rect width="365" height="101" rx="8" fill="none"
+      stroke="#f8f8f2" stroke-opacity=".22"/>
+    <text x="14" y="19.5" font-size="12.5" font-weight="600" fill="#f8f8f2"
+      textLength="52.5"
+      lengthAdjust="spacingAndGlyphs">monokai</text>
+    <g>
+      <g><title>fg — #f8f8f2</title><rect x="173.0" y="11" width="8" height="8" rx="2.7" fill="#f8f8f2"/></g>
+      <g><title>numbers — #75715e</title><rect x="183.0" y="11" width="8" height="8" rx="2.7" fill="#75715e"/></g>
+      <g><title>deleted — #f92672</title><rect x="193.0" y="11" width="8" height="8" rx="2.7" fill="#f92672"/></g>
+      <g><title>err — #f92672</title><rect x="203.0" y="11" width="8" height="8" rx="2.7" fill="#f92672"/></g>
+      <g><title>var — #f8f8f2</title><rect x="213.0" y="11" width="8" height="8" rx="2.7" fill="#f8f8f2"/></g>
+      <g><title>section — #f92672</title><rect x="223.0" y="11" width="8" height="8" rx="2.7" fill="#f92672"/></g>
+      <g><title>kwd — #f92672</title><rect x="233.0" y="11" width="8" height="8" rx="2.7" fill="#f92672"/></g>
+      <g><title>class — #a6e22e</title><rect x="243.0" y="11" width="8" height="8" rx="2.7" fill="#a6e22e"/></g>
+      <g><title>cmnt — #75715e</title><rect x="253.0" y="11" width="8" height="8" rx="2.7" fill="#75715e"/></g>
+      <g><title>insert — #a6e22e</title><rect x="263.0" y="11" width="8" height="8" rx="2.7" fill="#a6e22e"/></g>
+      <g><title>type — #66d9ef</title><rect x="273.0" y="11" width="8" height="8" rx="2.7" fill="#66d9ef"/></g>
+      <g><title>func — #a6e22e</title><rect x="283.0" y="11" width="8" height="8" rx="2.7" fill="#a6e22e"/></g>
+      <g><title>bool — #ae81ff</title><rect x="293.0" y="11" width="8" height="8" rx="2.7" fill="#ae81ff"/></g>
+      <g><title>num — #ae81ff</title><rect x="303.0" y="11" width="8" height="8" rx="2.7" fill="#ae81ff"/></g>
+      <g><title>oper — #f8f8f2</title><rect x="313.0" y="11" width="8" height="8" rx="2.7" fill="#f8f8f2"/></g>
+      <g><title>str — #e6db74</title><rect x="323.0" y="11" width="8" height="8" rx="2.7" fill="#e6db74"/></g>
+      <g><title>esc — inherits fg</title><rect x="333.0" y="11" width="8" height="8" rx="2.7" fill="none" stroke="#f8f8f2" stroke-opacity=".35" stroke-dasharray="2 2"/></g>
+      <g><title>bracket — #f8f8f2</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#f8f8f2"/></g>
+    </g>
+  </g>
+  <g transform="translate(903 48)">
     <rect width="365" height="101" rx="8" fill="#011627"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#d6deeb" stroke-opacity=".22"/>
@@ -487,7 +543,7 @@
       <g><title>bracket — #d6deeb</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#d6deeb"/></g>
     </g>
   </g>
-  <g transform="translate(889 48)">
+  <g transform="translate(910 78)">
     <rect width="365" height="101" rx="8" fill="#fafafa"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#383a42" stroke-opacity=".22"/>
@@ -515,7 +571,7 @@
       <g><title>bracket — #383a42</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#383a42"/></g>
     </g>
   </g>
-  <g transform="translate(896 78)">
+  <g transform="translate(917 108)">
     <rect width="365" height="101" rx="8" fill="#002b36"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#839496" stroke-opacity=".22"/>
@@ -543,7 +599,7 @@
       <g><title>bracket — #839496</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#839496"/></g>
     </g>
   </g>
-  <g transform="translate(903 108)">
+  <g transform="translate(924 138)">
     <rect width="365" height="101" rx="8" fill="#fdf6e3"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#657b83" stroke-opacity=".22"/>
@@ -571,7 +627,7 @@
       <g><title>bracket — #657b83</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#657b83"/></g>
     </g>
   </g>
-  <g transform="translate(910 138)">
+  <g transform="translate(931 168)">
     <rect width="365" height="101" rx="8" fill="#1a1b26"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#a9b1d6" stroke-opacity=".22"/>
@@ -599,7 +655,7 @@
       <g><title>bracket — #9abdf5</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#9abdf5"/></g>
     </g>
   </g>
-  <g transform="translate(917 168)">
+  <g transform="translate(938 198)">
     <rect width="365" height="101" rx="8" fill="#101010"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#ffffff" stroke-opacity=".22"/>
@@ -627,7 +683,7 @@
       <g><title>bracket — #a0a0a0</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#a0a0a0"/></g>
     </g>
   </g>
-  <g transform="translate(924 198)">
+  <g transform="translate(945 228)">
     <rect width="365" height="101" rx="8" fill="#1e1e1e"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#d4d4d4" stroke-opacity=".22"/>
@@ -655,7 +711,7 @@
       <g><title>bracket — #ffd700</title><rect x="343.0" y="11" width="8" height="8" rx="2.7" fill="#ffd700"/></g>
     </g>
   </g>
-  <g transform="translate(931 228)">
+  <g transform="translate(952 258)">
     <rect width="365" height="101" rx="8" fill="#2e3440"/>
     <rect width="365" height="101" rx="8" fill="none"
       stroke="#d8dee9" stroke-opacity=".22"/>
@@ -688,5 +744,5 @@
       <text y="78.0"><tspan x="28.4" fill="#88c0d0" textLength="72.0" lengthAdjust="spacingAndGlyphs">codeToHtml</tspan><tspan x="100.4" fill="#eceff4" textLength="7.2" lengthAdjust="spacingAndGlyphs">(</tspan><tspan x="107.6" fill="#d8dee9" textLength="28.8" lengthAdjust="spacingAndGlyphs">code</tspan><tspan x="136.4" fill="#81a1c1" textLength="7.2" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="150.8" fill="#eceff4" textLength="7.2" lengthAdjust="spacingAndGlyphs">{</tspan><tspan x="165.2" fill="#d8dee9" textLength="28.8" lengthAdjust="spacingAndGlyphs">lang</tspan><tspan x="194.0" fill="#81a1c1" textLength="7.2" lengthAdjust="spacingAndGlyphs">:</tspan><tspan x="208.4" fill="#a3be8c" textLength="28.8" lengthAdjust="spacingAndGlyphs">"ts"</tspan><tspan x="237.2" fill="#81a1c1" textLength="7.2" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="251.6" fill="#d8dee9" textLength="7.2" lengthAdjust="spacingAndGlyphs">n</tspan><tspan x="258.8" fill="#81a1c1" textLength="7.2" lengthAdjust="spacingAndGlyphs">:</tspan><tspan x="273.2" fill="#b48ead" textLength="7.2" lengthAdjust="spacingAndGlyphs">0</tspan><tspan x="287.6" fill="#eceff4" textLength="7.2" lengthAdjust="spacingAndGlyphs">}</tspan><tspan x="294.8" fill="#eceff4" textLength="7.2" lengthAdjust="spacingAndGlyphs">)</tspan><tspan x="302.0" fill="#d8dee9" textLength="7.2" lengthAdjust="spacingAndGlyphs">;</tspan></text>
     </g>
   </g>
-  <text x="18" y="345" font-size="11" fill="#8b8b8b">24 bundled themes, each with its full palette: fg, line numbers and all 16 token types. A dashed swatch is a token that inherits fg.</text>
+  <text x="18" y="375" font-size="11" fill="#8b8b8b">26 bundled themes, each with its full palette: fg, line numbers and all 16 token types. A dashed swatch is a token that inherits fg.</text>
 </svg>

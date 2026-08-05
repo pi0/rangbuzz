@@ -198,6 +198,8 @@ codeToHtml(code, { lang: "js", theme: githubDark });
 | catppuccin-mocha    | `catppuccinMocha`   |
 | css-variables       | `cssVariables`      |
 | dracula             | `dracula`           |
+| everforest-dark     | `everforestDark`    |
+| everforest-light    | `everforestLight`   |
 | geist-dark          | `geistDark`         |
 | geist-light         | `geistLight`        |
 | github-dark         | `githubDark`        |
@@ -219,7 +221,7 @@ codeToHtml(code, { lang: "js", theme: githubDark });
 
 Each theme is a named export.
 
-Any two themes can be passed together as a `{ light, dark }` pair, which is inlined with `light-dark()` and follows the reader's color scheme just like the default. Every family with both a light and a dark theme is also exported as a ready-made pair: `geist`, `catppuccin`, `github`, `gruvbox`, `solarized`, and `vscodeModern`.
+Any two themes can be passed together as a `{ light, dark }` pair, which is inlined with `light-dark()` and follows the reader's color scheme just like the default. Every family with both a light and a dark theme is also exported as a ready-made pair: `geist`, `catppuccin`, `everforest`, `github`, `gruvbox`, `solarized`, and `vscodeModern`.
 
 ```js
 import { codeToHtml } from "rangi";

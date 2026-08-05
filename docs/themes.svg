@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1325" height="1910"
-  viewBox="0 0 1325 1910" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
+<svg xmlns="http://www.w3.org/2000/svg" width="1325" height="2142"
+  viewBox="0 0 1325 2142" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace">
   <title>rangi — bundled theme palettes</title>
   <g transform="translate(20 20)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#161b22"/>
@@ -224,6 +224,80 @@
     </g>
   </g>
   <g transform="translate(20 484)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+    <rect width="415" height="212" rx="8" fill="#2d353b"/>
+    <rect width="415" height="212" rx="8" fill="none"
+      stroke="#d3c6aa" stroke-opacity=".18"/>
+    <text x="16" y="27" font-size="12.5" font-weight="600"
+      fill="#d3c6aa">everforest-dark</text>
+    <text x="399" y="27" font-size="11" text-anchor="end"
+      fill="#d3c6aa" fill-opacity=".55">everforestDark</text>
+    <g>
+      <text y="48.5"><tspan x="16.0" fill="#859289" textLength="277.5" lengthAdjust="spacingAndGlyphs">// tiny, synchronous, zero-dependency</tspan></text>
+      <text y="67.5"><tspan x="16.0" fill="#e67e80" textLength="45.0" lengthAdjust="spacingAndGlyphs">import</tspan><tspan x="68.5" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">{</tspan><tspan x="83.5" fill="#d3c6aa" textLength="75.0" lengthAdjust="spacingAndGlyphs">codeToHtml</tspan><tspan x="166.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">}</tspan><tspan x="181.0" fill="#e67e80" textLength="30.0" lengthAdjust="spacingAndGlyphs">from</tspan><tspan x="218.5" fill="#dbbc7f" textLength="52.5" lengthAdjust="spacingAndGlyphs">"rangi"</tspan><tspan x="271.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">;</tspan></text>
+      <text y="105.5"><tspan x="16.0" fill="#e67e80" textLength="45.0" lengthAdjust="spacingAndGlyphs">export</tspan><tspan x="68.5" fill="#e67e80" textLength="60.0" lengthAdjust="spacingAndGlyphs">function</tspan><tspan x="136.0" fill="#a7c080" textLength="45.0" lengthAdjust="spacingAndGlyphs">render</tspan><tspan x="181.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">(</tspan><tspan x="188.5" fill="#d3c6aa" textLength="30.0" lengthAdjust="spacingAndGlyphs">code</tspan><tspan x="218.5" fill="#7fbbb3" textLength="60.0" lengthAdjust="spacingAndGlyphs">: string</tspan><tspan x="278.5" fill="#e69875" textLength="7.5" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="293.5" fill="#d3c6aa" textLength="30.0" lengthAdjust="spacingAndGlyphs">wrap</tspan><tspan x="331.0" fill="#e69875" textLength="7.5" lengthAdjust="spacingAndGlyphs">=</tspan><tspan x="346.0" fill="#d699b6" textLength="30.0" lengthAdjust="spacingAndGlyphs">true</tspan><tspan x="376.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">)</tspan><tspan x="391.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">{</tspan></text>
+      <text y="124.5"><tspan x="31.0" fill="#e67e80" textLength="37.5" lengthAdjust="spacingAndGlyphs">const</tspan><tspan x="76.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">n</tspan><tspan x="91.0" fill="#e69875" textLength="7.5" lengthAdjust="spacingAndGlyphs">=</tspan><tspan x="106.0" fill="#d3c6aa" textLength="30.0" lengthAdjust="spacingAndGlyphs">code</tspan><tspan x="136.0" fill="#e69875" textLength="7.5" lengthAdjust="spacingAndGlyphs">.</tspan><tspan x="143.5" fill="#a7c080" textLength="37.5" lengthAdjust="spacingAndGlyphs">split</tspan><tspan x="181.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">(</tspan><tspan x="188.5" fill="#dbbc7f" textLength="30.0" lengthAdjust="spacingAndGlyphs">"\n"</tspan><tspan x="218.5" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">)</tspan><tspan x="226.0" fill="#e69875" textLength="7.5" lengthAdjust="spacingAndGlyphs">.</tspan><tspan x="233.5" fill="#d3c6aa" textLength="45.0" lengthAdjust="spacingAndGlyphs">length</tspan><tspan x="286.0" fill="#e69875" textLength="15.0" lengthAdjust="spacingAndGlyphs">??</tspan><tspan x="308.5" fill="#d699b6" textLength="7.5" lengthAdjust="spacingAndGlyphs">0</tspan><tspan x="316.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">;</tspan></text>
+      <text y="143.5"><tspan x="31.0" fill="#e67e80" textLength="45.0" lengthAdjust="spacingAndGlyphs">return</tspan><tspan x="83.5" fill="#a7c080" textLength="75.0" lengthAdjust="spacingAndGlyphs">codeToHtml</tspan><tspan x="158.5" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">(</tspan><tspan x="166.0" fill="#d3c6aa" textLength="30.0" lengthAdjust="spacingAndGlyphs">code</tspan><tspan x="196.0" fill="#e69875" textLength="7.5" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="211.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">{</tspan><tspan x="226.0" fill="#d3c6aa" textLength="30.0" lengthAdjust="spacingAndGlyphs">lang</tspan><tspan x="256.0" fill="#e69875" textLength="7.5" lengthAdjust="spacingAndGlyphs">:</tspan><tspan x="271.0" fill="#dbbc7f" textLength="30.0" lengthAdjust="spacingAndGlyphs">"ts"</tspan><tspan x="301.0" fill="#e69875" textLength="7.5" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="316.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">n</tspan><tspan x="323.5" fill="#e69875" textLength="7.5" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="338.5" fill="#d3c6aa" textLength="30.0" lengthAdjust="spacingAndGlyphs">wrap</tspan><tspan x="376.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">}</tspan><tspan x="383.5" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">)</tspan><tspan x="391.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">;</tspan></text>
+      <text y="162.5"><tspan x="16.0" fill="#d3c6aa" textLength="7.5" lengthAdjust="spacingAndGlyphs">}</tspan></text>
+    </g>
+    <g>
+      <g><title>fg — #d3c6aa</title><rect x="16.0" y="183" width="13" height="13" rx="3.0" fill="#d3c6aa"/></g>
+      <g><title>numbers — #859289</title><rect x="33.0" y="183" width="13" height="13" rx="3.0" fill="#859289"/></g>
+      <g><title>deleted — #e67e80</title><rect x="50.0" y="183" width="13" height="13" rx="3.0" fill="#e67e80"/></g>
+      <g><title>err — #e67e80</title><rect x="67.0" y="183" width="13" height="13" rx="3.0" fill="#e67e80"/></g>
+      <g><title>var — #83c092</title><rect x="84.0" y="183" width="13" height="13" rx="3.0" fill="#83c092"/></g>
+      <g><title>section — #e67e80</title><rect x="101.0" y="183" width="13" height="13" rx="3.0" fill="#e67e80"/></g>
+      <g><title>kwd — #e67e80</title><rect x="118.0" y="183" width="13" height="13" rx="3.0" fill="#e67e80"/></g>
+      <g><title>class — #7fbbb3</title><rect x="135.0" y="183" width="13" height="13" rx="3.0" fill="#7fbbb3"/></g>
+      <g><title>cmnt — #859289</title><rect x="152.0" y="183" width="13" height="13" rx="3.0" fill="#859289"/></g>
+      <g><title>insert — #a7c080</title><rect x="169.0" y="183" width="13" height="13" rx="3.0" fill="#a7c080"/></g>
+      <g><title>type — #7fbbb3</title><rect x="186.0" y="183" width="13" height="13" rx="3.0" fill="#7fbbb3"/></g>
+      <g><title>func — #a7c080</title><rect x="203.0" y="183" width="13" height="13" rx="3.0" fill="#a7c080"/></g>
+      <g><title>bool — #d699b6</title><rect x="220.0" y="183" width="13" height="13" rx="3.0" fill="#d699b6"/></g>
+      <g><title>num — #d699b6</title><rect x="237.0" y="183" width="13" height="13" rx="3.0" fill="#d699b6"/></g>
+      <g><title>oper — #e69875</title><rect x="254.0" y="183" width="13" height="13" rx="3.0" fill="#e69875"/></g>
+      <g><title>str — #dbbc7f</title><rect x="271.0" y="183" width="13" height="13" rx="3.0" fill="#dbbc7f"/></g>
+      <g><title>esc — inherits fg</title><rect x="288.0" y="183" width="13" height="13" rx="3.0" fill="none" stroke="#d3c6aa" stroke-opacity=".35" stroke-dasharray="2 2"/></g>
+      <g><title>bracket — #d3c6aa</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#d3c6aa"/></g>
+    </g>
+  </g>
+  <g transform="translate(455 484)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+    <rect width="415" height="212" rx="8" fill="#fdf6e3"/>
+    <rect width="415" height="212" rx="8" fill="none"
+      stroke="#5c6a72" stroke-opacity=".18"/>
+    <text x="16" y="27" font-size="12.5" font-weight="600"
+      fill="#5c6a72">everforest-light</text>
+    <text x="399" y="27" font-size="11" text-anchor="end"
+      fill="#5c6a72" fill-opacity=".55">everforestLight</text>
+    <g>
+      <text y="48.5"><tspan x="16.0" fill="#939f91" textLength="277.5" lengthAdjust="spacingAndGlyphs">// tiny, synchronous, zero-dependency</tspan></text>
+      <text y="67.5"><tspan x="16.0" fill="#f85552" textLength="45.0" lengthAdjust="spacingAndGlyphs">import</tspan><tspan x="68.5" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">{</tspan><tspan x="83.5" fill="#5c6a72" textLength="75.0" lengthAdjust="spacingAndGlyphs">codeToHtml</tspan><tspan x="166.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">}</tspan><tspan x="181.0" fill="#f85552" textLength="30.0" lengthAdjust="spacingAndGlyphs">from</tspan><tspan x="218.5" fill="#dfa000" textLength="52.5" lengthAdjust="spacingAndGlyphs">"rangi"</tspan><tspan x="271.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">;</tspan></text>
+      <text y="105.5"><tspan x="16.0" fill="#f85552" textLength="45.0" lengthAdjust="spacingAndGlyphs">export</tspan><tspan x="68.5" fill="#f85552" textLength="60.0" lengthAdjust="spacingAndGlyphs">function</tspan><tspan x="136.0" fill="#8da101" textLength="45.0" lengthAdjust="spacingAndGlyphs">render</tspan><tspan x="181.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">(</tspan><tspan x="188.5" fill="#5c6a72" textLength="30.0" lengthAdjust="spacingAndGlyphs">code</tspan><tspan x="218.5" fill="#3a94c5" textLength="60.0" lengthAdjust="spacingAndGlyphs">: string</tspan><tspan x="278.5" fill="#f57d26" textLength="7.5" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="293.5" fill="#5c6a72" textLength="30.0" lengthAdjust="spacingAndGlyphs">wrap</tspan><tspan x="331.0" fill="#f57d26" textLength="7.5" lengthAdjust="spacingAndGlyphs">=</tspan><tspan x="346.0" fill="#df69ba" textLength="30.0" lengthAdjust="spacingAndGlyphs">true</tspan><tspan x="376.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">)</tspan><tspan x="391.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">{</tspan></text>
+      <text y="124.5"><tspan x="31.0" fill="#f85552" textLength="37.5" lengthAdjust="spacingAndGlyphs">const</tspan><tspan x="76.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">n</tspan><tspan x="91.0" fill="#f57d26" textLength="7.5" lengthAdjust="spacingAndGlyphs">=</tspan><tspan x="106.0" fill="#5c6a72" textLength="30.0" lengthAdjust="spacingAndGlyphs">code</tspan><tspan x="136.0" fill="#f57d26" textLength="7.5" lengthAdjust="spacingAndGlyphs">.</tspan><tspan x="143.5" fill="#8da101" textLength="37.5" lengthAdjust="spacingAndGlyphs">split</tspan><tspan x="181.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">(</tspan><tspan x="188.5" fill="#dfa000" textLength="30.0" lengthAdjust="spacingAndGlyphs">"\n"</tspan><tspan x="218.5" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">)</tspan><tspan x="226.0" fill="#f57d26" textLength="7.5" lengthAdjust="spacingAndGlyphs">.</tspan><tspan x="233.5" fill="#5c6a72" textLength="45.0" lengthAdjust="spacingAndGlyphs">length</tspan><tspan x="286.0" fill="#f57d26" textLength="15.0" lengthAdjust="spacingAndGlyphs">??</tspan><tspan x="308.5" fill="#df69ba" textLength="7.5" lengthAdjust="spacingAndGlyphs">0</tspan><tspan x="316.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">;</tspan></text>
+      <text y="143.5"><tspan x="31.0" fill="#f85552" textLength="45.0" lengthAdjust="spacingAndGlyphs">return</tspan><tspan x="83.5" fill="#8da101" textLength="75.0" lengthAdjust="spacingAndGlyphs">codeToHtml</tspan><tspan x="158.5" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">(</tspan><tspan x="166.0" fill="#5c6a72" textLength="30.0" lengthAdjust="spacingAndGlyphs">code</tspan><tspan x="196.0" fill="#f57d26" textLength="7.5" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="211.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">{</tspan><tspan x="226.0" fill="#5c6a72" textLength="30.0" lengthAdjust="spacingAndGlyphs">lang</tspan><tspan x="256.0" fill="#f57d26" textLength="7.5" lengthAdjust="spacingAndGlyphs">:</tspan><tspan x="271.0" fill="#dfa000" textLength="30.0" lengthAdjust="spacingAndGlyphs">"ts"</tspan><tspan x="301.0" fill="#f57d26" textLength="7.5" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="316.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">n</tspan><tspan x="323.5" fill="#f57d26" textLength="7.5" lengthAdjust="spacingAndGlyphs">,</tspan><tspan x="338.5" fill="#5c6a72" textLength="30.0" lengthAdjust="spacingAndGlyphs">wrap</tspan><tspan x="376.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">}</tspan><tspan x="383.5" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">)</tspan><tspan x="391.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">;</tspan></text>
+      <text y="162.5"><tspan x="16.0" fill="#5c6a72" textLength="7.5" lengthAdjust="spacingAndGlyphs">}</tspan></text>
+    </g>
+    <g>
+      <g><title>fg — #5c6a72</title><rect x="16.0" y="183" width="13" height="13" rx="3.0" fill="#5c6a72"/></g>
+      <g><title>numbers — #939f91</title><rect x="33.0" y="183" width="13" height="13" rx="3.0" fill="#939f91"/></g>
+      <g><title>deleted — #f85552</title><rect x="50.0" y="183" width="13" height="13" rx="3.0" fill="#f85552"/></g>
+      <g><title>err — #f85552</title><rect x="67.0" y="183" width="13" height="13" rx="3.0" fill="#f85552"/></g>
+      <g><title>var — #35a77c</title><rect x="84.0" y="183" width="13" height="13" rx="3.0" fill="#35a77c"/></g>
+      <g><title>section — #f85552</title><rect x="101.0" y="183" width="13" height="13" rx="3.0" fill="#f85552"/></g>
+      <g><title>kwd — #f85552</title><rect x="118.0" y="183" width="13" height="13" rx="3.0" fill="#f85552"/></g>
+      <g><title>class — #3a94c5</title><rect x="135.0" y="183" width="13" height="13" rx="3.0" fill="#3a94c5"/></g>
+      <g><title>cmnt — #939f91</title><rect x="152.0" y="183" width="13" height="13" rx="3.0" fill="#939f91"/></g>
+      <g><title>insert — #8da101</title><rect x="169.0" y="183" width="13" height="13" rx="3.0" fill="#8da101"/></g>
+      <g><title>type — #3a94c5</title><rect x="186.0" y="183" width="13" height="13" rx="3.0" fill="#3a94c5"/></g>
+      <g><title>func — #8da101</title><rect x="203.0" y="183" width="13" height="13" rx="3.0" fill="#8da101"/></g>
+      <g><title>bool — #df69ba</title><rect x="220.0" y="183" width="13" height="13" rx="3.0" fill="#df69ba"/></g>
+      <g><title>num — #df69ba</title><rect x="237.0" y="183" width="13" height="13" rx="3.0" fill="#df69ba"/></g>
+      <g><title>oper — #f57d26</title><rect x="254.0" y="183" width="13" height="13" rx="3.0" fill="#f57d26"/></g>
+      <g><title>str — #dfa000</title><rect x="271.0" y="183" width="13" height="13" rx="3.0" fill="#dfa000"/></g>
+      <g><title>esc — inherits fg</title><rect x="288.0" y="183" width="13" height="13" rx="3.0" fill="none" stroke="#5c6a72" stroke-opacity=".35" stroke-dasharray="2 2"/></g>
+      <g><title>bracket — #5c6a72</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#5c6a72"/></g>
+    </g>
+  </g>
+  <g transform="translate(890 484)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#0a0a0a"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#ededed" stroke-opacity=".18"/>
@@ -260,7 +334,7 @@
       <g><title>bracket — #a1a1a1</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#a1a1a1"/></g>
     </g>
   </g>
-  <g transform="translate(455 484)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(20 716)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#fff"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#171717" stroke-opacity=".18"/>
@@ -297,7 +371,7 @@
       <g><title>bracket — #666</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#666"/></g>
     </g>
   </g>
-  <g transform="translate(890 484)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(455 716)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#0d1117"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#e6edf3" stroke-opacity=".18"/>
@@ -334,7 +408,7 @@
       <g><title>bracket — #8b949e</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#8b949e"/></g>
     </g>
   </g>
-  <g transform="translate(20 716)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(890 716)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#22272e"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#adbac7" stroke-opacity=".18"/>
@@ -371,7 +445,7 @@
       <g><title>bracket — #768390</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#768390"/></g>
     </g>
   </g>
-  <g transform="translate(455 716)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(20 948)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#fff"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#1f2328" stroke-opacity=".18"/>
@@ -408,7 +482,7 @@
       <g><title>bracket — #57606a</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#57606a"/></g>
     </g>
   </g>
-  <g transform="translate(890 716)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(455 948)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#282828"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#ebdbb2" stroke-opacity=".18"/>
@@ -445,7 +519,7 @@
       <g><title>bracket — #ebdbb2</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#ebdbb2"/></g>
     </g>
   </g>
-  <g transform="translate(20 948)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(890 948)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#fbf1c7"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#3c3836" stroke-opacity=".18"/>
@@ -482,7 +556,7 @@
       <g><title>bracket — #3c3836</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#3c3836"/></g>
     </g>
   </g>
-  <g transform="translate(455 948)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(20 1180)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#272822"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#f8f8f2" stroke-opacity=".18"/>
@@ -519,7 +593,7 @@
       <g><title>bracket — #f8f8f2</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#f8f8f2"/></g>
     </g>
   </g>
-  <g transform="translate(890 948)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(455 1180)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#011627"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#d6deeb" stroke-opacity=".18"/>
@@ -556,7 +630,7 @@
       <g><title>bracket — #d6deeb</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#d6deeb"/></g>
     </g>
   </g>
-  <g transform="translate(20 1180)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(890 1180)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#2e3440"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#d8dee9" stroke-opacity=".18"/>
@@ -593,7 +667,7 @@
       <g><title>bracket — #eceff4</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#eceff4"/></g>
     </g>
   </g>
-  <g transform="translate(455 1180)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(20 1412)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#fafafa"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#383a42" stroke-opacity=".18"/>
@@ -630,7 +704,7 @@
       <g><title>bracket — #383a42</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#383a42"/></g>
     </g>
   </g>
-  <g transform="translate(890 1180)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(455 1412)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#002b36"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#839496" stroke-opacity=".18"/>
@@ -667,7 +741,7 @@
       <g><title>bracket — #839496</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#839496"/></g>
     </g>
   </g>
-  <g transform="translate(20 1412)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(890 1412)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#fdf6e3"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#657b83" stroke-opacity=".18"/>
@@ -704,7 +778,7 @@
       <g><title>bracket — #657b83</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#657b83"/></g>
     </g>
   </g>
-  <g transform="translate(455 1412)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(20 1644)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#1a1b26"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#a9b1d6" stroke-opacity=".18"/>
@@ -741,7 +815,7 @@
       <g><title>bracket — #9abdf5</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#9abdf5"/></g>
     </g>
   </g>
-  <g transform="translate(890 1412)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(455 1644)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#101010"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#ffffff" stroke-opacity=".18"/>
@@ -778,7 +852,7 @@
       <g><title>bracket — #a0a0a0</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#a0a0a0"/></g>
     </g>
   </g>
-  <g transform="translate(20 1644)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(890 1644)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#1e1e1e"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#d4d4d4" stroke-opacity=".18"/>
@@ -815,7 +889,7 @@
       <g><title>bracket — #ffd700</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#ffd700"/></g>
     </g>
   </g>
-  <g transform="translate(455 1644)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(20 1876)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#1f1f1f"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#cccccc" stroke-opacity=".18"/>
@@ -852,7 +926,7 @@
       <g><title>bracket — #cccccc</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#cccccc"/></g>
     </g>
   </g>
-  <g transform="translate(890 1644)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
+  <g transform="translate(455 1876)" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12.5">
     <rect width="415" height="212" rx="8" fill="#ffffff"/>
     <rect width="415" height="212" rx="8" fill="none"
       stroke="#3b3b3b" stroke-opacity=".18"/>
@@ -889,6 +963,6 @@
       <g><title>bracket — #3b3b3b</title><rect x="305.0" y="183" width="13" height="13" rx="3.0" fill="#3b3b3b"/></g>
     </g>
   </g>
-  <text x="20" y="1888" font-size="11" fill="#8b8b8b">Swatches, left to right: fg · numbers · deleted · err · var · section · kwd · class · cmnt · insert · type · func · bool · num · oper · str · esc · bracket</text>
-  <text x="20" y="1904" font-size="11" fill="#8b8b8b">A dashed swatch is a token the theme leaves undefined: it inherits fg. Generated by scripts/theme-palette.ts.</text>
+  <text x="20" y="2120" font-size="11" fill="#8b8b8b">Swatches, left to right: fg · numbers · deleted · err · var · section · kwd · class · cmnt · insert · type · func · bool · num · oper · str · esc · bracket</text>
+  <text x="20" y="2136" font-size="11" fill="#8b8b8b">A dashed swatch is a token the theme leaves undefined: it inherits fg. Generated by scripts/theme-palette.ts.</text>
 </svg>

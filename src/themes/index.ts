@@ -12,6 +12,8 @@ import cssVariables from "./css-variables.ts";
 import dark from "./dark.ts";
 import defaultTheme from "./default.ts";
 import dracula from "./dracula.ts";
+import everforestDark from "./everforest-dark.ts";
+import everforestLight from "./everforest-light.ts";
 import geistDark from "./geist-dark.ts";
 import geistLight from "./geist-light.ts";
 import githubDark from "./github-dark.ts";
@@ -39,6 +41,8 @@ export {
   dark,
   defaultTheme,
   dracula,
+  everforestDark,
+  everforestLight,
   geistDark,
   geistLight,
   githubDark,
@@ -73,6 +77,12 @@ export const geist: ShjThemePair = { light: geistLight, dark: geistDark };
 export const catppuccin: ShjThemePair = {
   light: catppuccinLatte,
   dark: catppuccinMocha,
+};
+
+/** The two Everforest themes as one light/dark pair, {@link geist}-style */
+export const everforest: ShjThemePair = {
+  light: everforestLight,
+  dark: everforestDark,
 };
 
 /** The two GitHub themes as one light/dark pair, {@link geist}-style */
@@ -111,6 +121,8 @@ export type ShjThemeName =
   | "dark"
   | "default"
   | "dracula"
+  | "everforest-dark"
+  | "everforest-light"
   | "geist-dark"
   | "geist-light"
   | "github-dark"
