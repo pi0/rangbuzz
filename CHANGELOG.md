@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v2.2.0
+
+[compare changes](https://github.com/pi0/rangi/compare/v2.1.0...v2.2.0)
+
+### 🚀 Enhancements
+
+- Add bracket token ([#5](https://github.com/pi0/rangi/pull/5))
+- Support `vercel` theme and `{ light, dark }` pair ([24c8f63](https://github.com/pi0/rangi/commit/24c8f63))
+- Geist theme ([54d54f7](https://github.com/pi0/rangi/commit/54d54f7))
+- Add more color themes ([84a7a00](https://github.com/pi0/rangi/commit/84a7a00))
+
+### 🩹 Fixes
+
+- **vercel:** Add missing bracket ([7837803](https://github.com/pi0/rangi/commit/7837803))
+- **cli:** Fallback to `-dark` ([9832c14](https://github.com/pi0/rangi/commit/9832c14))
+
+### 🏡 Chore
+
+- Refactor bench files ([119ceb3](https://github.com/pi0/rangi/commit/119ceb3))
+- Apply automated updates ([1aa6257](https://github.com/pi0/rangi/commit/1aa6257))
+
+### ❤️ Contributors
+
+- Pooya Parsa ([@pi0](https://github.com/pi0))
+- Je Xia ([@ije](https://github.com/ije))
+
 ## v2.1.0
 
 [compare changes](https://github.com/pi0/rangi/compare/v2.0.0...v2.1.0)
