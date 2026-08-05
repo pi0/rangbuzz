@@ -5,11 +5,11 @@ exports[`rb > tokens > blocks 1`] = `
   puts item«oper:.»name
 «kwd:end»
 
-totals «oper:=» items«oper:.»map { «oper:|»i«oper:|» i«oper:.»price «oper:*» i«oper:.»qty }
-active «oper:=» users«oper:.»select { «oper:|»u«oper:|» u«oper:.»«func:active?» }«oper:.»«func:map»(«oper:&»«type::name»)
-«num:3»«oper:.»times { «oper:|»n«oper:|» «kwd:yield» n }
-double «oper:=» «kwd:lambda» { «oper:|»x«oper:|» x «oper:*» «num:2» }
-bump «oper:=» «kwd:proc» { «oper:|»y«oper:|» y «oper:+» «num:1» }"
+totals «oper:=» items«oper:.»map «bracket:{» «oper:|»i«oper:|» i«oper:.»price «oper:*» i«oper:.»qty «bracket:}»
+active «oper:=» users«oper:.»select «bracket:{» «oper:|»u«oper:|» u«oper:.»«func:active?» «bracket:}»«oper:.»«func:map»«bracket:(»«oper:&»«type::name»«bracket:)»
+«num:3»«oper:.»times «bracket:{» «oper:|»n«oper:|» «kwd:yield» n «bracket:}»
+double «oper:=» «kwd:lambda» «bracket:{» «oper:|»x«oper:|» x «oper:*» «num:2» «bracket:}»
+bump «oper:=» «kwd:proc» «bracket:{» «oper:|»y«oper:|» y «oper:+» «num:1» «bracket:}»"
 `;
 
 exports[`rb > tokens > booleans 1`] = `
@@ -41,22 +41,22 @@ exports[`rb > tokens > class definition 1`] = `
     «kwd:attr_accessor» «type::customer»«oper:,» «type::total»
     «kwd:attr_reader» «type::id»
 
-    «kwd:def» «func:initialize»(id«oper:,» «type:customer»«oper::,» «type:total»«oper::» «num:0.0»)
+    «kwd:def» «func:initialize»«bracket:(»id«oper:,» «type:customer»«oper::,» «type:total»«oper::» «num:0.0»«bracket:)»
       «var:@id» «oper:=» id
       «var:@customer» «oper:=» customer
       «var:@total» «oper:=» total
       «var:@@count» «oper:+=» «num:1»
     «kwd:end»
 
-    «kwd:def» «kwd:self»«oper:.»«func:build»(row)
-      «kwd:new»(row[«type::id»]«oper:,» «type:customer»«oper::» row[«type::customer»])
+    «kwd:def» «kwd:self»«oper:.»«func:build»«bracket:(»row«bracket:)»
+      «kwd:new»«bracket:(»row«bracket:[»«type::id»«bracket:]»«oper:,» «type:customer»«oper::» row«bracket:[»«type::customer»«bracket:]»«bracket:)»
     «kwd:end»
 
     «kwd:def» «func:paid?»
       «oper:!»«var:@total»«oper:.»«func:zero?»
     «kwd:end»
 
-    «kwd:def» «func:total=»(value)
+    «kwd:def» «func:total=»«bracket:(»value«bracket:)»
       «var:@total» «oper:=» value«oper:.»to_f
     «kwd:end»
 
@@ -137,26 +137,26 @@ exports[`rb > tokens > modules and requires 1`] = `
 «kwd:module» «class:Util»
   «kwd:module_function»
 
-  «kwd:def» «func:dump»(obj)
-    «class:JSON»«oper:.»«func:generate»(obj)
+  «kwd:def» «func:dump»«bracket:(»obj«bracket:)»
+    «class:JSON»«oper:.»«func:generate»«bracket:(»obj«bracket:)»
   «kwd:end»
 
   «kwd:alias_method» «type::to_json»«oper:,» «type::dump»
 «kwd:end»
 
-puts «kwd:defined?»(«class:Util») «oper:?» «kwd:__method__» «oper::» «str:"none"»"
+puts «kwd:defined?»«bracket:(»«class:Util»«bracket:)» «oper:?» «kwd:__method__» «oper::» «str:"none"»"
 `;
 
 exports[`rb > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:1_000_000» «num:0xff» «num:0b1010» «num:0o17» «num:1e-9» «num:1.5e3» «num:2i» «num:3r»"`;
 
 exports[`rb > tokens > operators 1`] = `
 "avg «oper:=» total «oper:/» count
-ratio «oper:=» (a «oper:+» b) «oper:/» «num:2.0»
+ratio «oper:=» «bracket:(»a «oper:+» b«bracket:)» «oper:/» «num:2.0»
 n «oper:=» «num:10» «oper:%» «num:3»
 order «oper:=» x «oper:<=>» y
 flag «oper:=» a «oper:&&» b «oper:||» «oper:!»c
 square «oper:=» base «oper:**» «num:2»
-list «oper:=» [«num:1»«oper:,» «num:2»«oper:,» «num:3»] «oper:<<» «num:4»
+list «oper:=» «bracket:[»«num:1»«oper:,» «num:2»«oper:,» «num:3»«bracket:]» «oper:<<» «num:4»
 name «oper:=» person«oper:&.»name
 found «oper:=» text «oper:=~» «str:/\\d+/»
 clean «oper:=» text«oper:.»gsub «str:/\\s+/»«oper:,» «str:" "»
@@ -164,7 +164,7 @@ assert_match «oper:/»error«oper:/,» output
 letter «oper:=» «esc:?a»
 breaker «oper:=» «esc:?\\n»
 scoped «oper:=» «class:Foo»«oper:::»«class:Bar»«oper:::»«class:BAUD»
-padded «oper:=» «func:format»(«str:"%.2f"»«oper:,» total)"
+padded «oper:=» «func:format»«bracket:(»«str:"%.2f"»«oper:,» total«bracket:)»"
 `;
 
 exports[`rb > tokens > percent literals 1`] = `
@@ -185,17 +185,17 @@ quote «oper:=» «str:'it\\'s fine'»"
 `;
 
 exports[`rb > tokens > symbols and hashes 1`] = `
-"config «oper:=» { «type:host»«oper::» «str:"localhost"»«oper:,» «type:port»«oper::» «num:8080»«oper:,» «type:tags»«oper::» «str:%i[a b]» }
-legacy «oper:=» { «type::name» «oper:=>» «str:"old"»«oper:,» «str:"str"» «oper:=>» «num:1» }
-puts config[«type::host»]
-puts config«oper:.»«func:fetch»(«type::port»«oper:,» «num:80»)
-«func:send»(«type::update!»«oper:,» id)"
+"config «oper:=» «bracket:{» «type:host»«oper::» «str:"localhost"»«oper:,» «type:port»«oper::» «num:8080»«oper:,» «type:tags»«oper::» «str:%i[a b]» «bracket:}»
+legacy «oper:=» «bracket:{» «type::name» «oper:=>» «str:"old"»«oper:,» «str:"str"» «oper:=>» «num:1» «bracket:}»
+puts config«bracket:[»«type::host»«bracket:]»
+puts config«oper:.»«func:fetch»«bracket:(»«type::port»«oper:,» «num:80»«bracket:)»
+«func:send»«bracket:(»«type::update!»«oper:,» id«bracket:)»"
 `;
 
 exports[`rb > tokens > variables 1`] = `
 "«var:$stdout»«oper:.»puts «str:"boot"»
-«var:@config» «oper:=» {}
-«var:@@registry» «oper:||=» []
-«var:$LOAD_PATH»«oper:.»«func:unshift»(dir)
+«var:@config» «oper:=» «bracket:{»«bracket:}»
+«var:@@registry» «oper:||=» «bracket:[»«bracket:]»
+«var:$LOAD_PATH»«oper:.»«func:unshift»«bracket:(»dir«bracket:)»
 puts «var:$0»"
 `;

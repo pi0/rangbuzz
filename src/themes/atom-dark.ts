@@ -12,6 +12,7 @@ const theme: ShjTheme = {
     oper: "#c678dd",
     class: "#e5c07b",
     cmnt: "#76839a",
+    bracket: "#abb2bf",
     num: "#d19a66",
     bool: "#d19a66",
     str: "#61afef",

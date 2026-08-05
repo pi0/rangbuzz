@@ -9,15 +9,15 @@ exports[`sql > tokens > comments 1`] = `
 `;
 
 exports[`sql > tokens > ddl 1`] = `
-"«kwd:CREATE» «kwd:TABLE» t (
+"«kwd:CREATE» «kwd:TABLE» t «bracket:(»
   id «kwd:INTEGER» «kwd:PRIMARY» «kwd:KEY»,
-  name «kwd:VARCHAR»(«num:255») «oper:NOT» «num:NULL»
-);"
+  name «kwd:VARCHAR»«bracket:(»«num:255»«bracket:)» «oper:NOT» «num:NULL»
+«bracket:)»;"
 `;
 
-exports[`sql > tokens > functions 1`] = `"«kwd:SELECT» «func:COUNT»(«oper:*»), «func:MAX»(price), «func:ROUND»(«func:AVG»(qty), «num:2») «kwd:FROM» orders;"`;
+exports[`sql > tokens > functions 1`] = `"«kwd:SELECT» «func:COUNT»«bracket:(»«oper:*»«bracket:)», «func:MAX»«bracket:(»price«bracket:)», «func:ROUND»«bracket:(»«func:AVG»«bracket:(»qty«bracket:)», «num:2»«bracket:)» «kwd:FROM» orders;"`;
 
-exports[`sql > tokens > numbers 1`] = `"«kwd:INSERT» «kwd:INTO» t «kwd:VALUES» («num:1», «num:3.14», «num:NULL»);"`;
+exports[`sql > tokens > numbers 1`] = `"«kwd:INSERT» «kwd:INTO» t «kwd:VALUES» «bracket:(»«num:1», «num:3.14», «num:NULL»«bracket:)»;"`;
 
 exports[`sql > tokens > select 1`] = `
 "«kwd:SELECT» id, name

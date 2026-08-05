@@ -1,8 +1,8 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`toml > tokens > arrays 1`] = `
-"«var:list» «oper:=» [«num:1»«oper:,» «num:2»«oper:,» «num:3»]
-«var:inline» «oper:=» { «var:a» «oper:=» «num:1»«oper:,» «var:b» «oper:=» «str:"x"» }"
+"«var:list» «oper:=» «bracket:[»«num:1»«oper:,» «num:2»«oper:,» «num:3»«bracket:]»
+«var:inline» «oper:=» «bracket:{» «var:a» «oper:=» «num:1»«oper:,» «var:b» «oper:=» «str:"x"» «bracket:}»"
 `;
 
 exports[`toml > tokens > booleans 1`] = `

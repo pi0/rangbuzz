@@ -12,20 +12,20 @@ exports[`go > tokens > keywords 1`] = `
 
 «kwd:import» «str:"fmt"»
 
-«kwd:func» «func:main»() {
-	«kwd:for» i :«oper:=» «kwd:range» «num:3» {
-		«kwd:defer» fmt«oper:.»«func:Println»(i)
-	}
-}"
+«kwd:func» «func:main»«bracket:(»«bracket:)» «bracket:{»
+	«kwd:for» i :«oper:=» «kwd:range» «num:3» «bracket:{»
+		«kwd:defer» fmt«oper:.»«func:Println»«bracket:(»i«bracket:)»
+	«bracket:}»
+«bracket:}»"
 `;
 
 exports[`go > tokens > numbers 1`] = `"«num:0» «num:42» «num:0xff» «num:0b1011» «num:0o17» «num:1e9» «num:1.5» 3i"`;
 
 exports[`go > tokens > operators 1`] = `
 "a :«oper:=» b «oper:+» c«kwd:*»d
-«kwd:if» a «oper:!=» «num:0» «kwd:&»«kwd:&» b «oper:<=» «num:1» «oper:||» «oper:!»ok {
+«kwd:if» a «oper:!=» «num:0» «kwd:&»«kwd:&» b «oper:<=» «num:1» «oper:||» «oper:!»ok «bracket:{»
 	ch «oper:<-» v
-}"
+«bracket:}»"
 `;
 
 exports[`go > tokens > raw strings 1`] = `
@@ -36,9 +36,9 @@ lines\`» and «str:\`with "quotes"\`»"
 exports[`go > tokens > strings 1`] = `"«str:"double"» «str:'r'» «str:"esc\\"aped"» «str:\`raw\`»"`;
 
 exports[`go > tokens > types and calls 1`] = `
-"«kwd:type» «class:Reader» «kwd:interface» {
-	«func:Read»(p []byte) (n int, err error)
-}
+"«kwd:type» «class:Reader» «kwd:interface» «bracket:{»
+	«func:Read»«bracket:(»p «bracket:[»«bracket:]»byte«bracket:)» «bracket:(»n int, err error«bracket:)»
+«bracket:}»
 
 «kwd:var» w «class:Writer» «oper:=» os«oper:.»«class:Stdout»"
 `;

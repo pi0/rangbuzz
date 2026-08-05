@@ -71,7 +71,7 @@ exports[`vue > tokens > form bindings 1`] = `
 exports[`vue > tokens > interpolation 1`] = `
 "«oper:<»«var:template»«oper:>»
   «oper:<»«var:p»«oper:>»«oper:{{» user«oper:.»name «oper:}}»«oper:</»«var:p»«oper:>»
-  «oper:<»«var:p»«oper:>»«oper:{{» «str:"Total: "» «oper:+» total«oper:.»«func:toFixed»(«num:2») «oper:}}»«oper:</»«var:p»«oper:>»
+  «oper:<»«var:p»«oper:>»«oper:{{» «str:"Total: "» «oper:+» total«oper:.»«func:toFixed»«bracket:(»«num:2»«bracket:)» «oper:}}»«oper:</»«var:p»«oper:>»
   «oper:<»«var:p»«oper:>»«oper:{{» items«oper:.»length «oper:}}» left«oper:</»«var:p»«oper:>»
   «oper:<»«var:p»«oper:>»«oper:{{» price «oper:*» «num:1.2» «oper:}}»«oper:</»«var:p»«oper:>»
 «oper:</»«var:template»«oper:>»"
@@ -90,43 +90,43 @@ exports[`vue > tokens > list rendering 1`] = `
 exports[`vue > tokens > script options api 1`] = `
 "«oper:<»«var:script»«oper:>»
 «cmnt:// the counter component
-»«kwd:export» «kwd:default» {
+»«kwd:export» «kwd:default» «bracket:{»
   name«oper::» «str:"Counter"»«oper:,»
-  props«oper::» { start«oper::» { type«oper::» «class:Number»«oper:,» default«oper::» «num:0» } }«oper:,»
-  «func:data»() {
-    «kwd:return» { count«oper::» «kwd:this»«oper:.»start };
-  }«oper:,»
-  methods«oper::» {
+  props«oper::» «bracket:{» start«oper::» «bracket:{» type«oper::» «class:Number»«oper:,» default«oper::» «num:0» «bracket:}» «bracket:}»«oper:,»
+  «func:data»«bracket:(»«bracket:)» «bracket:{»
+    «kwd:return» «bracket:{» count«oper::» «kwd:this»«oper:.»start «bracket:}»;
+  «bracket:}»«oper:,»
+  methods«oper::» «bracket:{»
     «cmnt:/* bump the counter */»
-    «func:inc»(by «oper:=» «num:1») {
+    «func:inc»«bracket:(»by «oper:=» «num:1»«bracket:)» «bracket:{»
       «kwd:this»«oper:.»count «oper:+=» by;
-    }«oper:,»
-  }«oper:,»
-};
+    «bracket:}»«oper:,»
+  «bracket:}»«oper:,»
+«bracket:}»;
 «oper:</»«var:script»«oper:>»"
 `;
 
 exports[`vue > tokens > script setup typescript 1`] = `
 "«oper:<»«var:script» «class:setup» «class:lang»«oper:=»«str:"ts"»«oper:>»
-«kwd:import» { onMounted«oper:,» ref } «kwd:from» «str:"vue"»;
-«kwd:import» «kwd:type» { «class:User» } «kwd:from» «str:"./types"»;
+«kwd:import» «bracket:{» onMounted«oper:,» ref «bracket:}» «kwd:from» «str:"vue"»;
+«kwd:import» «kwd:type» «bracket:{» «class:User» «bracket:}» «kwd:from» «str:"./types"»;
 
-«kwd:const» user «oper:=» ref«oper:<»«class:User» «oper:|» «num:undefined»«oper:>»();
+«kwd:const» user «oper:=» ref«oper:<»«class:User» «oper:|» «num:undefined»«oper:>»«bracket:(»«bracket:)»;
 
 «cmnt:// load once mounted
-»«func:onMounted»(«kwd:async» () «kwd:=>» {
-  «kwd:const» res «oper:=» «kwd:await» «func:fetch»(«str:"/api/user"»);
-  user«oper:.»value «oper:=» («kwd:await» res«oper:.»«func:json»()) «kwd:as» «class:User»;
-});
+»«func:onMounted»«bracket:(»«kwd:async» «bracket:(»«bracket:)» «kwd:=>» «bracket:{»
+  «kwd:const» res «oper:=» «kwd:await» «func:fetch»«bracket:(»«str:"/api/user"»«bracket:)»;
+  user«oper:.»value «oper:=» «bracket:(»«kwd:await» res«oper:.»«func:json»«bracket:(»«bracket:)»«bracket:)» «kwd:as» «class:User»;
+«bracket:}»«bracket:)»;
 «oper:</»«var:script»«oper:>»"
 `;
 
 exports[`vue > tokens > single file component 1`] = `
 "«oper:<»«var:script» «class:setup» «class:lang»«oper:=»«str:"ts"»«oper:>»
-«kwd:import» { computed«oper:,» ref } «kwd:from» «str:"vue"»;
+«kwd:import» «bracket:{» computed«oper:,» ref «bracket:}» «kwd:from» «str:"vue"»;
 
-«kwd:const» count «oper:=» «func:ref»(«num:0»);
-«kwd:const» doubled «oper:=» «func:computed»(() «kwd:=>» count«oper:.»value «oper:*» «num:2»);
+«kwd:const» count «oper:=» «func:ref»«bracket:(»«num:0»«bracket:)»;
+«kwd:const» doubled «oper:=» «func:computed»«bracket:(»«bracket:(»«bracket:)» «kwd:=>» count«oper:.»value «oper:*» «num:2»«bracket:)»;
 «oper:</»«var:script»«oper:>»
 
 «oper:<»«var:template»«oper:>»
@@ -134,9 +134,9 @@ exports[`vue > tokens > single file component 1`] = `
 «oper:</»«var:template»«oper:>»
 
 «oper:<»«var:style» «class:scoped»«oper:>»
-«var:.counter» {
+«var:.counter» «bracket:{»
   «var:color»: «num:#09f»;
-}
+«bracket:}»
 «oper:</»«var:style»«oper:>»"
 `;
 
@@ -159,15 +159,15 @@ exports[`vue > tokens > slots 1`] = `
 exports[`vue > tokens > style scoped 1`] = `
 "«oper:<»«var:style» «class:scoped»«oper:>»
 «cmnt:/* the card */»
-«var:.card» {
+«var:.card» «bracket:{»
   «var:display»: «num:flex»;
-  «var:color»: «func:rgb»(«num:0» «num:0» «num:0» / «num:60»«var:%»);
+  «var:color»: «func:rgb»«bracket:(»«num:0» «num:0» «num:0» / «num:60»«var:%»«bracket:)»;
   «var:background»: «func:url»(«str:"bg.png"»);
-}
+«bracket:}»
 
-«var:.card»«var:::after» {
+«var:.card»«var:::after» «bracket:{»
   «var:content»: «str:"*"»;
-}
+«bracket:}»
 «oper:</»«var:style»«oper:>»"
 `;
 
@@ -175,17 +175,17 @@ exports[`vue > tokens > style scss 1`] = `
 "«oper:<»«var:style» «class:lang»«oper:=»«str:"scss"» «class:scoped»«oper:>»
 «var:$brand»: «num:#09f»;
 
-«class:.card» {
+«class:.card» «bracket:{»
   «var:color»: «var:$brand»;
 
-  «class:&»«class::hover» {
+  «class:&»«class::hover» «bracket:{»
     «var:color»: «var:$brand»;
-  }
+  «bracket:}»
 
-  «class:.title» {
+  «class:.title» «bracket:{»
     «var:font-weight»: «num:600»;
-  }
-}
+  «bracket:}»
+«bracket:}»
 «oper:</»«var:style»«oper:>»"
 `;
 

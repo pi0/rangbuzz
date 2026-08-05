@@ -274,6 +274,11 @@ describe("token types", () => {
   it("names the types a grammar refers to by index", () => {
     expect(tokenize("// a", { lang: "js" })).toEqual([{ text: "// a", type: "cmnt" }]);
     expect(tokenize("-a", { lang: "diff" })).toEqual([{ text: "-a", type: "deleted" }]);
+    expect(tokenize("[1]", { lang: "json" })).toEqual([
+      { text: "[", type: "bracket" },
+      { text: "1", type: "num" },
+      { text: "]", type: "bracket" },
+    ]);
   });
 
   it("still accepts a custom language naming its types", () => {

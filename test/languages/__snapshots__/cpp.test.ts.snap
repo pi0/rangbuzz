@@ -7,12 +7,12 @@ exports[`cpp > tokens > bools 1`] = `
 `;
 
 exports[`cpp > tokens > classes 1`] = `
-"«kwd:namespace» app {
-«kwd:class» «class:Widget» «oper::» «kwd:public» «class:Base» {
+"«kwd:namespace» app «bracket:{»
+«kwd:class» «class:Widget» «oper::» «kwd:public» «class:Base» «bracket:{»
 «kwd:public»«oper::»
-  «kwd:virtual» «oper:~»«func:Widget»() «kwd:noexcept»;
-};
-}"
+  «kwd:virtual» «oper:~»«func:Widget»«bracket:(»«bracket:)» «kwd:noexcept»;
+«bracket:}»;
+«bracket:}»"
 `;
 
 exports[`cpp > tokens > comments 1`] = `
@@ -23,10 +23,10 @@ spanning */»
 `;
 
 exports[`cpp > tokens > functions 1`] = `
-"«kwd:int» «func:main»() {
-  «class:std»«oper:::»cout «oper:<<» «func:add»(«num:1»«oper:,» «num:2») «oper:<<» «class:std»«oper:::»endl;
+"«kwd:int» «func:main»«bracket:(»«bracket:)» «bracket:{»
+  «class:std»«oper:::»cout «oper:<<» «func:add»«bracket:(»«num:1»«oper:,» «num:2»«bracket:)» «oper:<<» «class:std»«oper:::»endl;
   «kwd:return» «num:0»;
-}"
+«bracket:}»"
 `;
 
 exports[`cpp > tokens > includes 1`] = `
@@ -37,10 +37,10 @@ exports[`cpp > tokens > includes 1`] = `
 
 exports[`cpp > tokens > keywords 1`] = `
 "«kwd:constexpr» «kwd:auto» x «oper:=» «num:0»;
-«kwd:for» («kwd:int» i «oper:=» «num:0»; i «oper:<» «num:10»; «oper:++»i) {
-  «kwd:if» (i) «kwd:continue»;
+«kwd:for» «bracket:(»«kwd:int» i «oper:=» «num:0»; i «oper:<» «num:10»; «oper:++»i«bracket:)» «bracket:{»
+  «kwd:if» «bracket:(»i«bracket:)» «kwd:continue»;
   «kwd:else» «kwd:break»;
-}"
+«bracket:}»"
 `;
 
 exports[`cpp > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14f» «num:1e-9» «num:0xff» «num:1'000'000» «num:1UL» «num:0b1010»"`;
@@ -61,7 +61,7 @@ exports[`cpp > tokens > strings 1`] = `"«str:"double"» «str:'c'» «str:"esc\
 
 exports[`cpp > tokens > templates 1`] = `
 "«kwd:template» «oper:<»«kwd:typename» «class:T»«oper:>»
-«class:std»«oper:::»vector«oper:<»«class:T»«oper:>» «func:wrap»(«kwd:const» «class:T» «oper:&»value) {
-  «kwd:return» «class:std»«oper:::»vector«oper:<»«class:T»«oper:>»{value};
-}"
+«class:std»«oper:::»vector«oper:<»«class:T»«oper:>» «func:wrap»«bracket:(»«kwd:const» «class:T» «oper:&»value«bracket:)» «bracket:{»
+  «kwd:return» «class:std»«oper:::»vector«oper:<»«class:T»«oper:>»«bracket:{»value«bracket:}»;
+«bracket:}»"
 `;

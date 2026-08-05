@@ -16,6 +16,11 @@ exports[`asm > tokens > instructions 1`] = `
 «kwd:	ret»"
 `;
 
+exports[`asm > tokens > memory 1`] = `
+"«kwd:	mov» eax, «bracket:[»ebx+«num:8»«bracket:]»
+«kwd:	movl» «bracket:(»«oper:%»esp«bracket:)», «oper:%»eax"
+`;
+
 exports[`asm > tokens > numbers 1`] = `
 "«kwd:	mov» ebx, «num:42»
 «kwd:	add» ecx, «num:0xff»"

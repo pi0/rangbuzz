@@ -20,7 +20,7 @@ exports[`html > tokens > entities 1`] = `"«oper:<»«var:p»«oper:>»a «var:&
 
 exports[`html > tokens > inline css 1`] = `
 "«oper:<»«var:style»«oper:>»
-  «var:.a» { «var:color»: «num:red»; }
+  «var:.a» «bracket:{» «var:color»: «num:red»; «bracket:}»
 «oper:</»«var:style»«oper:>»"
 `;
 

@@ -1,5 +1,6 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, CLASS, ESC, FUNC, KWD, NUM, OPER, STR, TYPE, VAR } from "../tokens.ts";
+import { bracket } from "../common.ts";
 
 // what lives inside an interpolating string: heredoc, double quoted, backtick
 const escape = [/\\(u\{[\da-f]+\}|x[\da-f]{1,2}|[0-7]{1,3}|[^])/gi, ESC],
@@ -55,4 +56,5 @@ export default [
   [/[a-zA-Z_]\w*(?=\s*\()/g, FUNC],
   [/\b[A-Z]\w*\b|\b[a-z_]\w*(?=\s*::)/g, CLASS],
   [/[!%&*+,.:<=>?^|~/\\-]+/g, OPER],
+  bracket,
 ] as ShjLanguageDefinition;

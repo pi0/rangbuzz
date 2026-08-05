@@ -1,6 +1,7 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, FUNC, KWD, OPER, STR, VAR } from "../tokens.ts";
-import { num } from "../common.ts";
+import { bracket, num } from "../common.ts";
+
 let variable = [/\$\w+|\${[^}]*}|\$\([^)]*\)/g, VAR];
 
 export default [
@@ -21,7 +22,9 @@ export default [
   // 	type: 'func',
   // 	match: /(?<=\s|^)[a-z_]+(?=\s*\()/g
   // },
-  [/[=(){}<>!]+/g, OPER],
+  // `(){}` are left to the `bracket` rule; `<>` stay redirections
+  [/[=<>!]+/g, OPER],
   [/(?<=\s|^)[\w_]+(?=\s*=)/g, VAR],
   variable,
+  bracket,
 ] as ShjLanguageDefinition;

@@ -14,12 +14,12 @@ spanning ]]»
 `;
 
 exports[`lua > tokens > functions 1`] = `
-"«func:print»(string«oper:.»«func:format»(«str:"%d"»«oper:,» «num:1»))
-table«oper:.»«func:insert»(t«oper:,» v)"
+"«func:print»«bracket:(»string«oper:.»«func:format»«bracket:(»«str:"%d"»«oper:,» «num:1»«bracket:)»«bracket:)»
+table«oper:.»«func:insert»«bracket:(»t«oper:,» v«bracket:)»"
 `;
 
 exports[`lua > tokens > keywords 1`] = `
-"«kwd:local» «kwd:function» «func:f»(x)
+"«kwd:local» «kwd:function» «func:f»«bracket:(»x«bracket:)»
   «kwd:if» x «kwd:then»
     «kwd:return» x
   «kwd:elseif» y «kwd:then»

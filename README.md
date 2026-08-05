@@ -241,6 +241,7 @@ Define the properties wherever you like—on `:root`, on a container, or per cod
   --shj-err: #ff7b72;
   --shj-class: #ffa657;
   --shj-cmnt: #8b949e;
+  --shj-bracket: #8b949e;
   --shj-num: #79c0ff;
   --shj-bool: #79c0ff;
   --shj-type: #79c0ff;
@@ -394,6 +395,9 @@ This stylesheet reproduces the default appearance. Drop the palette and keep the
   color: light-dark(#999, #7d828b);
   font-style: italic;
 }
+.shj-bracket {
+  color: light-dark(#999, #7d828b);
+}
 
 /* the badge the inline-style mode gives a one-line HTTP request */
 .shj-lang-http.shj-oneline .shj-kwd {
@@ -427,7 +431,7 @@ tokenize("let a = 1", { lang: "js" });
 
 It accepts the same `lang` and `languages` options as the other entry points. Tokens are returned in source order, and individual tokens are never empty. Their `text` is raw and unescaped, so joining the token text recreates the original input. Unmatched text has no `type`. An unknown language or invalid grammar returns the entire input as one untyped token instead of throwing an error.
 
-The `type` is one of `deleted`, `err`, `var`, `section`, `kwd`, `class`, `cmnt`, `insert`, `type`, `func`, `bool`, `num`, `oper`, `str`, and `esc`. These are the same keys that a [theme](#themes-) uses to assign colors. Themes do not define italics for `cmnt`; that styling is an HTML output convention.
+The `type` is one of `deleted`, `err`, `var`, `section`, `kwd`, `class`, `cmnt`, `insert`, `type`, `func`, `bool`, `num`, `oper`, `str`, `esc`, and `bracket`. These are the same keys that a [theme](#themes-) uses to assign colors. Themes do not define italics for `cmnt`; that styling is an HTML output convention.
 
 **A token may span multiple lines.** A block comment, template literal, or plain-text segment remains a single token regardless of how many lines it covers. To render line by line, tokenize the complete code **once**, then split the tokens. Tokenizing each line separately silently breaks constructs that cross line boundaries:
 

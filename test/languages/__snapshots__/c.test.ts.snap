@@ -8,10 +8,10 @@ spanning */»
 `;
 
 exports[`c > tokens > functions 1`] = `
-"«kwd:int» «func:main»(«kwd:void») {
-  «func:printf»(«str:"%d\\n"»«oper:,» «func:add»(«num:1»«oper:,» «num:2»));
+"«kwd:int» «func:main»«bracket:(»«kwd:void»«bracket:)» «bracket:{»
+  «func:printf»«bracket:(»«str:"%d\\n"»«oper:,» «func:add»«bracket:(»«num:1»«oper:,» «num:2»«bracket:)»«bracket:)»;
   «kwd:return» «num:0»;
-}"
+«bracket:}»"
 `;
 
 exports[`c > tokens > includes 1`] = `
@@ -22,10 +22,10 @@ exports[`c > tokens > includes 1`] = `
 
 exports[`c > tokens > keywords 1`] = `
 "«kwd:static» «kwd:const» «kwd:unsigned» «kwd:int» x «oper:=» «num:0»;
-«kwd:for» («kwd:int» i «oper:=» «num:0»; i «oper:<» «num:10»; «oper:++»i) {
-  «kwd:if» (i) «kwd:continue»;
+«kwd:for» «bracket:(»«kwd:int» i «oper:=» «num:0»; i «oper:<» «num:10»; «oper:++»i«bracket:)» «bracket:{»
+  «kwd:if» «bracket:(»i«bracket:)» «kwd:continue»;
   «kwd:else» «kwd:break»;
-}"
+«bracket:}»"
 `;
 
 exports[`c > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14f» «num:1e-9» «num:0xff» «num:0777» 1UL"`;
@@ -39,9 +39,9 @@ ptr«oper:->»field «oper:=» «kwd:*»val;"
 exports[`c > tokens > strings 1`] = `"«str:"double"» «str:'c'» «str:"esc\\"aped"» «str:"tab\\there"»"`;
 
 exports[`c > tokens > types 1`] = `
-"«kwd:typedef» «kwd:struct» «class:Node» {
+"«kwd:typedef» «kwd:struct» «class:Node» «bracket:{»
   «kwd:struct» «class:Node» «kwd:*»next;
-} «class:Node»;
+«bracket:}» «class:Node»;
 
-«kwd:enum» «class:Color» { «class:RED»«oper:,» «class:GREEN» };"
+«kwd:enum» «class:Color» «bracket:{» «class:RED»«oper:,» «class:GREEN» «bracket:}»;"
 `;

@@ -1,6 +1,7 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, FUNC, KWD, OPER, STR, TYPE, VAR } from "../tokens.ts";
-import { num, strDouble } from "../common.ts";
+import { bracket, num, strDouble } from "../common.ts";
+
 export default [
   [/#.*/g, , "todo"],
   // block string, which doubles as a description, may span lines and knows a
@@ -18,5 +19,7 @@ export default [
   [/\b[A-Z]\w*/g, TYPE],
   // a variable, and every name left over: a field, an argument or an alias
   [/\$?\w+/g, VAR],
-  [/\.{3}|[!=|&:[\]-]/g, OPER],
+  // `[]` — the list type — is left to the `bracket` rule with `()` and `{}`
+  [/\.{3}|[!=|&:-]/g, OPER],
+  bracket,
 ] as ShjLanguageDefinition;

@@ -30,6 +30,7 @@ export const TOKENS = [
   "oper",
   "str",
   "esc",
+  "bracket",
 ] as const;
 
 export const DELETED = 0,
@@ -46,7 +47,8 @@ export const DELETED = 0,
   NUM = 11,
   OPER = 12,
   STR = 13,
-  ESC = 14;
+  ESC = 14,
+  BRACKET = 15;
 
 /**
  * Token types

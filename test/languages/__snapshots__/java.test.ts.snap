@@ -5,9 +5,9 @@ exports[`java > tokens > classes 1`] = `
 
 «kwd:import» java«oper:.»util«oper:.»«class:List»;
 
-«kwd:public» «kwd:class» «class:Main» «kwd:extends» «class:Base» «kwd:implements» «class:Runnable» {
-  «kwd:private» «class:List»«oper:<»«class:String»«oper:>» items «oper:=» «kwd:new» «class:ArrayList»«oper:<>»();
-}"
+«kwd:public» «kwd:class» «class:Main» «kwd:extends» «class:Base» «kwd:implements» «class:Runnable» «bracket:{»
+  «kwd:private» «class:List»«oper:<»«class:String»«oper:>» items «oper:=» «kwd:new» «class:ArrayList»«oper:<>»«bracket:(»«bracket:)»;
+«bracket:}»"
 `;
 
 exports[`java > tokens > comments 1`] = `
@@ -18,28 +18,28 @@ exports[`java > tokens > comments 1`] = `
 `;
 
 exports[`java > tokens > functions 1`] = `
-"«kwd:int» «func:sum»(«kwd:int» a«oper:,» «kwd:int» b) {
-  «kwd:return» «class:Math»«oper:.»«func:max»(a«oper:,» b);
-}"
+"«kwd:int» «func:sum»«bracket:(»«kwd:int» a«oper:,» «kwd:int» b«bracket:)» «bracket:{»
+  «kwd:return» «class:Math»«oper:.»«func:max»«bracket:(»a«oper:,» b«bracket:)»;
+«bracket:}»"
 `;
 
 exports[`java > tokens > keywords 1`] = `
 "«kwd:public» «kwd:static» «kwd:final» «kwd:int» «class:X» «oper:=» «num:1»;
 
-«kwd:private» «kwd:synchronized» «kwd:void» «func:run»() «kwd:throws» «class:IOException» {
-  «kwd:try» {
-    «kwd:while» (true) «kwd:break»;
-  } «kwd:catch» («class:Exception» e) {
-  } «kwd:finally» {
-  }
-}"
+«kwd:private» «kwd:synchronized» «kwd:void» «func:run»«bracket:(»«bracket:)» «kwd:throws» «class:IOException» «bracket:{»
+  «kwd:try» «bracket:{»
+    «kwd:while» «bracket:(»true«bracket:)» «kwd:break»;
+  «bracket:}» «kwd:catch» «bracket:(»«class:Exception» e«bracket:)» «bracket:{»
+  «bracket:}» «kwd:finally» «bracket:{»
+  «bracket:}»
+«bracket:}»"
 `;
 
 exports[`java > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:1e-9» «num:0xff» «num:0b1011» «num:1_000» 10L «num:2.5f»"`;
 
 exports[`java > tokens > operators 1`] = `
 "a «oper:=» b «oper:+» c «oper:*» d;
-«kwd:if» (x «oper:!=» null «oper:&&» y «kwd:instanceof» «class:String» «oper:||» «oper:!»z) i«oper:++»;"
+«kwd:if» «bracket:(»x «oper:!=» null «oper:&&» y «kwd:instanceof» «class:String» «oper:||» «oper:!»z«bracket:)» i«oper:++»;"
 `;
 
 exports[`java > tokens > strings 1`] = `"«str:"double"» «str:'c'» «str:"esc\\"aped"» «str:"unicode \\u00e9"»"`;

@@ -91,8 +91,8 @@ exports[`yaml > tokens > sequences 1`] = `
 "«var:list»«oper::»
   «oper:-» one
   «oper:-» two
-«var:inline»«oper::» [«num:1», «num:2», «num:3»]
-«var:map»«oper::» { «var:a»«oper::» «num:1» }"
+«var:inline»«oper::» «bracket:[»«num:1», «num:2», «num:3»«bracket:]»
+«var:map»«oper::» «bracket:{» «var:a»«oper::» «num:1» «bracket:}»"
 `;
 
 exports[`yaml > tokens > strings 1`] = `

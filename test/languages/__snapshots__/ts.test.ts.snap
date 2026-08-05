@@ -2,7 +2,7 @@
 
 exports[`ts > tokens > annotations 1`] = `
 "«kwd:const» a«type:: string» «oper:=» «str:"x"»;
-«kwd:function» «func:f»(b«type:: number»[]«oper:,» c«oper:?:» «class:Record»«oper:<»string«oper:,» unknown«oper:>»)«type:: void» {}"
+«kwd:function» «func:f»«bracket:(»b«type:: number»«bracket:[»«bracket:]»«oper:,» c«oper:?:» «class:Record»«oper:<»string«oper:,» unknown«oper:>»«bracket:)»«type:: void» «bracket:{»«bracket:}»"
 `;
 
 exports[`ts > tokens > booleans 1`] = `"«bool:true» «bool:false» «num:null»"`;
@@ -14,19 +14,19 @@ exports[`ts > tokens > comments 1`] = `
 `;
 
 exports[`ts > tokens > enums 1`] = `
-"«kwd:enum» «class:Color» {
+"«kwd:enum» «class:Color» «bracket:{»
   «class:Red» «oper:=» «num:1»«oper:,»
   «class:Green» «oper:=» «num:2»«oper:,»
-}
-«kwd:export» «kwd:const» «kwd:enum» «class:Flag» {
+«bracket:}»
+«kwd:export» «kwd:const» «kwd:enum» «class:Flag» «bracket:{»
   «class:On» «oper:=» «str:"on"»«oper:,»
-}"
+«bracket:}»"
 `;
 
 exports[`ts > tokens > generics 1`] = `
-"«kwd:class» «class:Store»«oper:<»«num:T» «kwd:extends» object«oper:>» «kwd:implements» «class:Base»«oper:<»«num:T»«oper:>» {
-  «kwd:private» items«oper::» «class:Map»«oper:<»string«oper:,» «num:T»«oper:>» «oper:=» «kwd:new» «class:Map»();
-}"
+"«kwd:class» «class:Store»«oper:<»«num:T» «kwd:extends» object«oper:>» «kwd:implements» «class:Base»«oper:<»«num:T»«oper:>» «bracket:{»
+  «kwd:private» items«oper::» «class:Map»«oper:<»string«oper:,» «num:T»«oper:>» «oper:=» «kwd:new» «class:Map»«bracket:(»«bracket:)»;
+«bracket:}»"
 `;
 
 exports[`ts > tokens > numbers 1`] = `"«num:0xff» «num:1_000» «num:3.14» 42n"`;
@@ -34,15 +34,15 @@ exports[`ts > tokens > numbers 1`] = `"«num:0xff» «num:1_000» «num:3.14» 4
 exports[`ts > tokens > operators 1`] = `
 "x satisfies «num:Y»;
 a«oper:!» «oper:??» b«oper:?.»c;
-«kwd:let» u «oper:=» «oper:<»«num:T»«oper:,>»(v«oper::» «num:T») «kwd:=>» v;"
+«kwd:let» u «oper:=» «oper:<»«num:T»«oper:,>»«bracket:(»v«oper::» «num:T»«bracket:)» «kwd:=>» v;"
 `;
 
 exports[`ts > tokens > template literals 1`] = `"«kwd:const» s «oper:=» «str:\`a »«kwd:\${»b «kwd:as» string«kwd:}»«str: c\`»;"`;
 
 exports[`ts > tokens > types 1`] = `
 "«kwd:type» «class:Id» «oper:=» string «oper:|» number;
-«kwd:interface» «class:Box»«oper:<»«num:T»«oper:>» {
+«kwd:interface» «class:Box»«oper:<»«num:T»«oper:>» «bracket:{»
   «kwd:readonly» value«oper::» «num:T»;
-  fn«oper:?:» (a«type:: number») «kwd:=>» «kwd:void»;
-}"
+  fn«oper:?:» «bracket:(»a«type:: number»«bracket:)» «kwd:=>» «kwd:void»;
+«bracket:}»"
 `;

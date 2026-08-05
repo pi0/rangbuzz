@@ -6,20 +6,20 @@ exports[`ps1 > tokens > booleans 1`] = `
 `;
 
 exports[`ps1 > tokens > classes 1`] = `
-"«kwd:class» «class:Widget» {
+"«kwd:class» «class:Widget» «bracket:{»
     «type:[string]»«var:$Name»
 
-    «func:Widget»(«type:[string]»«var:$name») { «var:$this»«oper:.»Name «oper:=» «var:$name» }
+    «func:Widget»«bracket:(»«type:[string]»«var:$name»«bracket:)» «bracket:{» «var:$this»«oper:.»Name «oper:=» «var:$name» «bracket:}»
 
-    «type:[string]» «func:Describe»() { «kwd:return» «str:"widget "» «oper:+» «var:$this»«oper:.»Name }
-}
+    «type:[string]» «func:Describe»«bracket:(»«bracket:)» «bracket:{» «kwd:return» «str:"widget "» «oper:+» «var:$this»«oper:.»Name «bracket:}»
+«bracket:}»
 
-«kwd:enum» «class:Color» { Red«oper:;» Green }"
+«kwd:enum» «class:Color» «bracket:{» Red«oper:;» Green «bracket:}»"
 `;
 
 exports[`ps1 > tokens > cmdlets 1`] = `
 "«func:Get-ChildItem» «kwd:-Path» C:\\Logs «kwd:-Filter» «oper:*.»log «kwd:-Recurse» «oper:|»
-    «func:Where-Object» { «var:$_»«oper:.»Length «oper:-gt» «num:1MB» } «oper:|»
+    «func:Where-Object» «bracket:{» «var:$_»«oper:.»Length «oper:-gt» «num:1MB» «bracket:}» «oper:|»
     «func:Sort-Object» «kwd:-Property» LastWriteTime «kwd:-Descending» «oper:|»
     «func:Select-Object» «kwd:-First» «num:10» «oper:|» «func:Format-Table» Name«oper:,» Length"
 `;
@@ -31,33 +31,33 @@ exports[`ps1 > tokens > comments 1`] = `
 `;
 
 exports[`ps1 > tokens > control flow 1`] = `
-"«kwd:if» («var:$x» «oper:-eq» «num:1») {
+"«kwd:if» «bracket:(»«var:$x» «oper:-eq» «num:1»«bracket:)» «bracket:{»
     «func:Write-Output» «str:"one"»
-} «kwd:elseif» («var:$x» «oper:-in» «num:2»«oper:,» «num:3») {
+«bracket:}» «kwd:elseif» «bracket:(»«var:$x» «oper:-in» «num:2»«oper:,» «num:3»«bracket:)» «bracket:{»
     «func:Write-Output» «str:"few"»
-} «kwd:else» {
-    «kwd:switch» «kwd:-Regex» («var:$x») {
-        «str:'^[0-9]+$'» { «kwd:break» }
-        «kwd:default» { «kwd:continue» }
-    }
-}"
+«bracket:}» «kwd:else» «bracket:{»
+    «kwd:switch» «kwd:-Regex» «bracket:(»«var:$x»«bracket:)» «bracket:{»
+        «str:'^[0-9]+$'» «bracket:{» «kwd:break» «bracket:}»
+        «kwd:default» «bracket:{» «kwd:continue» «bracket:}»
+    «bracket:}»
+«bracket:}»"
 `;
 
 exports[`ps1 > tokens > functions 1`] = `
-"«kwd:function» «func:Get-Widget» {
-    [«func:CmdletBinding»()]
-    «kwd:param»(
-        [«func:Parameter»(Mandatory)]
+"«kwd:function» «func:Get-Widget» «bracket:{»
+    «bracket:[»«func:CmdletBinding»«bracket:(»«bracket:)»«bracket:]»
+    «kwd:param»«bracket:(»
+        «bracket:[»«func:Parameter»«bracket:(»Mandatory«bracket:)»«bracket:]»
         «type:[string]»«var:$Name»«oper:,»
 
-        [«func:ValidateRange»(«num:1»«oper:,» «num:10»)]
+        «bracket:[»«func:ValidateRange»«bracket:(»«num:1»«oper:,» «num:10»«bracket:)»«bracket:]»
         «type:[int]»«var:$Count» «oper:=» «num:1»
-    )
+    «bracket:)»
 
-    «kwd:begin» { «var:$total» «oper:=» «num:0» }
-    «kwd:process» { «num:1»«oper:..»«var:$Count» «oper:|» «func:ForEach-Object» { «str:"»«var:$Name»«str:-»«var:$_»«str:"» } }
-    «kwd:end» { «var:$total» }
-}"
+    «kwd:begin» «bracket:{» «var:$total» «oper:=» «num:0» «bracket:}»
+    «kwd:process» «bracket:{» «num:1»«oper:..»«var:$Count» «oper:|» «func:ForEach-Object» «bracket:{» «str:"»«var:$Name»«str:-»«var:$_»«str:"» «bracket:}» «bracket:}»
+    «kwd:end» «bracket:{» «var:$total» «bracket:}»
+«bracket:}»"
 `;
 
 exports[`ps1 > tokens > help 1`] = `
@@ -71,7 +71,7 @@ exports[`ps1 > tokens > help 1`] = `
 .»«kwd:EXAMPLE»«cmnt:
     Get-Widget -Name box
 #>»
-«kwd:function» «func:Get-Widget» { }"
+«kwd:function» «func:Get-Widget» «bracket:{» «bracket:}»"
 `;
 
 exports[`ps1 > tokens > herestrings 1`] = `
@@ -92,15 +92,15 @@ exports[`ps1 > tokens > interpolation 1`] = `
 `;
 
 exports[`ps1 > tokens > loops 1`] = `
-"«kwd:foreach» («var:$file» «kwd:in» «var:$files») {
+"«kwd:foreach» «bracket:(»«var:$file» «kwd:in» «var:$files»«bracket:)» «bracket:{»
     «func:Write-Verbose» «var:$file»«oper:.»Name
-}
+«bracket:}»
 
-«kwd:for» («var:$i» «oper:=» «num:0»«oper:;» «var:$i» «oper:-lt» «num:10»«oper:;» «var:$i»«oper:++») { «var:$sum» «oper:+=» «var:$i» }
+«kwd:for» «bracket:(»«var:$i» «oper:=» «num:0»«oper:;» «var:$i» «oper:-lt» «num:10»«oper:;» «var:$i»«oper:++»«bracket:)» «bracket:{» «var:$sum» «oper:+=» «var:$i» «bracket:}»
 
-«kwd:while» («bool:$true») { «kwd:break» }
+«kwd:while» «bracket:(»«bool:$true»«bracket:)» «bracket:{» «kwd:break» «bracket:}»
 
-«kwd:do» { «var:$n»«oper:--» } «kwd:until» («var:$n» «oper:-le» «num:0»)"
+«kwd:do» «bracket:{» «var:$n»«oper:--» «bracket:}» «kwd:until» «bracket:(»«var:$n» «oper:-le» «num:0»«bracket:)»"
 `;
 
 exports[`ps1 > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:.5» «num:1e-9» «num:0xFF» «num:1KB» «num:2MB» «num:10GB»"`;
@@ -108,16 +108,16 @@ exports[`ps1 > tokens > numbers 1`] = `"«num:0» «num:42» «num:3.14» «num:
 exports[`ps1 > tokens > operators 1`] = `
 "«var:$a» «oper:-eq» «var:$b»«oper:;» «var:$a» «oper:-ne» «var:$b»«oper:;» «var:$a» «oper:-like» «str:"a*"»«oper:;» «var:$a» «oper:-notmatch» «str:"b"»
 «var:$x» «oper:=» «num:5» «oper:-band» «num:3» «oper:-bor» «num:1» «oper:-shl» «num:2»
-«str:"{0:N2} MB"» «oper:-f» («var:$size» «oper:/» «num:1MB»)
+«str:"{0:N2} MB"» «oper:-f» «bracket:(»«var:$size» «oper:/» «num:1MB»«bracket:)»
 «var:$list» «oper:-join» «str:", "» «oper:-split» «str:","»
-«oper:-not» «var:$flag» «oper:-and» («var:$p» «oper:-or» «var:$q»)"
+«oper:-not» «var:$flag» «oper:-and» «bracket:(»«var:$p» «oper:-or» «var:$q»«bracket:)»"
 `;
 
 exports[`ps1 > tokens > splatting 1`] = `
-"«var:$params» «oper:=» «oper:@»{
+"«var:$params» «oper:=» «oper:@»«bracket:{»
     Path    «oper:=» «str:'C:\\Logs'»
     Recurse «oper:=» «bool:$true»
-}
+«bracket:}»
 «func:Get-ChildItem» «var:@params» «num:2»«oper:>&»«num:1» «oper:|» «func:Out-Null»"
 `;
 
@@ -129,26 +129,26 @@ exports[`ps1 > tokens > strings 1`] = `
 `;
 
 exports[`ps1 > tokens > try catch 1`] = `
-"«kwd:try» {
+"«kwd:try» «bracket:{»
     «var:$data» «oper:=» «func:Invoke-RestMethod» «kwd:-Uri» «var:$url» «kwd:-ErrorAction» Stop
-} «kwd:catch» «type:[System.Net.WebException]» {
+«bracket:}» «kwd:catch» «type:[System.Net.WebException]» «bracket:{»
     «func:Write-Error» «str:"Request failed: »«var:$($_.Exception.Message)»«str:"»
     «kwd:throw»
-} «kwd:finally» {
+«bracket:}» «kwd:finally» «bracket:{»
     «func:Remove-Variable» «kwd:-Name» response «kwd:-ErrorAction» SilentlyContinue
-}"
+«bracket:}»"
 `;
 
 exports[`ps1 > tokens > types 1`] = `
-"«type:[string]»«var:$s» «oper:=» «type:[System.IO.Path]»«oper:::»«func:Combine»(«var:$env:TEMP»«oper:,» «str:"out.txt"»)
-«type:[int[]]»«var:$nums» «oper:=» «oper:@»(«num:1»«oper:,» «num:2»«oper:,» «num:3»)
-«type:[datetime]»«oper:::»Now«oper:.»«func:AddDays»(«oper:-»«num:1»)
+"«type:[string]»«var:$s» «oper:=» «type:[System.IO.Path]»«oper:::»«func:Combine»«bracket:(»«var:$env:TEMP»«oper:,» «str:"out.txt"»«bracket:)»
+«type:[int[]]»«var:$nums» «oper:=» «oper:@»«bracket:(»«num:1»«oper:,» «num:2»«oper:,» «num:3»«bracket:)»
+«type:[datetime]»«oper:::»Now«oper:.»«func:AddDays»«bracket:(»«oper:-»«num:1»«bracket:)»
 «var:$obj» «oper:-is» «type:[hashtable]»"
 `;
 
 exports[`ps1 > tokens > variables 1`] = `
 "«var:$script:count» «oper:=» «num:0»
-«var:$global:Config» «oper:=» «oper:@»{}
+«var:$global:Config» «oper:=» «oper:@»«bracket:{»«bracket:}»
 «var:$env:PATH» «oper:=» «str:"C:\\bin"»
 «var:$args»«oper:.»Length
 «var:$PSVersionTable»«oper:.»PSVersion

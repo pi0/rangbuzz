@@ -1,5 +1,6 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, CLASS, CMNT, ERR, ESC, FUNC, KWD, NUM, OPER, STR, TYPE, VAR } from "../tokens.ts";
+import { bracket } from "../common.ts";
 
 // inside a doc comment, `[Reference]` points at a symbol
 const doc = [
@@ -60,4 +61,5 @@ export default [
   [/[/*+:?&|%^~=!,<>.^-]+/g, OPER],
   [/[a-zA-Z_$][\w$]*(?=\s*\()/g, FUNC],
   [/\b_?[A-Z][\w$]*\b/g, CLASS],
+  bracket,
 ] as ShjLanguageDefinition;

@@ -1,6 +1,7 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, FUNC, KWD, OPER } from "../tokens.ts";
-import { num, str } from "../common.ts";
+import { bracket, num, str } from "../common.ts";
+
 export default [
   // a long comment closes on `]]`, whether or not it is written `--]]`
   [/^#!.*|--(\[(=*)\[[^]*?\]\2\]|.*)/g, , "todo"],
@@ -13,4 +14,5 @@ export default [
   [/[+*/%^#=~<>:,.-]+/g, OPER],
   num,
   [/[a-z_]+(?=\s*[({])/g, FUNC],
+  bracket,
 ] as ShjLanguageDefinition;

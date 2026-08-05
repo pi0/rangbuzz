@@ -24,6 +24,7 @@ const theme: ShjTheme = {
     oper: "var(--shj-oper)",
     str: "var(--shj-str)",
     esc: "var(--shj-esc)",
+    bracket: "var(--shj-bracket)",
   },
 };
 

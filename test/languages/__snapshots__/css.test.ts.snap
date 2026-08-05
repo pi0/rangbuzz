@@ -1,9 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`css > tokens > at rules 1`] = `
-"«kwd:@media» «kwd:screen» «kwd:and» («kwd:min-width»: «num:40»«var:em») {
-  «var:.a» { «var:display»: «num:none» }
-}
+"«kwd:@media» «kwd:screen» «kwd:and» «bracket:(»«kwd:min-width»: «num:40»«var:em»«bracket:)» «bracket:{»
+  «var:.a» «bracket:{» «var:display»: «num:none» «bracket:}»
+«bracket:}»
 
 «kwd:@import» «str:"other.css"»;"
 `;
@@ -14,41 +14,41 @@ exports[`css > tokens > comments 1`] = `
 `;
 
 exports[`css > tokens > functions 1`] = `
-"«var:.a» {
-  «var:transform»: «func:translate»(«num:1»«var:px», «num:2»«var:px»);
-  «var:background»: «num:linear-gradient»(«num:to» «num:top», «num:#fff», «num:#000»);
-}"
+"«var:.a» «bracket:{»
+  «var:transform»: «func:translate»«bracket:(»«num:1»«var:px», «num:2»«var:px»«bracket:)»;
+  «var:background»: «num:linear-gradient»«bracket:(»«num:to» «num:top», «num:#fff», «num:#000»«bracket:)»;
+«bracket:}»"
 `;
 
 exports[`css > tokens > numbers 1`] = `
-"«var:.a» {
+"«var:.a» «bracket:{»
   «var:width»: «num:10»«var:px»;
   «var:opacity»: «num:0.5»;
   «var:z-index»: «num:100»;
   «var:margin»: -«num:1»«var:em» «num:0» «num:2»«var:rem»;
-}"
+«bracket:}»"
 `;
 
 exports[`css > tokens > selectors 1`] = `
 "«var:.class»,
-«func:#id» > «kwd:a»«var::hover»«var:::before» {
+«func:#id» > «kwd:a»«var::hover»«var:::before» «bracket:{»
   «var:color»: «num:red»;
-}"
+«bracket:}»"
 `;
 
 exports[`css > tokens > strings 1`] = `
-"«kwd:a»«var:::after» {
+"«kwd:a»«var:::after» «bracket:{»
   «var:content»: «str:"x"»;
   «var:background»: «func:url»(«str:"a.png"»);
-}"
+«bracket:}»"
 `;
 
 exports[`css > tokens > variables 1`] = `
-"«var::root» {
+"«var::root» «bracket:{»
   --«var:main»: «num:#fff»;
-}
+«bracket:}»
 
-«var:.a» {
-  «var:color»: «func:var»(--«num:main»);
-}"
+«var:.a» «bracket:{»
+  «var:color»: «func:var»«bracket:(»--«num:main»«bracket:)»;
+«bracket:}»"
 `;

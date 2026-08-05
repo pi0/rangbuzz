@@ -11,6 +11,7 @@ const theme: ShjTheme = {
     section: "#ff7cc6",
     class: "#eab07c",
     cmnt: "#7d828b",
+    bracket: "#7d828b",
     num: "#b581fd",
     bool: "#71d58a",
     str: "#4dacfa",

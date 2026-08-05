@@ -1,5 +1,6 @@
 import type { ShjLanguageComponent, ShjLanguageDefinition } from "../types.ts";
 import { BOOL, CLASS, CMNT, ESC, FUNC, KWD, NUM, OPER, STR, TYPE, VAR } from "../tokens.ts";
+import { bracket } from "../common.ts";
 
 let esc: ShjLanguageComponent = [/\\(x[\da-fA-F]{1,4}|u[\da-fA-F]{4}|U[\da-fA-F]{8}|[^])/g, ESC],
   // `{expr,align:format}` inside an interpolated string, highlighted as code
@@ -51,4 +52,5 @@ export default [
   // a call, a declaration, or either of them with explicit type arguments
   [/[a-zA-Z_]\w*(?=\s*(<[\w\s,.?[\]]*>\s*)?\()/g, FUNC],
   [/\b[A-Z]\w*\b/g, CLASS],
+  bracket,
 ] as ShjLanguageDefinition;

@@ -1,6 +1,7 @@
 import type { ShjLanguageDefinition } from "../types.ts";
 import { BOOL, CLASS, FUNC, KWD, NUM, OPER } from "../tokens.ts";
-import { num, str } from "../common.ts";
+import { bracket, num, str } from "../common.ts";
+
 export default [
   // js object keys: left plain, so `{ a: 1 }` reads as a key and not a label.
   // The `{`/`,` lookbehind is what keeps it from claiming the first branch of
@@ -24,4 +25,5 @@ export default [
   [/[/*+:?&|%^~=!,<>.^-]+/g, OPER],
   [/\b[A-Z][\w_]*\b/g, CLASS],
   [/[a-zA-Z$_][\w$_]*(?=\s*((\?\.)?\s*\(|=\s*(\(?[\w,{}[\])]+\)? =>|function\b)))/g, FUNC],
+  bracket,
 ] as ShjLanguageDefinition;

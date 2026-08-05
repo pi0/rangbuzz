@@ -38,6 +38,7 @@ const TOKENS: ShjToken[] = [
   "num",
   "oper",
   "str",
+  "bracket",
 ];
 
 describe("themes", () => {
