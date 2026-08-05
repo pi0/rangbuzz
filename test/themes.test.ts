@@ -17,15 +17,30 @@ const COLORED: ShjTheme[] = THEMES.filter((theme) => theme !== bundled.cssVariab
 
 const NAMES: ShjThemeName[] = [
   "atom-dark",
+  "catppuccin-latte",
+  "catppuccin-mocha",
   "css-variables",
   "dark",
   "default",
+  "dracula",
   "geist-dark",
   "geist-light",
   "github-dark",
   "github-dim",
   "github-light",
+  "gruvbox-dark",
+  "gruvbox-light",
+  "monokai",
+  "night-owl",
+  "nord",
+  "one-light",
+  "solarized-dark",
+  "solarized-light",
+  "tokyo-night",
+  "vesper",
   "visual-studio-dark",
+  "vscode-dark-modern",
+  "vscode-light-modern",
 ];
 
 const TOKENS: ShjToken[] = [

@@ -113,7 +113,7 @@ describe("codeToHtml", () => {
     expect(html.startsWith(`<div class="shj-lang-js shj-oneline" data-lang="js" style="`)).toBe(
       true,
     );
-    expect(html).toContain("background:#161b22;color:#c9d1d9");
+    expect(html).toContain("background:#0d1117;color:#e6edf3");
     expect(html.endsWith(`<span style="color:#79c0ff">1</span></div>`)).toBe(true);
     // the font family must not break out of the style attribute
     expect(html).toContain("font:normal 18px Consolas,'Courier New'");
@@ -126,7 +126,7 @@ describe("codeToHtml", () => {
     expect(html).toContain("color-scheme:light dark;background:light-dark(#fff,#1a1a1c)");
     // a single theme declares its own scheme, and needs no light-dark()
     expect(codeToHtml("a", { lang: "js", theme: githubDark })).toContain(
-      "color-scheme:dark;background:#161b22",
+      "color-scheme:dark;background:#0d1117",
     );
   });
 

@@ -54,7 +54,7 @@ describe("core", () => {
     expect(html.startsWith(`<div class="shj-lang-js shj-oneline" data-lang="js" style="`)).toBe(
       true,
     );
-    expect(html).toContain("color-scheme:dark;background:#161b22;color:#c9d1d9");
+    expect(html).toContain("color-scheme:dark;background:#0d1117;color:#e6edf3");
     expect(html.endsWith(`<span style="color:#79c0ff">1</span></div>`)).toBe(true);
   });
 

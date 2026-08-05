@@ -33,6 +33,7 @@
     "prepack": "pnpm build",
     "release": "pnpm test && pnpm build && changelogen --release && npm publish && git push --follow-tags",
     "test": "pnpm lint && pnpm typecheck && vitest run --coverage",
+    "theme": "node scripts/theme-hero.ts && node scripts/theme-palette.ts",
     "typecheck": "tsgo --noEmit --skipLibCheck"
   },
   "devDependencies": {

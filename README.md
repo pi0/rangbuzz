@@ -1,13 +1,11 @@
 # 🎨 rangi
 
-🎨 A tiny syntax highlighter
-
-Rangi is a fork of [Speed Highlight JS](https://github.com/speed-highlight/core).
+![The 24 bundled themes, stacked: each card is a theme name and its full palette](./docs/themes-hero.svg)
 
 - **Tiny** <small>(**~13.2kB** min+gzip with every language and the default themes bundled, **~1.5kB** for `codeToHtml` from [`rangi/core`](#core))</small>
 - **Fast** <small>(outperforms other highlighters in our benchmarks)</small>
 - **Simple** <small>(zero dependencies, fully synchronous, no stylesheet to load by default, and no global registry)</small>
-- **Complete** <small>(**46 languages**, 8 themes, language detection, terminal output, and raw tokens for custom rendering)</small>
+- **Complete** <small>(**46 languages**, 25 themes, language detection, terminal output, and raw tokens for custom rendering)</small>
 
 ### Quick Start 🚀
 
@@ -189,22 +187,39 @@ import { githubDark } from "rangi/themes";
 codeToHtml(code, { lang: "js", theme: githubDark });
 ```
 
-| Name               | Export             |
-| ------------------ | ------------------ |
-| default            | `defaultTheme`     |
-| dark               | `dark`             |
-| atom-dark          | `atomDark`         |
-| css-variables      | `cssVariables`     |
-| geist-dark         | `geistDark`        |
-| geist-light        | `geistLight`       |
-| github-dark        | `githubDark`       |
-| github-dim         | `githubDim`        |
-| github-light       | `githubLight`      |
-| visual-studio-dark | `visualStudioDark` |
+![Every bundled theme, as a highlighted sample and a swatch per token type](./docs/themes.svg)
+
+| Name                | Export              |
+| ------------------- | ------------------- |
+| default             | `defaultTheme`      |
+| dark                | `dark`              |
+| atom-dark           | `atomDark`          |
+| catppuccin-latte    | `catppuccinLatte`   |
+| catppuccin-mocha    | `catppuccinMocha`   |
+| css-variables       | `cssVariables`      |
+| dracula             | `dracula`           |
+| geist-dark          | `geistDark`         |
+| geist-light         | `geistLight`        |
+| github-dark         | `githubDark`        |
+| github-dim          | `githubDim`         |
+| github-light        | `githubLight`       |
+| gruvbox-dark        | `gruvboxDark`       |
+| gruvbox-light       | `gruvboxLight`      |
+| monokai             | `monokai`           |
+| night-owl           | `nightOwl`          |
+| nord                | `nord`              |
+| one-light           | `oneLight`          |
+| solarized-dark      | `solarizedDark`     |
+| solarized-light     | `solarizedLight`    |
+| tokyo-night         | `tokyoNight`        |
+| vesper              | `vesper`            |
+| visual-studio-dark  | `visualStudioDark`  |
+| vscode-dark-modern  | `vscodeDarkModern`  |
+| vscode-light-modern | `vscodeLightModern` |
 
 Each theme is a named export.
 
-Any two themes can be passed together as a `{ light, dark }` pair, which is inlined with `light-dark()` and follows the reader's color scheme just like the default. `geist` is exported as a ready-made one:
+Any two themes can be passed together as a `{ light, dark }` pair, which is inlined with `light-dark()` and follows the reader's color scheme just like the default. Every family with both a light and a dark theme is also exported as a ready-made pair: `geist`, `catppuccin`, `github`, `gruvbox`, `solarized`, and `vscodeModern`.
 
 ```js
 import { codeToHtml } from "rangi";
@@ -248,26 +263,26 @@ Define the properties wherever you like—on `:root`, on a container, or per cod
 
 ```css
 :root {
-  --shj-bg: #161b22;
-  --shj-fg: #c9d1d9;
+  --shj-bg: #0d1117;
+  --shj-fg: #e6edf3;
   --shj-numbers: #8b949e; /* falls back to --shj-cmnt */
 
   --shj-kwd: #ff7b72;
-  --shj-deleted: #ff7b72;
-  --shj-err: #ff7b72;
+  --shj-oper: #ff7b72;
+  --shj-esc: #ff7b72;
+  --shj-deleted: #ffa198;
+  --shj-err: #ffa198;
   --shj-class: #ffa657;
   --shj-cmnt: #8b949e;
   --shj-bracket: #8b949e;
   --shj-num: #79c0ff;
   --shj-bool: #79c0ff;
   --shj-type: #79c0ff;
-  --shj-oper: #79c0ff;
   --shj-section: #79c0ff;
   --shj-var: #79c0ff;
   --shj-str: #a5d6ff;
-  --shj-esc: #a5d6ff;
   --shj-func: #d2a8ff;
-  --shj-insert: #98c379;
+  --shj-insert: #7ee787;
 }
 ```
 
