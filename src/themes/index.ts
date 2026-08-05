@@ -9,11 +9,11 @@ import atomDark from "./atom-dark.ts";
 import cssVariables from "./css-variables.ts";
 import dark from "./dark.ts";
 import defaultTheme from "./default.ts";
+import geistDark from "./geist-dark.ts";
+import geistLight from "./geist-light.ts";
 import githubDark from "./github-dark.ts";
 import githubDim from "./github-dim.ts";
 import githubLight from "./github-light.ts";
-import vercelDark from "./vercel-dark.ts";
-import vercelLight from "./vercel-light.ts";
 import visualStudioDark from "./visual-studio-dark.ts";
 
 export {
@@ -21,23 +21,23 @@ export {
   cssVariables,
   dark,
   defaultTheme,
+  geistDark,
+  geistLight,
   githubDark,
   githubDim,
   githubLight,
-  vercelDark,
-  vercelLight,
   visualStudioDark,
 };
 
 /**
- * The two Vercel themes as one light/dark pair
+ * The two Geist themes as one light/dark pair
  *
  * Passed as the `theme` option, its colors are inlined with `light-dark()` and
  * follow the reader's color scheme, the way `defaultThemes` does. A pair
  * has no name of its own; the terminal, which has no scheme to follow, reads it
- * as {@link vercelDark}.
+ * as {@link geistDark}.
  */
-export const vercel: ShjThemePair = { light: vercelLight, dark: vercelDark };
+export const geist: ShjThemePair = { light: geistLight, dark: geistDark };
 
 /**
  * Name of a bundled theme.
@@ -51,9 +51,9 @@ export type ShjThemeName =
   | "css-variables"
   | "dark"
   | "default"
+  | "geist-dark"
+  | "geist-light"
   | "github-dark"
   | "github-dim"
   | "github-light"
-  | "vercel-dark"
-  | "vercel-light"
   | "visual-studio-dark";

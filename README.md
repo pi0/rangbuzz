@@ -195,23 +195,23 @@ codeToHtml(code, { lang: "js", theme: githubDark });
 | dark               | `dark`             |
 | atom-dark          | `atomDark`         |
 | css-variables      | `cssVariables`     |
+| geist-dark         | `geistDark`        |
+| geist-light        | `geistLight`       |
 | github-dark        | `githubDark`       |
 | github-dim         | `githubDim`        |
 | github-light       | `githubLight`      |
-| vercel-dark        | `vercelDark`       |
-| vercel-light       | `vercelLight`      |
 | visual-studio-dark | `visualStudioDark` |
 
 Each theme is a named export.
 
-Any two themes can be passed together as a `{ light, dark }` pair, which is inlined with `light-dark()` and follows the reader's color scheme just like the default. `vercel` is exported as a ready-made one:
+Any two themes can be passed together as a `{ light, dark }` pair, which is inlined with `light-dark()` and follows the reader's color scheme just like the default. `geist` is exported as a ready-made one:
 
 ```js
 import { codeToHtml } from "rangi";
-import { vercel } from "rangi/themes";
+import { geist } from "rangi/themes";
 
-// same as { light: vercelLight, dark: vercelDark }
-codeToHtml(code, { lang: "js", theme: vercel });
+// same as { light: geistLight, dark: geistDark }
+codeToHtml(code, { lang: "js", theme: geist });
 ```
 
 A terminal has no color scheme to follow, so `codeToAnsi` reads a pair as its dark theme.

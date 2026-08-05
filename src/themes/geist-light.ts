@@ -1,7 +1,7 @@
 import type { ShjTheme } from "../types.ts";
 
 const theme: ShjTheme = {
-  name: "vercel-light",
+  name: "geist-light",
   scheme: "light",
   bg: "#fff",
   fg: "#171717",
@@ -18,10 +18,10 @@ const theme: ShjTheme = {
     bool: "#006bff",
     var: "#006bff",
     section: "#006bff",
-    str: "#297a3a",
-    insert: "#297a3a",
-    deleted: "#ea001d",
-    err: "#ea001d",
+    str: "#107d32",
+    insert: "#107d32",
+    deleted: "#fc0035",
+    err: "#fc0035",
   },
 };
 

@@ -20,11 +20,11 @@ const NAMES: ShjThemeName[] = [
   "css-variables",
   "dark",
   "default",
+  "geist-dark",
+  "geist-light",
   "github-dark",
   "github-dim",
   "github-light",
-  "vercel-dark",
-  "vercel-light",
   "visual-studio-dark",
 ];
 
@@ -61,15 +61,15 @@ describe("themes", () => {
     expect(THEMES.map((theme) => theme.name).sort()).toEqual([...NAMES].sort());
   });
 
-  it("pairs the two vercel themes", () => {
-    expect(bundled.vercel).toEqual({ light: bundled.vercelLight, dark: bundled.vercelDark });
+  it("pairs the two geist themes", () => {
+    expect(bundled.geist).toEqual({ light: bundled.geistLight, dark: bundled.geistDark });
     // inlined as `light-dark()`, the way the default pair is
-    expect(codeToHtml("const a", { lang: "js", theme: bundled.vercel })).toContain(
+    expect(codeToHtml("const a", { lang: "js", theme: bundled.geist })).toContain(
       "light-dark(#bd2864,#f12b82)",
     );
     // a terminal has no scheme to follow: the pair comes out as its dark theme
-    expect(codeToAnsi("const a", { lang: "js", theme: bundled.vercel })).toBe(
-      codeToAnsi("const a", { lang: "js", theme: bundled.vercelDark }),
+    expect(codeToAnsi("const a", { lang: "js", theme: bundled.geist })).toBe(
+      codeToAnsi("const a", { lang: "js", theme: bundled.geistDark }),
     );
   });
 
