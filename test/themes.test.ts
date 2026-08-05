@@ -1,13 +1,16 @@
 import { describe, expect, it, vi } from "vitest";
 import { defaultThemes } from "../src/defaults.ts";
-import { codeToAnsi, printHighlight } from "../src/index.ts";
+import { codeToAnsi, codeToHtml, printHighlight } from "../src/index.ts";
 import * as bundled from "../src/themes/index.ts";
 // the full list, so a new token type has to be given a custom property too
 import { TOKENS as ALL_TOKENS } from "../src/tokens.ts";
 import type { ShjTheme, ShjThemeName, ShjToken } from "../src/types.ts";
 import githubDark from "../src/themes/github-dark.ts";
 
-const THEMES: ShjTheme[] = Object.values(bundled);
+// the module exports light/dark pairs next to the themes themselves
+const THEMES: ShjTheme[] = Object.values(bundled).filter(
+  (theme): theme is ShjTheme => !("light" in theme),
+);
 
 // the one theme that carries custom properties rather than colors
 const COLORED: ShjTheme[] = THEMES.filter((theme) => theme !== bundled.cssVariables);
@@ -20,6 +23,8 @@ const NAMES: ShjThemeName[] = [
   "github-dark",
   "github-dim",
   "github-light",
+  "vercel-dark",
+  "vercel-light",
   "visual-studio-dark",
 ];
 
@@ -54,6 +59,18 @@ describe("themes", () => {
 
   it("names every bundled theme in `ShjThemeName`", () => {
     expect(THEMES.map((theme) => theme.name).sort()).toEqual([...NAMES].sort());
+  });
+
+  it("pairs the two vercel themes", () => {
+    expect(bundled.vercel).toEqual({ light: bundled.vercelLight, dark: bundled.vercelDark });
+    // inlined as `light-dark()`, the way the default pair is
+    expect(codeToHtml("const a", { lang: "js", theme: bundled.vercel })).toContain(
+      "light-dark(#bd2864,#f12b82)",
+    );
+    // a terminal has no scheme to follow: the pair comes out as its dark theme
+    expect(codeToAnsi("const a", { lang: "js", theme: bundled.vercel })).toBe(
+      codeToAnsi("const a", { lang: "js", theme: bundled.vercelDark }),
+    );
   });
 
   it("defers every color of the css-variables theme to a custom property", () => {

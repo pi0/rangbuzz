@@ -4,6 +4,8 @@ import { readFileSync } from "node:fs";
 import { basename, extname } from "node:path";
 import { parseArgs } from "node:util";
 
+import type { ShjTheme } from "./types.ts";
+
 import { codeToAnsi, detectLanguage } from "./index.ts";
 import { languages } from "./languages.ts";
 import * as themes from "./themes/index.ts";
@@ -27,7 +29,14 @@ const parsedArgs = parseArgs({
 });
 
 const { values: flags, positionals: args } = parsedArgs;
-const themeMap = new Map(Object.values(themes).map((theme) => [theme.name, theme]));
+// the module also exports light/dark pairs, which a terminal reads as their
+// dark theme: they have no name of their own, and listing one would only be
+// another spelling of a theme already here
+const themeMap = new Map(
+  Object.values(themes)
+    .filter((theme): theme is ShjTheme => !("light" in theme))
+    .map((theme) => [theme.name, theme]),
+);
 const theme = flags.theme ? themeMap.get(flags.theme as string) : undefined;
 if (flags.theme === "") {
   console.error("rangi: --theme requires a theme name");

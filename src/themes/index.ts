@@ -3,6 +3,8 @@
  * (Bundled themes, as plain data)
  */
 
+import type { ShjThemePair } from "../types.ts";
+
 import atomDark from "./atom-dark.ts";
 import cssVariables from "./css-variables.ts";
 import dark from "./dark.ts";
@@ -10,6 +12,8 @@ import defaultTheme from "./default.ts";
 import githubDark from "./github-dark.ts";
 import githubDim from "./github-dim.ts";
 import githubLight from "./github-light.ts";
+import vercelDark from "./vercel-dark.ts";
+import vercelLight from "./vercel-light.ts";
 import visualStudioDark from "./visual-studio-dark.ts";
 
 export {
@@ -20,8 +24,20 @@ export {
   githubDark,
   githubDim,
   githubLight,
+  vercelDark,
+  vercelLight,
   visualStudioDark,
 };
+
+/**
+ * The two Vercel themes as one light/dark pair
+ *
+ * Passed as the `theme` option, its colors are inlined with `light-dark()` and
+ * follow the reader's color scheme, the way `defaultThemes` does. A pair
+ * has no name of its own; the terminal, which has no scheme to follow, reads it
+ * as {@link vercelDark}.
+ */
+export const vercel: ShjThemePair = { light: vercelLight, dark: vercelDark };
 
 /**
  * Name of a bundled theme.
@@ -38,4 +54,6 @@ export type ShjThemeName =
   | "github-dark"
   | "github-dim"
   | "github-light"
+  | "vercel-dark"
+  | "vercel-light"
   | "visual-studio-dark";
