@@ -13,6 +13,7 @@ const theme: ShjTheme = {
     func: "#7c00c7",
     type: "#7c00c7",
     cmnt: "#666",
+    bracket: "#666",
     num: "#006bff",
     bool: "#006bff",
     var: "#006bff",
