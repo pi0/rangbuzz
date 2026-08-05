@@ -45,8 +45,7 @@ const pairThemeMap = new Map(
     .map(([name, pair]) => [name, pair.dark]),
 );
 const theme = flags.theme
-  ? (themeMap.get(flags.theme as string) ??
-    pairThemeMap.get(flags.theme as string))
+  ? (themeMap.get(flags.theme as string) ?? pairThemeMap.get(flags.theme as string))
   : undefined;
 if (flags.theme === "") {
   console.error("rangi: --theme requires a theme name");
