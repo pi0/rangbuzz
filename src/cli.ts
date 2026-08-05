@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { basename, extname } from "node:path";
 import { parseArgs } from "node:util";
 
-import type { ShjTheme } from "./types.ts";
+import type { ShjTheme, ShjThemePair } from "./types.ts";
 
 import { codeToAnsi, detectLanguage } from "./index.ts";
 import { languages } from "./languages.ts";
@@ -29,15 +29,25 @@ const parsedArgs = parseArgs({
 });
 
 const { values: flags, positionals: args } = parsedArgs;
-// the module also exports light/dark pairs, which a terminal reads as their
-// dark theme: they have no name of their own, and listing one would only be
-// another spelling of a theme already here
+const themeEntries = Object.entries(themes);
 const themeMap = new Map(
-  Object.values(themes)
-    .filter((theme): theme is ShjTheme => !("light" in theme))
-    .map((theme) => [theme.name, theme]),
+  themeEntries
+    .filter((entry): entry is [string, ShjTheme] => !("light" in entry[1]))
+    .map(([, theme]) => [theme.name, theme]),
 );
-const theme = flags.theme ? themeMap.get(flags.theme as string) : undefined;
+// the module also exports light/dark pairs, which a terminal reads as their
+// dark half: they have no name of their own beyond the pair's, and listing
+// one in --theme's help would only be another spelling of a theme already
+// in themeMap, so a pair resolves by its export name but is not listed
+const pairThemeMap = new Map(
+  themeEntries
+    .filter((entry): entry is [string, ShjThemePair] => "light" in entry[1])
+    .map(([name, pair]) => [name, pair.dark]),
+);
+const theme = flags.theme
+  ? (themeMap.get(flags.theme as string) ??
+    pairThemeMap.get(flags.theme as string))
+  : undefined;
 if (flags.theme === "") {
   console.error("rangi: --theme requires a theme name");
   process.exit(1);
