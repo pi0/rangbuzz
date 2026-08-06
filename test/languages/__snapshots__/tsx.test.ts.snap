@@ -2,7 +2,7 @@
 
 exports[`tsx > tokens > comments 1`] = `
 "«cmnt:// view
-»«kwd:const» view «oper:=» «oper:<»«oper:>»«oper:{»«cmnt:/* »«err:TODO»«cmnt:: paginate */»«oper:}»«oper:<»«var:Footer» «class:year»«oper:={»«num:2025»«oper:}» «oper:/>»«oper:</»«oper:>»;"
+»«kwd:const» view «oper:=» «oper:<»«oper:>»«bracket:{»«cmnt:/* »«err:TODO»«cmnt:: paginate */»«bracket:}»«oper:<»«var:Footer» «class:year»«oper:=»«bracket:{»«num:2025»«bracket:}» «oper:/>»«oper:</»«oper:>»;"
 `;
 
 exports[`tsx > tokens > hooks and generics 1`] = `
@@ -23,9 +23,9 @@ exports[`tsx > tokens > typed component 1`] = `
 
 «kwd:export» «kwd:const» «class:Panel» «oper:=» «bracket:(»«bracket:{» title«oper:,» count«oper:,» onSave «bracket:}»«oper::» «class:Props»«bracket:)» «kwd:=>» «bracket:(»
   «oper:<»«var:section» «class:className»«oper:=»«str:"panel"»«oper:>»
-    «oper:<»«var:h2»«oper:>»«oper:{»title«oper:.»«func:toUpperCase»«bracket:(»«bracket:)»«oper:}»«oper:</»«var:h2»«oper:>»
-    «oper:<»«var:button» «class:onClick»«oper:={»onSave«oper:}» «class:disabled»«oper:={»count «oper:===» «num:0»«oper:}»«oper:>»
-      save «oper:{»count«oper:}» drafts
+    «oper:<»«var:h2»«oper:>»«bracket:{»title«oper:.»«func:toUpperCase»«bracket:(»«bracket:)»«bracket:}»«oper:</»«var:h2»«oper:>»
+    «oper:<»«var:button» «class:onClick»«oper:=»«bracket:{»onSave«bracket:}» «class:disabled»«oper:=»«bracket:{»count «oper:===» «num:0»«bracket:}»«oper:>»
+      save «bracket:{»count«bracket:}» drafts
     «oper:</»«var:button»«oper:>»
   «oper:</»«var:section»«oper:>»
 «bracket:)»;"
@@ -34,9 +34,9 @@ exports[`tsx > tokens > typed component 1`] = `
 exports[`tsx > tokens > typed expressions 1`] = `
 "«kwd:const» rows «oper:=» «bracket:(»
   «oper:<»«var:ul» «class:data-kind»«oper:=»«str:"list"»«oper:>»
-    «oper:{»items«oper:.»«func:map»«bracket:(»«bracket:(»item«oper::» «class:Item»«bracket:)» «kwd:=>» «bracket:(»
-      «oper:<»«var:li» «class:key»«oper:={»item«oper:.»id«oper:}»«oper:>»«oper:{»item«oper:.»name «kwd:as» string«oper:}»«oper:</»«var:li»«oper:>»
-    «bracket:)»«bracket:)»«oper:}»
+    «bracket:{»items«oper:.»«func:map»«bracket:(»«bracket:(»item«oper::» «class:Item»«bracket:)» «kwd:=>» «bracket:(»
+      «oper:<»«var:li» «class:key»«oper:=»«bracket:{»item«oper:.»id«bracket:}»«oper:>»«bracket:{»item«oper:.»name «kwd:as» string«bracket:}»«oper:</»«var:li»«oper:>»
+    «bracket:)»«bracket:)»«bracket:}»
   «oper:</»«var:ul»«oper:>»
 «bracket:)»;"
 `;

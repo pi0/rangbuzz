@@ -1,5 +1,5 @@
 import type { ShjLanguageComponent, ShjLanguageDefinition } from "../types.ts";
-import { CLASS, OPER, STR, VAR } from "../tokens.ts";
+import { BRACKET, CLASS, OPER, STR, VAR } from "../tokens.ts";
 import js from "./js.ts";
 import { brace } from "./vue.ts";
 import { name } from "./xml.ts";
@@ -10,14 +10,25 @@ const properties = `(?:\\s+${attrName}(?:\\s*=\\s*(?:${brace}|${quoted}|[^"'>\\s
 const tag = `<${name}${properties}/?>|</(?:${name})?\\s*>|<>`;
 
 export const jsxElement = (lang: string): ShjLanguageComponent => {
-  const expr: ShjLanguageComponent = [RegExp(brace, "g"), OPER, [[/(?<=^\{)[^]+(?=\}$)/g, , lang]]],
+  const expr: ShjLanguageComponent = [
+      RegExp(brace, "g"),
+      BRACKET,
+      [[/(?<=^\{)[^]+(?=\}$)/g, , lang]],
+    ],
     single: ShjLanguageComponent = [
       RegExp(tag, "g"),
       ,
       [
         [RegExp(`^</?(?:${name})?`, "g"), VAR, [[/^<\/?/g, OPER]]],
         // `attr={expr}`: unlike a quoted value this is code, not a string
-        [RegExp(`=${brace}`, "g"), OPER, [[/(?<=^=\{)[^]+(?=\}$)/g, , lang]]],
+        [
+          RegExp(`=${brace}`, "g"),
+          BRACKET,
+          [
+            [/^=/g, OPER],
+            [/(?<=^=\{)[^]+(?=\}$)/g, , lang],
+          ],
+        ],
         // `{...rest}`
         expr,
         [RegExp(`=\\s*(?:${quoted}|[^"'>\\s][^>\\s]*)`, "g"), STR, [[/^=/g, OPER]]],

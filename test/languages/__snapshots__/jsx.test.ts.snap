@@ -1,11 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`jsx > tokens > attributes 1`] = `"«oper:<»«var:Widget» «oper:{»«oper:...»props«oper:}» «class:data-id»«oper:={»id«oper:}» «class:aria-label»«oper:=»«str:"save &amp; exit"» «class:hidden»«oper:={»«bool:false»«oper:}» «class:style»«oper:={»«bracket:{» color«oper::» «str:"red"» «bracket:}»«oper:}» «oper:/>»"`;
+exports[`jsx > tokens > attributes 1`] = `"«oper:<»«var:Widget» «bracket:{»«oper:...»props«bracket:}» «class:data-id»«oper:=»«bracket:{»id«bracket:}» «class:aria-label»«oper:=»«str:"save &amp; exit"» «class:hidden»«oper:=»«bracket:{»«bool:false»«bracket:}» «class:style»«oper:=»«bracket:{»«bracket:{» color«oper::» «str:"red"» «bracket:}»«bracket:}» «oper:/>»"`;
 
 exports[`jsx > tokens > comments 1`] = `
 "«cmnt:// setup
 »«cmnt:/* legacy »«err:TODO»«cmnt:: drop */»
-«kwd:const» el «oper:=» «oper:<»«var:nav»«oper:>»«oper:{»«cmnt:/* links */»«oper:}»«oper:</»«var:nav»«oper:>»;"
+«kwd:const» el «oper:=» «oper:<»«var:nav»«oper:>»«bracket:{»«cmnt:/* links */»«bracket:}»«oper:</»«var:nav»«oper:>»;"
 `;
 
 exports[`jsx > tokens > component 1`] = `
@@ -15,8 +15,8 @@ exports[`jsx > tokens > component 1`] = `
   «kwd:const» «bracket:[»count«oper:,» setCount«bracket:]» «oper:=» «func:useState»«bracket:(»start «oper:??» «num:0»«bracket:)»;
   «kwd:return» «bracket:(»
     «oper:<»«var:div» «class:className»«oper:=»«str:"counter"» «class:id»«oper:=»«str:"main"»«oper:>»
-      «oper:<»«var:h1»«oper:>»Count: «oper:{»count«oper:}»«oper:</»«var:h1»«oper:>»
-      «oper:<»«var:button» «class:onClick»«oper:={»«bracket:(»«bracket:)» «kwd:=>» «func:setCount»«bracket:(»count «oper:+» «num:1»«bracket:)»«oper:}» «class:disabled»«oper:={»count «oper:>=» «num:10»«oper:}»«oper:>»
+      «oper:<»«var:h1»«oper:>»Count: «bracket:{»count«bracket:}»«oper:</»«var:h1»«oper:>»
+      «oper:<»«var:button» «class:onClick»«oper:=»«bracket:{»«bracket:(»«bracket:)» «kwd:=>» «func:setCount»«bracket:(»count «oper:+» «num:1»«bracket:)»«bracket:}» «class:disabled»«oper:=»«bracket:{»count «oper:>=» «num:10»«bracket:}»«oper:>»
         increment
       «oper:</»«var:button»«oper:>»
     «oper:</»«var:div»«oper:>»
@@ -27,9 +27,9 @@ exports[`jsx > tokens > component 1`] = `
 exports[`jsx > tokens > fragments and conditionals 1`] = `
 "«kwd:const» view «oper:=» «bracket:(»
   «oper:<»«oper:>»
-    «oper:{»loading «oper:?» «oper:<»«var:Spinner» «class:size»«oper:={»«num:24»«oper:}» «oper:/>» «oper::» «num:null»«oper:}»
-    «oper:{»error «oper:&&» «oper:<»«var:p» «class:className»«oper:=»«str:"err"»«oper:>»«oper:{»error«oper:.»message«oper:}»«oper:</»«var:p»«oper:>»«oper:}»
-    «oper:<»«var:em»«oper:>»«oper:{»«str:\`»«kwd:\${»items«oper:.»length«kwd:}»«str: left\`»«oper:}»«oper:</»«var:em»«oper:>»
+    «bracket:{»loading «oper:?» «oper:<»«var:Spinner» «class:size»«oper:=»«bracket:{»«num:24»«bracket:}» «oper:/>» «oper::» «num:null»«bracket:}»
+    «bracket:{»error «oper:&&» «oper:<»«var:p» «class:className»«oper:=»«str:"err"»«oper:>»«bracket:{»error«oper:.»message«bracket:}»«oper:</»«var:p»«oper:>»«bracket:}»
+    «oper:<»«var:em»«oper:>»«bracket:{»«str:\`»«kwd:\${»items«oper:.»length«kwd:}»«str: left\`»«bracket:}»«oper:</»«var:em»«oper:>»
   «oper:</»«oper:>»
 «bracket:)»;"
 `;
@@ -48,4 +48,4 @@ exports[`jsx > tokens > nested elements 1`] = `
 
 exports[`jsx > tokens > same tag nested at top level 1`] = `"«kwd:const» twin «oper:=» «oper:<»«var:div»«oper:>»«oper:<»«var:div»«oper:>»deep«oper:</»«var:div»«oper:>» tail«oper:</»«var:div»«oper:>»;"`;
 
-exports[`jsx > tokens > text children 1`] = `"«oper:<»«var:p»«oper:>»it's five «var:&lt;» ten «var:&amp;» fine «oper:{»«str:"—"»«oper:}» ok«oper:</»«var:p»«oper:>»"`;
+exports[`jsx > tokens > text children 1`] = `"«oper:<»«var:p»«oper:>»it's five «var:&lt;» ten «var:&amp;» fine «bracket:{»«str:"—"»«bracket:}» ok«oper:</»«var:p»«oper:>»"`;
